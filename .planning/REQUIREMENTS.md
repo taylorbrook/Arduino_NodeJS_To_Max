@@ -86,40 +86,40 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| ARDU-01 | TBD | Pending |
-| ARDU-02 | TBD | Pending |
-| ARDU-03 | TBD | Pending |
-| ARDU-04 | TBD | Pending |
-| ARDU-05 | TBD | Pending |
-| ARDU-06 | TBD | Pending |
-| SERL-01 | TBD | Pending |
-| SERL-02 | TBD | Pending |
-| SERL-03 | TBD | Pending |
-| SERL-04 | TBD | Pending |
-| SERL-05 | TBD | Pending |
-| WIFI-01 | TBD | Pending |
-| WIFI-02 | TBD | Pending |
-| WIFI-03 | TBD | Pending |
-| CALB-01 | TBD | Pending |
-| CALB-02 | TBD | Pending |
-| CALB-03 | TBD | Pending |
-| CALB-04 | TBD | Pending |
-| CALB-05 | TBD | Pending |
-| CALB-06 | TBD | Pending |
-| MAXI-01 | TBD | Pending |
-| MAXI-02 | TBD | Pending |
-| MAXI-03 | TBD | Pending |
-| MAXI-04 | TBD | Pending |
-| MAXI-05 | TBD | Pending |
-| MAXI-06 | TBD | Pending |
-| MAXI-07 | TBD | Pending |
-| MAXI-08 | TBD | Pending |
+| ARDU-01 | Phase 1: Arduino Firmware | Pending |
+| ARDU-02 | Phase 1: Arduino Firmware | Pending |
+| ARDU-03 | Phase 1: Arduino Firmware | Pending |
+| ARDU-04 | Phase 1: Arduino Firmware | Pending |
+| ARDU-05 | Phase 1: Arduino Firmware | Pending |
+| ARDU-06 | Phase 1: Arduino Firmware | Pending |
+| SERL-01 | Phase 2: Serial Bridge | Pending |
+| SERL-02 | Phase 2: Serial Bridge | Pending |
+| SERL-03 | Phase 2: Serial Bridge | Pending |
+| SERL-04 | Phase 2: Serial Bridge | Pending |
+| SERL-05 | Phase 2: Serial Bridge | Pending |
+| WIFI-01 | Phase 5: Abstraction and WiFi | Pending |
+| WIFI-02 | Phase 5: Abstraction and WiFi | Pending |
+| WIFI-03 | Phase 5: Abstraction and WiFi | Pending |
+| CALB-01 | Phase 3: Calibration | Pending |
+| CALB-02 | Phase 3: Calibration | Pending |
+| CALB-03 | Phase 3: Calibration | Pending |
+| CALB-04 | Phase 3: Calibration | Pending |
+| CALB-05 | Phase 3: Calibration | Pending |
+| CALB-06 | Phase 3: Calibration | Pending |
+| MAXI-01 | Phase 4: Musical Tools | Pending |
+| MAXI-02 | Phase 4: Musical Tools | Pending |
+| MAXI-03 | Phase 4: Musical Tools | Pending |
+| MAXI-04 | Phase 5: Abstraction and WiFi | Pending |
+| MAXI-05 | Phase 5: Abstraction and WiFi | Pending |
+| MAXI-06 | Phase 4: Musical Tools | Pending |
+| MAXI-07 | Phase 4: Musical Tools | Pending |
+| MAXI-08 | Phase 5: Abstraction and WiFi | Pending |
 
 **Coverage:**
 - v1 requirements: 28 total
-- Mapped to phases: 0
-- Unmapped: 28
+- Mapped to phases: 28
+- Unmapped: 0
 
 ---
 *Requirements defined: 2026-02-12*
-*Last updated: 2026-02-12 after architecture clarification*
+*Last updated: 2026-02-12 after roadmap creation*

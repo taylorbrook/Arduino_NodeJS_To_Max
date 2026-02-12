@@ -56,9 +56,10 @@ Reliable, lowest-possible-latency delivery of sensor data from Arduino to MAX �
 | Decision | Rationale | Outcome |
 |----------|-----------|---------|
 | USB serial as primary transport | Lowest latency, most reliable, simplest setup | — Pending |
-| Orientation computed in Node, not Arduino | Offload processing from constrained Arduino to more powerful host | — Pending |
+| Madgwick filter runs on Arduino | Arduino handles physics (sample, fuse, smooth); Node handles musicianship (calibrate, scale, threshold, map) | — Pending |
 | LSM6DS3 built-in sensor (not external module) | No extra wiring, already on the board | — Pending |
 | Calibration toggle + reset button | Live performance needs — re-zero mid-set without restarting | — Pending |
+| Arduino = dumb data source, Node = intelligent interpreter | Clear separation of concerns; Arduino sends clean values, Node makes them musical | — Pending |
 
 ---
 *Last updated: 2026-02-12 after initialization*
