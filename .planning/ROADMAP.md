@@ -30,11 +30,11 @@ Decimal phases appear between their surrounding integers in numeric order.
   3. Rotating the board produces yaw values that track relative heading (drift acknowledged and acceptable)
   4. Measured loop rate printed at startup matches the sample rate declared to the Madgwick filter
   5. Serial output sustains for 10+ minutes without data corruption, freezing, or buffer overflow
-**Plans**: TBD
+**Plans:** 2 plans
 
 Plans:
-- [ ] 01-01: TBD
-- [ ] 01-02: TBD
+- [ ] 01-01-PLAN.md -- Install libraries, fix SparkFun bug, write complete IMU firmware sketch
+- [ ] 01-02-PLAN.md -- Upload to hardware, verify sensor output, apply tuning adjustments
 
 ### Phase 2: Serial Bridge
 **Goal**: Node for Max receives Arduino serial data, validates it, and outputs parsed streams into MAX with connection status reporting
@@ -106,7 +106,7 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5
 
 | Phase | Plans Complete | Status | Completed |
 |-------|---------------|--------|-----------|
-| 1. Arduino Firmware | 0/TBD | Not started | - |
+| 1. Arduino Firmware | 0/2 | Planned | - |
 | 2. Serial Bridge | 0/TBD | Not started | - |
 | 3. Calibration | 0/TBD | Not started | - |
 | 4. Musical Tools | 0/TBD | Not started | - |
