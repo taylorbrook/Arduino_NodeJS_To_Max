@@ -35,6 +35,15 @@ var TARGET_SAMPLES = 200;
 var MIN_SAMPLES = 50;
 var BLEND_SPEED = 10;
 
+// ---- Smoothing State ----
+var smoothFactors = {
+  global: 1, accel_group: 1, gyro_group: 1, orient_group: 1,
+  ax: 1, ay: 1, az: 1, gx: 1, gy: 1, gz: 1,
+  pitch: 1, roll: 1, yaw: 1
+};
+var smoothed = { ax: null, ay: null, az: null, gx: null, gy: null, gz: null,
+  pitch: null, roll: null, yaw: null };
+
 // ============================================================
 // Connection State Machine
 // States: "disconnected", "scanning", "connected"
@@ -202,6 +211,29 @@ function applyOrientReset(pitch, roll, yaw, dt) {
 }
 
 // ============================================================
+// Smoothing (MAXI-01)
+// Three-tier EMA: factor = max(1, global * group * per_axis)
+// ============================================================
+
+function computeFactor(axis) {
+  var group;
+  if (axis === "ax" || axis === "ay" || axis === "az") group = "accel_group";
+  else if (axis === "gx" || axis === "gy" || axis === "gz") group = "gyro_group";
+  else group = "orient_group";
+  return Math.max(1, smoothFactors.global * smoothFactors[group] * smoothFactors[axis]);
+}
+
+function applySmoothing(axis, value) {
+  var factor = computeFactor(axis);
+  if (smoothed[axis] === null) {
+    smoothed[axis] = value;
+    return value;
+  }
+  smoothed[axis] = smoothed[axis] + (value - smoothed[axis]) / factor;
+  return smoothed[axis];
+}
+
+// ============================================================
 // Data Output (SERL-03)
 // 3 tagged outlet calls per valid sample, plus calibrated outlets
 // ============================================================
@@ -238,11 +270,31 @@ function outputData(values) {
     var dt = getTimeDelta();
     var orient = applyOrientReset(pitch, roll, yaw, dt);
     maxAPI.outlet("cal_orientation", orient.pitch, orient.roll, orient.yaw);
+
+    // Smoothed outlets (EMA applied to calibrated data)
+    var sax = applySmoothing("ax", cal.ax);
+    var say = applySmoothing("ay", cal.ay);
+    var saz = applySmoothing("az", cal.az);
+    var sgx = applySmoothing("gx", cal.gx);
+    var sgy = applySmoothing("gy", cal.gy);
+    var sgz = applySmoothing("gz", cal.gz);
+    var sp = applySmoothing("pitch", orient.pitch);
+    var sr = applySmoothing("roll", orient.roll);
+    var sy = applySmoothing("yaw", orient.yaw);
+    maxAPI.outlet("smooth_accel", sax, say, saz);
+    maxAPI.outlet("smooth_gyro", sgx, sgy, sgz);
+    maxAPI.outlet("smooth_orientation", sp, sr, sy);
   } else if (orientOffset !== null) {
     // Orientation reset is independent of bias calibration
     var dt = getTimeDelta();
     var orient = applyOrientReset(pitch, roll, yaw, dt);
     maxAPI.outlet("cal_orientation", orient.pitch, orient.roll, orient.yaw);
+
+    // Smoothed orientation (orient reset without bias cal)
+    var sp = applySmoothing("pitch", orient.pitch);
+    var sr = applySmoothing("roll", orient.roll);
+    var sy = applySmoothing("yaw", orient.yaw);
+    maxAPI.outlet("smooth_orientation", sp, sr, sy);
   }
 }
 
@@ -410,6 +462,30 @@ maxAPI.addHandler("orient_reset", function () {
 maxAPI.addHandler("orient_restore", function () {
   restoreOrientation();
 });
+
+// ---- Smoothing Handlers ----
+
+maxAPI.addHandler("smooth_global", function (val) {
+  smoothFactors.global = val;
+});
+maxAPI.addHandler("smooth_accel_group", function (val) {
+  smoothFactors.accel_group = val;
+});
+maxAPI.addHandler("smooth_gyro_group", function (val) {
+  smoothFactors.gyro_group = val;
+});
+maxAPI.addHandler("smooth_orient_group", function (val) {
+  smoothFactors.orient_group = val;
+});
+maxAPI.addHandler("smooth_ax", function (val) { smoothFactors.ax = val; });
+maxAPI.addHandler("smooth_ay", function (val) { smoothFactors.ay = val; });
+maxAPI.addHandler("smooth_az", function (val) { smoothFactors.az = val; });
+maxAPI.addHandler("smooth_gx", function (val) { smoothFactors.gx = val; });
+maxAPI.addHandler("smooth_gy", function (val) { smoothFactors.gy = val; });
+maxAPI.addHandler("smooth_gz", function (val) { smoothFactors.gz = val; });
+maxAPI.addHandler("smooth_pitch", function (val) { smoothFactors.pitch = val; });
+maxAPI.addHandler("smooth_roll", function (val) { smoothFactors.roll = val; });
+maxAPI.addHandler("smooth_yaw", function (val) { smoothFactors.yaw = val; });
 
 // ============================================================
 // Auto-start
