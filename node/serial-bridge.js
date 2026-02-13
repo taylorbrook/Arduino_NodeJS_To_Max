@@ -133,6 +133,7 @@ function stopCalibrationAndApply() {
     gz: sampleSums.gz / sampleCount
   };
   maxAPI.outlet("cal_status", "applied");
+  maxAPI.outlet("cal_toggle", 0);
   maxAPI.outlet("cal_bias",
     biasOffsets.ax, biasOffsets.ay, biasOffsets.az,
     biasOffsets.gx, biasOffsets.gy, biasOffsets.gz);
