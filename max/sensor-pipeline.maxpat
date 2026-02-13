@@ -18389,6 +18389,8031 @@
                         22
                     ]
                 }
+            },
+            {
+                "box": {
+                    "fontface": 1,
+                    "fontsize": 16,
+                    "id": "obj-comment-thresh-banner",
+                    "maxclass": "comment",
+                    "numinlets": 1,
+                    "numoutlets": 0,
+                    "patching_rect": [
+                        60,
+                        1940,
+                        300,
+                        24
+                    ],
+                    "text": "=== THRESHOLDS ==="
+                }
+            },
+            {
+                "box": {
+                    "fontface": 1,
+                    "fontsize": 12,
+                    "id": "obj-comment-thresh-orient-group",
+                    "maxclass": "comment",
+                    "numinlets": 1,
+                    "numoutlets": 0,
+                    "patching_rect": [
+                        60,
+                        1975,
+                        200,
+                        20
+                    ],
+                    "text": "Orientation Thresholds"
+                }
+            },
+            {
+                "box": {
+                    "fontface": 1,
+                    "fontsize": 11,
+                    "id": "obj-comment-thresh-pitch",
+                    "maxclass": "comment",
+                    "numinlets": 1,
+                    "numoutlets": 0,
+                    "patching_rect": [
+                        60,
+                        1995,
+                        150,
+                        19
+                    ],
+                    "text": "--- Pitch Thresholds ---"
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-r-thresh-pitch",
+                    "maxclass": "newobj",
+                    "numinlets": 0,
+                    "numoutlets": 1,
+                    "outlettype": [
+                        ""
+                    ],
+                    "patching_rect": [
+                        60,
+                        2020,
+                        100,
+                        22
+                    ],
+                    "text": "r smooth_pitch"
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-p-thresh-pitch",
+                    "maxclass": "newobj",
+                    "numinlets": 1,
+                    "numoutlets": 0,
+                    "outlettype": [],
+                    "patching_rect": [
+                        60,
+                        2050,
+                        130,
+                        22
+                    ],
+                    "text": "p thresh_pitch",
+                    "patcher": {
+                        "fileversion": 1,
+                        "appversion": {
+                            "major": 9,
+                            "minor": 1,
+                            "revision": 1,
+                            "architecture": "x64",
+                            "modernui": 1
+                        },
+                        "classnamespace": "box",
+                        "rect": [
+                            100,
+                            100,
+                            850,
+                            500
+                        ],
+                        "boxes": [
+                            {
+                                "box": {
+                                    "id": "obj-inlet",
+                                    "maxclass": "inlet",
+                                    "numinlets": 0,
+                                    "numoutlets": 1,
+                                    "outlettype": [
+                                        ""
+                                    ],
+                                    "patching_rect": [
+                                        30,
+                                        20,
+                                        30,
+                                        30
+                                    ],
+                                    "comment": "Smoothed pitch value"
+                                }
+                            },
+                            {
+                                "box": {
+                                    "fontface": 1,
+                                    "fontsize": 11,
+                                    "id": "obj-label-t1",
+                                    "maxclass": "comment",
+                                    "numinlets": 1,
+                                    "numoutlets": 0,
+                                    "patching_rect": [
+                                        30,
+                                        70,
+                                        150,
+                                        19
+                                    ],
+                                    "text": "Threshold 1"
+                                }
+                            },
+                            {
+                                "box": {
+                                    "format": 6,
+                                    "id": "obj-thresh-val-t1",
+                                    "maxclass": "flonum",
+                                    "numinlets": 1,
+                                    "numoutlets": 2,
+                                    "outlettype": [
+                                        "",
+                                        "bang"
+                                    ],
+                                    "parameter_enable": 0,
+                                    "patching_rect": [
+                                        30,
+                                        95,
+                                        64,
+                                        22
+                                    ]
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-loadbang-t1",
+                                    "maxclass": "newobj",
+                                    "numinlets": 1,
+                                    "numoutlets": 1,
+                                    "outlettype": [
+                                        "bang"
+                                    ],
+                                    "patching_rect": [
+                                        100,
+                                        75,
+                                        60,
+                                        22
+                                    ],
+                                    "text": "loadbang"
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-default-thresh-t1",
+                                    "maxclass": "message",
+                                    "numinlets": 2,
+                                    "numoutlets": 1,
+                                    "outlettype": [
+                                        ""
+                                    ],
+                                    "patching_rect": [
+                                        100,
+                                        95,
+                                        50,
+                                        22
+                                    ],
+                                    "text": "30.0"
+                                }
+                            },
+                            {
+                                "box": {
+                                    "fontsize": 10,
+                                    "id": "obj-label-hyst-t1",
+                                    "maxclass": "comment",
+                                    "numinlets": 1,
+                                    "numoutlets": 0,
+                                    "patching_rect": [
+                                        170,
+                                        70,
+                                        80,
+                                        19
+                                    ],
+                                    "text": "Hysteresis"
+                                }
+                            },
+                            {
+                                "box": {
+                                    "format": 6,
+                                    "id": "obj-hyst-val-t1",
+                                    "maxclass": "flonum",
+                                    "numinlets": 1,
+                                    "numoutlets": 2,
+                                    "outlettype": [
+                                        "",
+                                        "bang"
+                                    ],
+                                    "parameter_enable": 0,
+                                    "patching_rect": [
+                                        170,
+                                        95,
+                                        54,
+                                        22
+                                    ]
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-loadbang-hyst-t1",
+                                    "maxclass": "newobj",
+                                    "numinlets": 1,
+                                    "numoutlets": 1,
+                                    "outlettype": [
+                                        "bang"
+                                    ],
+                                    "patching_rect": [
+                                        230,
+                                        75,
+                                        60,
+                                        22
+                                    ],
+                                    "text": "loadbang"
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-default-hyst-t1",
+                                    "maxclass": "message",
+                                    "numinlets": 2,
+                                    "numoutlets": 1,
+                                    "outlettype": [
+                                        ""
+                                    ],
+                                    "patching_rect": [
+                                        230,
+                                        95,
+                                        40,
+                                        22
+                                    ],
+                                    "text": "5.0"
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-div2-t1",
+                                    "maxclass": "newobj",
+                                    "numinlets": 2,
+                                    "numoutlets": 1,
+                                    "outlettype": [
+                                        "float"
+                                    ],
+                                    "patching_rect": [
+                                        170,
+                                        125,
+                                        40,
+                                        22
+                                    ],
+                                    "text": "/ 2."
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-upper-t1",
+                                    "maxclass": "newobj",
+                                    "numinlets": 2,
+                                    "numoutlets": 1,
+                                    "outlettype": [
+                                        "float"
+                                    ],
+                                    "patching_rect": [
+                                        30,
+                                        155,
+                                        40,
+                                        22
+                                    ],
+                                    "text": "+ 0."
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-lower-t1",
+                                    "maxclass": "newobj",
+                                    "numinlets": 2,
+                                    "numoutlets": 1,
+                                    "outlettype": [
+                                        "float"
+                                    ],
+                                    "patching_rect": [
+                                        130,
+                                        155,
+                                        40,
+                                        22
+                                    ],
+                                    "text": "- 0."
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-gt-t1",
+                                    "maxclass": "newobj",
+                                    "numinlets": 2,
+                                    "numoutlets": 1,
+                                    "outlettype": [
+                                        "int"
+                                    ],
+                                    "patching_rect": [
+                                        30,
+                                        185,
+                                        40,
+                                        22
+                                    ],
+                                    "text": "> 0."
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-lt-t1",
+                                    "maxclass": "newobj",
+                                    "numinlets": 2,
+                                    "numoutlets": 1,
+                                    "outlettype": [
+                                        "int"
+                                    ],
+                                    "patching_rect": [
+                                        130,
+                                        185,
+                                        40,
+                                        22
+                                    ],
+                                    "text": "< 0."
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-change-up-t1",
+                                    "maxclass": "newobj",
+                                    "numinlets": 1,
+                                    "numoutlets": 3,
+                                    "outlettype": [
+                                        "",
+                                        "int",
+                                        "int"
+                                    ],
+                                    "patching_rect": [
+                                        30,
+                                        215,
+                                        55,
+                                        22
+                                    ],
+                                    "text": "change"
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-change-dn-t1",
+                                    "maxclass": "newobj",
+                                    "numinlets": 1,
+                                    "numoutlets": 3,
+                                    "outlettype": [
+                                        "",
+                                        "int",
+                                        "int"
+                                    ],
+                                    "patching_rect": [
+                                        130,
+                                        215,
+                                        55,
+                                        22
+                                    ],
+                                    "text": "change"
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-sel-up-t1",
+                                    "maxclass": "newobj",
+                                    "numinlets": 2,
+                                    "numoutlets": 2,
+                                    "outlettype": [
+                                        "bang",
+                                        ""
+                                    ],
+                                    "patching_rect": [
+                                        30,
+                                        245,
+                                        55,
+                                        22
+                                    ],
+                                    "text": "select 1"
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-sel-dn-t1",
+                                    "maxclass": "newobj",
+                                    "numinlets": 2,
+                                    "numoutlets": 2,
+                                    "outlettype": [
+                                        "bang",
+                                        ""
+                                    ],
+                                    "patching_rect": [
+                                        130,
+                                        245,
+                                        55,
+                                        22
+                                    ],
+                                    "text": "select 1"
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-btn-flash-t1",
+                                    "maxclass": "button",
+                                    "numinlets": 1,
+                                    "numoutlets": 1,
+                                    "outlettype": [
+                                        "bang"
+                                    ],
+                                    "parameter_enable": 0,
+                                    "patching_rect": [
+                                        230,
+                                        245,
+                                        24,
+                                        24
+                                    ]
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-msg-up-t1",
+                                    "maxclass": "message",
+                                    "numinlets": 2,
+                                    "numoutlets": 1,
+                                    "outlettype": [
+                                        ""
+                                    ],
+                                    "patching_rect": [
+                                        30,
+                                        280,
+                                        35,
+                                        22
+                                    ],
+                                    "text": "up"
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-msg-dn-t1",
+                                    "maxclass": "message",
+                                    "numinlets": 2,
+                                    "numoutlets": 1,
+                                    "outlettype": [
+                                        ""
+                                    ],
+                                    "patching_rect": [
+                                        130,
+                                        280,
+                                        42,
+                                        22
+                                    ],
+                                    "text": "down"
+                                }
+                            },
+                            {
+                                "box": {
+                                    "fontface": 1,
+                                    "fontsize": 11,
+                                    "id": "obj-label-t2",
+                                    "maxclass": "comment",
+                                    "numinlets": 1,
+                                    "numoutlets": 0,
+                                    "patching_rect": [
+                                        430,
+                                        70,
+                                        150,
+                                        19
+                                    ],
+                                    "text": "Threshold 2"
+                                }
+                            },
+                            {
+                                "box": {
+                                    "format": 6,
+                                    "id": "obj-thresh-val-t2",
+                                    "maxclass": "flonum",
+                                    "numinlets": 1,
+                                    "numoutlets": 2,
+                                    "outlettype": [
+                                        "",
+                                        "bang"
+                                    ],
+                                    "parameter_enable": 0,
+                                    "patching_rect": [
+                                        430,
+                                        95,
+                                        64,
+                                        22
+                                    ]
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-loadbang-t2",
+                                    "maxclass": "newobj",
+                                    "numinlets": 1,
+                                    "numoutlets": 1,
+                                    "outlettype": [
+                                        "bang"
+                                    ],
+                                    "patching_rect": [
+                                        500,
+                                        75,
+                                        60,
+                                        22
+                                    ],
+                                    "text": "loadbang"
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-default-thresh-t2",
+                                    "maxclass": "message",
+                                    "numinlets": 2,
+                                    "numoutlets": 1,
+                                    "outlettype": [
+                                        ""
+                                    ],
+                                    "patching_rect": [
+                                        500,
+                                        95,
+                                        50,
+                                        22
+                                    ],
+                                    "text": "60.0"
+                                }
+                            },
+                            {
+                                "box": {
+                                    "fontsize": 10,
+                                    "id": "obj-label-hyst-t2",
+                                    "maxclass": "comment",
+                                    "numinlets": 1,
+                                    "numoutlets": 0,
+                                    "patching_rect": [
+                                        570,
+                                        70,
+                                        80,
+                                        19
+                                    ],
+                                    "text": "Hysteresis"
+                                }
+                            },
+                            {
+                                "box": {
+                                    "format": 6,
+                                    "id": "obj-hyst-val-t2",
+                                    "maxclass": "flonum",
+                                    "numinlets": 1,
+                                    "numoutlets": 2,
+                                    "outlettype": [
+                                        "",
+                                        "bang"
+                                    ],
+                                    "parameter_enable": 0,
+                                    "patching_rect": [
+                                        570,
+                                        95,
+                                        54,
+                                        22
+                                    ]
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-loadbang-hyst-t2",
+                                    "maxclass": "newobj",
+                                    "numinlets": 1,
+                                    "numoutlets": 1,
+                                    "outlettype": [
+                                        "bang"
+                                    ],
+                                    "patching_rect": [
+                                        630,
+                                        75,
+                                        60,
+                                        22
+                                    ],
+                                    "text": "loadbang"
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-default-hyst-t2",
+                                    "maxclass": "message",
+                                    "numinlets": 2,
+                                    "numoutlets": 1,
+                                    "outlettype": [
+                                        ""
+                                    ],
+                                    "patching_rect": [
+                                        630,
+                                        95,
+                                        40,
+                                        22
+                                    ],
+                                    "text": "5.0"
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-div2-t2",
+                                    "maxclass": "newobj",
+                                    "numinlets": 2,
+                                    "numoutlets": 1,
+                                    "outlettype": [
+                                        "float"
+                                    ],
+                                    "patching_rect": [
+                                        570,
+                                        125,
+                                        40,
+                                        22
+                                    ],
+                                    "text": "/ 2."
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-upper-t2",
+                                    "maxclass": "newobj",
+                                    "numinlets": 2,
+                                    "numoutlets": 1,
+                                    "outlettype": [
+                                        "float"
+                                    ],
+                                    "patching_rect": [
+                                        430,
+                                        155,
+                                        40,
+                                        22
+                                    ],
+                                    "text": "+ 0."
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-lower-t2",
+                                    "maxclass": "newobj",
+                                    "numinlets": 2,
+                                    "numoutlets": 1,
+                                    "outlettype": [
+                                        "float"
+                                    ],
+                                    "patching_rect": [
+                                        530,
+                                        155,
+                                        40,
+                                        22
+                                    ],
+                                    "text": "- 0."
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-gt-t2",
+                                    "maxclass": "newobj",
+                                    "numinlets": 2,
+                                    "numoutlets": 1,
+                                    "outlettype": [
+                                        "int"
+                                    ],
+                                    "patching_rect": [
+                                        430,
+                                        185,
+                                        40,
+                                        22
+                                    ],
+                                    "text": "> 0."
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-lt-t2",
+                                    "maxclass": "newobj",
+                                    "numinlets": 2,
+                                    "numoutlets": 1,
+                                    "outlettype": [
+                                        "int"
+                                    ],
+                                    "patching_rect": [
+                                        530,
+                                        185,
+                                        40,
+                                        22
+                                    ],
+                                    "text": "< 0."
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-change-up-t2",
+                                    "maxclass": "newobj",
+                                    "numinlets": 1,
+                                    "numoutlets": 3,
+                                    "outlettype": [
+                                        "",
+                                        "int",
+                                        "int"
+                                    ],
+                                    "patching_rect": [
+                                        430,
+                                        215,
+                                        55,
+                                        22
+                                    ],
+                                    "text": "change"
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-change-dn-t2",
+                                    "maxclass": "newobj",
+                                    "numinlets": 1,
+                                    "numoutlets": 3,
+                                    "outlettype": [
+                                        "",
+                                        "int",
+                                        "int"
+                                    ],
+                                    "patching_rect": [
+                                        530,
+                                        215,
+                                        55,
+                                        22
+                                    ],
+                                    "text": "change"
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-sel-up-t2",
+                                    "maxclass": "newobj",
+                                    "numinlets": 2,
+                                    "numoutlets": 2,
+                                    "outlettype": [
+                                        "bang",
+                                        ""
+                                    ],
+                                    "patching_rect": [
+                                        430,
+                                        245,
+                                        55,
+                                        22
+                                    ],
+                                    "text": "select 1"
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-sel-dn-t2",
+                                    "maxclass": "newobj",
+                                    "numinlets": 2,
+                                    "numoutlets": 2,
+                                    "outlettype": [
+                                        "bang",
+                                        ""
+                                    ],
+                                    "patching_rect": [
+                                        530,
+                                        245,
+                                        55,
+                                        22
+                                    ],
+                                    "text": "select 1"
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-btn-flash-t2",
+                                    "maxclass": "button",
+                                    "numinlets": 1,
+                                    "numoutlets": 1,
+                                    "outlettype": [
+                                        "bang"
+                                    ],
+                                    "parameter_enable": 0,
+                                    "patching_rect": [
+                                        630,
+                                        245,
+                                        24,
+                                        24
+                                    ]
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-msg-up-t2",
+                                    "maxclass": "message",
+                                    "numinlets": 2,
+                                    "numoutlets": 1,
+                                    "outlettype": [
+                                        ""
+                                    ],
+                                    "patching_rect": [
+                                        430,
+                                        280,
+                                        35,
+                                        22
+                                    ],
+                                    "text": "up"
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-msg-dn-t2",
+                                    "maxclass": "message",
+                                    "numinlets": 2,
+                                    "numoutlets": 1,
+                                    "outlettype": [
+                                        ""
+                                    ],
+                                    "patching_rect": [
+                                        530,
+                                        280,
+                                        42,
+                                        22
+                                    ],
+                                    "text": "down"
+                                }
+                            }
+                        ],
+                        "lines": [
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-default-thresh-t1",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-loadbang-t1",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-thresh-val-t1",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-default-thresh-t1",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-default-hyst-t1",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-loadbang-hyst-t1",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-hyst-val-t1",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-default-hyst-t1",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-div2-t1",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-hyst-val-t1",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-upper-t1",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-thresh-val-t1",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-lower-t1",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-thresh-val-t1",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-upper-t1",
+                                        1
+                                    ],
+                                    "source": [
+                                        "obj-div2-t1",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-lower-t1",
+                                        1
+                                    ],
+                                    "source": [
+                                        "obj-div2-t1",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-gt-t1",
+                                        1
+                                    ],
+                                    "source": [
+                                        "obj-upper-t1",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-lt-t1",
+                                        1
+                                    ],
+                                    "source": [
+                                        "obj-lower-t1",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-gt-t1",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-inlet",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-lt-t1",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-inlet",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-change-up-t1",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-gt-t1",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-change-dn-t1",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-lt-t1",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-sel-up-t1",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-change-up-t1",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-sel-dn-t1",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-change-dn-t1",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-btn-flash-t1",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-sel-up-t1",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-btn-flash-t1",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-sel-dn-t1",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-msg-up-t1",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-sel-up-t1",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-msg-dn-t1",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-sel-dn-t1",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-default-thresh-t2",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-loadbang-t2",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-thresh-val-t2",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-default-thresh-t2",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-default-hyst-t2",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-loadbang-hyst-t2",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-hyst-val-t2",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-default-hyst-t2",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-div2-t2",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-hyst-val-t2",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-upper-t2",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-thresh-val-t2",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-lower-t2",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-thresh-val-t2",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-upper-t2",
+                                        1
+                                    ],
+                                    "source": [
+                                        "obj-div2-t2",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-lower-t2",
+                                        1
+                                    ],
+                                    "source": [
+                                        "obj-div2-t2",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-gt-t2",
+                                        1
+                                    ],
+                                    "source": [
+                                        "obj-upper-t2",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-lt-t2",
+                                        1
+                                    ],
+                                    "source": [
+                                        "obj-lower-t2",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-gt-t2",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-inlet",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-lt-t2",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-inlet",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-change-up-t2",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-gt-t2",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-change-dn-t2",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-lt-t2",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-sel-up-t2",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-change-up-t2",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-sel-dn-t2",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-change-dn-t2",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-btn-flash-t2",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-sel-up-t2",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-btn-flash-t2",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-sel-dn-t2",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-msg-up-t2",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-sel-up-t2",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-msg-dn-t2",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-sel-dn-t2",
+                                        0
+                                    ]
+                                }
+                            }
+                        ]
+                    },
+                    "saved_object_attributes": {}
+                }
+            },
+            {
+                "box": {
+                    "fontface": 1,
+                    "fontsize": 11,
+                    "id": "obj-comment-thresh-roll",
+                    "maxclass": "comment",
+                    "numinlets": 1,
+                    "numoutlets": 0,
+                    "patching_rect": [
+                        260,
+                        1995,
+                        150,
+                        19
+                    ],
+                    "text": "--- Roll Thresholds ---"
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-r-thresh-roll",
+                    "maxclass": "newobj",
+                    "numinlets": 0,
+                    "numoutlets": 1,
+                    "outlettype": [
+                        ""
+                    ],
+                    "patching_rect": [
+                        260,
+                        2020,
+                        100,
+                        22
+                    ],
+                    "text": "r smooth_roll"
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-p-thresh-roll",
+                    "maxclass": "newobj",
+                    "numinlets": 1,
+                    "numoutlets": 0,
+                    "outlettype": [],
+                    "patching_rect": [
+                        260,
+                        2050,
+                        130,
+                        22
+                    ],
+                    "text": "p thresh_roll",
+                    "patcher": {
+                        "fileversion": 1,
+                        "appversion": {
+                            "major": 9,
+                            "minor": 1,
+                            "revision": 1,
+                            "architecture": "x64",
+                            "modernui": 1
+                        },
+                        "classnamespace": "box",
+                        "rect": [
+                            100,
+                            100,
+                            850,
+                            500
+                        ],
+                        "boxes": [
+                            {
+                                "box": {
+                                    "id": "obj-inlet",
+                                    "maxclass": "inlet",
+                                    "numinlets": 0,
+                                    "numoutlets": 1,
+                                    "outlettype": [
+                                        ""
+                                    ],
+                                    "patching_rect": [
+                                        30,
+                                        20,
+                                        30,
+                                        30
+                                    ],
+                                    "comment": "Smoothed roll value"
+                                }
+                            },
+                            {
+                                "box": {
+                                    "fontface": 1,
+                                    "fontsize": 11,
+                                    "id": "obj-label-t1",
+                                    "maxclass": "comment",
+                                    "numinlets": 1,
+                                    "numoutlets": 0,
+                                    "patching_rect": [
+                                        30,
+                                        70,
+                                        150,
+                                        19
+                                    ],
+                                    "text": "Threshold 1"
+                                }
+                            },
+                            {
+                                "box": {
+                                    "format": 6,
+                                    "id": "obj-thresh-val-t1",
+                                    "maxclass": "flonum",
+                                    "numinlets": 1,
+                                    "numoutlets": 2,
+                                    "outlettype": [
+                                        "",
+                                        "bang"
+                                    ],
+                                    "parameter_enable": 0,
+                                    "patching_rect": [
+                                        30,
+                                        95,
+                                        64,
+                                        22
+                                    ]
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-loadbang-t1",
+                                    "maxclass": "newobj",
+                                    "numinlets": 1,
+                                    "numoutlets": 1,
+                                    "outlettype": [
+                                        "bang"
+                                    ],
+                                    "patching_rect": [
+                                        100,
+                                        75,
+                                        60,
+                                        22
+                                    ],
+                                    "text": "loadbang"
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-default-thresh-t1",
+                                    "maxclass": "message",
+                                    "numinlets": 2,
+                                    "numoutlets": 1,
+                                    "outlettype": [
+                                        ""
+                                    ],
+                                    "patching_rect": [
+                                        100,
+                                        95,
+                                        50,
+                                        22
+                                    ],
+                                    "text": "30.0"
+                                }
+                            },
+                            {
+                                "box": {
+                                    "fontsize": 10,
+                                    "id": "obj-label-hyst-t1",
+                                    "maxclass": "comment",
+                                    "numinlets": 1,
+                                    "numoutlets": 0,
+                                    "patching_rect": [
+                                        170,
+                                        70,
+                                        80,
+                                        19
+                                    ],
+                                    "text": "Hysteresis"
+                                }
+                            },
+                            {
+                                "box": {
+                                    "format": 6,
+                                    "id": "obj-hyst-val-t1",
+                                    "maxclass": "flonum",
+                                    "numinlets": 1,
+                                    "numoutlets": 2,
+                                    "outlettype": [
+                                        "",
+                                        "bang"
+                                    ],
+                                    "parameter_enable": 0,
+                                    "patching_rect": [
+                                        170,
+                                        95,
+                                        54,
+                                        22
+                                    ]
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-loadbang-hyst-t1",
+                                    "maxclass": "newobj",
+                                    "numinlets": 1,
+                                    "numoutlets": 1,
+                                    "outlettype": [
+                                        "bang"
+                                    ],
+                                    "patching_rect": [
+                                        230,
+                                        75,
+                                        60,
+                                        22
+                                    ],
+                                    "text": "loadbang"
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-default-hyst-t1",
+                                    "maxclass": "message",
+                                    "numinlets": 2,
+                                    "numoutlets": 1,
+                                    "outlettype": [
+                                        ""
+                                    ],
+                                    "patching_rect": [
+                                        230,
+                                        95,
+                                        40,
+                                        22
+                                    ],
+                                    "text": "5.0"
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-div2-t1",
+                                    "maxclass": "newobj",
+                                    "numinlets": 2,
+                                    "numoutlets": 1,
+                                    "outlettype": [
+                                        "float"
+                                    ],
+                                    "patching_rect": [
+                                        170,
+                                        125,
+                                        40,
+                                        22
+                                    ],
+                                    "text": "/ 2."
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-upper-t1",
+                                    "maxclass": "newobj",
+                                    "numinlets": 2,
+                                    "numoutlets": 1,
+                                    "outlettype": [
+                                        "float"
+                                    ],
+                                    "patching_rect": [
+                                        30,
+                                        155,
+                                        40,
+                                        22
+                                    ],
+                                    "text": "+ 0."
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-lower-t1",
+                                    "maxclass": "newobj",
+                                    "numinlets": 2,
+                                    "numoutlets": 1,
+                                    "outlettype": [
+                                        "float"
+                                    ],
+                                    "patching_rect": [
+                                        130,
+                                        155,
+                                        40,
+                                        22
+                                    ],
+                                    "text": "- 0."
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-gt-t1",
+                                    "maxclass": "newobj",
+                                    "numinlets": 2,
+                                    "numoutlets": 1,
+                                    "outlettype": [
+                                        "int"
+                                    ],
+                                    "patching_rect": [
+                                        30,
+                                        185,
+                                        40,
+                                        22
+                                    ],
+                                    "text": "> 0."
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-lt-t1",
+                                    "maxclass": "newobj",
+                                    "numinlets": 2,
+                                    "numoutlets": 1,
+                                    "outlettype": [
+                                        "int"
+                                    ],
+                                    "patching_rect": [
+                                        130,
+                                        185,
+                                        40,
+                                        22
+                                    ],
+                                    "text": "< 0."
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-change-up-t1",
+                                    "maxclass": "newobj",
+                                    "numinlets": 1,
+                                    "numoutlets": 3,
+                                    "outlettype": [
+                                        "",
+                                        "int",
+                                        "int"
+                                    ],
+                                    "patching_rect": [
+                                        30,
+                                        215,
+                                        55,
+                                        22
+                                    ],
+                                    "text": "change"
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-change-dn-t1",
+                                    "maxclass": "newobj",
+                                    "numinlets": 1,
+                                    "numoutlets": 3,
+                                    "outlettype": [
+                                        "",
+                                        "int",
+                                        "int"
+                                    ],
+                                    "patching_rect": [
+                                        130,
+                                        215,
+                                        55,
+                                        22
+                                    ],
+                                    "text": "change"
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-sel-up-t1",
+                                    "maxclass": "newobj",
+                                    "numinlets": 2,
+                                    "numoutlets": 2,
+                                    "outlettype": [
+                                        "bang",
+                                        ""
+                                    ],
+                                    "patching_rect": [
+                                        30,
+                                        245,
+                                        55,
+                                        22
+                                    ],
+                                    "text": "select 1"
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-sel-dn-t1",
+                                    "maxclass": "newobj",
+                                    "numinlets": 2,
+                                    "numoutlets": 2,
+                                    "outlettype": [
+                                        "bang",
+                                        ""
+                                    ],
+                                    "patching_rect": [
+                                        130,
+                                        245,
+                                        55,
+                                        22
+                                    ],
+                                    "text": "select 1"
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-btn-flash-t1",
+                                    "maxclass": "button",
+                                    "numinlets": 1,
+                                    "numoutlets": 1,
+                                    "outlettype": [
+                                        "bang"
+                                    ],
+                                    "parameter_enable": 0,
+                                    "patching_rect": [
+                                        230,
+                                        245,
+                                        24,
+                                        24
+                                    ]
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-msg-up-t1",
+                                    "maxclass": "message",
+                                    "numinlets": 2,
+                                    "numoutlets": 1,
+                                    "outlettype": [
+                                        ""
+                                    ],
+                                    "patching_rect": [
+                                        30,
+                                        280,
+                                        35,
+                                        22
+                                    ],
+                                    "text": "up"
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-msg-dn-t1",
+                                    "maxclass": "message",
+                                    "numinlets": 2,
+                                    "numoutlets": 1,
+                                    "outlettype": [
+                                        ""
+                                    ],
+                                    "patching_rect": [
+                                        130,
+                                        280,
+                                        42,
+                                        22
+                                    ],
+                                    "text": "down"
+                                }
+                            },
+                            {
+                                "box": {
+                                    "fontface": 1,
+                                    "fontsize": 11,
+                                    "id": "obj-label-t2",
+                                    "maxclass": "comment",
+                                    "numinlets": 1,
+                                    "numoutlets": 0,
+                                    "patching_rect": [
+                                        430,
+                                        70,
+                                        150,
+                                        19
+                                    ],
+                                    "text": "Threshold 2"
+                                }
+                            },
+                            {
+                                "box": {
+                                    "format": 6,
+                                    "id": "obj-thresh-val-t2",
+                                    "maxclass": "flonum",
+                                    "numinlets": 1,
+                                    "numoutlets": 2,
+                                    "outlettype": [
+                                        "",
+                                        "bang"
+                                    ],
+                                    "parameter_enable": 0,
+                                    "patching_rect": [
+                                        430,
+                                        95,
+                                        64,
+                                        22
+                                    ]
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-loadbang-t2",
+                                    "maxclass": "newobj",
+                                    "numinlets": 1,
+                                    "numoutlets": 1,
+                                    "outlettype": [
+                                        "bang"
+                                    ],
+                                    "patching_rect": [
+                                        500,
+                                        75,
+                                        60,
+                                        22
+                                    ],
+                                    "text": "loadbang"
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-default-thresh-t2",
+                                    "maxclass": "message",
+                                    "numinlets": 2,
+                                    "numoutlets": 1,
+                                    "outlettype": [
+                                        ""
+                                    ],
+                                    "patching_rect": [
+                                        500,
+                                        95,
+                                        50,
+                                        22
+                                    ],
+                                    "text": "60.0"
+                                }
+                            },
+                            {
+                                "box": {
+                                    "fontsize": 10,
+                                    "id": "obj-label-hyst-t2",
+                                    "maxclass": "comment",
+                                    "numinlets": 1,
+                                    "numoutlets": 0,
+                                    "patching_rect": [
+                                        570,
+                                        70,
+                                        80,
+                                        19
+                                    ],
+                                    "text": "Hysteresis"
+                                }
+                            },
+                            {
+                                "box": {
+                                    "format": 6,
+                                    "id": "obj-hyst-val-t2",
+                                    "maxclass": "flonum",
+                                    "numinlets": 1,
+                                    "numoutlets": 2,
+                                    "outlettype": [
+                                        "",
+                                        "bang"
+                                    ],
+                                    "parameter_enable": 0,
+                                    "patching_rect": [
+                                        570,
+                                        95,
+                                        54,
+                                        22
+                                    ]
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-loadbang-hyst-t2",
+                                    "maxclass": "newobj",
+                                    "numinlets": 1,
+                                    "numoutlets": 1,
+                                    "outlettype": [
+                                        "bang"
+                                    ],
+                                    "patching_rect": [
+                                        630,
+                                        75,
+                                        60,
+                                        22
+                                    ],
+                                    "text": "loadbang"
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-default-hyst-t2",
+                                    "maxclass": "message",
+                                    "numinlets": 2,
+                                    "numoutlets": 1,
+                                    "outlettype": [
+                                        ""
+                                    ],
+                                    "patching_rect": [
+                                        630,
+                                        95,
+                                        40,
+                                        22
+                                    ],
+                                    "text": "5.0"
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-div2-t2",
+                                    "maxclass": "newobj",
+                                    "numinlets": 2,
+                                    "numoutlets": 1,
+                                    "outlettype": [
+                                        "float"
+                                    ],
+                                    "patching_rect": [
+                                        570,
+                                        125,
+                                        40,
+                                        22
+                                    ],
+                                    "text": "/ 2."
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-upper-t2",
+                                    "maxclass": "newobj",
+                                    "numinlets": 2,
+                                    "numoutlets": 1,
+                                    "outlettype": [
+                                        "float"
+                                    ],
+                                    "patching_rect": [
+                                        430,
+                                        155,
+                                        40,
+                                        22
+                                    ],
+                                    "text": "+ 0."
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-lower-t2",
+                                    "maxclass": "newobj",
+                                    "numinlets": 2,
+                                    "numoutlets": 1,
+                                    "outlettype": [
+                                        "float"
+                                    ],
+                                    "patching_rect": [
+                                        530,
+                                        155,
+                                        40,
+                                        22
+                                    ],
+                                    "text": "- 0."
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-gt-t2",
+                                    "maxclass": "newobj",
+                                    "numinlets": 2,
+                                    "numoutlets": 1,
+                                    "outlettype": [
+                                        "int"
+                                    ],
+                                    "patching_rect": [
+                                        430,
+                                        185,
+                                        40,
+                                        22
+                                    ],
+                                    "text": "> 0."
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-lt-t2",
+                                    "maxclass": "newobj",
+                                    "numinlets": 2,
+                                    "numoutlets": 1,
+                                    "outlettype": [
+                                        "int"
+                                    ],
+                                    "patching_rect": [
+                                        530,
+                                        185,
+                                        40,
+                                        22
+                                    ],
+                                    "text": "< 0."
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-change-up-t2",
+                                    "maxclass": "newobj",
+                                    "numinlets": 1,
+                                    "numoutlets": 3,
+                                    "outlettype": [
+                                        "",
+                                        "int",
+                                        "int"
+                                    ],
+                                    "patching_rect": [
+                                        430,
+                                        215,
+                                        55,
+                                        22
+                                    ],
+                                    "text": "change"
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-change-dn-t2",
+                                    "maxclass": "newobj",
+                                    "numinlets": 1,
+                                    "numoutlets": 3,
+                                    "outlettype": [
+                                        "",
+                                        "int",
+                                        "int"
+                                    ],
+                                    "patching_rect": [
+                                        530,
+                                        215,
+                                        55,
+                                        22
+                                    ],
+                                    "text": "change"
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-sel-up-t2",
+                                    "maxclass": "newobj",
+                                    "numinlets": 2,
+                                    "numoutlets": 2,
+                                    "outlettype": [
+                                        "bang",
+                                        ""
+                                    ],
+                                    "patching_rect": [
+                                        430,
+                                        245,
+                                        55,
+                                        22
+                                    ],
+                                    "text": "select 1"
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-sel-dn-t2",
+                                    "maxclass": "newobj",
+                                    "numinlets": 2,
+                                    "numoutlets": 2,
+                                    "outlettype": [
+                                        "bang",
+                                        ""
+                                    ],
+                                    "patching_rect": [
+                                        530,
+                                        245,
+                                        55,
+                                        22
+                                    ],
+                                    "text": "select 1"
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-btn-flash-t2",
+                                    "maxclass": "button",
+                                    "numinlets": 1,
+                                    "numoutlets": 1,
+                                    "outlettype": [
+                                        "bang"
+                                    ],
+                                    "parameter_enable": 0,
+                                    "patching_rect": [
+                                        630,
+                                        245,
+                                        24,
+                                        24
+                                    ]
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-msg-up-t2",
+                                    "maxclass": "message",
+                                    "numinlets": 2,
+                                    "numoutlets": 1,
+                                    "outlettype": [
+                                        ""
+                                    ],
+                                    "patching_rect": [
+                                        430,
+                                        280,
+                                        35,
+                                        22
+                                    ],
+                                    "text": "up"
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-msg-dn-t2",
+                                    "maxclass": "message",
+                                    "numinlets": 2,
+                                    "numoutlets": 1,
+                                    "outlettype": [
+                                        ""
+                                    ],
+                                    "patching_rect": [
+                                        530,
+                                        280,
+                                        42,
+                                        22
+                                    ],
+                                    "text": "down"
+                                }
+                            }
+                        ],
+                        "lines": [
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-default-thresh-t1",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-loadbang-t1",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-thresh-val-t1",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-default-thresh-t1",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-default-hyst-t1",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-loadbang-hyst-t1",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-hyst-val-t1",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-default-hyst-t1",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-div2-t1",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-hyst-val-t1",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-upper-t1",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-thresh-val-t1",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-lower-t1",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-thresh-val-t1",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-upper-t1",
+                                        1
+                                    ],
+                                    "source": [
+                                        "obj-div2-t1",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-lower-t1",
+                                        1
+                                    ],
+                                    "source": [
+                                        "obj-div2-t1",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-gt-t1",
+                                        1
+                                    ],
+                                    "source": [
+                                        "obj-upper-t1",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-lt-t1",
+                                        1
+                                    ],
+                                    "source": [
+                                        "obj-lower-t1",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-gt-t1",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-inlet",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-lt-t1",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-inlet",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-change-up-t1",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-gt-t1",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-change-dn-t1",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-lt-t1",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-sel-up-t1",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-change-up-t1",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-sel-dn-t1",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-change-dn-t1",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-btn-flash-t1",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-sel-up-t1",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-btn-flash-t1",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-sel-dn-t1",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-msg-up-t1",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-sel-up-t1",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-msg-dn-t1",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-sel-dn-t1",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-default-thresh-t2",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-loadbang-t2",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-thresh-val-t2",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-default-thresh-t2",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-default-hyst-t2",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-loadbang-hyst-t2",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-hyst-val-t2",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-default-hyst-t2",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-div2-t2",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-hyst-val-t2",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-upper-t2",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-thresh-val-t2",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-lower-t2",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-thresh-val-t2",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-upper-t2",
+                                        1
+                                    ],
+                                    "source": [
+                                        "obj-div2-t2",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-lower-t2",
+                                        1
+                                    ],
+                                    "source": [
+                                        "obj-div2-t2",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-gt-t2",
+                                        1
+                                    ],
+                                    "source": [
+                                        "obj-upper-t2",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-lt-t2",
+                                        1
+                                    ],
+                                    "source": [
+                                        "obj-lower-t2",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-gt-t2",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-inlet",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-lt-t2",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-inlet",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-change-up-t2",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-gt-t2",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-change-dn-t2",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-lt-t2",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-sel-up-t2",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-change-up-t2",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-sel-dn-t2",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-change-dn-t2",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-btn-flash-t2",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-sel-up-t2",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-btn-flash-t2",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-sel-dn-t2",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-msg-up-t2",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-sel-up-t2",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-msg-dn-t2",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-sel-dn-t2",
+                                        0
+                                    ]
+                                }
+                            }
+                        ]
+                    },
+                    "saved_object_attributes": {}
+                }
+            },
+            {
+                "box": {
+                    "fontface": 1,
+                    "fontsize": 11,
+                    "id": "obj-comment-thresh-yaw",
+                    "maxclass": "comment",
+                    "numinlets": 1,
+                    "numoutlets": 0,
+                    "patching_rect": [
+                        460,
+                        1995,
+                        150,
+                        19
+                    ],
+                    "text": "--- Yaw Thresholds ---"
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-r-thresh-yaw",
+                    "maxclass": "newobj",
+                    "numinlets": 0,
+                    "numoutlets": 1,
+                    "outlettype": [
+                        ""
+                    ],
+                    "patching_rect": [
+                        460,
+                        2020,
+                        100,
+                        22
+                    ],
+                    "text": "r smooth_yaw"
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-p-thresh-yaw",
+                    "maxclass": "newobj",
+                    "numinlets": 1,
+                    "numoutlets": 0,
+                    "outlettype": [],
+                    "patching_rect": [
+                        460,
+                        2050,
+                        130,
+                        22
+                    ],
+                    "text": "p thresh_yaw",
+                    "patcher": {
+                        "fileversion": 1,
+                        "appversion": {
+                            "major": 9,
+                            "minor": 1,
+                            "revision": 1,
+                            "architecture": "x64",
+                            "modernui": 1
+                        },
+                        "classnamespace": "box",
+                        "rect": [
+                            100,
+                            100,
+                            850,
+                            500
+                        ],
+                        "boxes": [
+                            {
+                                "box": {
+                                    "id": "obj-inlet",
+                                    "maxclass": "inlet",
+                                    "numinlets": 0,
+                                    "numoutlets": 1,
+                                    "outlettype": [
+                                        ""
+                                    ],
+                                    "patching_rect": [
+                                        30,
+                                        20,
+                                        30,
+                                        30
+                                    ],
+                                    "comment": "Smoothed yaw value"
+                                }
+                            },
+                            {
+                                "box": {
+                                    "fontface": 1,
+                                    "fontsize": 11,
+                                    "id": "obj-label-t1",
+                                    "maxclass": "comment",
+                                    "numinlets": 1,
+                                    "numoutlets": 0,
+                                    "patching_rect": [
+                                        30,
+                                        70,
+                                        150,
+                                        19
+                                    ],
+                                    "text": "Threshold 1"
+                                }
+                            },
+                            {
+                                "box": {
+                                    "format": 6,
+                                    "id": "obj-thresh-val-t1",
+                                    "maxclass": "flonum",
+                                    "numinlets": 1,
+                                    "numoutlets": 2,
+                                    "outlettype": [
+                                        "",
+                                        "bang"
+                                    ],
+                                    "parameter_enable": 0,
+                                    "patching_rect": [
+                                        30,
+                                        95,
+                                        64,
+                                        22
+                                    ]
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-loadbang-t1",
+                                    "maxclass": "newobj",
+                                    "numinlets": 1,
+                                    "numoutlets": 1,
+                                    "outlettype": [
+                                        "bang"
+                                    ],
+                                    "patching_rect": [
+                                        100,
+                                        75,
+                                        60,
+                                        22
+                                    ],
+                                    "text": "loadbang"
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-default-thresh-t1",
+                                    "maxclass": "message",
+                                    "numinlets": 2,
+                                    "numoutlets": 1,
+                                    "outlettype": [
+                                        ""
+                                    ],
+                                    "patching_rect": [
+                                        100,
+                                        95,
+                                        50,
+                                        22
+                                    ],
+                                    "text": "30.0"
+                                }
+                            },
+                            {
+                                "box": {
+                                    "fontsize": 10,
+                                    "id": "obj-label-hyst-t1",
+                                    "maxclass": "comment",
+                                    "numinlets": 1,
+                                    "numoutlets": 0,
+                                    "patching_rect": [
+                                        170,
+                                        70,
+                                        80,
+                                        19
+                                    ],
+                                    "text": "Hysteresis"
+                                }
+                            },
+                            {
+                                "box": {
+                                    "format": 6,
+                                    "id": "obj-hyst-val-t1",
+                                    "maxclass": "flonum",
+                                    "numinlets": 1,
+                                    "numoutlets": 2,
+                                    "outlettype": [
+                                        "",
+                                        "bang"
+                                    ],
+                                    "parameter_enable": 0,
+                                    "patching_rect": [
+                                        170,
+                                        95,
+                                        54,
+                                        22
+                                    ]
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-loadbang-hyst-t1",
+                                    "maxclass": "newobj",
+                                    "numinlets": 1,
+                                    "numoutlets": 1,
+                                    "outlettype": [
+                                        "bang"
+                                    ],
+                                    "patching_rect": [
+                                        230,
+                                        75,
+                                        60,
+                                        22
+                                    ],
+                                    "text": "loadbang"
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-default-hyst-t1",
+                                    "maxclass": "message",
+                                    "numinlets": 2,
+                                    "numoutlets": 1,
+                                    "outlettype": [
+                                        ""
+                                    ],
+                                    "patching_rect": [
+                                        230,
+                                        95,
+                                        40,
+                                        22
+                                    ],
+                                    "text": "5.0"
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-div2-t1",
+                                    "maxclass": "newobj",
+                                    "numinlets": 2,
+                                    "numoutlets": 1,
+                                    "outlettype": [
+                                        "float"
+                                    ],
+                                    "patching_rect": [
+                                        170,
+                                        125,
+                                        40,
+                                        22
+                                    ],
+                                    "text": "/ 2."
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-upper-t1",
+                                    "maxclass": "newobj",
+                                    "numinlets": 2,
+                                    "numoutlets": 1,
+                                    "outlettype": [
+                                        "float"
+                                    ],
+                                    "patching_rect": [
+                                        30,
+                                        155,
+                                        40,
+                                        22
+                                    ],
+                                    "text": "+ 0."
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-lower-t1",
+                                    "maxclass": "newobj",
+                                    "numinlets": 2,
+                                    "numoutlets": 1,
+                                    "outlettype": [
+                                        "float"
+                                    ],
+                                    "patching_rect": [
+                                        130,
+                                        155,
+                                        40,
+                                        22
+                                    ],
+                                    "text": "- 0."
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-gt-t1",
+                                    "maxclass": "newobj",
+                                    "numinlets": 2,
+                                    "numoutlets": 1,
+                                    "outlettype": [
+                                        "int"
+                                    ],
+                                    "patching_rect": [
+                                        30,
+                                        185,
+                                        40,
+                                        22
+                                    ],
+                                    "text": "> 0."
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-lt-t1",
+                                    "maxclass": "newobj",
+                                    "numinlets": 2,
+                                    "numoutlets": 1,
+                                    "outlettype": [
+                                        "int"
+                                    ],
+                                    "patching_rect": [
+                                        130,
+                                        185,
+                                        40,
+                                        22
+                                    ],
+                                    "text": "< 0."
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-change-up-t1",
+                                    "maxclass": "newobj",
+                                    "numinlets": 1,
+                                    "numoutlets": 3,
+                                    "outlettype": [
+                                        "",
+                                        "int",
+                                        "int"
+                                    ],
+                                    "patching_rect": [
+                                        30,
+                                        215,
+                                        55,
+                                        22
+                                    ],
+                                    "text": "change"
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-change-dn-t1",
+                                    "maxclass": "newobj",
+                                    "numinlets": 1,
+                                    "numoutlets": 3,
+                                    "outlettype": [
+                                        "",
+                                        "int",
+                                        "int"
+                                    ],
+                                    "patching_rect": [
+                                        130,
+                                        215,
+                                        55,
+                                        22
+                                    ],
+                                    "text": "change"
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-sel-up-t1",
+                                    "maxclass": "newobj",
+                                    "numinlets": 2,
+                                    "numoutlets": 2,
+                                    "outlettype": [
+                                        "bang",
+                                        ""
+                                    ],
+                                    "patching_rect": [
+                                        30,
+                                        245,
+                                        55,
+                                        22
+                                    ],
+                                    "text": "select 1"
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-sel-dn-t1",
+                                    "maxclass": "newobj",
+                                    "numinlets": 2,
+                                    "numoutlets": 2,
+                                    "outlettype": [
+                                        "bang",
+                                        ""
+                                    ],
+                                    "patching_rect": [
+                                        130,
+                                        245,
+                                        55,
+                                        22
+                                    ],
+                                    "text": "select 1"
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-btn-flash-t1",
+                                    "maxclass": "button",
+                                    "numinlets": 1,
+                                    "numoutlets": 1,
+                                    "outlettype": [
+                                        "bang"
+                                    ],
+                                    "parameter_enable": 0,
+                                    "patching_rect": [
+                                        230,
+                                        245,
+                                        24,
+                                        24
+                                    ]
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-msg-up-t1",
+                                    "maxclass": "message",
+                                    "numinlets": 2,
+                                    "numoutlets": 1,
+                                    "outlettype": [
+                                        ""
+                                    ],
+                                    "patching_rect": [
+                                        30,
+                                        280,
+                                        35,
+                                        22
+                                    ],
+                                    "text": "up"
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-msg-dn-t1",
+                                    "maxclass": "message",
+                                    "numinlets": 2,
+                                    "numoutlets": 1,
+                                    "outlettype": [
+                                        ""
+                                    ],
+                                    "patching_rect": [
+                                        130,
+                                        280,
+                                        42,
+                                        22
+                                    ],
+                                    "text": "down"
+                                }
+                            },
+                            {
+                                "box": {
+                                    "fontface": 1,
+                                    "fontsize": 11,
+                                    "id": "obj-label-t2",
+                                    "maxclass": "comment",
+                                    "numinlets": 1,
+                                    "numoutlets": 0,
+                                    "patching_rect": [
+                                        430,
+                                        70,
+                                        150,
+                                        19
+                                    ],
+                                    "text": "Threshold 2"
+                                }
+                            },
+                            {
+                                "box": {
+                                    "format": 6,
+                                    "id": "obj-thresh-val-t2",
+                                    "maxclass": "flonum",
+                                    "numinlets": 1,
+                                    "numoutlets": 2,
+                                    "outlettype": [
+                                        "",
+                                        "bang"
+                                    ],
+                                    "parameter_enable": 0,
+                                    "patching_rect": [
+                                        430,
+                                        95,
+                                        64,
+                                        22
+                                    ]
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-loadbang-t2",
+                                    "maxclass": "newobj",
+                                    "numinlets": 1,
+                                    "numoutlets": 1,
+                                    "outlettype": [
+                                        "bang"
+                                    ],
+                                    "patching_rect": [
+                                        500,
+                                        75,
+                                        60,
+                                        22
+                                    ],
+                                    "text": "loadbang"
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-default-thresh-t2",
+                                    "maxclass": "message",
+                                    "numinlets": 2,
+                                    "numoutlets": 1,
+                                    "outlettype": [
+                                        ""
+                                    ],
+                                    "patching_rect": [
+                                        500,
+                                        95,
+                                        50,
+                                        22
+                                    ],
+                                    "text": "60.0"
+                                }
+                            },
+                            {
+                                "box": {
+                                    "fontsize": 10,
+                                    "id": "obj-label-hyst-t2",
+                                    "maxclass": "comment",
+                                    "numinlets": 1,
+                                    "numoutlets": 0,
+                                    "patching_rect": [
+                                        570,
+                                        70,
+                                        80,
+                                        19
+                                    ],
+                                    "text": "Hysteresis"
+                                }
+                            },
+                            {
+                                "box": {
+                                    "format": 6,
+                                    "id": "obj-hyst-val-t2",
+                                    "maxclass": "flonum",
+                                    "numinlets": 1,
+                                    "numoutlets": 2,
+                                    "outlettype": [
+                                        "",
+                                        "bang"
+                                    ],
+                                    "parameter_enable": 0,
+                                    "patching_rect": [
+                                        570,
+                                        95,
+                                        54,
+                                        22
+                                    ]
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-loadbang-hyst-t2",
+                                    "maxclass": "newobj",
+                                    "numinlets": 1,
+                                    "numoutlets": 1,
+                                    "outlettype": [
+                                        "bang"
+                                    ],
+                                    "patching_rect": [
+                                        630,
+                                        75,
+                                        60,
+                                        22
+                                    ],
+                                    "text": "loadbang"
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-default-hyst-t2",
+                                    "maxclass": "message",
+                                    "numinlets": 2,
+                                    "numoutlets": 1,
+                                    "outlettype": [
+                                        ""
+                                    ],
+                                    "patching_rect": [
+                                        630,
+                                        95,
+                                        40,
+                                        22
+                                    ],
+                                    "text": "5.0"
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-div2-t2",
+                                    "maxclass": "newobj",
+                                    "numinlets": 2,
+                                    "numoutlets": 1,
+                                    "outlettype": [
+                                        "float"
+                                    ],
+                                    "patching_rect": [
+                                        570,
+                                        125,
+                                        40,
+                                        22
+                                    ],
+                                    "text": "/ 2."
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-upper-t2",
+                                    "maxclass": "newobj",
+                                    "numinlets": 2,
+                                    "numoutlets": 1,
+                                    "outlettype": [
+                                        "float"
+                                    ],
+                                    "patching_rect": [
+                                        430,
+                                        155,
+                                        40,
+                                        22
+                                    ],
+                                    "text": "+ 0."
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-lower-t2",
+                                    "maxclass": "newobj",
+                                    "numinlets": 2,
+                                    "numoutlets": 1,
+                                    "outlettype": [
+                                        "float"
+                                    ],
+                                    "patching_rect": [
+                                        530,
+                                        155,
+                                        40,
+                                        22
+                                    ],
+                                    "text": "- 0."
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-gt-t2",
+                                    "maxclass": "newobj",
+                                    "numinlets": 2,
+                                    "numoutlets": 1,
+                                    "outlettype": [
+                                        "int"
+                                    ],
+                                    "patching_rect": [
+                                        430,
+                                        185,
+                                        40,
+                                        22
+                                    ],
+                                    "text": "> 0."
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-lt-t2",
+                                    "maxclass": "newobj",
+                                    "numinlets": 2,
+                                    "numoutlets": 1,
+                                    "outlettype": [
+                                        "int"
+                                    ],
+                                    "patching_rect": [
+                                        530,
+                                        185,
+                                        40,
+                                        22
+                                    ],
+                                    "text": "< 0."
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-change-up-t2",
+                                    "maxclass": "newobj",
+                                    "numinlets": 1,
+                                    "numoutlets": 3,
+                                    "outlettype": [
+                                        "",
+                                        "int",
+                                        "int"
+                                    ],
+                                    "patching_rect": [
+                                        430,
+                                        215,
+                                        55,
+                                        22
+                                    ],
+                                    "text": "change"
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-change-dn-t2",
+                                    "maxclass": "newobj",
+                                    "numinlets": 1,
+                                    "numoutlets": 3,
+                                    "outlettype": [
+                                        "",
+                                        "int",
+                                        "int"
+                                    ],
+                                    "patching_rect": [
+                                        530,
+                                        215,
+                                        55,
+                                        22
+                                    ],
+                                    "text": "change"
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-sel-up-t2",
+                                    "maxclass": "newobj",
+                                    "numinlets": 2,
+                                    "numoutlets": 2,
+                                    "outlettype": [
+                                        "bang",
+                                        ""
+                                    ],
+                                    "patching_rect": [
+                                        430,
+                                        245,
+                                        55,
+                                        22
+                                    ],
+                                    "text": "select 1"
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-sel-dn-t2",
+                                    "maxclass": "newobj",
+                                    "numinlets": 2,
+                                    "numoutlets": 2,
+                                    "outlettype": [
+                                        "bang",
+                                        ""
+                                    ],
+                                    "patching_rect": [
+                                        530,
+                                        245,
+                                        55,
+                                        22
+                                    ],
+                                    "text": "select 1"
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-btn-flash-t2",
+                                    "maxclass": "button",
+                                    "numinlets": 1,
+                                    "numoutlets": 1,
+                                    "outlettype": [
+                                        "bang"
+                                    ],
+                                    "parameter_enable": 0,
+                                    "patching_rect": [
+                                        630,
+                                        245,
+                                        24,
+                                        24
+                                    ]
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-msg-up-t2",
+                                    "maxclass": "message",
+                                    "numinlets": 2,
+                                    "numoutlets": 1,
+                                    "outlettype": [
+                                        ""
+                                    ],
+                                    "patching_rect": [
+                                        430,
+                                        280,
+                                        35,
+                                        22
+                                    ],
+                                    "text": "up"
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-msg-dn-t2",
+                                    "maxclass": "message",
+                                    "numinlets": 2,
+                                    "numoutlets": 1,
+                                    "outlettype": [
+                                        ""
+                                    ],
+                                    "patching_rect": [
+                                        530,
+                                        280,
+                                        42,
+                                        22
+                                    ],
+                                    "text": "down"
+                                }
+                            }
+                        ],
+                        "lines": [
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-default-thresh-t1",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-loadbang-t1",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-thresh-val-t1",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-default-thresh-t1",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-default-hyst-t1",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-loadbang-hyst-t1",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-hyst-val-t1",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-default-hyst-t1",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-div2-t1",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-hyst-val-t1",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-upper-t1",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-thresh-val-t1",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-lower-t1",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-thresh-val-t1",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-upper-t1",
+                                        1
+                                    ],
+                                    "source": [
+                                        "obj-div2-t1",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-lower-t1",
+                                        1
+                                    ],
+                                    "source": [
+                                        "obj-div2-t1",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-gt-t1",
+                                        1
+                                    ],
+                                    "source": [
+                                        "obj-upper-t1",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-lt-t1",
+                                        1
+                                    ],
+                                    "source": [
+                                        "obj-lower-t1",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-gt-t1",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-inlet",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-lt-t1",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-inlet",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-change-up-t1",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-gt-t1",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-change-dn-t1",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-lt-t1",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-sel-up-t1",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-change-up-t1",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-sel-dn-t1",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-change-dn-t1",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-btn-flash-t1",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-sel-up-t1",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-btn-flash-t1",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-sel-dn-t1",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-msg-up-t1",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-sel-up-t1",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-msg-dn-t1",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-sel-dn-t1",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-default-thresh-t2",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-loadbang-t2",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-thresh-val-t2",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-default-thresh-t2",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-default-hyst-t2",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-loadbang-hyst-t2",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-hyst-val-t2",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-default-hyst-t2",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-div2-t2",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-hyst-val-t2",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-upper-t2",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-thresh-val-t2",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-lower-t2",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-thresh-val-t2",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-upper-t2",
+                                        1
+                                    ],
+                                    "source": [
+                                        "obj-div2-t2",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-lower-t2",
+                                        1
+                                    ],
+                                    "source": [
+                                        "obj-div2-t2",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-gt-t2",
+                                        1
+                                    ],
+                                    "source": [
+                                        "obj-upper-t2",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-lt-t2",
+                                        1
+                                    ],
+                                    "source": [
+                                        "obj-lower-t2",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-gt-t2",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-inlet",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-lt-t2",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-inlet",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-change-up-t2",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-gt-t2",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-change-dn-t2",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-lt-t2",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-sel-up-t2",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-change-up-t2",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-sel-dn-t2",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-change-dn-t2",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-btn-flash-t2",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-sel-up-t2",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-btn-flash-t2",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-sel-dn-t2",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-msg-up-t2",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-sel-up-t2",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-msg-dn-t2",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-sel-dn-t2",
+                                        0
+                                    ]
+                                }
+                            }
+                        ]
+                    },
+                    "saved_object_attributes": {}
+                }
+            },
+            {
+                "box": {
+                    "fontface": 1,
+                    "fontsize": 12,
+                    "id": "obj-comment-thresh-accel-group",
+                    "maxclass": "comment",
+                    "numinlets": 1,
+                    "numoutlets": 0,
+                    "patching_rect": [
+                        60,
+                        2095,
+                        200,
+                        20
+                    ],
+                    "text": "Accelerometer Thresholds"
+                }
+            },
+            {
+                "box": {
+                    "fontface": 1,
+                    "fontsize": 11,
+                    "id": "obj-comment-thresh-ax",
+                    "maxclass": "comment",
+                    "numinlets": 1,
+                    "numoutlets": 0,
+                    "patching_rect": [
+                        60,
+                        2115,
+                        150,
+                        19
+                    ],
+                    "text": "--- ax Thresholds ---"
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-r-thresh-ax",
+                    "maxclass": "newobj",
+                    "numinlets": 0,
+                    "numoutlets": 1,
+                    "outlettype": [
+                        ""
+                    ],
+                    "patching_rect": [
+                        60,
+                        2140,
+                        100,
+                        22
+                    ],
+                    "text": "r smooth_ax"
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-p-thresh-ax",
+                    "maxclass": "newobj",
+                    "numinlets": 1,
+                    "numoutlets": 0,
+                    "outlettype": [],
+                    "patching_rect": [
+                        60,
+                        2170,
+                        130,
+                        22
+                    ],
+                    "text": "p thresh_ax",
+                    "patcher": {
+                        "fileversion": 1,
+                        "appversion": {
+                            "major": 9,
+                            "minor": 1,
+                            "revision": 1,
+                            "architecture": "x64",
+                            "modernui": 1
+                        },
+                        "classnamespace": "box",
+                        "rect": [
+                            100,
+                            100,
+                            850,
+                            500
+                        ],
+                        "boxes": [
+                            {
+                                "box": {
+                                    "id": "obj-inlet",
+                                    "maxclass": "inlet",
+                                    "numinlets": 0,
+                                    "numoutlets": 1,
+                                    "outlettype": [
+                                        ""
+                                    ],
+                                    "patching_rect": [
+                                        30,
+                                        20,
+                                        30,
+                                        30
+                                    ],
+                                    "comment": "Smoothed ax value"
+                                }
+                            },
+                            {
+                                "box": {
+                                    "fontface": 1,
+                                    "fontsize": 11,
+                                    "id": "obj-label-t1",
+                                    "maxclass": "comment",
+                                    "numinlets": 1,
+                                    "numoutlets": 0,
+                                    "patching_rect": [
+                                        30,
+                                        70,
+                                        150,
+                                        19
+                                    ],
+                                    "text": "Threshold 1"
+                                }
+                            },
+                            {
+                                "box": {
+                                    "format": 6,
+                                    "id": "obj-thresh-val-t1",
+                                    "maxclass": "flonum",
+                                    "numinlets": 1,
+                                    "numoutlets": 2,
+                                    "outlettype": [
+                                        "",
+                                        "bang"
+                                    ],
+                                    "parameter_enable": 0,
+                                    "patching_rect": [
+                                        30,
+                                        95,
+                                        64,
+                                        22
+                                    ]
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-loadbang-t1",
+                                    "maxclass": "newobj",
+                                    "numinlets": 1,
+                                    "numoutlets": 1,
+                                    "outlettype": [
+                                        "bang"
+                                    ],
+                                    "patching_rect": [
+                                        100,
+                                        75,
+                                        60,
+                                        22
+                                    ],
+                                    "text": "loadbang"
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-default-thresh-t1",
+                                    "maxclass": "message",
+                                    "numinlets": 2,
+                                    "numoutlets": 1,
+                                    "outlettype": [
+                                        ""
+                                    ],
+                                    "patching_rect": [
+                                        100,
+                                        95,
+                                        50,
+                                        22
+                                    ],
+                                    "text": "0.5"
+                                }
+                            },
+                            {
+                                "box": {
+                                    "fontsize": 10,
+                                    "id": "obj-label-hyst-t1",
+                                    "maxclass": "comment",
+                                    "numinlets": 1,
+                                    "numoutlets": 0,
+                                    "patching_rect": [
+                                        170,
+                                        70,
+                                        80,
+                                        19
+                                    ],
+                                    "text": "Hysteresis"
+                                }
+                            },
+                            {
+                                "box": {
+                                    "format": 6,
+                                    "id": "obj-hyst-val-t1",
+                                    "maxclass": "flonum",
+                                    "numinlets": 1,
+                                    "numoutlets": 2,
+                                    "outlettype": [
+                                        "",
+                                        "bang"
+                                    ],
+                                    "parameter_enable": 0,
+                                    "patching_rect": [
+                                        170,
+                                        95,
+                                        54,
+                                        22
+                                    ]
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-loadbang-hyst-t1",
+                                    "maxclass": "newobj",
+                                    "numinlets": 1,
+                                    "numoutlets": 1,
+                                    "outlettype": [
+                                        "bang"
+                                    ],
+                                    "patching_rect": [
+                                        230,
+                                        75,
+                                        60,
+                                        22
+                                    ],
+                                    "text": "loadbang"
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-default-hyst-t1",
+                                    "maxclass": "message",
+                                    "numinlets": 2,
+                                    "numoutlets": 1,
+                                    "outlettype": [
+                                        ""
+                                    ],
+                                    "patching_rect": [
+                                        230,
+                                        95,
+                                        40,
+                                        22
+                                    ],
+                                    "text": "0.2"
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-div2-t1",
+                                    "maxclass": "newobj",
+                                    "numinlets": 2,
+                                    "numoutlets": 1,
+                                    "outlettype": [
+                                        "float"
+                                    ],
+                                    "patching_rect": [
+                                        170,
+                                        125,
+                                        40,
+                                        22
+                                    ],
+                                    "text": "/ 2."
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-upper-t1",
+                                    "maxclass": "newobj",
+                                    "numinlets": 2,
+                                    "numoutlets": 1,
+                                    "outlettype": [
+                                        "float"
+                                    ],
+                                    "patching_rect": [
+                                        30,
+                                        155,
+                                        40,
+                                        22
+                                    ],
+                                    "text": "+ 0."
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-lower-t1",
+                                    "maxclass": "newobj",
+                                    "numinlets": 2,
+                                    "numoutlets": 1,
+                                    "outlettype": [
+                                        "float"
+                                    ],
+                                    "patching_rect": [
+                                        130,
+                                        155,
+                                        40,
+                                        22
+                                    ],
+                                    "text": "- 0."
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-gt-t1",
+                                    "maxclass": "newobj",
+                                    "numinlets": 2,
+                                    "numoutlets": 1,
+                                    "outlettype": [
+                                        "int"
+                                    ],
+                                    "patching_rect": [
+                                        30,
+                                        185,
+                                        40,
+                                        22
+                                    ],
+                                    "text": "> 0."
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-lt-t1",
+                                    "maxclass": "newobj",
+                                    "numinlets": 2,
+                                    "numoutlets": 1,
+                                    "outlettype": [
+                                        "int"
+                                    ],
+                                    "patching_rect": [
+                                        130,
+                                        185,
+                                        40,
+                                        22
+                                    ],
+                                    "text": "< 0."
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-change-up-t1",
+                                    "maxclass": "newobj",
+                                    "numinlets": 1,
+                                    "numoutlets": 3,
+                                    "outlettype": [
+                                        "",
+                                        "int",
+                                        "int"
+                                    ],
+                                    "patching_rect": [
+                                        30,
+                                        215,
+                                        55,
+                                        22
+                                    ],
+                                    "text": "change"
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-change-dn-t1",
+                                    "maxclass": "newobj",
+                                    "numinlets": 1,
+                                    "numoutlets": 3,
+                                    "outlettype": [
+                                        "",
+                                        "int",
+                                        "int"
+                                    ],
+                                    "patching_rect": [
+                                        130,
+                                        215,
+                                        55,
+                                        22
+                                    ],
+                                    "text": "change"
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-sel-up-t1",
+                                    "maxclass": "newobj",
+                                    "numinlets": 2,
+                                    "numoutlets": 2,
+                                    "outlettype": [
+                                        "bang",
+                                        ""
+                                    ],
+                                    "patching_rect": [
+                                        30,
+                                        245,
+                                        55,
+                                        22
+                                    ],
+                                    "text": "select 1"
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-sel-dn-t1",
+                                    "maxclass": "newobj",
+                                    "numinlets": 2,
+                                    "numoutlets": 2,
+                                    "outlettype": [
+                                        "bang",
+                                        ""
+                                    ],
+                                    "patching_rect": [
+                                        130,
+                                        245,
+                                        55,
+                                        22
+                                    ],
+                                    "text": "select 1"
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-btn-flash-t1",
+                                    "maxclass": "button",
+                                    "numinlets": 1,
+                                    "numoutlets": 1,
+                                    "outlettype": [
+                                        "bang"
+                                    ],
+                                    "parameter_enable": 0,
+                                    "patching_rect": [
+                                        230,
+                                        245,
+                                        24,
+                                        24
+                                    ]
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-msg-up-t1",
+                                    "maxclass": "message",
+                                    "numinlets": 2,
+                                    "numoutlets": 1,
+                                    "outlettype": [
+                                        ""
+                                    ],
+                                    "patching_rect": [
+                                        30,
+                                        280,
+                                        35,
+                                        22
+                                    ],
+                                    "text": "up"
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-msg-dn-t1",
+                                    "maxclass": "message",
+                                    "numinlets": 2,
+                                    "numoutlets": 1,
+                                    "outlettype": [
+                                        ""
+                                    ],
+                                    "patching_rect": [
+                                        130,
+                                        280,
+                                        42,
+                                        22
+                                    ],
+                                    "text": "down"
+                                }
+                            },
+                            {
+                                "box": {
+                                    "fontface": 1,
+                                    "fontsize": 11,
+                                    "id": "obj-label-t2",
+                                    "maxclass": "comment",
+                                    "numinlets": 1,
+                                    "numoutlets": 0,
+                                    "patching_rect": [
+                                        430,
+                                        70,
+                                        150,
+                                        19
+                                    ],
+                                    "text": "Threshold 2"
+                                }
+                            },
+                            {
+                                "box": {
+                                    "format": 6,
+                                    "id": "obj-thresh-val-t2",
+                                    "maxclass": "flonum",
+                                    "numinlets": 1,
+                                    "numoutlets": 2,
+                                    "outlettype": [
+                                        "",
+                                        "bang"
+                                    ],
+                                    "parameter_enable": 0,
+                                    "patching_rect": [
+                                        430,
+                                        95,
+                                        64,
+                                        22
+                                    ]
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-loadbang-t2",
+                                    "maxclass": "newobj",
+                                    "numinlets": 1,
+                                    "numoutlets": 1,
+                                    "outlettype": [
+                                        "bang"
+                                    ],
+                                    "patching_rect": [
+                                        500,
+                                        75,
+                                        60,
+                                        22
+                                    ],
+                                    "text": "loadbang"
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-default-thresh-t2",
+                                    "maxclass": "message",
+                                    "numinlets": 2,
+                                    "numoutlets": 1,
+                                    "outlettype": [
+                                        ""
+                                    ],
+                                    "patching_rect": [
+                                        500,
+                                        95,
+                                        50,
+                                        22
+                                    ],
+                                    "text": "1.5"
+                                }
+                            },
+                            {
+                                "box": {
+                                    "fontsize": 10,
+                                    "id": "obj-label-hyst-t2",
+                                    "maxclass": "comment",
+                                    "numinlets": 1,
+                                    "numoutlets": 0,
+                                    "patching_rect": [
+                                        570,
+                                        70,
+                                        80,
+                                        19
+                                    ],
+                                    "text": "Hysteresis"
+                                }
+                            },
+                            {
+                                "box": {
+                                    "format": 6,
+                                    "id": "obj-hyst-val-t2",
+                                    "maxclass": "flonum",
+                                    "numinlets": 1,
+                                    "numoutlets": 2,
+                                    "outlettype": [
+                                        "",
+                                        "bang"
+                                    ],
+                                    "parameter_enable": 0,
+                                    "patching_rect": [
+                                        570,
+                                        95,
+                                        54,
+                                        22
+                                    ]
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-loadbang-hyst-t2",
+                                    "maxclass": "newobj",
+                                    "numinlets": 1,
+                                    "numoutlets": 1,
+                                    "outlettype": [
+                                        "bang"
+                                    ],
+                                    "patching_rect": [
+                                        630,
+                                        75,
+                                        60,
+                                        22
+                                    ],
+                                    "text": "loadbang"
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-default-hyst-t2",
+                                    "maxclass": "message",
+                                    "numinlets": 2,
+                                    "numoutlets": 1,
+                                    "outlettype": [
+                                        ""
+                                    ],
+                                    "patching_rect": [
+                                        630,
+                                        95,
+                                        40,
+                                        22
+                                    ],
+                                    "text": "0.2"
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-div2-t2",
+                                    "maxclass": "newobj",
+                                    "numinlets": 2,
+                                    "numoutlets": 1,
+                                    "outlettype": [
+                                        "float"
+                                    ],
+                                    "patching_rect": [
+                                        570,
+                                        125,
+                                        40,
+                                        22
+                                    ],
+                                    "text": "/ 2."
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-upper-t2",
+                                    "maxclass": "newobj",
+                                    "numinlets": 2,
+                                    "numoutlets": 1,
+                                    "outlettype": [
+                                        "float"
+                                    ],
+                                    "patching_rect": [
+                                        430,
+                                        155,
+                                        40,
+                                        22
+                                    ],
+                                    "text": "+ 0."
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-lower-t2",
+                                    "maxclass": "newobj",
+                                    "numinlets": 2,
+                                    "numoutlets": 1,
+                                    "outlettype": [
+                                        "float"
+                                    ],
+                                    "patching_rect": [
+                                        530,
+                                        155,
+                                        40,
+                                        22
+                                    ],
+                                    "text": "- 0."
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-gt-t2",
+                                    "maxclass": "newobj",
+                                    "numinlets": 2,
+                                    "numoutlets": 1,
+                                    "outlettype": [
+                                        "int"
+                                    ],
+                                    "patching_rect": [
+                                        430,
+                                        185,
+                                        40,
+                                        22
+                                    ],
+                                    "text": "> 0."
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-lt-t2",
+                                    "maxclass": "newobj",
+                                    "numinlets": 2,
+                                    "numoutlets": 1,
+                                    "outlettype": [
+                                        "int"
+                                    ],
+                                    "patching_rect": [
+                                        530,
+                                        185,
+                                        40,
+                                        22
+                                    ],
+                                    "text": "< 0."
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-change-up-t2",
+                                    "maxclass": "newobj",
+                                    "numinlets": 1,
+                                    "numoutlets": 3,
+                                    "outlettype": [
+                                        "",
+                                        "int",
+                                        "int"
+                                    ],
+                                    "patching_rect": [
+                                        430,
+                                        215,
+                                        55,
+                                        22
+                                    ],
+                                    "text": "change"
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-change-dn-t2",
+                                    "maxclass": "newobj",
+                                    "numinlets": 1,
+                                    "numoutlets": 3,
+                                    "outlettype": [
+                                        "",
+                                        "int",
+                                        "int"
+                                    ],
+                                    "patching_rect": [
+                                        530,
+                                        215,
+                                        55,
+                                        22
+                                    ],
+                                    "text": "change"
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-sel-up-t2",
+                                    "maxclass": "newobj",
+                                    "numinlets": 2,
+                                    "numoutlets": 2,
+                                    "outlettype": [
+                                        "bang",
+                                        ""
+                                    ],
+                                    "patching_rect": [
+                                        430,
+                                        245,
+                                        55,
+                                        22
+                                    ],
+                                    "text": "select 1"
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-sel-dn-t2",
+                                    "maxclass": "newobj",
+                                    "numinlets": 2,
+                                    "numoutlets": 2,
+                                    "outlettype": [
+                                        "bang",
+                                        ""
+                                    ],
+                                    "patching_rect": [
+                                        530,
+                                        245,
+                                        55,
+                                        22
+                                    ],
+                                    "text": "select 1"
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-btn-flash-t2",
+                                    "maxclass": "button",
+                                    "numinlets": 1,
+                                    "numoutlets": 1,
+                                    "outlettype": [
+                                        "bang"
+                                    ],
+                                    "parameter_enable": 0,
+                                    "patching_rect": [
+                                        630,
+                                        245,
+                                        24,
+                                        24
+                                    ]
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-msg-up-t2",
+                                    "maxclass": "message",
+                                    "numinlets": 2,
+                                    "numoutlets": 1,
+                                    "outlettype": [
+                                        ""
+                                    ],
+                                    "patching_rect": [
+                                        430,
+                                        280,
+                                        35,
+                                        22
+                                    ],
+                                    "text": "up"
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-msg-dn-t2",
+                                    "maxclass": "message",
+                                    "numinlets": 2,
+                                    "numoutlets": 1,
+                                    "outlettype": [
+                                        ""
+                                    ],
+                                    "patching_rect": [
+                                        530,
+                                        280,
+                                        42,
+                                        22
+                                    ],
+                                    "text": "down"
+                                }
+                            }
+                        ],
+                        "lines": [
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-default-thresh-t1",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-loadbang-t1",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-thresh-val-t1",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-default-thresh-t1",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-default-hyst-t1",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-loadbang-hyst-t1",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-hyst-val-t1",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-default-hyst-t1",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-div2-t1",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-hyst-val-t1",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-upper-t1",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-thresh-val-t1",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-lower-t1",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-thresh-val-t1",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-upper-t1",
+                                        1
+                                    ],
+                                    "source": [
+                                        "obj-div2-t1",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-lower-t1",
+                                        1
+                                    ],
+                                    "source": [
+                                        "obj-div2-t1",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-gt-t1",
+                                        1
+                                    ],
+                                    "source": [
+                                        "obj-upper-t1",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-lt-t1",
+                                        1
+                                    ],
+                                    "source": [
+                                        "obj-lower-t1",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-gt-t1",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-inlet",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-lt-t1",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-inlet",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-change-up-t1",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-gt-t1",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-change-dn-t1",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-lt-t1",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-sel-up-t1",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-change-up-t1",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-sel-dn-t1",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-change-dn-t1",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-btn-flash-t1",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-sel-up-t1",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-btn-flash-t1",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-sel-dn-t1",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-msg-up-t1",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-sel-up-t1",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-msg-dn-t1",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-sel-dn-t1",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-default-thresh-t2",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-loadbang-t2",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-thresh-val-t2",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-default-thresh-t2",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-default-hyst-t2",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-loadbang-hyst-t2",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-hyst-val-t2",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-default-hyst-t2",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-div2-t2",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-hyst-val-t2",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-upper-t2",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-thresh-val-t2",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-lower-t2",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-thresh-val-t2",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-upper-t2",
+                                        1
+                                    ],
+                                    "source": [
+                                        "obj-div2-t2",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-lower-t2",
+                                        1
+                                    ],
+                                    "source": [
+                                        "obj-div2-t2",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-gt-t2",
+                                        1
+                                    ],
+                                    "source": [
+                                        "obj-upper-t2",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-lt-t2",
+                                        1
+                                    ],
+                                    "source": [
+                                        "obj-lower-t2",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-gt-t2",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-inlet",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-lt-t2",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-inlet",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-change-up-t2",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-gt-t2",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-change-dn-t2",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-lt-t2",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-sel-up-t2",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-change-up-t2",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-sel-dn-t2",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-change-dn-t2",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-btn-flash-t2",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-sel-up-t2",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-btn-flash-t2",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-sel-dn-t2",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-msg-up-t2",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-sel-up-t2",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-msg-dn-t2",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-sel-dn-t2",
+                                        0
+                                    ]
+                                }
+                            }
+                        ]
+                    },
+                    "saved_object_attributes": {}
+                }
+            },
+            {
+                "box": {
+                    "fontface": 1,
+                    "fontsize": 11,
+                    "id": "obj-comment-thresh-ay",
+                    "maxclass": "comment",
+                    "numinlets": 1,
+                    "numoutlets": 0,
+                    "patching_rect": [
+                        260,
+                        2115,
+                        150,
+                        19
+                    ],
+                    "text": "--- ay Thresholds ---"
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-r-thresh-ay",
+                    "maxclass": "newobj",
+                    "numinlets": 0,
+                    "numoutlets": 1,
+                    "outlettype": [
+                        ""
+                    ],
+                    "patching_rect": [
+                        260,
+                        2140,
+                        100,
+                        22
+                    ],
+                    "text": "r smooth_ay"
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-p-thresh-ay",
+                    "maxclass": "newobj",
+                    "numinlets": 1,
+                    "numoutlets": 0,
+                    "outlettype": [],
+                    "patching_rect": [
+                        260,
+                        2170,
+                        130,
+                        22
+                    ],
+                    "text": "p thresh_ay",
+                    "patcher": {
+                        "fileversion": 1,
+                        "appversion": {
+                            "major": 9,
+                            "minor": 1,
+                            "revision": 1,
+                            "architecture": "x64",
+                            "modernui": 1
+                        },
+                        "classnamespace": "box",
+                        "rect": [
+                            100,
+                            100,
+                            850,
+                            500
+                        ],
+                        "boxes": [
+                            {
+                                "box": {
+                                    "id": "obj-inlet",
+                                    "maxclass": "inlet",
+                                    "numinlets": 0,
+                                    "numoutlets": 1,
+                                    "outlettype": [
+                                        ""
+                                    ],
+                                    "patching_rect": [
+                                        30,
+                                        20,
+                                        30,
+                                        30
+                                    ],
+                                    "comment": "Smoothed ay value"
+                                }
+                            },
+                            {
+                                "box": {
+                                    "fontface": 1,
+                                    "fontsize": 11,
+                                    "id": "obj-label-t1",
+                                    "maxclass": "comment",
+                                    "numinlets": 1,
+                                    "numoutlets": 0,
+                                    "patching_rect": [
+                                        30,
+                                        70,
+                                        150,
+                                        19
+                                    ],
+                                    "text": "Threshold 1"
+                                }
+                            },
+                            {
+                                "box": {
+                                    "format": 6,
+                                    "id": "obj-thresh-val-t1",
+                                    "maxclass": "flonum",
+                                    "numinlets": 1,
+                                    "numoutlets": 2,
+                                    "outlettype": [
+                                        "",
+                                        "bang"
+                                    ],
+                                    "parameter_enable": 0,
+                                    "patching_rect": [
+                                        30,
+                                        95,
+                                        64,
+                                        22
+                                    ]
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-loadbang-t1",
+                                    "maxclass": "newobj",
+                                    "numinlets": 1,
+                                    "numoutlets": 1,
+                                    "outlettype": [
+                                        "bang"
+                                    ],
+                                    "patching_rect": [
+                                        100,
+                                        75,
+                                        60,
+                                        22
+                                    ],
+                                    "text": "loadbang"
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-default-thresh-t1",
+                                    "maxclass": "message",
+                                    "numinlets": 2,
+                                    "numoutlets": 1,
+                                    "outlettype": [
+                                        ""
+                                    ],
+                                    "patching_rect": [
+                                        100,
+                                        95,
+                                        50,
+                                        22
+                                    ],
+                                    "text": "0.5"
+                                }
+                            },
+                            {
+                                "box": {
+                                    "fontsize": 10,
+                                    "id": "obj-label-hyst-t1",
+                                    "maxclass": "comment",
+                                    "numinlets": 1,
+                                    "numoutlets": 0,
+                                    "patching_rect": [
+                                        170,
+                                        70,
+                                        80,
+                                        19
+                                    ],
+                                    "text": "Hysteresis"
+                                }
+                            },
+                            {
+                                "box": {
+                                    "format": 6,
+                                    "id": "obj-hyst-val-t1",
+                                    "maxclass": "flonum",
+                                    "numinlets": 1,
+                                    "numoutlets": 2,
+                                    "outlettype": [
+                                        "",
+                                        "bang"
+                                    ],
+                                    "parameter_enable": 0,
+                                    "patching_rect": [
+                                        170,
+                                        95,
+                                        54,
+                                        22
+                                    ]
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-loadbang-hyst-t1",
+                                    "maxclass": "newobj",
+                                    "numinlets": 1,
+                                    "numoutlets": 1,
+                                    "outlettype": [
+                                        "bang"
+                                    ],
+                                    "patching_rect": [
+                                        230,
+                                        75,
+                                        60,
+                                        22
+                                    ],
+                                    "text": "loadbang"
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-default-hyst-t1",
+                                    "maxclass": "message",
+                                    "numinlets": 2,
+                                    "numoutlets": 1,
+                                    "outlettype": [
+                                        ""
+                                    ],
+                                    "patching_rect": [
+                                        230,
+                                        95,
+                                        40,
+                                        22
+                                    ],
+                                    "text": "0.2"
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-div2-t1",
+                                    "maxclass": "newobj",
+                                    "numinlets": 2,
+                                    "numoutlets": 1,
+                                    "outlettype": [
+                                        "float"
+                                    ],
+                                    "patching_rect": [
+                                        170,
+                                        125,
+                                        40,
+                                        22
+                                    ],
+                                    "text": "/ 2."
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-upper-t1",
+                                    "maxclass": "newobj",
+                                    "numinlets": 2,
+                                    "numoutlets": 1,
+                                    "outlettype": [
+                                        "float"
+                                    ],
+                                    "patching_rect": [
+                                        30,
+                                        155,
+                                        40,
+                                        22
+                                    ],
+                                    "text": "+ 0."
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-lower-t1",
+                                    "maxclass": "newobj",
+                                    "numinlets": 2,
+                                    "numoutlets": 1,
+                                    "outlettype": [
+                                        "float"
+                                    ],
+                                    "patching_rect": [
+                                        130,
+                                        155,
+                                        40,
+                                        22
+                                    ],
+                                    "text": "- 0."
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-gt-t1",
+                                    "maxclass": "newobj",
+                                    "numinlets": 2,
+                                    "numoutlets": 1,
+                                    "outlettype": [
+                                        "int"
+                                    ],
+                                    "patching_rect": [
+                                        30,
+                                        185,
+                                        40,
+                                        22
+                                    ],
+                                    "text": "> 0."
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-lt-t1",
+                                    "maxclass": "newobj",
+                                    "numinlets": 2,
+                                    "numoutlets": 1,
+                                    "outlettype": [
+                                        "int"
+                                    ],
+                                    "patching_rect": [
+                                        130,
+                                        185,
+                                        40,
+                                        22
+                                    ],
+                                    "text": "< 0."
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-change-up-t1",
+                                    "maxclass": "newobj",
+                                    "numinlets": 1,
+                                    "numoutlets": 3,
+                                    "outlettype": [
+                                        "",
+                                        "int",
+                                        "int"
+                                    ],
+                                    "patching_rect": [
+                                        30,
+                                        215,
+                                        55,
+                                        22
+                                    ],
+                                    "text": "change"
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-change-dn-t1",
+                                    "maxclass": "newobj",
+                                    "numinlets": 1,
+                                    "numoutlets": 3,
+                                    "outlettype": [
+                                        "",
+                                        "int",
+                                        "int"
+                                    ],
+                                    "patching_rect": [
+                                        130,
+                                        215,
+                                        55,
+                                        22
+                                    ],
+                                    "text": "change"
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-sel-up-t1",
+                                    "maxclass": "newobj",
+                                    "numinlets": 2,
+                                    "numoutlets": 2,
+                                    "outlettype": [
+                                        "bang",
+                                        ""
+                                    ],
+                                    "patching_rect": [
+                                        30,
+                                        245,
+                                        55,
+                                        22
+                                    ],
+                                    "text": "select 1"
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-sel-dn-t1",
+                                    "maxclass": "newobj",
+                                    "numinlets": 2,
+                                    "numoutlets": 2,
+                                    "outlettype": [
+                                        "bang",
+                                        ""
+                                    ],
+                                    "patching_rect": [
+                                        130,
+                                        245,
+                                        55,
+                                        22
+                                    ],
+                                    "text": "select 1"
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-btn-flash-t1",
+                                    "maxclass": "button",
+                                    "numinlets": 1,
+                                    "numoutlets": 1,
+                                    "outlettype": [
+                                        "bang"
+                                    ],
+                                    "parameter_enable": 0,
+                                    "patching_rect": [
+                                        230,
+                                        245,
+                                        24,
+                                        24
+                                    ]
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-msg-up-t1",
+                                    "maxclass": "message",
+                                    "numinlets": 2,
+                                    "numoutlets": 1,
+                                    "outlettype": [
+                                        ""
+                                    ],
+                                    "patching_rect": [
+                                        30,
+                                        280,
+                                        35,
+                                        22
+                                    ],
+                                    "text": "up"
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-msg-dn-t1",
+                                    "maxclass": "message",
+                                    "numinlets": 2,
+                                    "numoutlets": 1,
+                                    "outlettype": [
+                                        ""
+                                    ],
+                                    "patching_rect": [
+                                        130,
+                                        280,
+                                        42,
+                                        22
+                                    ],
+                                    "text": "down"
+                                }
+                            },
+                            {
+                                "box": {
+                                    "fontface": 1,
+                                    "fontsize": 11,
+                                    "id": "obj-label-t2",
+                                    "maxclass": "comment",
+                                    "numinlets": 1,
+                                    "numoutlets": 0,
+                                    "patching_rect": [
+                                        430,
+                                        70,
+                                        150,
+                                        19
+                                    ],
+                                    "text": "Threshold 2"
+                                }
+                            },
+                            {
+                                "box": {
+                                    "format": 6,
+                                    "id": "obj-thresh-val-t2",
+                                    "maxclass": "flonum",
+                                    "numinlets": 1,
+                                    "numoutlets": 2,
+                                    "outlettype": [
+                                        "",
+                                        "bang"
+                                    ],
+                                    "parameter_enable": 0,
+                                    "patching_rect": [
+                                        430,
+                                        95,
+                                        64,
+                                        22
+                                    ]
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-loadbang-t2",
+                                    "maxclass": "newobj",
+                                    "numinlets": 1,
+                                    "numoutlets": 1,
+                                    "outlettype": [
+                                        "bang"
+                                    ],
+                                    "patching_rect": [
+                                        500,
+                                        75,
+                                        60,
+                                        22
+                                    ],
+                                    "text": "loadbang"
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-default-thresh-t2",
+                                    "maxclass": "message",
+                                    "numinlets": 2,
+                                    "numoutlets": 1,
+                                    "outlettype": [
+                                        ""
+                                    ],
+                                    "patching_rect": [
+                                        500,
+                                        95,
+                                        50,
+                                        22
+                                    ],
+                                    "text": "1.5"
+                                }
+                            },
+                            {
+                                "box": {
+                                    "fontsize": 10,
+                                    "id": "obj-label-hyst-t2",
+                                    "maxclass": "comment",
+                                    "numinlets": 1,
+                                    "numoutlets": 0,
+                                    "patching_rect": [
+                                        570,
+                                        70,
+                                        80,
+                                        19
+                                    ],
+                                    "text": "Hysteresis"
+                                }
+                            },
+                            {
+                                "box": {
+                                    "format": 6,
+                                    "id": "obj-hyst-val-t2",
+                                    "maxclass": "flonum",
+                                    "numinlets": 1,
+                                    "numoutlets": 2,
+                                    "outlettype": [
+                                        "",
+                                        "bang"
+                                    ],
+                                    "parameter_enable": 0,
+                                    "patching_rect": [
+                                        570,
+                                        95,
+                                        54,
+                                        22
+                                    ]
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-loadbang-hyst-t2",
+                                    "maxclass": "newobj",
+                                    "numinlets": 1,
+                                    "numoutlets": 1,
+                                    "outlettype": [
+                                        "bang"
+                                    ],
+                                    "patching_rect": [
+                                        630,
+                                        75,
+                                        60,
+                                        22
+                                    ],
+                                    "text": "loadbang"
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-default-hyst-t2",
+                                    "maxclass": "message",
+                                    "numinlets": 2,
+                                    "numoutlets": 1,
+                                    "outlettype": [
+                                        ""
+                                    ],
+                                    "patching_rect": [
+                                        630,
+                                        95,
+                                        40,
+                                        22
+                                    ],
+                                    "text": "0.2"
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-div2-t2",
+                                    "maxclass": "newobj",
+                                    "numinlets": 2,
+                                    "numoutlets": 1,
+                                    "outlettype": [
+                                        "float"
+                                    ],
+                                    "patching_rect": [
+                                        570,
+                                        125,
+                                        40,
+                                        22
+                                    ],
+                                    "text": "/ 2."
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-upper-t2",
+                                    "maxclass": "newobj",
+                                    "numinlets": 2,
+                                    "numoutlets": 1,
+                                    "outlettype": [
+                                        "float"
+                                    ],
+                                    "patching_rect": [
+                                        430,
+                                        155,
+                                        40,
+                                        22
+                                    ],
+                                    "text": "+ 0."
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-lower-t2",
+                                    "maxclass": "newobj",
+                                    "numinlets": 2,
+                                    "numoutlets": 1,
+                                    "outlettype": [
+                                        "float"
+                                    ],
+                                    "patching_rect": [
+                                        530,
+                                        155,
+                                        40,
+                                        22
+                                    ],
+                                    "text": "- 0."
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-gt-t2",
+                                    "maxclass": "newobj",
+                                    "numinlets": 2,
+                                    "numoutlets": 1,
+                                    "outlettype": [
+                                        "int"
+                                    ],
+                                    "patching_rect": [
+                                        430,
+                                        185,
+                                        40,
+                                        22
+                                    ],
+                                    "text": "> 0."
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-lt-t2",
+                                    "maxclass": "newobj",
+                                    "numinlets": 2,
+                                    "numoutlets": 1,
+                                    "outlettype": [
+                                        "int"
+                                    ],
+                                    "patching_rect": [
+                                        530,
+                                        185,
+                                        40,
+                                        22
+                                    ],
+                                    "text": "< 0."
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-change-up-t2",
+                                    "maxclass": "newobj",
+                                    "numinlets": 1,
+                                    "numoutlets": 3,
+                                    "outlettype": [
+                                        "",
+                                        "int",
+                                        "int"
+                                    ],
+                                    "patching_rect": [
+                                        430,
+                                        215,
+                                        55,
+                                        22
+                                    ],
+                                    "text": "change"
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-change-dn-t2",
+                                    "maxclass": "newobj",
+                                    "numinlets": 1,
+                                    "numoutlets": 3,
+                                    "outlettype": [
+                                        "",
+                                        "int",
+                                        "int"
+                                    ],
+                                    "patching_rect": [
+                                        530,
+                                        215,
+                                        55,
+                                        22
+                                    ],
+                                    "text": "change"
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-sel-up-t2",
+                                    "maxclass": "newobj",
+                                    "numinlets": 2,
+                                    "numoutlets": 2,
+                                    "outlettype": [
+                                        "bang",
+                                        ""
+                                    ],
+                                    "patching_rect": [
+                                        430,
+                                        245,
+                                        55,
+                                        22
+                                    ],
+                                    "text": "select 1"
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-sel-dn-t2",
+                                    "maxclass": "newobj",
+                                    "numinlets": 2,
+                                    "numoutlets": 2,
+                                    "outlettype": [
+                                        "bang",
+                                        ""
+                                    ],
+                                    "patching_rect": [
+                                        530,
+                                        245,
+                                        55,
+                                        22
+                                    ],
+                                    "text": "select 1"
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-btn-flash-t2",
+                                    "maxclass": "button",
+                                    "numinlets": 1,
+                                    "numoutlets": 1,
+                                    "outlettype": [
+                                        "bang"
+                                    ],
+                                    "parameter_enable": 0,
+                                    "patching_rect": [
+                                        630,
+                                        245,
+                                        24,
+                                        24
+                                    ]
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-msg-up-t2",
+                                    "maxclass": "message",
+                                    "numinlets": 2,
+                                    "numoutlets": 1,
+                                    "outlettype": [
+                                        ""
+                                    ],
+                                    "patching_rect": [
+                                        430,
+                                        280,
+                                        35,
+                                        22
+                                    ],
+                                    "text": "up"
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-msg-dn-t2",
+                                    "maxclass": "message",
+                                    "numinlets": 2,
+                                    "numoutlets": 1,
+                                    "outlettype": [
+                                        ""
+                                    ],
+                                    "patching_rect": [
+                                        530,
+                                        280,
+                                        42,
+                                        22
+                                    ],
+                                    "text": "down"
+                                }
+                            }
+                        ],
+                        "lines": [
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-default-thresh-t1",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-loadbang-t1",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-thresh-val-t1",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-default-thresh-t1",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-default-hyst-t1",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-loadbang-hyst-t1",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-hyst-val-t1",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-default-hyst-t1",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-div2-t1",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-hyst-val-t1",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-upper-t1",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-thresh-val-t1",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-lower-t1",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-thresh-val-t1",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-upper-t1",
+                                        1
+                                    ],
+                                    "source": [
+                                        "obj-div2-t1",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-lower-t1",
+                                        1
+                                    ],
+                                    "source": [
+                                        "obj-div2-t1",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-gt-t1",
+                                        1
+                                    ],
+                                    "source": [
+                                        "obj-upper-t1",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-lt-t1",
+                                        1
+                                    ],
+                                    "source": [
+                                        "obj-lower-t1",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-gt-t1",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-inlet",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-lt-t1",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-inlet",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-change-up-t1",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-gt-t1",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-change-dn-t1",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-lt-t1",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-sel-up-t1",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-change-up-t1",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-sel-dn-t1",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-change-dn-t1",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-btn-flash-t1",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-sel-up-t1",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-btn-flash-t1",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-sel-dn-t1",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-msg-up-t1",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-sel-up-t1",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-msg-dn-t1",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-sel-dn-t1",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-default-thresh-t2",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-loadbang-t2",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-thresh-val-t2",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-default-thresh-t2",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-default-hyst-t2",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-loadbang-hyst-t2",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-hyst-val-t2",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-default-hyst-t2",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-div2-t2",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-hyst-val-t2",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-upper-t2",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-thresh-val-t2",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-lower-t2",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-thresh-val-t2",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-upper-t2",
+                                        1
+                                    ],
+                                    "source": [
+                                        "obj-div2-t2",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-lower-t2",
+                                        1
+                                    ],
+                                    "source": [
+                                        "obj-div2-t2",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-gt-t2",
+                                        1
+                                    ],
+                                    "source": [
+                                        "obj-upper-t2",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-lt-t2",
+                                        1
+                                    ],
+                                    "source": [
+                                        "obj-lower-t2",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-gt-t2",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-inlet",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-lt-t2",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-inlet",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-change-up-t2",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-gt-t2",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-change-dn-t2",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-lt-t2",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-sel-up-t2",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-change-up-t2",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-sel-dn-t2",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-change-dn-t2",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-btn-flash-t2",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-sel-up-t2",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-btn-flash-t2",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-sel-dn-t2",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-msg-up-t2",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-sel-up-t2",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-msg-dn-t2",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-sel-dn-t2",
+                                        0
+                                    ]
+                                }
+                            }
+                        ]
+                    },
+                    "saved_object_attributes": {}
+                }
+            },
+            {
+                "box": {
+                    "fontface": 1,
+                    "fontsize": 11,
+                    "id": "obj-comment-thresh-az",
+                    "maxclass": "comment",
+                    "numinlets": 1,
+                    "numoutlets": 0,
+                    "patching_rect": [
+                        460,
+                        2115,
+                        150,
+                        19
+                    ],
+                    "text": "--- az Thresholds ---"
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-r-thresh-az",
+                    "maxclass": "newobj",
+                    "numinlets": 0,
+                    "numoutlets": 1,
+                    "outlettype": [
+                        ""
+                    ],
+                    "patching_rect": [
+                        460,
+                        2140,
+                        100,
+                        22
+                    ],
+                    "text": "r smooth_az"
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-p-thresh-az",
+                    "maxclass": "newobj",
+                    "numinlets": 1,
+                    "numoutlets": 0,
+                    "outlettype": [],
+                    "patching_rect": [
+                        460,
+                        2170,
+                        130,
+                        22
+                    ],
+                    "text": "p thresh_az",
+                    "patcher": {
+                        "fileversion": 1,
+                        "appversion": {
+                            "major": 9,
+                            "minor": 1,
+                            "revision": 1,
+                            "architecture": "x64",
+                            "modernui": 1
+                        },
+                        "classnamespace": "box",
+                        "rect": [
+                            100,
+                            100,
+                            850,
+                            500
+                        ],
+                        "boxes": [
+                            {
+                                "box": {
+                                    "id": "obj-inlet",
+                                    "maxclass": "inlet",
+                                    "numinlets": 0,
+                                    "numoutlets": 1,
+                                    "outlettype": [
+                                        ""
+                                    ],
+                                    "patching_rect": [
+                                        30,
+                                        20,
+                                        30,
+                                        30
+                                    ],
+                                    "comment": "Smoothed az value"
+                                }
+                            },
+                            {
+                                "box": {
+                                    "fontface": 1,
+                                    "fontsize": 11,
+                                    "id": "obj-label-t1",
+                                    "maxclass": "comment",
+                                    "numinlets": 1,
+                                    "numoutlets": 0,
+                                    "patching_rect": [
+                                        30,
+                                        70,
+                                        150,
+                                        19
+                                    ],
+                                    "text": "Threshold 1"
+                                }
+                            },
+                            {
+                                "box": {
+                                    "format": 6,
+                                    "id": "obj-thresh-val-t1",
+                                    "maxclass": "flonum",
+                                    "numinlets": 1,
+                                    "numoutlets": 2,
+                                    "outlettype": [
+                                        "",
+                                        "bang"
+                                    ],
+                                    "parameter_enable": 0,
+                                    "patching_rect": [
+                                        30,
+                                        95,
+                                        64,
+                                        22
+                                    ]
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-loadbang-t1",
+                                    "maxclass": "newobj",
+                                    "numinlets": 1,
+                                    "numoutlets": 1,
+                                    "outlettype": [
+                                        "bang"
+                                    ],
+                                    "patching_rect": [
+                                        100,
+                                        75,
+                                        60,
+                                        22
+                                    ],
+                                    "text": "loadbang"
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-default-thresh-t1",
+                                    "maxclass": "message",
+                                    "numinlets": 2,
+                                    "numoutlets": 1,
+                                    "outlettype": [
+                                        ""
+                                    ],
+                                    "patching_rect": [
+                                        100,
+                                        95,
+                                        50,
+                                        22
+                                    ],
+                                    "text": "0.5"
+                                }
+                            },
+                            {
+                                "box": {
+                                    "fontsize": 10,
+                                    "id": "obj-label-hyst-t1",
+                                    "maxclass": "comment",
+                                    "numinlets": 1,
+                                    "numoutlets": 0,
+                                    "patching_rect": [
+                                        170,
+                                        70,
+                                        80,
+                                        19
+                                    ],
+                                    "text": "Hysteresis"
+                                }
+                            },
+                            {
+                                "box": {
+                                    "format": 6,
+                                    "id": "obj-hyst-val-t1",
+                                    "maxclass": "flonum",
+                                    "numinlets": 1,
+                                    "numoutlets": 2,
+                                    "outlettype": [
+                                        "",
+                                        "bang"
+                                    ],
+                                    "parameter_enable": 0,
+                                    "patching_rect": [
+                                        170,
+                                        95,
+                                        54,
+                                        22
+                                    ]
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-loadbang-hyst-t1",
+                                    "maxclass": "newobj",
+                                    "numinlets": 1,
+                                    "numoutlets": 1,
+                                    "outlettype": [
+                                        "bang"
+                                    ],
+                                    "patching_rect": [
+                                        230,
+                                        75,
+                                        60,
+                                        22
+                                    ],
+                                    "text": "loadbang"
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-default-hyst-t1",
+                                    "maxclass": "message",
+                                    "numinlets": 2,
+                                    "numoutlets": 1,
+                                    "outlettype": [
+                                        ""
+                                    ],
+                                    "patching_rect": [
+                                        230,
+                                        95,
+                                        40,
+                                        22
+                                    ],
+                                    "text": "0.2"
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-div2-t1",
+                                    "maxclass": "newobj",
+                                    "numinlets": 2,
+                                    "numoutlets": 1,
+                                    "outlettype": [
+                                        "float"
+                                    ],
+                                    "patching_rect": [
+                                        170,
+                                        125,
+                                        40,
+                                        22
+                                    ],
+                                    "text": "/ 2."
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-upper-t1",
+                                    "maxclass": "newobj",
+                                    "numinlets": 2,
+                                    "numoutlets": 1,
+                                    "outlettype": [
+                                        "float"
+                                    ],
+                                    "patching_rect": [
+                                        30,
+                                        155,
+                                        40,
+                                        22
+                                    ],
+                                    "text": "+ 0."
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-lower-t1",
+                                    "maxclass": "newobj",
+                                    "numinlets": 2,
+                                    "numoutlets": 1,
+                                    "outlettype": [
+                                        "float"
+                                    ],
+                                    "patching_rect": [
+                                        130,
+                                        155,
+                                        40,
+                                        22
+                                    ],
+                                    "text": "- 0."
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-gt-t1",
+                                    "maxclass": "newobj",
+                                    "numinlets": 2,
+                                    "numoutlets": 1,
+                                    "outlettype": [
+                                        "int"
+                                    ],
+                                    "patching_rect": [
+                                        30,
+                                        185,
+                                        40,
+                                        22
+                                    ],
+                                    "text": "> 0."
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-lt-t1",
+                                    "maxclass": "newobj",
+                                    "numinlets": 2,
+                                    "numoutlets": 1,
+                                    "outlettype": [
+                                        "int"
+                                    ],
+                                    "patching_rect": [
+                                        130,
+                                        185,
+                                        40,
+                                        22
+                                    ],
+                                    "text": "< 0."
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-change-up-t1",
+                                    "maxclass": "newobj",
+                                    "numinlets": 1,
+                                    "numoutlets": 3,
+                                    "outlettype": [
+                                        "",
+                                        "int",
+                                        "int"
+                                    ],
+                                    "patching_rect": [
+                                        30,
+                                        215,
+                                        55,
+                                        22
+                                    ],
+                                    "text": "change"
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-change-dn-t1",
+                                    "maxclass": "newobj",
+                                    "numinlets": 1,
+                                    "numoutlets": 3,
+                                    "outlettype": [
+                                        "",
+                                        "int",
+                                        "int"
+                                    ],
+                                    "patching_rect": [
+                                        130,
+                                        215,
+                                        55,
+                                        22
+                                    ],
+                                    "text": "change"
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-sel-up-t1",
+                                    "maxclass": "newobj",
+                                    "numinlets": 2,
+                                    "numoutlets": 2,
+                                    "outlettype": [
+                                        "bang",
+                                        ""
+                                    ],
+                                    "patching_rect": [
+                                        30,
+                                        245,
+                                        55,
+                                        22
+                                    ],
+                                    "text": "select 1"
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-sel-dn-t1",
+                                    "maxclass": "newobj",
+                                    "numinlets": 2,
+                                    "numoutlets": 2,
+                                    "outlettype": [
+                                        "bang",
+                                        ""
+                                    ],
+                                    "patching_rect": [
+                                        130,
+                                        245,
+                                        55,
+                                        22
+                                    ],
+                                    "text": "select 1"
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-btn-flash-t1",
+                                    "maxclass": "button",
+                                    "numinlets": 1,
+                                    "numoutlets": 1,
+                                    "outlettype": [
+                                        "bang"
+                                    ],
+                                    "parameter_enable": 0,
+                                    "patching_rect": [
+                                        230,
+                                        245,
+                                        24,
+                                        24
+                                    ]
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-msg-up-t1",
+                                    "maxclass": "message",
+                                    "numinlets": 2,
+                                    "numoutlets": 1,
+                                    "outlettype": [
+                                        ""
+                                    ],
+                                    "patching_rect": [
+                                        30,
+                                        280,
+                                        35,
+                                        22
+                                    ],
+                                    "text": "up"
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-msg-dn-t1",
+                                    "maxclass": "message",
+                                    "numinlets": 2,
+                                    "numoutlets": 1,
+                                    "outlettype": [
+                                        ""
+                                    ],
+                                    "patching_rect": [
+                                        130,
+                                        280,
+                                        42,
+                                        22
+                                    ],
+                                    "text": "down"
+                                }
+                            },
+                            {
+                                "box": {
+                                    "fontface": 1,
+                                    "fontsize": 11,
+                                    "id": "obj-label-t2",
+                                    "maxclass": "comment",
+                                    "numinlets": 1,
+                                    "numoutlets": 0,
+                                    "patching_rect": [
+                                        430,
+                                        70,
+                                        150,
+                                        19
+                                    ],
+                                    "text": "Threshold 2"
+                                }
+                            },
+                            {
+                                "box": {
+                                    "format": 6,
+                                    "id": "obj-thresh-val-t2",
+                                    "maxclass": "flonum",
+                                    "numinlets": 1,
+                                    "numoutlets": 2,
+                                    "outlettype": [
+                                        "",
+                                        "bang"
+                                    ],
+                                    "parameter_enable": 0,
+                                    "patching_rect": [
+                                        430,
+                                        95,
+                                        64,
+                                        22
+                                    ]
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-loadbang-t2",
+                                    "maxclass": "newobj",
+                                    "numinlets": 1,
+                                    "numoutlets": 1,
+                                    "outlettype": [
+                                        "bang"
+                                    ],
+                                    "patching_rect": [
+                                        500,
+                                        75,
+                                        60,
+                                        22
+                                    ],
+                                    "text": "loadbang"
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-default-thresh-t2",
+                                    "maxclass": "message",
+                                    "numinlets": 2,
+                                    "numoutlets": 1,
+                                    "outlettype": [
+                                        ""
+                                    ],
+                                    "patching_rect": [
+                                        500,
+                                        95,
+                                        50,
+                                        22
+                                    ],
+                                    "text": "1.5"
+                                }
+                            },
+                            {
+                                "box": {
+                                    "fontsize": 10,
+                                    "id": "obj-label-hyst-t2",
+                                    "maxclass": "comment",
+                                    "numinlets": 1,
+                                    "numoutlets": 0,
+                                    "patching_rect": [
+                                        570,
+                                        70,
+                                        80,
+                                        19
+                                    ],
+                                    "text": "Hysteresis"
+                                }
+                            },
+                            {
+                                "box": {
+                                    "format": 6,
+                                    "id": "obj-hyst-val-t2",
+                                    "maxclass": "flonum",
+                                    "numinlets": 1,
+                                    "numoutlets": 2,
+                                    "outlettype": [
+                                        "",
+                                        "bang"
+                                    ],
+                                    "parameter_enable": 0,
+                                    "patching_rect": [
+                                        570,
+                                        95,
+                                        54,
+                                        22
+                                    ]
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-loadbang-hyst-t2",
+                                    "maxclass": "newobj",
+                                    "numinlets": 1,
+                                    "numoutlets": 1,
+                                    "outlettype": [
+                                        "bang"
+                                    ],
+                                    "patching_rect": [
+                                        630,
+                                        75,
+                                        60,
+                                        22
+                                    ],
+                                    "text": "loadbang"
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-default-hyst-t2",
+                                    "maxclass": "message",
+                                    "numinlets": 2,
+                                    "numoutlets": 1,
+                                    "outlettype": [
+                                        ""
+                                    ],
+                                    "patching_rect": [
+                                        630,
+                                        95,
+                                        40,
+                                        22
+                                    ],
+                                    "text": "0.2"
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-div2-t2",
+                                    "maxclass": "newobj",
+                                    "numinlets": 2,
+                                    "numoutlets": 1,
+                                    "outlettype": [
+                                        "float"
+                                    ],
+                                    "patching_rect": [
+                                        570,
+                                        125,
+                                        40,
+                                        22
+                                    ],
+                                    "text": "/ 2."
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-upper-t2",
+                                    "maxclass": "newobj",
+                                    "numinlets": 2,
+                                    "numoutlets": 1,
+                                    "outlettype": [
+                                        "float"
+                                    ],
+                                    "patching_rect": [
+                                        430,
+                                        155,
+                                        40,
+                                        22
+                                    ],
+                                    "text": "+ 0."
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-lower-t2",
+                                    "maxclass": "newobj",
+                                    "numinlets": 2,
+                                    "numoutlets": 1,
+                                    "outlettype": [
+                                        "float"
+                                    ],
+                                    "patching_rect": [
+                                        530,
+                                        155,
+                                        40,
+                                        22
+                                    ],
+                                    "text": "- 0."
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-gt-t2",
+                                    "maxclass": "newobj",
+                                    "numinlets": 2,
+                                    "numoutlets": 1,
+                                    "outlettype": [
+                                        "int"
+                                    ],
+                                    "patching_rect": [
+                                        430,
+                                        185,
+                                        40,
+                                        22
+                                    ],
+                                    "text": "> 0."
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-lt-t2",
+                                    "maxclass": "newobj",
+                                    "numinlets": 2,
+                                    "numoutlets": 1,
+                                    "outlettype": [
+                                        "int"
+                                    ],
+                                    "patching_rect": [
+                                        530,
+                                        185,
+                                        40,
+                                        22
+                                    ],
+                                    "text": "< 0."
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-change-up-t2",
+                                    "maxclass": "newobj",
+                                    "numinlets": 1,
+                                    "numoutlets": 3,
+                                    "outlettype": [
+                                        "",
+                                        "int",
+                                        "int"
+                                    ],
+                                    "patching_rect": [
+                                        430,
+                                        215,
+                                        55,
+                                        22
+                                    ],
+                                    "text": "change"
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-change-dn-t2",
+                                    "maxclass": "newobj",
+                                    "numinlets": 1,
+                                    "numoutlets": 3,
+                                    "outlettype": [
+                                        "",
+                                        "int",
+                                        "int"
+                                    ],
+                                    "patching_rect": [
+                                        530,
+                                        215,
+                                        55,
+                                        22
+                                    ],
+                                    "text": "change"
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-sel-up-t2",
+                                    "maxclass": "newobj",
+                                    "numinlets": 2,
+                                    "numoutlets": 2,
+                                    "outlettype": [
+                                        "bang",
+                                        ""
+                                    ],
+                                    "patching_rect": [
+                                        430,
+                                        245,
+                                        55,
+                                        22
+                                    ],
+                                    "text": "select 1"
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-sel-dn-t2",
+                                    "maxclass": "newobj",
+                                    "numinlets": 2,
+                                    "numoutlets": 2,
+                                    "outlettype": [
+                                        "bang",
+                                        ""
+                                    ],
+                                    "patching_rect": [
+                                        530,
+                                        245,
+                                        55,
+                                        22
+                                    ],
+                                    "text": "select 1"
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-btn-flash-t2",
+                                    "maxclass": "button",
+                                    "numinlets": 1,
+                                    "numoutlets": 1,
+                                    "outlettype": [
+                                        "bang"
+                                    ],
+                                    "parameter_enable": 0,
+                                    "patching_rect": [
+                                        630,
+                                        245,
+                                        24,
+                                        24
+                                    ]
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-msg-up-t2",
+                                    "maxclass": "message",
+                                    "numinlets": 2,
+                                    "numoutlets": 1,
+                                    "outlettype": [
+                                        ""
+                                    ],
+                                    "patching_rect": [
+                                        430,
+                                        280,
+                                        35,
+                                        22
+                                    ],
+                                    "text": "up"
+                                }
+                            },
+                            {
+                                "box": {
+                                    "id": "obj-msg-dn-t2",
+                                    "maxclass": "message",
+                                    "numinlets": 2,
+                                    "numoutlets": 1,
+                                    "outlettype": [
+                                        ""
+                                    ],
+                                    "patching_rect": [
+                                        530,
+                                        280,
+                                        42,
+                                        22
+                                    ],
+                                    "text": "down"
+                                }
+                            }
+                        ],
+                        "lines": [
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-default-thresh-t1",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-loadbang-t1",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-thresh-val-t1",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-default-thresh-t1",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-default-hyst-t1",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-loadbang-hyst-t1",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-hyst-val-t1",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-default-hyst-t1",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-div2-t1",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-hyst-val-t1",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-upper-t1",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-thresh-val-t1",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-lower-t1",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-thresh-val-t1",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-upper-t1",
+                                        1
+                                    ],
+                                    "source": [
+                                        "obj-div2-t1",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-lower-t1",
+                                        1
+                                    ],
+                                    "source": [
+                                        "obj-div2-t1",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-gt-t1",
+                                        1
+                                    ],
+                                    "source": [
+                                        "obj-upper-t1",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-lt-t1",
+                                        1
+                                    ],
+                                    "source": [
+                                        "obj-lower-t1",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-gt-t1",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-inlet",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-lt-t1",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-inlet",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-change-up-t1",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-gt-t1",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-change-dn-t1",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-lt-t1",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-sel-up-t1",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-change-up-t1",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-sel-dn-t1",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-change-dn-t1",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-btn-flash-t1",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-sel-up-t1",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-btn-flash-t1",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-sel-dn-t1",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-msg-up-t1",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-sel-up-t1",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-msg-dn-t1",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-sel-dn-t1",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-default-thresh-t2",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-loadbang-t2",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-thresh-val-t2",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-default-thresh-t2",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-default-hyst-t2",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-loadbang-hyst-t2",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-hyst-val-t2",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-default-hyst-t2",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-div2-t2",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-hyst-val-t2",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-upper-t2",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-thresh-val-t2",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-lower-t2",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-thresh-val-t2",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-upper-t2",
+                                        1
+                                    ],
+                                    "source": [
+                                        "obj-div2-t2",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-lower-t2",
+                                        1
+                                    ],
+                                    "source": [
+                                        "obj-div2-t2",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-gt-t2",
+                                        1
+                                    ],
+                                    "source": [
+                                        "obj-upper-t2",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-lt-t2",
+                                        1
+                                    ],
+                                    "source": [
+                                        "obj-lower-t2",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-gt-t2",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-inlet",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-lt-t2",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-inlet",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-change-up-t2",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-gt-t2",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-change-dn-t2",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-lt-t2",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-sel-up-t2",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-change-up-t2",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-sel-dn-t2",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-change-dn-t2",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-btn-flash-t2",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-sel-up-t2",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-btn-flash-t2",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-sel-dn-t2",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-msg-up-t2",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-sel-up-t2",
+                                        0
+                                    ]
+                                }
+                            },
+                            {
+                                "patchline": {
+                                    "destination": [
+                                        "obj-msg-dn-t2",
+                                        0
+                                    ],
+                                    "source": [
+                                        "obj-sel-dn-t2",
+                                        0
+                                    ]
+                                }
+                            }
+                        ]
+                    },
+                    "saved_object_attributes": {}
+                }
             }
         ],
         "lines": [
@@ -21036,6 +29061,78 @@
                     ],
                     "source": [
                         "obj-p-map-gz",
+                        0
+                    ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [
+                        "obj-p-thresh-pitch",
+                        0
+                    ],
+                    "source": [
+                        "obj-r-thresh-pitch",
+                        0
+                    ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [
+                        "obj-p-thresh-roll",
+                        0
+                    ],
+                    "source": [
+                        "obj-r-thresh-roll",
+                        0
+                    ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [
+                        "obj-p-thresh-yaw",
+                        0
+                    ],
+                    "source": [
+                        "obj-r-thresh-yaw",
+                        0
+                    ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [
+                        "obj-p-thresh-ax",
+                        0
+                    ],
+                    "source": [
+                        "obj-r-thresh-ax",
+                        0
+                    ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [
+                        "obj-p-thresh-ay",
+                        0
+                    ],
+                    "source": [
+                        "obj-r-thresh-ay",
+                        0
+                    ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [
+                        "obj-p-thresh-az",
+                        0
+                    ],
+                    "source": [
+                        "obj-r-thresh-az",
                         0
                     ]
                 }
