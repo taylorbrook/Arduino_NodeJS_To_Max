@@ -9,7 +9,7 @@
             "modernui": 1
         },
         "classnamespace": "box",
-        "rect": [ 688.0, 156.0, 711.0, 800.0 ],
+        "rect": [ 688.0, 156.0, 900.0, 1050.0 ],
         "boxes": [
             {
                 "box": {
@@ -125,11 +125,11 @@
                 "box": {
                     "id": "obj-route",
                     "maxclass": "newobj",
-                    "numinlets": 5,
-                    "numoutlets": 5,
-                    "outlettype": [ "", "", "", "", "" ],
-                    "patching_rect": [ 250.0, 200.0, 280.0, 22.0 ],
-                    "text": "route accel gyro orientation status"
+                    "numinlets": 1,
+                    "numoutlets": 11,
+                    "outlettype": [ "", "", "", "", "", "", "", "", "", "", "" ],
+                    "patching_rect": [ 250.0, 200.0, 560.0, 22.0 ],
+                    "text": "route accel gyro orientation status cal_accel cal_gyro cal_orientation cal_status cal_progress cal_bias"
                 }
             },
             {
@@ -421,6 +421,519 @@
                     "patching_rect": [ 494.0, 236.0, 150.0, 22.0 ],
                     "text": "connected"
                 }
+            },
+            {
+                "box": {
+                    "fontface": 1,
+                    "fontsize": 13.0,
+                    "id": "obj-comment-cal-section",
+                    "maxclass": "comment",
+                    "numinlets": 1,
+                    "numoutlets": 0,
+                    "patching_rect": [ 60.0, 420.0, 180.0, 21.0 ],
+                    "text": "Calibration Controls"
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-btn-calibrate",
+                    "maxclass": "textbutton",
+                    "mode": 1,
+                    "numinlets": 1,
+                    "numoutlets": 3,
+                    "outlettype": [ "", "", "int" ],
+                    "parameter_enable": 0,
+                    "patching_rect": [ 60.0, 450.0, 120.0, 30.0 ],
+                    "text": "Calibrate",
+                    "texton": "Stop & Apply"
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-sel-cal",
+                    "maxclass": "newobj",
+                    "numinlets": 3,
+                    "numoutlets": 3,
+                    "outlettype": [ "bang", "bang", "" ],
+                    "patching_rect": [ 60.0, 490.0, 100.0, 22.0 ],
+                    "text": "select 1 0"
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-msg-calstart",
+                    "maxclass": "message",
+                    "numinlets": 2,
+                    "numoutlets": 1,
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 60.0, 520.0, 90.0, 22.0 ],
+                    "text": "calibrate_start"
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-msg-calstop",
+                    "maxclass": "message",
+                    "numinlets": 2,
+                    "numoutlets": 1,
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 160.0, 520.0, 90.0, 22.0 ],
+                    "text": "calibrate_stop"
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-btn-calreset",
+                    "maxclass": "textbutton",
+                    "mode": 0,
+                    "numinlets": 1,
+                    "numoutlets": 3,
+                    "outlettype": [ "", "", "int" ],
+                    "parameter_enable": 0,
+                    "patching_rect": [ 200.0, 450.0, 100.0, 30.0 ],
+                    "text": "Reset Cal"
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-msg-calreset",
+                    "maxclass": "message",
+                    "numinlets": 2,
+                    "numoutlets": 1,
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 200.0, 490.0, 100.0, 22.0 ],
+                    "text": "calibrate_reset"
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-btn-orient",
+                    "maxclass": "textbutton",
+                    "mode": 1,
+                    "numinlets": 1,
+                    "numoutlets": 3,
+                    "outlettype": [ "", "", "int" ],
+                    "parameter_enable": 0,
+                    "patching_rect": [ 320.0, 450.0, 130.0, 30.0 ],
+                    "text": "Reset Orient",
+                    "texton": "Restore Frame"
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-sel-orient",
+                    "maxclass": "newobj",
+                    "numinlets": 3,
+                    "numoutlets": 3,
+                    "outlettype": [ "bang", "bang", "" ],
+                    "patching_rect": [ 320.0, 490.0, 100.0, 22.0 ],
+                    "text": "select 1 0"
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-msg-orientreset",
+                    "maxclass": "message",
+                    "numinlets": 2,
+                    "numoutlets": 1,
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 320.0, 520.0, 80.0, 22.0 ],
+                    "text": "orient_reset"
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-msg-orientrestore",
+                    "maxclass": "message",
+                    "numinlets": 2,
+                    "numoutlets": 1,
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 420.0, 520.0, 90.0, 22.0 ],
+                    "text": "orient_restore"
+                }
+            },
+            {
+                "box": {
+                    "fontface": 1,
+                    "fontsize": 13.0,
+                    "id": "obj-comment-progress",
+                    "maxclass": "comment",
+                    "numinlets": 1,
+                    "numoutlets": 0,
+                    "patching_rect": [ 500.0, 420.0, 170.0, 21.0 ],
+                    "text": "Calibration Progress"
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-unpack-progress",
+                    "maxclass": "newobj",
+                    "numinlets": 1,
+                    "numoutlets": 2,
+                    "outlettype": [ "int", "int" ],
+                    "patching_rect": [ 500.0, 456.0, 100.0, 22.0 ],
+                    "text": "unpack i i"
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-slider-progress",
+                    "maxclass": "slider",
+                    "numinlets": 1,
+                    "numoutlets": 1,
+                    "outlettype": [ "" ],
+                    "parameter_enable": 0,
+                    "patching_rect": [ 500.0, 486.0, 200.0, 20.0 ],
+                    "size": 201.0,
+                    "orientation": 1
+                }
+            },
+            {
+                "box": {
+                    "fontface": 1,
+                    "fontsize": 13.0,
+                    "id": "obj-comment-calstatus",
+                    "maxclass": "comment",
+                    "numinlets": 1,
+                    "numoutlets": 0,
+                    "patching_rect": [ 500.0, 520.0, 100.0, 21.0 ],
+                    "text": "Cal Status"
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-cal-status-display",
+                    "maxclass": "message",
+                    "numinlets": 2,
+                    "numoutlets": 1,
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 500.0, 546.0, 150.0, 22.0 ],
+                    "text": "idle"
+                }
+            },
+            {
+                "box": {
+                    "fontface": 1,
+                    "fontsize": 13.0,
+                    "id": "obj-comment-bias",
+                    "maxclass": "comment",
+                    "numinlets": 1,
+                    "numoutlets": 0,
+                    "patching_rect": [ 60.0, 560.0, 120.0, 21.0 ],
+                    "text": "Bias Offsets"
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-unpack-bias",
+                    "maxclass": "newobj",
+                    "numinlets": 1,
+                    "numoutlets": 6,
+                    "outlettype": [ "float", "float", "float", "float", "float", "float" ],
+                    "patching_rect": [ 60.0, 586.0, 200.0, 22.0 ],
+                    "text": "unpack f f f f f f"
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-sprintf-bias",
+                    "maxclass": "newobj",
+                    "numinlets": 6,
+                    "numoutlets": 1,
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 60.0, 616.0, 400.0, 22.0 ],
+                    "text": "sprintf aX:%.2f aY:%.2f aZ:%.2f gX:%.2f gY:%.2f gZ:%.2f"
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-bias-display",
+                    "maxclass": "message",
+                    "numinlets": 2,
+                    "numoutlets": 1,
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 60.0, 646.0, 400.0, 22.0 ],
+                    "text": ""
+                }
+            },
+            {
+                "box": {
+                    "fontface": 1,
+                    "fontsize": 13.0,
+                    "id": "obj-comment-cal-data",
+                    "maxclass": "comment",
+                    "numinlets": 1,
+                    "numoutlets": 0,
+                    "patching_rect": [ 60.0, 670.0, 150.0, 21.0 ],
+                    "text": "Calibrated Data"
+                }
+            },
+            {
+                "box": {
+                    "fontface": 1,
+                    "fontsize": 13.0,
+                    "id": "obj-comment-calaccel",
+                    "maxclass": "comment",
+                    "numinlets": 1,
+                    "numoutlets": 0,
+                    "patching_rect": [ 60.0, 700.0, 140.0, 21.0 ],
+                    "text": "Cal Accel (g)"
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-unpack-calaccel",
+                    "maxclass": "newobj",
+                    "numinlets": 1,
+                    "numoutlets": 3,
+                    "outlettype": [ "float", "float", "float" ],
+                    "patching_rect": [ 60.0, 726.0, 140.0, 22.0 ],
+                    "text": "unpack f f f"
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-comment-cal-ax",
+                    "maxclass": "comment",
+                    "numinlets": 1,
+                    "numoutlets": 0,
+                    "patching_rect": [ 60.0, 756.0, 40.0, 20.0 ],
+                    "text": "caX"
+                }
+            },
+            {
+                "box": {
+                    "format": 6,
+                    "id": "obj-flonum-cal-ax",
+                    "maxclass": "flonum",
+                    "numinlets": 1,
+                    "numoutlets": 2,
+                    "outlettype": [ "", "bang" ],
+                    "parameter_enable": 0,
+                    "patching_rect": [ 60.0, 776.0, 64.0, 22.0 ]
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-comment-cal-ay",
+                    "maxclass": "comment",
+                    "numinlets": 1,
+                    "numoutlets": 0,
+                    "patching_rect": [ 130.0, 756.0, 40.0, 20.0 ],
+                    "text": "caY"
+                }
+            },
+            {
+                "box": {
+                    "format": 6,
+                    "id": "obj-flonum-cal-ay",
+                    "maxclass": "flonum",
+                    "numinlets": 1,
+                    "numoutlets": 2,
+                    "outlettype": [ "", "bang" ],
+                    "parameter_enable": 0,
+                    "patching_rect": [ 130.0, 776.0, 64.0, 22.0 ]
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-comment-cal-az",
+                    "maxclass": "comment",
+                    "numinlets": 1,
+                    "numoutlets": 0,
+                    "patching_rect": [ 200.0, 756.0, 40.0, 20.0 ],
+                    "text": "caZ"
+                }
+            },
+            {
+                "box": {
+                    "format": 6,
+                    "id": "obj-flonum-cal-az",
+                    "maxclass": "flonum",
+                    "numinlets": 1,
+                    "numoutlets": 2,
+                    "outlettype": [ "", "bang" ],
+                    "parameter_enable": 0,
+                    "patching_rect": [ 200.0, 776.0, 64.0, 22.0 ]
+                }
+            },
+            {
+                "box": {
+                    "fontface": 1,
+                    "fontsize": 13.0,
+                    "id": "obj-comment-calgyro",
+                    "maxclass": "comment",
+                    "numinlets": 1,
+                    "numoutlets": 0,
+                    "patching_rect": [ 310.0, 700.0, 140.0, 21.0 ],
+                    "text": "Cal Gyro (dps)"
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-unpack-calgyro",
+                    "maxclass": "newobj",
+                    "numinlets": 1,
+                    "numoutlets": 3,
+                    "outlettype": [ "float", "float", "float" ],
+                    "patching_rect": [ 310.0, 726.0, 140.0, 22.0 ],
+                    "text": "unpack f f f"
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-comment-cal-gx",
+                    "maxclass": "comment",
+                    "numinlets": 1,
+                    "numoutlets": 0,
+                    "patching_rect": [ 310.0, 756.0, 40.0, 20.0 ],
+                    "text": "cgX"
+                }
+            },
+            {
+                "box": {
+                    "format": 6,
+                    "id": "obj-flonum-cal-gx",
+                    "maxclass": "flonum",
+                    "numinlets": 1,
+                    "numoutlets": 2,
+                    "outlettype": [ "", "bang" ],
+                    "parameter_enable": 0,
+                    "patching_rect": [ 310.0, 776.0, 64.0, 22.0 ]
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-comment-cal-gy",
+                    "maxclass": "comment",
+                    "numinlets": 1,
+                    "numoutlets": 0,
+                    "patching_rect": [ 380.0, 756.0, 40.0, 20.0 ],
+                    "text": "cgY"
+                }
+            },
+            {
+                "box": {
+                    "format": 6,
+                    "id": "obj-flonum-cal-gy",
+                    "maxclass": "flonum",
+                    "numinlets": 1,
+                    "numoutlets": 2,
+                    "outlettype": [ "", "bang" ],
+                    "parameter_enable": 0,
+                    "patching_rect": [ 380.0, 776.0, 64.0, 22.0 ]
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-comment-cal-gz",
+                    "maxclass": "comment",
+                    "numinlets": 1,
+                    "numoutlets": 0,
+                    "patching_rect": [ 450.0, 756.0, 40.0, 20.0 ],
+                    "text": "cgZ"
+                }
+            },
+            {
+                "box": {
+                    "format": 6,
+                    "id": "obj-flonum-cal-gz",
+                    "maxclass": "flonum",
+                    "numinlets": 1,
+                    "numoutlets": 2,
+                    "outlettype": [ "", "bang" ],
+                    "parameter_enable": 0,
+                    "patching_rect": [ 450.0, 776.0, 64.0, 22.0 ]
+                }
+            },
+            {
+                "box": {
+                    "fontface": 1,
+                    "fontsize": 13.0,
+                    "id": "obj-comment-calorient",
+                    "maxclass": "comment",
+                    "numinlets": 1,
+                    "numoutlets": 0,
+                    "patching_rect": [ 597.0, 700.0, 160.0, 21.0 ],
+                    "text": "Cal Orient (deg)"
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-unpack-calorient",
+                    "maxclass": "newobj",
+                    "numinlets": 1,
+                    "numoutlets": 3,
+                    "outlettype": [ "float", "float", "float" ],
+                    "patching_rect": [ 597.0, 726.0, 140.0, 22.0 ],
+                    "text": "unpack f f f"
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-comment-cal-pitch",
+                    "maxclass": "comment",
+                    "numinlets": 1,
+                    "numoutlets": 0,
+                    "patching_rect": [ 597.0, 756.0, 40.0, 20.0 ],
+                    "text": "cPit"
+                }
+            },
+            {
+                "box": {
+                    "format": 6,
+                    "id": "obj-flonum-cal-pitch",
+                    "maxclass": "flonum",
+                    "numinlets": 1,
+                    "numoutlets": 2,
+                    "outlettype": [ "", "bang" ],
+                    "parameter_enable": 0,
+                    "patching_rect": [ 597.0, 776.0, 64.0, 22.0 ]
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-comment-cal-roll",
+                    "maxclass": "comment",
+                    "numinlets": 1,
+                    "numoutlets": 0,
+                    "patching_rect": [ 667.0, 756.0, 40.0, 20.0 ],
+                    "text": "cRol"
+                }
+            },
+            {
+                "box": {
+                    "format": 6,
+                    "id": "obj-flonum-cal-roll",
+                    "maxclass": "flonum",
+                    "numinlets": 1,
+                    "numoutlets": 2,
+                    "outlettype": [ "", "bang" ],
+                    "parameter_enable": 0,
+                    "patching_rect": [ 667.0, 776.0, 64.0, 22.0 ]
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-comment-cal-yaw",
+                    "maxclass": "comment",
+                    "numinlets": 1,
+                    "numoutlets": 0,
+                    "patching_rect": [ 737.0, 756.0, 40.0, 20.0 ],
+                    "text": "cYaw"
+                }
+            },
+            {
+                "box": {
+                    "format": 6,
+                    "id": "obj-flonum-cal-yaw",
+                    "maxclass": "flonum",
+                    "numinlets": 1,
+                    "numoutlets": 2,
+                    "outlettype": [ "", "bang" ],
+                    "parameter_enable": 0,
+                    "patching_rect": [ 737.0, 776.0, 64.0, 22.0 ]
+                }
             }
         ],
         "lines": [
@@ -542,6 +1055,216 @@
                 "patchline": {
                     "destination": [ "obj-flonum-yaw", 0 ],
                     "source": [ "obj-unpack-orient", 2 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-sel-cal", 0 ],
+                    "source": [ "obj-btn-calibrate", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-msg-calstart", 0 ],
+                    "source": [ "obj-sel-cal", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-msg-calstop", 0 ],
+                    "source": [ "obj-sel-cal", 1 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-nodescript", 0 ],
+                    "source": [ "obj-msg-calstart", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-nodescript", 0 ],
+                    "source": [ "obj-msg-calstop", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-msg-calreset", 0 ],
+                    "source": [ "obj-btn-calreset", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-nodescript", 0 ],
+                    "source": [ "obj-msg-calreset", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-sel-orient", 0 ],
+                    "source": [ "obj-btn-orient", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-msg-orientreset", 0 ],
+                    "source": [ "obj-sel-orient", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-msg-orientrestore", 0 ],
+                    "source": [ "obj-sel-orient", 1 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-nodescript", 0 ],
+                    "source": [ "obj-msg-orientreset", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-nodescript", 0 ],
+                    "source": [ "obj-msg-orientrestore", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-unpack-progress", 0 ],
+                    "source": [ "obj-route", 8 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-slider-progress", 0 ],
+                    "source": [ "obj-unpack-progress", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-cal-status-display", 1 ],
+                    "source": [ "obj-route", 7 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-unpack-bias", 0 ],
+                    "source": [ "obj-route", 9 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-sprintf-bias", 0 ],
+                    "source": [ "obj-unpack-bias", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-sprintf-bias", 1 ],
+                    "source": [ "obj-unpack-bias", 1 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-sprintf-bias", 2 ],
+                    "source": [ "obj-unpack-bias", 2 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-sprintf-bias", 3 ],
+                    "source": [ "obj-unpack-bias", 3 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-sprintf-bias", 4 ],
+                    "source": [ "obj-unpack-bias", 4 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-sprintf-bias", 5 ],
+                    "source": [ "obj-unpack-bias", 5 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-bias-display", 1 ],
+                    "source": [ "obj-sprintf-bias", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-unpack-calaccel", 0 ],
+                    "source": [ "obj-route", 4 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-flonum-cal-ax", 0 ],
+                    "source": [ "obj-unpack-calaccel", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-flonum-cal-ay", 0 ],
+                    "source": [ "obj-unpack-calaccel", 1 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-flonum-cal-az", 0 ],
+                    "source": [ "obj-unpack-calaccel", 2 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-unpack-calgyro", 0 ],
+                    "source": [ "obj-route", 5 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-flonum-cal-gx", 0 ],
+                    "source": [ "obj-unpack-calgyro", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-flonum-cal-gy", 0 ],
+                    "source": [ "obj-unpack-calgyro", 1 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-flonum-cal-gz", 0 ],
+                    "source": [ "obj-unpack-calgyro", 2 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-unpack-calorient", 0 ],
+                    "source": [ "obj-route", 6 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-flonum-cal-pitch", 0 ],
+                    "source": [ "obj-unpack-calorient", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-flonum-cal-roll", 0 ],
+                    "source": [ "obj-unpack-calorient", 1 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-flonum-cal-yaw", 0 ],
+                    "source": [ "obj-unpack-calorient", 2 ]
                 }
             }
         ],
