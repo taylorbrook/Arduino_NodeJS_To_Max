@@ -11,8 +11,10 @@
 
 // ---- Configuration Constants ----
 const long BAUD_RATE = 57600;
-const int WARMUP_ITERATIONS = 200;    // ~2 seconds at ~100 Hz computation rate
+const int WARMUP_ITERATIONS = 200;    // iterations for filter convergence
+const int RATE_MEASURE_ITERATIONS = 50; // iterations to measure actual loop rate
 const float SMOOTH_ALPHA = 0.15;      // EMA smoothing coefficient (light smoothing)
+const float INITIAL_RATE_ESTIMATE = 80.0; // conservative estimate for warmup
 const char FIRMWARE_VERSION[] = "1.0";
 
 // ---- Global Objects ----
@@ -26,17 +28,21 @@ float smoothYaw = 0;
 
 // ---- Timing State ----
 unsigned long lastMicros = 0;
-float measuredRate = 80.0;             // Initial estimate, measured during warmup
+float measuredRate = 80.0;             // Updated after live measurement
+bool rateMeasured = false;             // Has the live rate been measured?
+int loopCount = 0;                     // Counter for rate measurement
+unsigned long measureStartMicros = 0;  // Start time for rate measurement
 
 // ============================================================
-// Warmup: measure actual loop rate and let filter converge
+// Warmup: converge filter at estimated rate
 // ============================================================
 void performWarmup() {
   float ax, ay, az, gx, gy, gz;
 
-  // --- First pass: measure computation rate ---
-  unsigned long startTime = micros();
+  // Initialize filter with conservative rate estimate
+  filter.begin(INITIAL_RATE_ESTIMATE);
 
+  // Converge quaternion at estimated rate
   for (int i = 0; i < WARMUP_ITERATIONS; i++) {
     ax = myIMU.readFloatAccelX();
     ay = myIMU.readFloatAccelY();
@@ -47,27 +53,15 @@ void performWarmup() {
     filter.updateIMU(gx, gy, gz, ax, ay, az);
   }
 
-  unsigned long elapsed = micros() - startTime;
-  measuredRate = (float)WARMUP_ITERATIONS / (elapsed / 1000000.0f);
-
-  // --- Reinitialize filter with measured rate ---
-  filter.begin(measuredRate);
-
-  // --- Second pass: converge quaternion at correct rate ---
-  for (int i = 0; i < WARMUP_ITERATIONS; i++) {
-    ax = myIMU.readFloatAccelX();
-    ay = myIMU.readFloatAccelY();
-    az = myIMU.readFloatAccelZ();
-    gx = myIMU.readFloatGyroX();
-    gy = myIMU.readFloatGyroY();
-    gz = myIMU.readFloatGyroZ();
-    filter.updateIMU(gx, gy, gz, ax, ay, az);
-  }
-
-  // --- Initialize smoothing state from converged filter ---
+  // Initialize smoothing state from converged filter
   smoothPitch = filter.getPitch();
   smoothRoll = filter.getRoll();
   smoothYaw = filter.getYaw();
+
+  // Reset rate measurement state
+  rateMeasured = false;
+  loopCount = 0;
+  measureStartMicros = 0;
 }
 
 // ============================================================
@@ -98,18 +92,22 @@ void setup() {
     }
   }
 
-  // ---- Warmup: measure rate and converge filter ----
+  // ---- Warmup: converge filter at estimated rate ----
   performWarmup();
 
-  // ---- Print startup header ----
+  // ---- Initialize loop timing ----
+  lastMicros = micros();
+}
+
+// ============================================================
+// Print startup header (called after live rate is measured)
+// ============================================================
+void printStartup() {
   Serial.print("STARTUP,device=ARUIDO_IMU,version=");
   Serial.print(FIRMWARE_VERSION);
   Serial.print(",rate_hz=");
   Serial.print(measuredRate, 1);
   Serial.println(",format=ax,ay,az,gx,gy,gz,pitch,roll,yaw");
-
-  // ---- Initialize loop timing ----
-  lastMicros = micros();
 }
 
 // ============================================================
@@ -157,6 +155,21 @@ void loop() {
   Serial.print(smoothPitch, 2); Serial.print(',');
   Serial.print(smoothRoll, 2); Serial.print(',');
   Serial.println(smoothYaw, 2);
+
+  // ---- Measure actual loop rate from live loop (includes serial output) ----
+  if (!rateMeasured) {
+    if (loopCount == 0) {
+      measureStartMicros = micros();
+    }
+    loopCount++;
+    if (loopCount >= RATE_MEASURE_ITERATIONS) {
+      unsigned long elapsed = micros() - measureStartMicros;
+      measuredRate = (float)RATE_MEASURE_ITERATIONS / (elapsed / 1000000.0f);
+      filter.begin(measuredRate);  // Reinitialize filter with accurate rate
+      rateMeasured = true;
+      printStartup();
+    }
+  }
 
   // ---- Check for incoming reset command ----
   if (Serial.available() && Serial.read() == 'R') {
