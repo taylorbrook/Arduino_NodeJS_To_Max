@@ -15655,13 +15655,13 @@
                             },
                             {
                                 "patchline": {
-                                    "destination": [ "obj-pack-rot", 1 ],
+                                    "destination": [ "obj-pack-rot", 2 ],
                                     "source": [ "obj-r-viz-roll", 0 ]
                                 }
                             },
                             {
                                 "patchline": {
-                                    "destination": [ "obj-pack-rot", 2 ],
+                                    "destination": [ "obj-pack-rot", 1 ],
                                     "source": [ "obj-r-viz-yaw", 0 ]
                                 }
                             },
