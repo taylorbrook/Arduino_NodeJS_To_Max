@@ -45,11 +45,11 @@ Plans:
   2. Malformed or incomplete serial lines are silently dropped -- no crashes, no NaN propagation into MAX
   3. Connection status is visible in MAX: user can see whether the port is detected, data is flowing, or the device is disconnected
   4. Unplugging and re-plugging the Arduino causes the pipeline to recover automatically without restarting MAX or the Node script
-**Plans**: TBD
+**Plans:** 2 plans
 
 Plans:
-- [ ] 02-01: TBD
-- [ ] 02-02: TBD
+- [ ] 02-01-PLAN.md -- Node.js serial bridge script with CSV validation, tagged outlet output, and auto-reconnect
+- [ ] 02-02-PLAN.md -- MAX patch with sensor display, status indicator, and end-to-end hardware verification
 
 ### Phase 3: Calibration
 **Goal**: User can calibrate the sensor pipeline interactively from MAX -- correcting gyro bias, resetting yaw, and toggling calibration on/off during live performance
@@ -107,11 +107,11 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5
 | Phase | Plans Complete | Status | Completed |
 |-------|---------------|--------|-----------|
 | 1. Arduino Firmware | 2/2 | ✓ Complete | 2026-02-12 |
-| 2. Serial Bridge | 0/TBD | Not started | - |
+| 2. Serial Bridge | 0/2 | Planned | - |
 | 3. Calibration | 0/TBD | Not started | - |
 | 4. Musical Tools | 0/TBD | Not started | - |
 | 5. Abstraction and WiFi | 0/TBD | Not started | - |
 
 ---
 *Roadmap created: 2026-02-12*
-*Last updated: 2026-02-12 (Phase 1 complete)*
+*Last updated: 2026-02-12 (Phase 2 planned)*
