@@ -5,23 +5,23 @@
 See: .planning/PROJECT.md (updated 2026-02-12)
 
 **Core value:** Reliable, lowest-possible-latency delivery of clean sensor data from Arduino to MAX
-**Current focus:** Phase 3 complete -- Calibration system operational, ready for Phase 4 (Musical Tools)
+**Current focus:** Phase 4 in progress -- Musical Tools (smoothing + quaternion complete, mapping + thresholds + 3D viz remaining)
 
 ## Current Position
 
-Phase: 3 of 5 (Calibration) - COMPLETE
-Plan: 2 of 2 in current phase - COMPLETE
-Status: Phase Complete
-Last activity: 2026-02-12 -- Completed 03-02-PLAN.md (MAX calibration UI + hardware verification)
+Phase: 4 of 5 (Musical Tools)
+Plan: 1 of 3 in current phase - COMPLETE
+Status: In Progress
+Last activity: 2026-02-13 -- Completed 04-01-PLAN.md (Smoothing module + quaternion output)
 
-Progress: [██████░░░░] 60%
+Progress: [███████░░░] 70%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 6
-- Average duration: 2.3min
-- Total execution time: 0.28 hours
+- Total plans completed: 7
+- Average duration: 3.4min
+- Total execution time: 0.40 hours
 
 **By Phase:**
 
@@ -30,10 +30,11 @@ Progress: [██████░░░░] 60%
 | 01-arduino-firmware | 2 | 5min | 2.5min |
 | 02-serial-bridge | 2 | 6min | 3min |
 | 03-calibration | 2 | 6min | 3min |
+| 04-musical-tools | 1 | 7min | 7min |
 
 **Recent Trend:**
-- Last 5 plans: 02-01 (2min), 02-02 (4min), 03-01 (1min), 03-02 (5min)
-- Trend: Consistent
+- Last 5 plans: 02-02 (4min), 03-01 (1min), 03-02 (5min), 04-01 (7min)
+- Trend: Consistent, slightly longer for musical tools (more complex patch changes)
 
 *Updated after each plan completion*
 
@@ -72,6 +73,11 @@ Recent decisions affecting current work:
 - cal_toggle outlet resets MAX button state when auto-stop fires (03-02)
 - Orient reset/restore as two separate bang buttons instead of toggle (03-02)
 - Removed Reset Cal button -- recalibrating overwrites old biases, raw data always visible (03-02)
+- Quaternion computed in MAX via jit.euler2quat, not firmware -- 57600 baud cannot carry additional CSV fields (04-01)
+- Dial objects with setminmax 1 50 for smoothing -- minimum 1 ensures pass-through default (04-01)
+- maximum 1 objects enforce floor on effective slide factor after three-tier multiplication (04-01)
+- Raw quaternion from raw orientation for accuracy; smoothed quaternion for 3D viz (04-01)
+- slide objects use symmetric smoothing (slide-up = slide-down = same factor) (04-01)
 
 ### Pending Todos
 
@@ -85,6 +91,6 @@ None.
 
 ## Session Continuity
 
-Last session: 2026-02-12
-Stopped at: Completed 03-02-PLAN.md -- Phase 3 complete, calibration system verified with hardware, ready for Phase 4
+Last session: 2026-02-13
+Stopped at: Completed 04-01-PLAN.md -- Smoothing module + quaternion output added, ready for Plan 02 (range mapping + thresholds)
 Resume file: None
