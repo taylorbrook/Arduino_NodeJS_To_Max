@@ -110,6 +110,8 @@
                     "saved_object_attributes": {
                         "autostart": 1,
                         "defer": 0,
+                        "node_bin_path": "",
+                        "npm_bin_path": "",
                         "watch": 0
                     },
                     "text": "node.script /Users/taylorbrook/Dev/Aruido_AcceleromotersAndGyro/node/serial-bridge.js @autostart 1",
@@ -483,36 +485,13 @@
             },
             {
                 "box": {
-                    "id": "obj-btn-calreset",
-                    "maxclass": "textbutton",
-                    "numinlets": 1,
-                    "numoutlets": 3,
-                    "outlettype": [ "", "", "int" ],
-                    "parameter_enable": 0,
-                    "patching_rect": [ 200.0, 450.0, 100.0, 30.0 ],
-                    "text": "Reset Cal"
-                }
-            },
-            {
-                "box": {
-                    "id": "obj-msg-calreset",
-                    "maxclass": "message",
-                    "numinlets": 2,
-                    "numoutlets": 1,
-                    "outlettype": [ "" ],
-                    "patching_rect": [ 200.0, 490.0, 100.0, 22.0 ],
-                    "text": "calibrate_reset"
-                }
-            },
-            {
-                "box": {
                     "id": "obj-btn-orient",
                     "maxclass": "textbutton",
                     "numinlets": 1,
                     "numoutlets": 3,
                     "outlettype": [ "", "", "int" ],
                     "parameter_enable": 0,
-                    "patching_rect": [ 320.0, 450.0, 120.0, 30.0 ],
+                    "patching_rect": [ 541.0, 452.0, 120.0, 30.0 ],
                     "text": "Reset Orient"
                 }
             },
@@ -524,7 +503,7 @@
                     "numoutlets": 3,
                     "outlettype": [ "", "", "int" ],
                     "parameter_enable": 0,
-                    "patching_rect": [ 450.0, 450.0, 120.0, 30.0 ],
+                    "patching_rect": [ 671.0, 452.0, 120.0, 30.0 ],
                     "text": "Restore Orient"
                 }
             },
@@ -535,7 +514,7 @@
                     "numinlets": 2,
                     "numoutlets": 1,
                     "outlettype": [ "" ],
-                    "patching_rect": [ 320.0, 490.0, 80.0, 22.0 ],
+                    "patching_rect": [ 541.0, 492.0, 80.0, 22.0 ],
                     "text": "orient_reset"
                 }
             },
@@ -546,7 +525,7 @@
                     "numinlets": 2,
                     "numoutlets": 1,
                     "outlettype": [ "" ],
-                    "patching_rect": [ 450.0, 490.0, 90.0, 22.0 ],
+                    "patching_rect": [ 671.0, 492.0, 90.0, 22.0 ],
                     "text": "orient_restore"
                 }
             },
@@ -558,7 +537,7 @@
                     "maxclass": "comment",
                     "numinlets": 1,
                     "numoutlets": 0,
-                    "patching_rect": [ 500.0, 420.0, 170.0, 21.0 ],
+                    "patching_rect": [ 327.0, 420.0, 170.0, 21.0 ],
                     "text": "Calibration Progress"
                 }
             },
@@ -569,7 +548,7 @@
                     "numinlets": 1,
                     "numoutlets": 2,
                     "outlettype": [ "int", "int" ],
-                    "patching_rect": [ 500.0, 456.0, 100.0, 22.0 ],
+                    "patching_rect": [ 327.0, 456.0, 100.0, 22.0 ],
                     "text": "unpack i i"
                 }
             },
@@ -582,7 +561,7 @@
                     "orientation": 1,
                     "outlettype": [ "" ],
                     "parameter_enable": 0,
-                    "patching_rect": [ 500.0, 486.0, 200.0, 20.0 ],
+                    "patching_rect": [ 327.0, 486.0, 200.0, 20.0 ],
                     "size": 201.0
                 }
             },
@@ -594,7 +573,7 @@
                     "maxclass": "comment",
                     "numinlets": 1,
                     "numoutlets": 0,
-                    "patching_rect": [ 500.0, 520.0, 100.0, 21.0 ],
+                    "patching_rect": [ 327.0, 520.0, 100.0, 21.0 ],
                     "text": "Cal Status"
                 }
             },
@@ -605,8 +584,8 @@
                     "numinlets": 2,
                     "numoutlets": 1,
                     "outlettype": [ "" ],
-                    "patching_rect": [ 500.0, 546.0, 150.0, 22.0 ],
-                    "text": "orient_reset"
+                    "patching_rect": [ 327.0, 546.0, 150.0, 22.0 ],
+                    "text": "orient_restored"
                 }
             },
             {
@@ -651,7 +630,7 @@
                     "numoutlets": 1,
                     "outlettype": [ "" ],
                     "patching_rect": [ 60.0, 646.0, 400.0, 22.0 ],
-                    "text": "aX:0.23 aY:-0.22 aZ:-0.07 gX:-0.88 gY:-3.72 gZ:-3.73"
+                    "text": "aX:-0.07 aY:0.06 aZ:-0.12 gX:-15.40 gY:-3.50 gZ:-7.54"
                 }
             },
             {
@@ -962,30 +941,16 @@
             },
             {
                 "patchline": {
-                    "destination": [ "obj-msg-calreset", 0 ],
-                    "midpoints": [ 209.5, 483.0, 209.5, 483.0 ],
-                    "source": [ "obj-btn-calreset", 0 ]
-                }
-            },
-            {
-                "patchline": {
                     "destination": [ "obj-msg-orientreset", 0 ],
-                    "midpoints": [ 329.5, 483.0, 329.5, 483.0 ],
+                    "midpoints": [ 550.5, 483.0, 550.5, 483.0 ],
                     "source": [ "obj-btn-orient", 0 ]
                 }
             },
             {
                 "patchline": {
                     "destination": [ "obj-msg-orientrestore", 0 ],
-                    "midpoints": [ 459.5, 483.0, 459.5, 483.0 ],
+                    "midpoints": [ 680.5, 483.0, 680.5, 483.0 ],
                     "source": [ "obj-btn-orientrestore", 0 ]
-                }
-            },
-            {
-                "patchline": {
-                    "destination": [ "obj-nodescript", 0 ],
-                    "midpoints": [ 209.5, 513.0, 195.0, 513.0, 195.0, 441.0, 252.0, 441.0, 252.0, 384.0, 276.0, 384.0, 276.0, 234.0, 237.0, 234.0, 237.0, 117.0, 259.5, 117.0 ],
-                    "source": [ "obj-msg-calreset", 0 ]
                 }
             },
             {
@@ -998,7 +963,7 @@
             {
                 "patchline": {
                     "destination": [ "obj-nodescript", 0 ],
-                    "midpoints": [ 169.5, 543.0, 300.0, 543.0, 300.0, 384.0, 276.0, 384.0, 276.0, 234.0, 237.0, 234.0, 237.0, 117.0, 259.5, 117.0 ],
+                    "midpoints": [ 169.5, 543.0, 312.0, 543.0, 312.0, 384.0, 276.0, 384.0, 276.0, 234.0, 237.0, 234.0, 237.0, 117.0, 259.5, 117.0 ],
                     "source": [ "obj-msg-calstop", 0 ]
                 }
             },
@@ -1026,14 +991,14 @@
             {
                 "patchline": {
                     "destination": [ "obj-nodescript", 0 ],
-                    "midpoints": [ 329.5, 543.0, 300.0, 543.0, 300.0, 384.0, 276.0, 384.0, 276.0, 234.0, 237.0, 234.0, 237.0, 117.0, 259.5, 117.0 ],
+                    "midpoints": [ 550.5, 516.0, 528.0, 516.0, 528.0, 384.0, 276.0, 384.0, 276.0, 234.0, 237.0, 234.0, 237.0, 117.0, 259.5, 117.0 ],
                     "source": [ "obj-msg-orientreset", 0 ]
                 }
             },
             {
                 "patchline": {
                     "destination": [ "obj-nodescript", 0 ],
-                    "midpoints": [ 429.5, 552.0, 300.0, 552.0, 300.0, 384.0, 276.0, 384.0, 276.0, 234.0, 237.0, 234.0, 237.0, 117.0, 259.5, 117.0 ],
+                    "midpoints": [ 680.5, 525.0, 528.0, 525.0, 528.0, 384.0, 276.0, 384.0, 276.0, 234.0, 237.0, 234.0, 237.0, 117.0, 259.5, 117.0 ],
                     "source": [ "obj-msg-orientrestore", 0 ]
                 }
             },
@@ -1047,7 +1012,7 @@
             {
                 "patchline": {
                     "destination": [ "obj-btn-calibrate", 0 ],
-                    "midpoints": [ 69.5, 417.0, 69.5, 444.0 ],
+                    "midpoints": [ 69.5, 417.0, 57.0, 417.0, 57.0, 444.0, 69.5, 444.0 ],
                     "source": [ "obj-msg-set-cal-toggle", 0 ]
                 }
             },
@@ -1068,14 +1033,14 @@
             {
                 "patchline": {
                     "destination": [ "obj-cal-status-display", 1 ],
-                    "midpoints": [ 641.9545454545455, 231.0, 654.0, 231.0, 654.0, 255.0, 813.0, 255.0, 813.0, 531.0, 640.5, 531.0 ],
+                    "midpoints": [ 641.9545454545455, 231.0, 645.0, 231.0, 645.0, 267.0, 582.0, 267.0, 582.0, 438.0, 528.0, 438.0, 528.0, 531.0, 467.5, 531.0 ],
                     "source": [ "obj-route", 7 ]
                 }
             },
             {
                 "patchline": {
                     "destination": [ "obj-msg-set-cal-toggle", 0 ],
-                    "midpoints": [ 805.8636363636364, 255.0, 813.0, 255.0, 813.0, 387.0, 69.5, 387.0 ],
+                    "midpoints": [ 805.8636363636364, 336.0, 813.0, 336.0, 813.0, 390.0, 69.5, 390.0 ],
                     "source": [ "obj-route", 10 ]
                 }
             },
@@ -1096,7 +1061,7 @@
             {
                 "patchline": {
                     "destination": [ "obj-unpack-bias", 0 ],
-                    "midpoints": [ 751.2272727272727, 255.0, 645.0, 255.0, 645.0, 267.0, 582.0, 267.0, 582.0, 405.0, 45.0, 405.0, 45.0, 582.0, 69.5, 582.0 ],
+                    "midpoints": [ 751.2272727272727, 255.0, 645.0, 255.0, 645.0, 267.0, 582.0, 267.0, 582.0, 273.0, 450.0, 273.0, 450.0, 255.0, 45.0, 255.0, 45.0, 582.0, 69.5, 582.0 ],
                     "source": [ "obj-route", 9 ]
                 }
             },
@@ -1110,14 +1075,14 @@
             {
                 "patchline": {
                     "destination": [ "obj-unpack-calgyro", 0 ],
-                    "midpoints": [ 532.6818181818182, 225.0, 480.0, 225.0, 480.0, 315.0, 525.0, 315.0, 525.0, 405.0, 462.0, 405.0, 462.0, 507.0, 420.0, 507.0, 420.0, 516.0, 417.0, 516.0, 417.0, 603.0, 471.0, 603.0, 471.0, 687.0, 297.0, 687.0, 297.0, 723.0, 319.5, 723.0 ],
+                    "midpoints": [ 532.6818181818182, 225.0, 480.0, 225.0, 480.0, 315.0, 528.0, 315.0, 528.0, 687.0, 297.0, 687.0, 297.0, 723.0, 319.5, 723.0 ],
                     "source": [ "obj-route", 5 ]
                 }
             },
             {
                 "patchline": {
                     "destination": [ "obj-unpack-calorient", 0 ],
-                    "midpoints": [ 587.3181818181818, 231.0, 654.0, 231.0, 654.0, 255.0, 813.0, 255.0, 813.0, 687.0, 594.0, 687.0, 594.0, 723.0, 606.5, 723.0 ],
+                    "midpoints": [ 587.3181818181818, 231.0, 480.0, 231.0, 480.0, 315.0, 528.0, 315.0, 528.0, 723.0, 606.5, 723.0 ],
                     "source": [ "obj-route", 6 ]
                 }
             },
@@ -1138,7 +1103,7 @@
             {
                 "patchline": {
                     "destination": [ "obj-unpack-progress", 0 ],
-                    "midpoints": [ 696.590909090909, 255.0, 645.0, 255.0, 645.0, 267.0, 582.0, 267.0, 582.0, 405.0, 486.0, 405.0, 486.0, 453.0, 509.5, 453.0 ],
+                    "midpoints": [ 696.590909090909, 255.0, 645.0, 255.0, 645.0, 267.0, 582.0, 267.0, 582.0, 405.0, 312.0, 405.0, 312.0, 453.0, 336.5, 453.0 ],
                     "source": [ "obj-route", 8 ]
                 }
             },
@@ -1334,7 +1299,7 @@
             {
                 "patchline": {
                     "destination": [ "obj-slider-progress", 0 ],
-                    "midpoints": [ 509.5, 480.0, 509.5, 480.0 ],
+                    "midpoints": [ 336.5, 480.0, 336.5, 480.0 ],
                     "source": [ "obj-unpack-progress", 0 ]
                 }
             }
