@@ -1,11 +1,13 @@
-# Arduino IMU → MAX/MSP Sensor Pipeline
+# LSM6DS3 IMU → MAX/MSP Sensor Pipeline
 
-Low-latency pipeline streaming accelerometer and gyroscope data from an Arduino Uno WiFi R2 into MAX/MSP via Node for Max. Delivers raw 6-axis data (accel X/Y/Z, gyro X/Y/Z) and computed orientation (pitch/roll/yaw) at ~114 Hz for gestural audio control, visual parameter driving, and event triggering.
+Low-latency pipeline streaming accelerometer and gyroscope data from an LSM6DS3 6-axis IMU into MAX/MSP via Node for Max. Delivers raw 6-axis data (accel X/Y/Z, gyro X/Y/Z) and computed orientation (pitch/roll/yaw) at ~114 Hz for gestural audio control, visual parameter driving, and event triggering.
+
+Should work with any Arduino-compatible board that has an LSM6DS3 (via SPI). Developed and tested on the Arduino Uno WiFi R2, which has the LSM6DS3 built in — other boards may need the chip select pin adjusted in the firmware (`SPIIMU_SS` on line 21).
 
 ## Architecture
 
 ```
-Arduino Uno WiFi R2 (LSM6DS3)
+Arduino + LSM6DS3 (SPI)
         │
         │  USB serial @ 57600 baud
         │  9-value CSV: aX,aY,aZ,gX,gY,gZ,pitch,roll,yaw
@@ -27,7 +29,7 @@ MAX/MSP (sensor-pipeline.maxpat)
 
 ## Prerequisites
 
-- **Hardware:** Arduino Uno WiFi R2
+- **Hardware:** Arduino board with LSM6DS3 IMU (e.g. Arduino Uno WiFi R2)
 - **Software:** MAX/MSP 8+ with Node for Max, Arduino IDE
 - **Libraries:** [SparkFun LSM6DS3](https://github.com/sparkfun/SparkFun_LSM6DS3_Breakout_Arduino_Library), [MadgwickAHRS](https://github.com/arduino-libraries/MadgwickAHRS)
 
