@@ -9,7 +9,7 @@
             "modernui": 1
         },
         "classnamespace": "box",
-        "rect": [ 688.0, 95.0, 900.0, 932.0 ],
+        "rect": [ 688.0, 95.0, 900.0, 1600.0 ],
         "boxes": [
             {
                 "box": {
@@ -110,8 +110,6 @@
                     "saved_object_attributes": {
                         "autostart": 1,
                         "defer": 0,
-                        "node_bin_path": "",
-                        "npm_bin_path": "",
                         "watch": 0
                     },
                     "text": "node.script /Users/taylorbrook/Dev/Aruido_AcceleromotersAndGyro/node/serial-bridge.js @autostart 1",
@@ -421,7 +419,7 @@
                     "numoutlets": 1,
                     "outlettype": [ "" ],
                     "patching_rect": [ 494.0, 236.0, 150.0, 22.0 ],
-                    "text": "connected"
+                    "text": "scanning"
                 }
             },
             {
@@ -585,7 +583,7 @@
                     "numoutlets": 1,
                     "outlettype": [ "" ],
                     "patching_rect": [ 327.0, 546.0, 150.0, 22.0 ],
-                    "text": "orient_restored"
+                    "text": "idle"
                 }
             },
             {
@@ -921,6 +919,982 @@
                     "outlettype": [ "" ],
                     "patching_rect": [ 60.0, 393.0, 45.0, 22.0 ],
                     "text": "set $1"
+                }
+            },
+            {
+                "box": {
+                    "fontface": 1,
+                    "fontsize": 16.0,
+                    "id": "obj-comment-smooth-banner",
+                    "maxclass": "comment",
+                    "numinlets": 1,
+                    "numoutlets": 0,
+                    "patching_rect": [ 60.0, 820.0, 300.0, 24.0 ],
+                    "text": "=== SMOOTHING ==="
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-loadbang-smooth",
+                    "maxclass": "newobj",
+                    "numinlets": 1,
+                    "numoutlets": 1,
+                    "outlettype": [ "bang" ],
+                    "patching_rect": [ 60.0, 850.0, 58.0, 22.0 ],
+                    "text": "loadbang"
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-int-1",
+                    "maxclass": "newobj",
+                    "numinlets": 2,
+                    "numoutlets": 1,
+                    "outlettype": [ "int" ],
+                    "patching_rect": [ 60.0, 876.0, 29.0, 22.0 ],
+                    "text": "i 1"
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-comment-global-dial",
+                    "maxclass": "comment",
+                    "numinlets": 1,
+                    "numoutlets": 0,
+                    "patching_rect": [ 60.0, 905.0, 50.0, 20.0 ],
+                    "text": "Global"
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-dial-global",
+                    "maxclass": "dial",
+                    "numinlets": 1,
+                    "numoutlets": 1,
+                    "outlettype": [ "float" ],
+                    "parameter_enable": 0,
+                    "patching_rect": [ 60.0, 925.0, 40.0, 40.0 ],
+                    "size": 50.0,
+                    "floatoutput": 1,
+                    "setminmax": [ 1.0, 50.0 ]
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-comment-accel-group",
+                    "maxclass": "comment",
+                    "numinlets": 1,
+                    "numoutlets": 0,
+                    "patching_rect": [ 160.0, 905.0, 80.0, 20.0 ],
+                    "text": "Accel Group"
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-dial-accel-group",
+                    "maxclass": "dial",
+                    "numinlets": 1,
+                    "numoutlets": 1,
+                    "outlettype": [ "float" ],
+                    "parameter_enable": 0,
+                    "patching_rect": [ 160.0, 925.0, 40.0, 40.0 ],
+                    "size": 50.0,
+                    "floatoutput": 1,
+                    "setminmax": [ 1.0, 50.0 ]
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-mul-global-accel",
+                    "maxclass": "newobj",
+                    "numinlets": 2,
+                    "numoutlets": 1,
+                    "outlettype": [ "float" ],
+                    "patching_rect": [ 160.0, 975.0, 40.0, 22.0 ],
+                    "text": "* 1."
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-comment-dial-ax",
+                    "maxclass": "comment",
+                    "numinlets": 1,
+                    "numoutlets": 0,
+                    "patching_rect": [ 130.0, 1005.0, 30.0, 20.0 ],
+                    "text": "aX"
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-dial-ax",
+                    "maxclass": "dial",
+                    "numinlets": 1,
+                    "numoutlets": 1,
+                    "outlettype": [ "float" ],
+                    "parameter_enable": 0,
+                    "patching_rect": [ 130.0, 1025.0, 40.0, 40.0 ],
+                    "size": 50.0,
+                    "floatoutput": 1,
+                    "setminmax": [ 1.0, 50.0 ]
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-mul-ax",
+                    "maxclass": "newobj",
+                    "numinlets": 2,
+                    "numoutlets": 1,
+                    "outlettype": [ "float" ],
+                    "patching_rect": [ 130.0, 1075.0, 40.0, 22.0 ],
+                    "text": "* 1."
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-max-ax",
+                    "maxclass": "newobj",
+                    "numinlets": 2,
+                    "numoutlets": 1,
+                    "outlettype": [ "int" ],
+                    "patching_rect": [ 130.0, 1101.0, 55.0, 22.0 ],
+                    "text": "maximum 1"
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-slide-ax",
+                    "maxclass": "newobj",
+                    "numinlets": 3,
+                    "numoutlets": 1,
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 60.0, 1130.0, 90.0, 22.0 ],
+                    "text": "slide 1. 1."
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-comment-dial-ay",
+                    "maxclass": "comment",
+                    "numinlets": 1,
+                    "numoutlets": 0,
+                    "patching_rect": [ 190.0, 1005.0, 30.0, 20.0 ],
+                    "text": "aY"
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-dial-ay",
+                    "maxclass": "dial",
+                    "numinlets": 1,
+                    "numoutlets": 1,
+                    "outlettype": [ "float" ],
+                    "parameter_enable": 0,
+                    "patching_rect": [ 190.0, 1025.0, 40.0, 40.0 ],
+                    "size": 50.0,
+                    "floatoutput": 1,
+                    "setminmax": [ 1.0, 50.0 ]
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-mul-ay",
+                    "maxclass": "newobj",
+                    "numinlets": 2,
+                    "numoutlets": 1,
+                    "outlettype": [ "float" ],
+                    "patching_rect": [ 190.0, 1075.0, 40.0, 22.0 ],
+                    "text": "* 1."
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-max-ay",
+                    "maxclass": "newobj",
+                    "numinlets": 2,
+                    "numoutlets": 1,
+                    "outlettype": [ "int" ],
+                    "patching_rect": [ 190.0, 1101.0, 55.0, 22.0 ],
+                    "text": "maximum 1"
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-slide-ay",
+                    "maxclass": "newobj",
+                    "numinlets": 3,
+                    "numoutlets": 1,
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 190.0, 1130.0, 90.0, 22.0 ],
+                    "text": "slide 1. 1."
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-comment-dial-az",
+                    "maxclass": "comment",
+                    "numinlets": 1,
+                    "numoutlets": 0,
+                    "patching_rect": [ 250.0, 1005.0, 30.0, 20.0 ],
+                    "text": "aZ"
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-dial-az",
+                    "maxclass": "dial",
+                    "numinlets": 1,
+                    "numoutlets": 1,
+                    "outlettype": [ "float" ],
+                    "parameter_enable": 0,
+                    "patching_rect": [ 250.0, 1025.0, 40.0, 40.0 ],
+                    "size": 50.0,
+                    "floatoutput": 1,
+                    "setminmax": [ 1.0, 50.0 ]
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-mul-az",
+                    "maxclass": "newobj",
+                    "numinlets": 2,
+                    "numoutlets": 1,
+                    "outlettype": [ "float" ],
+                    "patching_rect": [ 250.0, 1075.0, 40.0, 22.0 ],
+                    "text": "* 1."
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-max-az",
+                    "maxclass": "newobj",
+                    "numinlets": 2,
+                    "numoutlets": 1,
+                    "outlettype": [ "int" ],
+                    "patching_rect": [ 250.0, 1101.0, 55.0, 22.0 ],
+                    "text": "maximum 1"
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-slide-az",
+                    "maxclass": "newobj",
+                    "numinlets": 3,
+                    "numoutlets": 1,
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 320.0, 1130.0, 90.0, 22.0 ],
+                    "text": "slide 1. 1."
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-comment-gyro-group",
+                    "maxclass": "comment",
+                    "numinlets": 1,
+                    "numoutlets": 0,
+                    "patching_rect": [ 400.0, 905.0, 80.0, 20.0 ],
+                    "text": "Gyro Group"
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-dial-gyro-group",
+                    "maxclass": "dial",
+                    "numinlets": 1,
+                    "numoutlets": 1,
+                    "outlettype": [ "float" ],
+                    "parameter_enable": 0,
+                    "patching_rect": [ 400.0, 925.0, 40.0, 40.0 ],
+                    "size": 50.0,
+                    "floatoutput": 1,
+                    "setminmax": [ 1.0, 50.0 ]
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-mul-global-gyro",
+                    "maxclass": "newobj",
+                    "numinlets": 2,
+                    "numoutlets": 1,
+                    "outlettype": [ "float" ],
+                    "patching_rect": [ 400.0, 975.0, 40.0, 22.0 ],
+                    "text": "* 1."
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-comment-dial-gx",
+                    "maxclass": "comment",
+                    "numinlets": 1,
+                    "numoutlets": 0,
+                    "patching_rect": [ 370.0, 1005.0, 30.0, 20.0 ],
+                    "text": "gX"
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-dial-gx",
+                    "maxclass": "dial",
+                    "numinlets": 1,
+                    "numoutlets": 1,
+                    "outlettype": [ "float" ],
+                    "parameter_enable": 0,
+                    "patching_rect": [ 370.0, 1025.0, 40.0, 40.0 ],
+                    "size": 50.0,
+                    "floatoutput": 1,
+                    "setminmax": [ 1.0, 50.0 ]
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-mul-gx",
+                    "maxclass": "newobj",
+                    "numinlets": 2,
+                    "numoutlets": 1,
+                    "outlettype": [ "float" ],
+                    "patching_rect": [ 370.0, 1075.0, 40.0, 22.0 ],
+                    "text": "* 1."
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-max-gx",
+                    "maxclass": "newobj",
+                    "numinlets": 2,
+                    "numoutlets": 1,
+                    "outlettype": [ "int" ],
+                    "patching_rect": [ 370.0, 1101.0, 55.0, 22.0 ],
+                    "text": "maximum 1"
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-slide-gx",
+                    "maxclass": "newobj",
+                    "numinlets": 3,
+                    "numoutlets": 1,
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 370.0, 1130.0, 90.0, 22.0 ],
+                    "text": "slide 1. 1."
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-comment-dial-gy",
+                    "maxclass": "comment",
+                    "numinlets": 1,
+                    "numoutlets": 0,
+                    "patching_rect": [ 430.0, 1005.0, 30.0, 20.0 ],
+                    "text": "gY"
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-dial-gy",
+                    "maxclass": "dial",
+                    "numinlets": 1,
+                    "numoutlets": 1,
+                    "outlettype": [ "float" ],
+                    "parameter_enable": 0,
+                    "patching_rect": [ 430.0, 1025.0, 40.0, 40.0 ],
+                    "size": 50.0,
+                    "floatoutput": 1,
+                    "setminmax": [ 1.0, 50.0 ]
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-mul-gy",
+                    "maxclass": "newobj",
+                    "numinlets": 2,
+                    "numoutlets": 1,
+                    "outlettype": [ "float" ],
+                    "patching_rect": [ 430.0, 1075.0, 40.0, 22.0 ],
+                    "text": "* 1."
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-max-gy",
+                    "maxclass": "newobj",
+                    "numinlets": 2,
+                    "numoutlets": 1,
+                    "outlettype": [ "int" ],
+                    "patching_rect": [ 430.0, 1101.0, 55.0, 22.0 ],
+                    "text": "maximum 1"
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-slide-gy",
+                    "maxclass": "newobj",
+                    "numinlets": 3,
+                    "numoutlets": 1,
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 430.0, 1130.0, 90.0, 22.0 ],
+                    "text": "slide 1. 1."
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-comment-dial-gz",
+                    "maxclass": "comment",
+                    "numinlets": 1,
+                    "numoutlets": 0,
+                    "patching_rect": [ 490.0, 1005.0, 30.0, 20.0 ],
+                    "text": "gZ"
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-dial-gz",
+                    "maxclass": "dial",
+                    "numinlets": 1,
+                    "numoutlets": 1,
+                    "outlettype": [ "float" ],
+                    "parameter_enable": 0,
+                    "patching_rect": [ 490.0, 1025.0, 40.0, 40.0 ],
+                    "size": 50.0,
+                    "floatoutput": 1,
+                    "setminmax": [ 1.0, 50.0 ]
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-mul-gz",
+                    "maxclass": "newobj",
+                    "numinlets": 2,
+                    "numoutlets": 1,
+                    "outlettype": [ "float" ],
+                    "patching_rect": [ 490.0, 1075.0, 40.0, 22.0 ],
+                    "text": "* 1."
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-max-gz",
+                    "maxclass": "newobj",
+                    "numinlets": 2,
+                    "numoutlets": 1,
+                    "outlettype": [ "int" ],
+                    "patching_rect": [ 490.0, 1101.0, 55.0, 22.0 ],
+                    "text": "maximum 1"
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-slide-gz",
+                    "maxclass": "newobj",
+                    "numinlets": 3,
+                    "numoutlets": 1,
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 490.0, 1130.0, 90.0, 22.0 ],
+                    "text": "slide 1. 1."
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-comment-orient-group",
+                    "maxclass": "comment",
+                    "numinlets": 1,
+                    "numoutlets": 0,
+                    "patching_rect": [ 640.0, 905.0, 80.0, 20.0 ],
+                    "text": "Orient Group"
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-dial-orient-group",
+                    "maxclass": "dial",
+                    "numinlets": 1,
+                    "numoutlets": 1,
+                    "outlettype": [ "float" ],
+                    "parameter_enable": 0,
+                    "patching_rect": [ 640.0, 925.0, 40.0, 40.0 ],
+                    "size": 50.0,
+                    "floatoutput": 1,
+                    "setminmax": [ 1.0, 50.0 ]
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-mul-global-orient",
+                    "maxclass": "newobj",
+                    "numinlets": 2,
+                    "numoutlets": 1,
+                    "outlettype": [ "float" ],
+                    "patching_rect": [ 640.0, 975.0, 40.0, 22.0 ],
+                    "text": "* 1."
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-comment-dial-pitch",
+                    "maxclass": "comment",
+                    "numinlets": 1,
+                    "numoutlets": 0,
+                    "patching_rect": [ 610.0, 1005.0, 40.0, 20.0 ],
+                    "text": "Pitch"
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-dial-pitch",
+                    "maxclass": "dial",
+                    "numinlets": 1,
+                    "numoutlets": 1,
+                    "outlettype": [ "float" ],
+                    "parameter_enable": 0,
+                    "patching_rect": [ 610.0, 1025.0, 40.0, 40.0 ],
+                    "size": 50.0,
+                    "floatoutput": 1,
+                    "setminmax": [ 1.0, 50.0 ]
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-mul-pitch",
+                    "maxclass": "newobj",
+                    "numinlets": 2,
+                    "numoutlets": 1,
+                    "outlettype": [ "float" ],
+                    "patching_rect": [ 610.0, 1075.0, 40.0, 22.0 ],
+                    "text": "* 1."
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-max-pitch",
+                    "maxclass": "newobj",
+                    "numinlets": 2,
+                    "numoutlets": 1,
+                    "outlettype": [ "int" ],
+                    "patching_rect": [ 610.0, 1101.0, 55.0, 22.0 ],
+                    "text": "maximum 1"
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-slide-pitch",
+                    "maxclass": "newobj",
+                    "numinlets": 3,
+                    "numoutlets": 1,
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 610.0, 1130.0, 90.0, 22.0 ],
+                    "text": "slide 1. 1."
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-comment-dial-roll",
+                    "maxclass": "comment",
+                    "numinlets": 1,
+                    "numoutlets": 0,
+                    "patching_rect": [ 670.0, 1005.0, 40.0, 20.0 ],
+                    "text": "Roll"
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-dial-roll",
+                    "maxclass": "dial",
+                    "numinlets": 1,
+                    "numoutlets": 1,
+                    "outlettype": [ "float" ],
+                    "parameter_enable": 0,
+                    "patching_rect": [ 670.0, 1025.0, 40.0, 40.0 ],
+                    "size": 50.0,
+                    "floatoutput": 1,
+                    "setminmax": [ 1.0, 50.0 ]
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-mul-roll",
+                    "maxclass": "newobj",
+                    "numinlets": 2,
+                    "numoutlets": 1,
+                    "outlettype": [ "float" ],
+                    "patching_rect": [ 670.0, 1075.0, 40.0, 22.0 ],
+                    "text": "* 1."
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-max-roll",
+                    "maxclass": "newobj",
+                    "numinlets": 2,
+                    "numoutlets": 1,
+                    "outlettype": [ "int" ],
+                    "patching_rect": [ 670.0, 1101.0, 55.0, 22.0 ],
+                    "text": "maximum 1"
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-slide-roll",
+                    "maxclass": "newobj",
+                    "numinlets": 3,
+                    "numoutlets": 1,
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 670.0, 1130.0, 90.0, 22.0 ],
+                    "text": "slide 1. 1."
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-comment-dial-yaw",
+                    "maxclass": "comment",
+                    "numinlets": 1,
+                    "numoutlets": 0,
+                    "patching_rect": [ 730.0, 1005.0, 40.0, 20.0 ],
+                    "text": "Yaw"
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-dial-yaw",
+                    "maxclass": "dial",
+                    "numinlets": 1,
+                    "numoutlets": 1,
+                    "outlettype": [ "float" ],
+                    "parameter_enable": 0,
+                    "patching_rect": [ 730.0, 1025.0, 40.0, 40.0 ],
+                    "size": 50.0,
+                    "floatoutput": 1,
+                    "setminmax": [ 1.0, 50.0 ]
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-mul-yaw",
+                    "maxclass": "newobj",
+                    "numinlets": 2,
+                    "numoutlets": 1,
+                    "outlettype": [ "float" ],
+                    "patching_rect": [ 730.0, 1075.0, 40.0, 22.0 ],
+                    "text": "* 1."
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-max-yaw",
+                    "maxclass": "newobj",
+                    "numinlets": 2,
+                    "numoutlets": 1,
+                    "outlettype": [ "int" ],
+                    "patching_rect": [ 730.0, 1101.0, 55.0, 22.0 ],
+                    "text": "maximum 1"
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-slide-yaw",
+                    "maxclass": "newobj",
+                    "numinlets": 3,
+                    "numoutlets": 1,
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 730.0, 1130.0, 90.0, 22.0 ],
+                    "text": "slide 1. 1."
+                }
+            },
+            {
+                "box": {
+                    "fontface": 1,
+                    "fontsize": 13.0,
+                    "id": "obj-comment-smooth-output",
+                    "maxclass": "comment",
+                    "numinlets": 1,
+                    "numoutlets": 0,
+                    "patching_rect": [ 60.0, 1165.0, 200.0, 21.0 ],
+                    "text": "Smoothed Output"
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-comment-sax",
+                    "maxclass": "comment",
+                    "numinlets": 1,
+                    "numoutlets": 0,
+                    "patching_rect": [ 60.0, 1190.0, 40.0, 20.0 ],
+                    "text": "saX"
+                }
+            },
+            {
+                "box": {
+                    "format": 6,
+                    "id": "obj-flonum-smooth-ax",
+                    "maxclass": "flonum",
+                    "numinlets": 1,
+                    "numoutlets": 2,
+                    "outlettype": [ "", "bang" ],
+                    "parameter_enable": 0,
+                    "patching_rect": [ 60.0, 1210.0, 64.0, 22.0 ]
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-send-smooth-ax",
+                    "maxclass": "newobj",
+                    "numinlets": 1,
+                    "numoutlets": 0,
+                    "patching_rect": [ 60.0, 1240.0, 72.0, 22.0 ],
+                    "text": "s smooth_ax"
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-comment-say",
+                    "maxclass": "comment",
+                    "numinlets": 1,
+                    "numoutlets": 0,
+                    "patching_rect": [ 190.0, 1190.0, 40.0, 20.0 ],
+                    "text": "saY"
+                }
+            },
+            {
+                "box": {
+                    "format": 6,
+                    "id": "obj-flonum-smooth-ay",
+                    "maxclass": "flonum",
+                    "numinlets": 1,
+                    "numoutlets": 2,
+                    "outlettype": [ "", "bang" ],
+                    "parameter_enable": 0,
+                    "patching_rect": [ 190.0, 1210.0, 64.0, 22.0 ]
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-send-smooth-ay",
+                    "maxclass": "newobj",
+                    "numinlets": 1,
+                    "numoutlets": 0,
+                    "patching_rect": [ 190.0, 1240.0, 72.0, 22.0 ],
+                    "text": "s smooth_ay"
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-comment-saz",
+                    "maxclass": "comment",
+                    "numinlets": 1,
+                    "numoutlets": 0,
+                    "patching_rect": [ 320.0, 1190.0, 40.0, 20.0 ],
+                    "text": "saZ"
+                }
+            },
+            {
+                "box": {
+                    "format": 6,
+                    "id": "obj-flonum-smooth-az",
+                    "maxclass": "flonum",
+                    "numinlets": 1,
+                    "numoutlets": 2,
+                    "outlettype": [ "", "bang" ],
+                    "parameter_enable": 0,
+                    "patching_rect": [ 320.0, 1210.0, 64.0, 22.0 ]
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-send-smooth-az",
+                    "maxclass": "newobj",
+                    "numinlets": 1,
+                    "numoutlets": 0,
+                    "patching_rect": [ 320.0, 1240.0, 72.0, 22.0 ],
+                    "text": "s smooth_az"
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-comment-sgx",
+                    "maxclass": "comment",
+                    "numinlets": 1,
+                    "numoutlets": 0,
+                    "patching_rect": [ 370.0, 1190.0, 40.0, 20.0 ],
+                    "text": "sgX"
+                }
+            },
+            {
+                "box": {
+                    "format": 6,
+                    "id": "obj-flonum-smooth-gx",
+                    "maxclass": "flonum",
+                    "numinlets": 1,
+                    "numoutlets": 2,
+                    "outlettype": [ "", "bang" ],
+                    "parameter_enable": 0,
+                    "patching_rect": [ 370.0, 1210.0, 64.0, 22.0 ]
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-send-smooth-gx",
+                    "maxclass": "newobj",
+                    "numinlets": 1,
+                    "numoutlets": 0,
+                    "patching_rect": [ 370.0, 1240.0, 72.0, 22.0 ],
+                    "text": "s smooth_gx"
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-comment-sgy",
+                    "maxclass": "comment",
+                    "numinlets": 1,
+                    "numoutlets": 0,
+                    "patching_rect": [ 430.0, 1190.0, 40.0, 20.0 ],
+                    "text": "sgY"
+                }
+            },
+            {
+                "box": {
+                    "format": 6,
+                    "id": "obj-flonum-smooth-gy",
+                    "maxclass": "flonum",
+                    "numinlets": 1,
+                    "numoutlets": 2,
+                    "outlettype": [ "", "bang" ],
+                    "parameter_enable": 0,
+                    "patching_rect": [ 430.0, 1210.0, 64.0, 22.0 ]
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-send-smooth-gy",
+                    "maxclass": "newobj",
+                    "numinlets": 1,
+                    "numoutlets": 0,
+                    "patching_rect": [ 430.0, 1240.0, 72.0, 22.0 ],
+                    "text": "s smooth_gy"
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-comment-sgz",
+                    "maxclass": "comment",
+                    "numinlets": 1,
+                    "numoutlets": 0,
+                    "patching_rect": [ 490.0, 1190.0, 40.0, 20.0 ],
+                    "text": "sgZ"
+                }
+            },
+            {
+                "box": {
+                    "format": 6,
+                    "id": "obj-flonum-smooth-gz",
+                    "maxclass": "flonum",
+                    "numinlets": 1,
+                    "numoutlets": 2,
+                    "outlettype": [ "", "bang" ],
+                    "parameter_enable": 0,
+                    "patching_rect": [ 490.0, 1210.0, 64.0, 22.0 ]
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-send-smooth-gz",
+                    "maxclass": "newobj",
+                    "numinlets": 1,
+                    "numoutlets": 0,
+                    "patching_rect": [ 490.0, 1240.0, 72.0, 22.0 ],
+                    "text": "s smooth_gz"
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-comment-spitch",
+                    "maxclass": "comment",
+                    "numinlets": 1,
+                    "numoutlets": 0,
+                    "patching_rect": [ 610.0, 1190.0, 40.0, 20.0 ],
+                    "text": "sPit"
+                }
+            },
+            {
+                "box": {
+                    "format": 6,
+                    "id": "obj-flonum-smooth-pitch",
+                    "maxclass": "flonum",
+                    "numinlets": 1,
+                    "numoutlets": 2,
+                    "outlettype": [ "", "bang" ],
+                    "parameter_enable": 0,
+                    "patching_rect": [ 610.0, 1210.0, 64.0, 22.0 ]
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-send-smooth-pitch",
+                    "maxclass": "newobj",
+                    "numinlets": 1,
+                    "numoutlets": 0,
+                    "patching_rect": [ 610.0, 1240.0, 85.0, 22.0 ],
+                    "text": "s smooth_pitch"
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-comment-sroll",
+                    "maxclass": "comment",
+                    "numinlets": 1,
+                    "numoutlets": 0,
+                    "patching_rect": [ 670.0, 1190.0, 40.0, 20.0 ],
+                    "text": "sRol"
+                }
+            },
+            {
+                "box": {
+                    "format": 6,
+                    "id": "obj-flonum-smooth-roll",
+                    "maxclass": "flonum",
+                    "numinlets": 1,
+                    "numoutlets": 2,
+                    "outlettype": [ "", "bang" ],
+                    "parameter_enable": 0,
+                    "patching_rect": [ 670.0, 1210.0, 64.0, 22.0 ]
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-send-smooth-roll",
+                    "maxclass": "newobj",
+                    "numinlets": 1,
+                    "numoutlets": 0,
+                    "patching_rect": [ 670.0, 1240.0, 80.0, 22.0 ],
+                    "text": "s smooth_roll"
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-comment-syaw",
+                    "maxclass": "comment",
+                    "numinlets": 1,
+                    "numoutlets": 0,
+                    "patching_rect": [ 730.0, 1190.0, 40.0, 20.0 ],
+                    "text": "sYaw"
+                }
+            },
+            {
+                "box": {
+                    "format": 6,
+                    "id": "obj-flonum-smooth-yaw",
+                    "maxclass": "flonum",
+                    "numinlets": 1,
+                    "numoutlets": 2,
+                    "outlettype": [ "", "bang" ],
+                    "parameter_enable": 0,
+                    "patching_rect": [ 730.0, 1210.0, 64.0, 22.0 ]
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-send-smooth-yaw",
+                    "maxclass": "newobj",
+                    "numinlets": 1,
+                    "numoutlets": 0,
+                    "patching_rect": [ 730.0, 1240.0, 80.0, 22.0 ],
+                    "text": "s smooth_yaw"
                 }
             }
         ],
@@ -1301,6 +2275,558 @@
                     "destination": [ "obj-slider-progress", 0 ],
                     "midpoints": [ 336.5, 480.0, 336.5, 480.0 ],
                     "source": [ "obj-unpack-progress", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-int-1", 0 ],
+                    "source": [ "obj-loadbang-smooth", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-dial-global", 0 ],
+                    "source": [ "obj-int-1", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-dial-accel-group", 0 ],
+                    "source": [ "obj-int-1", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-dial-gyro-group", 0 ],
+                    "source": [ "obj-int-1", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-dial-orient-group", 0 ],
+                    "source": [ "obj-int-1", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-dial-ax", 0 ],
+                    "source": [ "obj-int-1", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-dial-ay", 0 ],
+                    "source": [ "obj-int-1", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-dial-az", 0 ],
+                    "source": [ "obj-int-1", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-dial-gx", 0 ],
+                    "source": [ "obj-int-1", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-dial-gy", 0 ],
+                    "source": [ "obj-int-1", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-dial-gz", 0 ],
+                    "source": [ "obj-int-1", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-dial-pitch", 0 ],
+                    "source": [ "obj-int-1", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-dial-roll", 0 ],
+                    "source": [ "obj-int-1", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-dial-yaw", 0 ],
+                    "source": [ "obj-int-1", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-mul-global-accel", 1 ],
+                    "source": [ "obj-dial-global", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-mul-global-gyro", 1 ],
+                    "source": [ "obj-dial-global", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-mul-global-orient", 1 ],
+                    "source": [ "obj-dial-global", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-mul-global-accel", 0 ],
+                    "source": [ "obj-dial-accel-group", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-mul-global-gyro", 0 ],
+                    "source": [ "obj-dial-gyro-group", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-mul-global-orient", 0 ],
+                    "source": [ "obj-dial-orient-group", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-mul-ax", 1 ],
+                    "source": [ "obj-mul-global-accel", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-mul-ay", 1 ],
+                    "source": [ "obj-mul-global-accel", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-mul-az", 1 ],
+                    "source": [ "obj-mul-global-accel", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-mul-ax", 0 ],
+                    "source": [ "obj-dial-ax", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-max-ax", 0 ],
+                    "source": [ "obj-mul-ax", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-slide-ax", 1 ],
+                    "source": [ "obj-max-ax", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-slide-ax", 2 ],
+                    "source": [ "obj-max-ax", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-mul-ay", 0 ],
+                    "source": [ "obj-dial-ay", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-max-ay", 0 ],
+                    "source": [ "obj-mul-ay", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-slide-ay", 1 ],
+                    "source": [ "obj-max-ay", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-slide-ay", 2 ],
+                    "source": [ "obj-max-ay", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-mul-az", 0 ],
+                    "source": [ "obj-dial-az", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-max-az", 0 ],
+                    "source": [ "obj-mul-az", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-slide-az", 1 ],
+                    "source": [ "obj-max-az", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-slide-az", 2 ],
+                    "source": [ "obj-max-az", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-mul-gx", 1 ],
+                    "source": [ "obj-mul-global-gyro", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-mul-gy", 1 ],
+                    "source": [ "obj-mul-global-gyro", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-mul-gz", 1 ],
+                    "source": [ "obj-mul-global-gyro", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-mul-gx", 0 ],
+                    "source": [ "obj-dial-gx", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-max-gx", 0 ],
+                    "source": [ "obj-mul-gx", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-slide-gx", 1 ],
+                    "source": [ "obj-max-gx", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-slide-gx", 2 ],
+                    "source": [ "obj-max-gx", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-mul-gy", 0 ],
+                    "source": [ "obj-dial-gy", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-max-gy", 0 ],
+                    "source": [ "obj-mul-gy", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-slide-gy", 1 ],
+                    "source": [ "obj-max-gy", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-slide-gy", 2 ],
+                    "source": [ "obj-max-gy", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-mul-gz", 0 ],
+                    "source": [ "obj-dial-gz", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-max-gz", 0 ],
+                    "source": [ "obj-mul-gz", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-slide-gz", 1 ],
+                    "source": [ "obj-max-gz", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-slide-gz", 2 ],
+                    "source": [ "obj-max-gz", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-mul-pitch", 1 ],
+                    "source": [ "obj-mul-global-orient", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-mul-roll", 1 ],
+                    "source": [ "obj-mul-global-orient", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-mul-yaw", 1 ],
+                    "source": [ "obj-mul-global-orient", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-mul-pitch", 0 ],
+                    "source": [ "obj-dial-pitch", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-max-pitch", 0 ],
+                    "source": [ "obj-mul-pitch", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-slide-pitch", 1 ],
+                    "source": [ "obj-max-pitch", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-slide-pitch", 2 ],
+                    "source": [ "obj-max-pitch", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-mul-roll", 0 ],
+                    "source": [ "obj-dial-roll", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-max-roll", 0 ],
+                    "source": [ "obj-mul-roll", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-slide-roll", 1 ],
+                    "source": [ "obj-max-roll", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-slide-roll", 2 ],
+                    "source": [ "obj-max-roll", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-mul-yaw", 0 ],
+                    "source": [ "obj-dial-yaw", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-max-yaw", 0 ],
+                    "source": [ "obj-mul-yaw", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-slide-yaw", 1 ],
+                    "source": [ "obj-max-yaw", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-slide-yaw", 2 ],
+                    "source": [ "obj-max-yaw", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-slide-ax", 0 ],
+                    "source": [ "obj-unpack-calaccel", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-slide-ay", 0 ],
+                    "source": [ "obj-unpack-calaccel", 1 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-slide-az", 0 ],
+                    "source": [ "obj-unpack-calaccel", 2 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-slide-gx", 0 ],
+                    "source": [ "obj-unpack-calgyro", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-slide-gy", 0 ],
+                    "source": [ "obj-unpack-calgyro", 1 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-slide-gz", 0 ],
+                    "source": [ "obj-unpack-calgyro", 2 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-slide-pitch", 0 ],
+                    "source": [ "obj-unpack-calorient", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-slide-roll", 0 ],
+                    "source": [ "obj-unpack-calorient", 1 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-slide-yaw", 0 ],
+                    "source": [ "obj-unpack-calorient", 2 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-flonum-smooth-ax", 0 ],
+                    "source": [ "obj-slide-ax", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-send-smooth-ax", 0 ],
+                    "source": [ "obj-flonum-smooth-ax", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-flonum-smooth-ay", 0 ],
+                    "source": [ "obj-slide-ay", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-send-smooth-ay", 0 ],
+                    "source": [ "obj-flonum-smooth-ay", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-flonum-smooth-az", 0 ],
+                    "source": [ "obj-slide-az", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-send-smooth-az", 0 ],
+                    "source": [ "obj-flonum-smooth-az", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-flonum-smooth-gx", 0 ],
+                    "source": [ "obj-slide-gx", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-send-smooth-gx", 0 ],
+                    "source": [ "obj-flonum-smooth-gx", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-flonum-smooth-gy", 0 ],
+                    "source": [ "obj-slide-gy", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-send-smooth-gy", 0 ],
+                    "source": [ "obj-flonum-smooth-gy", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-flonum-smooth-gz", 0 ],
+                    "source": [ "obj-slide-gz", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-send-smooth-gz", 0 ],
+                    "source": [ "obj-flonum-smooth-gz", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-flonum-smooth-pitch", 0 ],
+                    "source": [ "obj-slide-pitch", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-send-smooth-pitch", 0 ],
+                    "source": [ "obj-flonum-smooth-pitch", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-flonum-smooth-roll", 0 ],
+                    "source": [ "obj-slide-roll", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-send-smooth-roll", 0 ],
+                    "source": [ "obj-flonum-smooth-roll", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-flonum-smooth-yaw", 0 ],
+                    "source": [ "obj-slide-yaw", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-send-smooth-yaw", 0 ],
+                    "source": [ "obj-flonum-smooth-yaw", 0 ]
                 }
             }
         ],
