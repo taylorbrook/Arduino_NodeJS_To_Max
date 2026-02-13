@@ -5,23 +5,23 @@
 See: .planning/PROJECT.md (updated 2026-02-12)
 
 **Core value:** Reliable, lowest-possible-latency delivery of clean sensor data from Arduino to MAX
-**Current focus:** Phase 2 complete -- Serial Bridge finished, ready for Phase 3 (Latency Optimization)
+**Current focus:** Phase 3 in progress -- Calibration logic added to serial bridge, MAX UI pending
 
 ## Current Position
 
-Phase: 2 of 5 (Serial Bridge) - COMPLETE
-Plan: 2 of 2 in current phase - COMPLETE
-Status: Phase Complete
-Last activity: 2026-02-12 -- Completed 02-02-PLAN.md (MAX integration and end-to-end verification)
+Phase: 3 of 5 (Calibration)
+Plan: 1 of 2 in current phase - COMPLETE
+Status: Executing
+Last activity: 2026-02-12 -- Completed 03-01-PLAN.md (calibration logic in serial-bridge.js)
 
-Progress: [████░░░░░░] 40%
+Progress: [█████░░░░░] 50%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 4
-- Average duration: 2.5min
-- Total execution time: 0.22 hours
+- Total plans completed: 5
+- Average duration: 2.2min
+- Total execution time: 0.24 hours
 
 **By Phase:**
 
@@ -29,9 +29,10 @@ Progress: [████░░░░░░] 40%
 |-------|-------|-------|----------|
 | 01-arduino-firmware | 2 | 5min | 2.5min |
 | 02-serial-bridge | 2 | 6min | 3min |
+| 03-calibration | 1 | 1min | 1min |
 
 **Recent Trend:**
-- Last 5 plans: 01-01 (3min), 01-02 (2min), 02-01 (2min), 02-02 (4min)
+- Last 5 plans: 01-02 (2min), 02-01 (2min), 02-02 (4min), 03-01 (1min)
 - Trend: Consistent
 
 *Updated after each plan completion*
@@ -61,6 +62,12 @@ Recent decisions affecting current work:
 - n4m.monitor bpatcher used instead of non-existent node.debug object (02-02)
 - Status message box uses right inlet (1) for display text updates (02-02)
 - Auto-start enabled via @autostart 1 on node.script for immediate connection (02-02)
+- TARGET_SAMPLES=200 (~1.75s at 114Hz) with MIN_SAMPLES=50 safety threshold (03-01)
+- Accelerometer Z-axis bias = (mean - 1.0) so flat reads exactly 1.0g after calibration (03-01)
+- BLEND_SPEED=10 for ~500ms exponential decay on orientation reset transitions (03-01)
+- calibrate_reset clears both biasOffsets and orientOffset to prevent stale orientation offsets (03-01)
+- Calibrated outlets only fire when biasOffsets exist -- avoids duplicate IPC overhead (03-01)
+- Orientation reset independent of bias calibration -- can reset orientation without calibrating first (03-01)
 
 ### Pending Todos
 
@@ -75,5 +82,5 @@ None.
 ## Session Continuity
 
 Last session: 2026-02-12
-Stopped at: Completed 02-02-PLAN.md -- Phase 2 complete, Arduino-to-MAX pipeline operational, ready for Phase 3 (Latency Optimization)
+Stopped at: Completed 03-01-PLAN.md -- Calibration logic added to serial-bridge.js, ready for 03-02 (MAX UI)
 Resume file: None
