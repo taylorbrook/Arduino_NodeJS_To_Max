@@ -1,0 +1,13 @@
+{
+  "name": "aruido-serial-bridge",
+  "version": "1.0.0",
+  "description": "Node for Max serial bridge for Arduino IMU data",
+  "main": "serial-bridge.js",
+  "scripts": {},
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "serialport": "^12.0.0"
+  }
+}
