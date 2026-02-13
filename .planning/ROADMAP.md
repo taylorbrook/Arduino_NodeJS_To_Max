@@ -61,11 +61,11 @@ Plans:
   3. User can reset calibration to uncalibrated state from MAX and see raw uncorrected values resume
   4. User can reset yaw to zero from MAX at any time and see yaw snap to zero then track from that new reference
   5. MAX shows visual feedback during calibration (status text or indicator showing calibration in progress vs complete)
-**Plans**: TBD
+**Plans:** 2 plans
 
 Plans:
-- [ ] 03-01: TBD
-- [ ] 03-02: TBD
+- [ ] 03-01-PLAN.md -- Node.js calibration logic: bias offset computation, orientation reset with smooth transition, calibrated outlets
+- [ ] 03-02-PLAN.md -- MAX patch calibration UI controls, progress bar, bias display, and end-to-end hardware verification
 
 ### Phase 4: Musical Tools
 **Goal**: Sensor data becomes musically and creatively useful -- smoothed, scaled, triggering events, and visualized in 3D
@@ -108,10 +108,10 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5
 |-------|---------------|--------|-----------|
 | 1. Arduino Firmware | 2/2 | ✓ Complete | 2026-02-12 |
 | 2. Serial Bridge | 2/2 | ✓ Complete | 2026-02-12 |
-| 3. Calibration | 0/TBD | Not started | - |
+| 3. Calibration | 0/2 | Planned | - |
 | 4. Musical Tools | 0/TBD | Not started | - |
 | 5. Abstraction and WiFi | 0/TBD | Not started | - |
 
 ---
 *Roadmap created: 2026-02-12*
-*Last updated: 2026-02-12 (Phase 2 complete)*
+*Last updated: 2026-02-12 (Phase 3 planned)*
