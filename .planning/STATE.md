@@ -5,32 +5,33 @@
 See: .planning/PROJECT.md (updated 2026-02-12)
 
 **Core value:** Reliable, lowest-possible-latency delivery of clean sensor data from Arduino to MAX
-**Current focus:** Phase 1 Complete - Ready for Phase 2 (Serial Bridge)
+**Current focus:** Phase 2 in progress -- Serial Bridge (Plan 1 of 2 complete)
 
 ## Current Position
 
-Phase: 1 of 5 (Arduino Firmware) -- COMPLETE
-Plan: 2 of 2 in current phase (all plans complete)
-Status: Phase Complete
-Last activity: 2026-02-13 -- Completed 01-02-PLAN.md (hardware validation)
+Phase: 2 of 5 (Serial Bridge)
+Plan: 1 of 2 in current phase
+Status: In Progress
+Last activity: 2026-02-13 -- Completed 02-01-PLAN.md (serial bridge script)
 
-Progress: [██░░░░░░░░] 20%
+Progress: [███░░░░░░░] 30%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 2
-- Average duration: 2.5min
-- Total execution time: 0.08 hours
+- Total plans completed: 3
+- Average duration: 2.3min
+- Total execution time: 0.12 hours
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
 | 01-arduino-firmware | 2 | 5min | 2.5min |
+| 02-serial-bridge | 1 | 2min | 2min |
 
 **Recent Trend:**
-- Last 5 plans: 01-01 (3min), 01-02 (2min)
+- Last 5 plans: 01-01 (3min), 01-02 (2min), 02-01 (2min)
 - Trend: Consistent
 
 *Updated after each plan completion*
@@ -52,6 +53,10 @@ Recent decisions affecting current work:
 - Single 'R' command for reset rather than full command parser (01-01)
 - Loop rate 114.2 Hz accepted as-is -- Madgwick auto-corrects via measured rate (01-02)
 - Three SparkFun SPI bugs fixed: mode constant, beginTransaction, endTransaction (01-02)
+- serialport v12 chosen over v13 for Max 8/9 compatibility (02-01)
+- 3 outlet calls per sample (accel, gyro, orientation) at 114 Hz = 342 calls/sec (02-01)
+- Polling reconnection at 2s interval via SerialPort.list() (02-01)
+- max-api not installed via npm -- provided by MAX runtime (02-01)
 
 ### Pending Todos
 
@@ -66,5 +71,5 @@ None.
 ## Session Continuity
 
 Last session: 2026-02-13
-Stopped at: Completed 01-02-PLAN.md -- Phase 1 (Arduino Firmware) fully complete
+Stopped at: Completed 02-01-PLAN.md -- Serial bridge script complete, ready for Plan 02 (MAX patch)
 Resume file: None
