@@ -5,23 +5,23 @@
 See: .planning/PROJECT.md (updated 2026-02-12)
 
 **Core value:** Reliable, lowest-possible-latency delivery of clean sensor data from Arduino to MAX
-**Current focus:** Phase 3 in progress -- Calibration logic added to serial bridge, MAX UI pending
+**Current focus:** Phase 3 complete -- Calibration system operational, ready for Phase 4 (Musical Tools)
 
 ## Current Position
 
-Phase: 3 of 5 (Calibration)
-Plan: 1 of 2 in current phase - COMPLETE
-Status: Executing
-Last activity: 2026-02-12 -- Completed 03-01-PLAN.md (calibration logic in serial-bridge.js)
+Phase: 3 of 5 (Calibration) - COMPLETE
+Plan: 2 of 2 in current phase - COMPLETE
+Status: Phase Complete
+Last activity: 2026-02-12 -- Completed 03-02-PLAN.md (MAX calibration UI + hardware verification)
 
-Progress: [█████░░░░░] 50%
+Progress: [██████░░░░] 60%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 5
-- Average duration: 2.2min
-- Total execution time: 0.24 hours
+- Total plans completed: 6
+- Average duration: 2.3min
+- Total execution time: 0.28 hours
 
 **By Phase:**
 
@@ -29,10 +29,10 @@ Progress: [█████░░░░░] 50%
 |-------|-------|-------|----------|
 | 01-arduino-firmware | 2 | 5min | 2.5min |
 | 02-serial-bridge | 2 | 6min | 3min |
-| 03-calibration | 1 | 1min | 1min |
+| 03-calibration | 2 | 6min | 3min |
 
 **Recent Trend:**
-- Last 5 plans: 01-02 (2min), 02-01 (2min), 02-02 (4min), 03-01 (1min)
+- Last 5 plans: 02-01 (2min), 02-02 (4min), 03-01 (1min), 03-02 (5min)
 - Trend: Consistent
 
 *Updated after each plan completion*
@@ -68,6 +68,10 @@ Recent decisions affecting current work:
 - calibrate_reset clears both biasOffsets and orientOffset to prevent stale orientation offsets (03-01)
 - Calibrated outlets only fire when biasOffsets exist -- avoids duplicate IPC overhead (03-01)
 - Orientation reset independent of bias calibration -- can reset orientation without calibrating first (03-01)
+- Auto-stop calibration at TARGET_SAMPLES instead of requiring manual stop (03-02)
+- cal_toggle outlet resets MAX button state when auto-stop fires (03-02)
+- Orient reset/restore as two separate bang buttons instead of toggle (03-02)
+- Removed Reset Cal button -- recalibrating overwrites old biases, raw data always visible (03-02)
 
 ### Pending Todos
 
@@ -82,5 +86,5 @@ None.
 ## Session Continuity
 
 Last session: 2026-02-12
-Stopped at: Completed 03-01-PLAN.md -- Calibration logic added to serial-bridge.js, ready for 03-02 (MAX UI)
+Stopped at: Completed 03-02-PLAN.md -- Phase 3 complete, calibration system verified with hardware, ready for Phase 4
 Resume file: None
