@@ -12,7 +12,7 @@ This roadmap delivers a low-latency IMU pipeline from an Arduino Uno WiFi R2 int
 
 Decimal phases appear between their surrounding integers in numeric order.
 
-- [ ] **Phase 1: Arduino Firmware** - IMU reading, Madgwick fusion, smoothing, and structured serial output
+- [x] **Phase 1: Arduino Firmware** - IMU reading, Madgwick fusion, smoothing, and structured serial output
 - [ ] **Phase 2: Serial Bridge** - Node for Max receives, validates, and routes serial data into MAX
 - [ ] **Phase 3: Calibration** - Gyro bias correction, yaw reset, and interactive calibration from MAX
 - [ ] **Phase 4: Musical Tools** - Smoothing, scaling, thresholds, visualization, and quaternion output in MAX
@@ -33,8 +33,8 @@ Decimal phases appear between their surrounding integers in numeric order.
 **Plans:** 2 plans
 
 Plans:
-- [ ] 01-01-PLAN.md -- Install libraries, fix SparkFun bug, write complete IMU firmware sketch
-- [ ] 01-02-PLAN.md -- Upload to hardware, verify sensor output, apply tuning adjustments
+- [x] 01-01-PLAN.md -- Install libraries, fix SparkFun bug, write complete IMU firmware sketch
+- [x] 01-02-PLAN.md -- Upload to hardware, verify sensor output, apply tuning adjustments
 
 ### Phase 2: Serial Bridge
 **Goal**: Node for Max receives Arduino serial data, validates it, and outputs parsed streams into MAX with connection status reporting
@@ -106,7 +106,7 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5
 
 | Phase | Plans Complete | Status | Completed |
 |-------|---------------|--------|-----------|
-| 1. Arduino Firmware | 0/2 | Planned | - |
+| 1. Arduino Firmware | 2/2 | ✓ Complete | 2026-02-12 |
 | 2. Serial Bridge | 0/TBD | Not started | - |
 | 3. Calibration | 0/TBD | Not started | - |
 | 4. Musical Tools | 0/TBD | Not started | - |
@@ -114,4 +114,4 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5
 
 ---
 *Roadmap created: 2026-02-12*
-*Last updated: 2026-02-12*
+*Last updated: 2026-02-12 (Phase 1 complete)*
