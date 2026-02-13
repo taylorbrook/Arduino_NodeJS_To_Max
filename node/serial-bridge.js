@@ -37,9 +37,9 @@ var BLEND_SPEED = 10;
 
 // ---- Smoothing State ----
 var smoothFactors = {
-  global: 1, accel_group: 1, gyro_group: 1, orient_group: 1,
-  ax: 1, ay: 1, az: 1, gx: 1, gy: 1, gz: 1,
-  pitch: 1, roll: 1, yaw: 1
+  global: 0, accel_group: 0, gyro_group: 0, orient_group: 0,
+  ax: 0, ay: 0, az: 0, gx: 0, gy: 0, gz: 0,
+  pitch: 0, roll: 0, yaw: 0
 };
 var smoothed = { ax: null, ay: null, az: null, gx: null, gy: null, gz: null,
   pitch: null, roll: null, yaw: null };
@@ -212,24 +212,26 @@ function applyOrientReset(pitch, roll, yaw, dt) {
 
 // ============================================================
 // Smoothing (MAXI-01)
-// Three-tier EMA: factor = max(1, global * group * per_axis)
+// Three-tier EMA: effective = max(global, group, per_axis)
+// alpha = 1.0 - effective * 0.99 → 0=pass-through, 1=heavy
 // ============================================================
 
-function computeFactor(axis) {
+function computeAlpha(axis) {
   var group;
   if (axis === "ax" || axis === "ay" || axis === "az") group = "accel_group";
   else if (axis === "gx" || axis === "gy" || axis === "gz") group = "gyro_group";
   else group = "orient_group";
-  return Math.max(1, smoothFactors.global * smoothFactors[group] * smoothFactors[axis]);
+  var effective = Math.max(smoothFactors.global, smoothFactors[group], smoothFactors[axis]);
+  return 1.0 - effective * 0.99;
 }
 
 function applySmoothing(axis, value) {
-  var factor = computeFactor(axis);
+  var alpha = computeAlpha(axis);
   if (smoothed[axis] === null) {
     smoothed[axis] = value;
     return value;
   }
-  smoothed[axis] = smoothed[axis] + (value - smoothed[axis]) / factor;
+  smoothed[axis] = smoothed[axis] + alpha * (value - smoothed[axis]);
   return smoothed[axis];
 }
 
@@ -467,6 +469,7 @@ maxAPI.addHandler("orient_restore", function () {
 
 maxAPI.addHandler("smooth_global", function (val) {
   smoothFactors.global = val;
+  maxAPI.post("[smoothing] global=" + val + " effective: ax=" + Math.max(val, smoothFactors.accel_group, smoothFactors.ax).toFixed(2) + " alpha=" + computeAlpha("ax").toFixed(3));
 });
 maxAPI.addHandler("smooth_accel_group", function (val) {
   smoothFactors.accel_group = val;
