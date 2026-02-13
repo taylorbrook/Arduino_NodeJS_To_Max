@@ -10,28 +10,28 @@ See: .planning/PROJECT.md (updated 2026-02-12)
 ## Current Position
 
 Phase: 1 of 5 (Arduino Firmware)
-Plan: 0 of TBD in current phase
-Status: Ready to plan
-Last activity: 2026-02-12 -- Roadmap created
+Plan: 1 of 2 in current phase
+Status: Executing
+Last activity: 2026-02-12 -- Completed 01-01-PLAN.md
 
-Progress: [░░░░░░░░░░] 0%
+Progress: [█░░░░░░░░░] 10%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 0
-- Average duration: -
-- Total execution time: 0 hours
+- Total plans completed: 1
+- Average duration: 3min
+- Total execution time: 0.05 hours
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
-| - | - | - | - |
+| 01-arduino-firmware | 1 | 3min | 3min |
 
 **Recent Trend:**
-- Last 5 plans: -
-- Trend: -
+- Last 5 plans: 01-01 (3min)
+- Trend: Starting
 
 *Updated after each plan completion*
 
@@ -45,6 +45,11 @@ Recent decisions affecting current work:
 - Madgwick filter runs on Arduino (not Node) -- Arduino handles physics, Node handles musicianship
 - USB serial at 57600 baud as primary transport -- board hardware limitation (mEDBG chip)
 - 57600 baud vs 115200 must be validated on actual hardware in first session
+- CSV format with 2 decimal places for all 9 values -- maximizes throughput within 57600 baud (01-01)
+- Angle-aware EMA for yaw to handle 360/0 boundary wrapping (01-01)
+- Two-pass warmup: first pass measures rate, second pass converges filter at correct rate (01-01)
+- No delay() in loop -- serial blocking naturally paces to ~80-85 Hz (01-01)
+- Single 'R' command for reset rather than full command parser (01-01)
 
 ### Pending Todos
 
@@ -59,5 +64,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-02-12
-Stopped at: Roadmap creation complete
+Stopped at: Completed 01-01-PLAN.md
 Resume file: None
