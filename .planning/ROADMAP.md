@@ -14,7 +14,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 
 - [x] **Phase 1: Arduino Firmware** - IMU reading, Madgwick fusion, smoothing, and structured serial output
 - [x] **Phase 2: Serial Bridge** - Node for Max receives, validates, and routes serial data into MAX
-- [ ] **Phase 3: Calibration** - Gyro bias correction, yaw reset, and interactive calibration from MAX
+- [x] **Phase 3: Calibration** - Gyro bias correction, yaw reset, and interactive calibration from MAX
 - [ ] **Phase 4: Musical Tools** - Smoothing, scaling, thresholds, visualization, and quaternion output in MAX
 - [ ] **Phase 5: Abstraction and WiFi** - Reusable MAX patch and wireless transport alternative
 
@@ -64,8 +64,8 @@ Plans:
 **Plans:** 2 plans
 
 Plans:
-- [ ] 03-01-PLAN.md -- Node.js calibration logic: bias offset computation, orientation reset with smooth transition, calibrated outlets
-- [ ] 03-02-PLAN.md -- MAX patch calibration UI controls, progress bar, bias display, and end-to-end hardware verification
+- [x] 03-01-PLAN.md -- Node.js calibration logic: bias offset computation, orientation reset with smooth transition, calibrated outlets
+- [x] 03-02-PLAN.md -- MAX patch calibration UI controls, progress bar, bias display, and end-to-end hardware verification
 
 ### Phase 4: Musical Tools
 **Goal**: Sensor data becomes musically and creatively useful -- smoothed, scaled, triggering events, and visualized in 3D
@@ -108,10 +108,10 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5
 |-------|---------------|--------|-----------|
 | 1. Arduino Firmware | 2/2 | ✓ Complete | 2026-02-12 |
 | 2. Serial Bridge | 2/2 | ✓ Complete | 2026-02-12 |
-| 3. Calibration | 0/2 | Planned | - |
+| 3. Calibration | 2/2 | ✓ Complete | 2026-02-12 |
 | 4. Musical Tools | 0/TBD | Not started | - |
 | 5. Abstraction and WiFi | 0/TBD | Not started | - |
 
 ---
 *Roadmap created: 2026-02-12*
-*Last updated: 2026-02-12 (Phase 3 planned)*
+*Last updated: 2026-02-12 (Phase 3 complete)*
