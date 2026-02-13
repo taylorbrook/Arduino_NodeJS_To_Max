@@ -77,11 +77,12 @@ Plans:
   3. User can define thresholds that fire discrete bang/trigger events when orientation crosses a boundary (e.g., tilt past 45 degrees triggers a note)
   4. A Jitter-based 3D visualization shows the board's orientation updating in real time, matching physical movement
   5. Quaternion orientation data is available as a separate output alongside Euler angles for downstream 3D work
-**Plans**: TBD
+**Plans:** 3 plans
 
 Plans:
-- [ ] 04-01: TBD
-- [ ] 04-02: TBD
+- [ ] 04-01-PLAN.md -- Three-tier EMA smoothing module (13 dials, slide objects) and quaternion output via jit.euler2quat
+- [ ] 04-02-PLAN.md -- Per-axis range mapping with linear/exponential/custom curves, learn mode, and clip toggle
+- [ ] 04-03-PLAN.md -- Threshold triggers with hysteresis and direction on 6 axes, Jitter 3D visualization, and hardware verification
 
 ### Phase 5: Abstraction and WiFi
 **Goal**: The entire pipeline is packaged as a drop-in MAX abstraction, and WiFi provides a wireless alternative to USB serial
@@ -109,9 +110,9 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5
 | 1. Arduino Firmware | 2/2 | ✓ Complete | 2026-02-12 |
 | 2. Serial Bridge | 2/2 | ✓ Complete | 2026-02-12 |
 | 3. Calibration | 2/2 | ✓ Complete | 2026-02-12 |
-| 4. Musical Tools | 0/TBD | Not started | - |
+| 4. Musical Tools | 0/3 | In Progress | - |
 | 5. Abstraction and WiFi | 0/TBD | Not started | - |
 
 ---
 *Roadmap created: 2026-02-12*
-*Last updated: 2026-02-12 (Phase 3 complete)*
+*Last updated: 2026-02-13 (Phase 4 planned)*
