@@ -112,6 +112,9 @@ function collectSample(ax, ay, az, gx, gy, gz) {
   sampleSums.gz += gz;
   sampleCount++;
   maxAPI.outlet("cal_progress", sampleCount, TARGET_SAMPLES);
+  if (sampleCount >= TARGET_SAMPLES) {
+    stopCalibrationAndApply();
+  }
 }
 
 function stopCalibrationAndApply() {
