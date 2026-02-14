@@ -17,6 +17,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 3: Calibration** - Gyro bias correction, yaw reset, and interactive calibration from MAX
 - [x] **Phase 4: Musical Tools** - Smoothing, scaling, thresholds, visualization, and quaternion output in MAX
 - [x] **Phase 5: Abstraction and WiFi** - Reusable MAX patch and wireless transport alternative
+- [ ] **Phase 6: Threshold Triggers and Gap Closure** - Implement MAXI-03 thresholds, fix false documentation, close all audit gaps
 
 ## Phase Details
 
@@ -101,19 +102,36 @@ Plans:
 - [ ] 05-02-PLAN.md -- MAX abstraction (imu-sensor.maxpat) with inlet/outlet API, patcherargs, message routing, and 3D viz companion
 - [ ] 05-03-PLAN.md -- Help patch (imu-sensor.maxhelp) with documentation, test signal, 3 creative recipes, and hardware verification
 
+### Phase 6: Threshold Triggers and Gap Closure
+**Goal**: Implement threshold/event detection (MAXI-03) in Node and MAX, migrate to abstraction, and fix false documentation — closing all v1.0 audit gaps
+**Depends on**: Phase 5
+**Requirements**: MAXI-03
+**Gap Closure**: Closes all gaps from v1.0 milestone audit
+**Success Criteria** (what must be TRUE):
+  1. User can define thresholds that fire discrete bang/trigger events when orientation or accel crosses a boundary (e.g., tilt past 45 degrees triggers a note)
+  2. Hysteresis prevents threshold oscillation when sensor value hovers near the boundary
+  3. Threshold triggers output via outlet 12 of imu-sensor.maxpat abstraction
+  4. Help patch threshold documentation (Recipe 2) matches actual working implementation
+  5. ROADMAP and STATE.md accurately reflect completion status
+**Plans:** TBD (created during `/gsd:plan-phase 6`)
+
+Plans:
+- [ ] 06-01-PLAN.md -- TBD
+
 ## Progress
 
 **Execution Order:**
-Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5
+Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6
 
 | Phase | Plans Complete | Status | Completed |
 |-------|---------------|--------|-----------|
 | 1. Arduino Firmware | 2/2 | ✓ Complete | 2026-02-12 |
 | 2. Serial Bridge | 2/2 | ✓ Complete | 2026-02-12 |
 | 3. Calibration | 2/2 | ✓ Complete | 2026-02-12 |
-| 4. Musical Tools | 3/3 | ✓ Complete | 2026-02-13 |
+| 4. Musical Tools | 2/3 | Partial (04-03 not executed) | 2026-02-13 |
 | 5. Abstraction and WiFi | 3/3 | ✓ Complete | 2026-02-13 |
+| 6. Threshold Triggers | 0/? | Pending | — |
 
 ---
 *Roadmap created: 2026-02-12*
-*Last updated: 2026-02-13 (All phases complete)*
+*Last updated: 2026-02-13 (Phase 6 added for gap closure)*
