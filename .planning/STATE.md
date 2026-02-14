@@ -10,18 +10,18 @@ See: .planning/PROJECT.md (updated 2026-02-12)
 ## Current Position
 
 Phase: 6 of 6 (Threshold Triggers)
-Plan: 1 of 2 in current phase - COMPLETE
-Status: In Progress
-Last activity: 2026-02-13 -- Completed 06-01-PLAN.md (Threshold subpatchers with hysteresis in imu-sensor.maxpat)
+Plan: 2 of 2 in current phase - COMPLETE
+Status: Phase 6 Complete
+Last activity: 2026-02-13 -- Completed 06-02-PLAN.md (Help patch Recipe 2 fix and project documentation updates)
 
-Progress: [████████████] 92%
+Progress: [█████████████] 100%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 12
-- Average duration: 6.8min
-- Total execution time: 1.35 hours
+- Total plans completed: 13
+- Average duration: 6.5min
+- Total execution time: 1.4 hours
 
 **By Phase:**
 
@@ -32,11 +32,11 @@ Progress: [████████████] 92%
 | 03-calibration | 2 | 6min | 3min |
 | 04-musical-tools | 2 | 12min | 6min |
 | 05-abstraction-wifi | 3 | 52min | 17.3min |
-| 06-threshold-triggers | 1 | 3min | 3min |
+| 06-threshold-triggers | 2 | 6min | 3min |
 
 **Recent Trend:**
-- Last 5 plans: 05-01 (4min), 05-02 (5min), 05-03 (43min), 06-01 (3min)
-- Trend: Threshold plan executed quickly (3min) -- well-researched migration from proven sensor-pipeline pattern
+- Last 5 plans: 05-02 (5min), 05-03 (43min), 06-01 (3min), 06-02 (3min)
+- Trend: Final gap closure plans executed quickly -- well-researched documentation corrections
 
 *Updated after each plan completion*
 
@@ -105,6 +105,8 @@ Recent decisions affecting current work:
 - Single configurable threshold per axis in MAX (not Node) -- consumer-side feature matches mapping pattern (06-01)
 - Direct wiring via t l l l third outlet for threshold data tap -- avoids send/receive #0 complexity (06-01)
 - Removed dead prepend threshold -> node.script wiring -- thresholds handled entirely in MAX (06-01)
+- Threshold message format is positional: threshold <axis> <value> [hysteresis] -- not keyword-based (06-02)
+- Help patch Recipe 2 wired to live instance outlet 12 for threshold demo -- no second instance needed (06-02)
 
 ### Pending Todos
 
@@ -119,5 +121,5 @@ None.
 ## Session Continuity
 
 Last session: 2026-02-13
-Stopped at: Completed 06-01-PLAN.md -- Threshold subpatchers with hysteresis in imu-sensor.maxpat. 06-02 (help patch update, ROADMAP cleanup) remaining.
+Stopped at: Completed 06-02-PLAN.md -- All Phase 6 plans complete. Help patch Recipe 2 updated, ROADMAP/STATE accurate. v1.0 milestone fully satisfied.
 Resume file: None

@@ -81,9 +81,9 @@ Plans:
 **Plans:** 3 plans
 
 Plans:
-- [ ] 04-01-PLAN.md -- Three-tier EMA smoothing module (13 dials, slide objects) and quaternion output via jit.euler2quat
-- [ ] 04-02-PLAN.md -- Per-axis range mapping with linear/exponential/custom curves, learn mode, and clip toggle
-- [ ] 04-03-PLAN.md -- Threshold triggers with hysteresis and direction on 6 axes, Jitter 3D visualization, and hardware verification
+- [x] 04-01-PLAN.md -- Three-tier EMA smoothing module (13 dials, slide objects) and quaternion output via jit.euler2quat
+- [x] 04-02-PLAN.md -- Per-axis range mapping with linear/exponential/custom curves, learn mode, and clip toggle
+- [ ] 04-03-PLAN.md -- Threshold triggers with hysteresis and direction on 6 axes, Jitter 3D visualization, and hardware verification (deferred -- thresholds moved to Phase 6, 3D viz in companion patch)
 
 ### Phase 5: Abstraction and WiFi
 **Goal**: The entire pipeline is packaged as a drop-in MAX abstraction, and WiFi provides a wireless alternative to USB serial
@@ -98,9 +98,9 @@ Plans:
 **Plans:** 3 plans
 
 Plans:
-- [ ] 05-01-PLAN.md -- WiFi dual-mode firmware + Node UDP transport and transport switching
-- [ ] 05-02-PLAN.md -- MAX abstraction (imu-sensor.maxpat) with inlet/outlet API, patcherargs, message routing, and 3D viz companion
-- [ ] 05-03-PLAN.md -- Help patch (imu-sensor.maxhelp) with documentation, test signal, 3 creative recipes, and hardware verification
+- [x] 05-01-PLAN.md -- WiFi dual-mode firmware + Node UDP transport and transport switching
+- [x] 05-02-PLAN.md -- MAX abstraction (imu-sensor.maxpat) with inlet/outlet API, patcherargs, message routing, and 3D viz companion
+- [x] 05-03-PLAN.md -- Help patch (imu-sensor.maxhelp) with documentation, test signal, 3 creative recipes, and hardware verification
 
 ### Phase 6: Threshold Triggers and Gap Closure
 **Goal**: Implement threshold/event detection (MAXI-03) in Node and MAX, migrate to abstraction, and fix false documentation — closing all v1.0 audit gaps
@@ -116,7 +116,7 @@ Plans:
 **Plans:** 2 plans
 
 Plans:
-- [ ] 06-01-PLAN.md -- Threshold subpatchers with hysteresis in imu-sensor.maxpat abstraction
+- [x] 06-01-PLAN.md -- Threshold subpatchers with hysteresis in imu-sensor.maxpat abstraction
 - [ ] 06-02-PLAN.md -- Help patch Recipe 2 fix and project documentation updates
 
 ## Progress
@@ -131,8 +131,8 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6
 | 3. Calibration | 2/2 | ✓ Complete | 2026-02-12 |
 | 4. Musical Tools | 2/3 | Partial (04-03 not executed) | 2026-02-13 |
 | 5. Abstraction and WiFi | 3/3 | ✓ Complete | 2026-02-13 |
-| 6. Threshold Triggers | 0/2 | Pending | -- |
+| 6. Threshold Triggers | 1/2 | In Progress | -- |
 
 ---
 *Roadmap created: 2026-02-12*
-*Last updated: 2026-02-13 (Phase 6 added for gap closure)*
+*Last updated: 2026-02-13 (Phase 6 plan checkmarks and plan descriptions updated)*
