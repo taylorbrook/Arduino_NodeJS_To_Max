@@ -17,7 +17,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 3: Calibration** - Gyro bias correction, yaw reset, and interactive calibration from MAX
 - [x] **Phase 4: Musical Tools** - Smoothing, scaling, thresholds, visualization, and quaternion output in MAX
 - [x] **Phase 5: Abstraction and WiFi** - Reusable MAX patch and wireless transport alternative
-- [ ] **Phase 6: Threshold Triggers and Gap Closure** - Implement MAXI-03 thresholds, fix false documentation, close all audit gaps
+- [x] **Phase 6: Threshold Triggers and Gap Closure** - Implement MAXI-03 thresholds, fix false documentation, close all audit gaps
 
 ## Phase Details
 
@@ -117,7 +117,7 @@ Plans:
 
 Plans:
 - [x] 06-01-PLAN.md -- Threshold subpatchers with hysteresis in imu-sensor.maxpat abstraction
-- [ ] 06-02-PLAN.md -- Help patch Recipe 2 fix and project documentation updates
+- [x] 06-02-PLAN.md -- Help patch Recipe 2 fix and project documentation updates
 
 ## Progress
 
@@ -131,8 +131,8 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6
 | 3. Calibration | 2/2 | ✓ Complete | 2026-02-12 |
 | 4. Musical Tools | 2/3 | Partial (04-03 not executed) | 2026-02-13 |
 | 5. Abstraction and WiFi | 3/3 | ✓ Complete | 2026-02-13 |
-| 6. Threshold Triggers | 1/2 | In Progress | -- |
+| 6. Threshold Triggers | 2/2 | ✓ Complete | 2026-02-13 |
 
 ---
 *Roadmap created: 2026-02-12*
-*Last updated: 2026-02-13 (Phase 6 plan checkmarks and plan descriptions updated)*
+*Last updated: 2026-02-13 (Phase 6 complete)*
