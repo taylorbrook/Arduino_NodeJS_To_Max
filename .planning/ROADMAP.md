@@ -15,8 +15,8 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 1: Arduino Firmware** - IMU reading, Madgwick fusion, smoothing, and structured serial output
 - [x] **Phase 2: Serial Bridge** - Node for Max receives, validates, and routes serial data into MAX
 - [x] **Phase 3: Calibration** - Gyro bias correction, yaw reset, and interactive calibration from MAX
-- [ ] **Phase 4: Musical Tools** - Smoothing, scaling, thresholds, visualization, and quaternion output in MAX
-- [ ] **Phase 5: Abstraction and WiFi** - Reusable MAX patch and wireless transport alternative
+- [x] **Phase 4: Musical Tools** - Smoothing, scaling, thresholds, visualization, and quaternion output in MAX
+- [x] **Phase 5: Abstraction and WiFi** - Reusable MAX patch and wireless transport alternative
 
 ## Phase Details
 
@@ -111,9 +111,9 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5
 | 1. Arduino Firmware | 2/2 | ✓ Complete | 2026-02-12 |
 | 2. Serial Bridge | 2/2 | ✓ Complete | 2026-02-12 |
 | 3. Calibration | 2/2 | ✓ Complete | 2026-02-12 |
-| 4. Musical Tools | 0/3 | In Progress | - |
-| 5. Abstraction and WiFi | 0/TBD | Not started | - |
+| 4. Musical Tools | 3/3 | ✓ Complete | 2026-02-13 |
+| 5. Abstraction and WiFi | 3/3 | ✓ Complete | 2026-02-13 |
 
 ---
 *Roadmap created: 2026-02-12*
-*Last updated: 2026-02-13 (Phase 4 planned)*
+*Last updated: 2026-02-13 (All phases complete)*
