@@ -5,23 +5,23 @@
 See: .planning/PROJECT.md (updated 2026-02-12)
 
 **Core value:** Reliable, lowest-possible-latency delivery of clean sensor data from Arduino to MAX
-**Current focus:** Phase 5 complete -- All roadmap objectives achieved: USB+WiFi dual-mode transport, MAX abstraction with 13-outlet API, comprehensive help patch
+**Current focus:** Phase 6 -- Threshold triggers and gap closure (MAXI-03 satisfaction)
 
 ## Current Position
 
-Phase: 5 of 5 (Abstraction and WiFi)
-Plan: 3 of 3 in current phase - COMPLETE
-Status: Complete
-Last activity: 2026-02-13 -- Completed 05-03-PLAN.md (Help patch documentation with test signal and recipes)
+Phase: 6 of 6 (Threshold Triggers)
+Plan: 1 of 2 in current phase - COMPLETE
+Status: In Progress
+Last activity: 2026-02-13 -- Completed 06-01-PLAN.md (Threshold subpatchers with hysteresis in imu-sensor.maxpat)
 
-Progress: [██████████] 100%
+Progress: [████████████] 92%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 11
-- Average duration: 7.2min
-- Total execution time: 1.3 hours
+- Total plans completed: 12
+- Average duration: 6.8min
+- Total execution time: 1.35 hours
 
 **By Phase:**
 
@@ -32,10 +32,11 @@ Progress: [██████████] 100%
 | 03-calibration | 2 | 6min | 3min |
 | 04-musical-tools | 2 | 12min | 6min |
 | 05-abstraction-wifi | 3 | 52min | 17.3min |
+| 06-threshold-triggers | 1 | 3min | 3min |
 
 **Recent Trend:**
-- Last 5 plans: 04-02 (5min), 05-01 (4min), 05-02 (5min), 05-03 (43min)
-- Trend: Help patch plan took significantly longer (43min) due to abstraction deployment issues and verification iterations
+- Last 5 plans: 05-01 (4min), 05-02 (5min), 05-03 (43min), 06-01 (3min)
+- Trend: Threshold plan executed quickly (3min) -- well-researched migration from proven sensor-pipeline pattern
 
 *Updated after each plan completion*
 
@@ -94,13 +95,16 @@ Recent decisions affecting current work:
 - #0 prefix on all internal send/receive for instance isolation in abstraction (05-02)
 - patcherargs right outlet dispatches @attributes through deferlow chain to node.script (05-02)
 - Euler-based 3D rotation in companion patch matching established X=pitch Y=yaw Z=roll convention (05-02)
-- Triggers outlet (12) is placeholder -- wired but no threshold module routing yet (05-02)
+- Triggers outlet (12) now fully functional with 6 threshold subpatchers (06-01, replaces 05-02 placeholder)
 - Mapping subpatchers use #0_mapped_<axis> instance-isolated sends (05-02)
 - serial-bridge.js copied to max/ directory for abstraction discovery via relative path (05-03)
 - node_modules symlinked into max/ for abstraction dependency resolution (05-03)
 - Ready signal from node.script to patcherargs ensures initialization order (05-03)
 - Help patch uses single live abstraction instance to avoid resource contention (05-03)
 - Test signal implemented purely in MAX (metro + counter + expr) without Node simulate handler (05-03)
+- Single configurable threshold per axis in MAX (not Node) -- consumer-side feature matches mapping pattern (06-01)
+- Direct wiring via t l l l third outlet for threshold data tap -- avoids send/receive #0 complexity (06-01)
+- Removed dead prepend threshold -> node.script wiring -- thresholds handled entirely in MAX (06-01)
 
 ### Pending Todos
 
@@ -115,5 +119,5 @@ None.
 ## Session Continuity
 
 Last session: 2026-02-13
-Stopped at: Completed 05-03-PLAN.md -- Help patch documentation with test signal and recipes. Phase 5 complete. All roadmap objectives achieved.
+Stopped at: Completed 06-01-PLAN.md -- Threshold subpatchers with hysteresis in imu-sensor.maxpat. 06-02 (help patch update, ROADMAP cleanup) remaining.
 Resume file: None
