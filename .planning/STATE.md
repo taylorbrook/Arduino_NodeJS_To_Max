@@ -39,6 +39,7 @@ Progress: [█████████████] 100%
 - Trend: Final gap closure plans executed quickly -- well-researched documentation corrections
 
 *Updated after each plan completion*
+| Phase 06 P02 | 4min | 2 tasks | 3 files |
 
 ## Accumulated Context
 
@@ -107,6 +108,7 @@ Recent decisions affecting current work:
 - Removed dead prepend threshold -> node.script wiring -- thresholds handled entirely in MAX (06-01)
 - Threshold message format is positional: threshold <axis> <value> [hysteresis] -- not keyword-based (06-02)
 - Help patch Recipe 2 wired to live instance outlet 12 for threshold demo -- no second instance needed (06-02)
+- [Phase 06]: Threshold message format is positional: threshold axis value hysteresis -- not keyword-based
 
 ### Pending Todos
 
