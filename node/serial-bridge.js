@@ -1,13 +1,15 @@
 // ============================================================
 // Serial Bridge for Node for Max
-// Receives Arduino IMU data over USB serial, validates CSV lines,
-// and outputs parsed sensor streams via tagged maxAPI.outlet()
-// messages with automatic connection management.
+// Receives Arduino IMU data over USB serial or WiFi UDP,
+// validates CSV lines, and outputs parsed sensor streams via
+// tagged maxAPI.outlet() messages with automatic connection
+// management and transport switching.
 // ============================================================
 
 const maxAPI = require("max-api");
 const { SerialPort } = require("serialport");
 const { ReadlineParser } = require("@serialport/parser-readline");
+var dgram = require("dgram");
 
 // ---- Configuration ----
 const BAUD_RATE = 57600;
@@ -19,6 +21,12 @@ let port = null;
 let parser = null;
 let reconnectTimer = null;
 let state = "disconnected";
+
+// ---- Transport State ----
+var transport = "usb";       // Current transport mode: "usb", "wifi", "auto"
+var udpSocket = null;        // dgram socket for WiFi UDP
+var udpPort = 8889;          // Default UDP listen port (matches firmware DEST_PORT)
+var wifiIP = "192.168.1.50"; // Arduino IP for status display
 
 // ---- Calibration State ----
 var isCalibrating = false;
@@ -46,7 +54,8 @@ var smoothed = { ax: null, ay: null, az: null, gx: null, gy: null, gz: null,
 
 // ============================================================
 // Connection State Machine
-// States: "disconnected", "scanning", "connected"
+// States: "disconnected", "scanning", "connected-usb",
+//         "connected-wifi", "switching"
 // ============================================================
 
 function updateStatus(newState) {
@@ -315,7 +324,7 @@ function connectToPort(portPath) {
   parser = port.pipe(new ReadlineParser({ delimiter: "\n" }));
 
   port.on("open", function () {
-    updateStatus("connected");
+    updateStatus("connected-usb");
   });
 
   port.on("error", function (err) {
@@ -361,6 +370,48 @@ function cleanup() {
       port.close();
     }
     port = null;
+  }
+}
+
+// ============================================================
+// UDP Transport (WIFI-01)
+// Receives same CSV format over WiFi UDP via dgram
+// Data flows through the same validateLine/outputData pipeline
+// ============================================================
+
+function startUDP(listenPort) {
+  if (udpSocket) return;
+  udpSocket = dgram.createSocket("udp4");
+
+  udpSocket.on("message", function (msg, rinfo) {
+    var line = msg.toString().trim();
+    var values = validateLine(line);
+    if (values) {
+      outputData(values);
+    }
+  });
+
+  udpSocket.on("listening", function () {
+    var addr = udpSocket.address();
+    maxAPI.post("[serial-bridge] UDP listening on " + addr.address + ":" + addr.port);
+    updateStatus("connected-wifi");
+  });
+
+  udpSocket.on("error", function (err) {
+    maxAPI.post("[serial-bridge] UDP error: " + err.message);
+    if (udpSocket) {
+      udpSocket.close();
+      udpSocket = null;
+    }
+  });
+
+  udpSocket.bind(listenPort, "0.0.0.0");
+}
+
+function stopUDP() {
+  if (udpSocket) {
+    udpSocket.close();
+    udpSocket = null;
   }
 }
 
@@ -415,6 +466,7 @@ maxAPI.addHandler("disconnect", function () {
     reconnectTimer = null;
   }
   cleanup();
+  stopUDP();
   updateStatus("disconnected");
 });
 
@@ -489,6 +541,50 @@ maxAPI.addHandler("smooth_gz", function (val) { smoothFactors.gz = val; });
 maxAPI.addHandler("smooth_pitch", function (val) { smoothFactors.pitch = val; });
 maxAPI.addHandler("smooth_roll", function (val) { smoothFactors.roll = val; });
 maxAPI.addHandler("smooth_yaw", function (val) { smoothFactors.yaw = val; });
+
+// ---- Transport Handlers ----
+
+maxAPI.addHandler("transport", function () {
+  var args = Array.prototype.slice.call(arguments);
+  var mode = args[0];
+  transport = mode;
+
+  if (mode === "usb") {
+    updateStatus("switching");
+    stopUDP();
+    startScanning();
+  } else if (mode === "wifi") {
+    updateStatus("switching");
+    cleanup();
+    if (reconnectTimer) { clearInterval(reconnectTimer); reconnectTimer = null; }
+    startUDP(udpPort);
+  } else if (mode === "auto") {
+    updateStatus("switching");
+    stopUDP();
+    startScanning();
+    // After 5s timeout with no USB found, fall back to WiFi
+    setTimeout(function () {
+      if (state !== "connected-usb") {
+        startUDP(udpPort);
+      }
+    }, 5000);
+  }
+});
+
+maxAPI.addHandler("udpport", function (port) {
+  udpPort = port;
+  maxAPI.post("[serial-bridge] UDP port set to " + port);
+  // If currently on WiFi, restart with new port
+  if (udpSocket) {
+    stopUDP();
+    startUDP(udpPort);
+  }
+});
+
+maxAPI.addHandler("ip", function (addr) {
+  wifiIP = addr;
+  maxAPI.post("[serial-bridge] Arduino IP set to " + addr);
+});
 
 // ============================================================
 // Auto-start
