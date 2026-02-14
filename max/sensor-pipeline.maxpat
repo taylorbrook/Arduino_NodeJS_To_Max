@@ -580,6 +580,28 @@
             },
             {
                 "box": {
+                    "id": "obj-sel-connected",
+                    "maxclass": "newobj",
+                    "numinlets": 1,
+                    "numoutlets": 2,
+                    "outlettype": [ "bang", "" ],
+                    "patching_rect": [ 220.0, 450.0, 90.0, 22.0 ],
+                    "text": "sel connected"
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-delay-autocal",
+                    "maxclass": "newobj",
+                    "numinlets": 2,
+                    "numoutlets": 1,
+                    "outlettype": [ "bang" ],
+                    "patching_rect": [ 220.0, 480.0, 63.0, 22.0 ],
+                    "text": "delay 500"
+                }
+            },
+            {
+                "box": {
                     "fontface": 1,
                     "fontsize": 13.0,
                     "id": "obj-comment-calstatus",
@@ -16583,7 +16605,29 @@
                 "patchline": {
                     "destination": [ "obj-status-display", 1 ],
                     "midpoints": [ 388.2857142857143, 255.0, 480.0, 255.0, 480.0, 270.0, 594.0, 270.0, 594.0, 258.0, 645.0, 258.0, 645.0, 234.0, 634.5, 234.0 ],
+                    "order": 1,
                     "source": [ "obj-route", 3 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-sel-connected", 0 ],
+                    "midpoints": [ 388.2857142857143, 255.0, 210.0, 255.0, 210.0, 447.0, 229.5, 447.0 ],
+                    "order": 0,
+                    "source": [ "obj-route", 3 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-delay-autocal", 0 ],
+                    "source": [ "obj-sel-connected", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-msg-calstart", 0 ],
+                    "midpoints": [ 229.5, 504.0, 69.5, 504.0 ],
+                    "source": [ "obj-delay-autocal", 0 ]
                 }
             },
             {
