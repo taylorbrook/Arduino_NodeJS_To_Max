@@ -94,11 +94,12 @@ Plans:
   3. A help patch (.maxhelp) opens from the abstraction and documents every inlet, outlet, and argument with working examples
   4. Arduino can send IMU data wirelessly over WiFi/UDP and MAX receives it through the same Node for Max pipeline
   5. User can switch between USB serial and WiFi transport from MAX without restarting the application
-**Plans**: TBD
+**Plans:** 3 plans
 
 Plans:
-- [ ] 05-01: TBD
-- [ ] 05-02: TBD
+- [ ] 05-01-PLAN.md -- WiFi dual-mode firmware + Node UDP transport and transport switching
+- [ ] 05-02-PLAN.md -- MAX abstraction (imu-sensor.maxpat) with inlet/outlet API, patcherargs, message routing, and 3D viz companion
+- [ ] 05-03-PLAN.md -- Help patch (imu-sensor.maxhelp) with documentation, test signal, 3 creative recipes, and hardware verification
 
 ## Progress
 
