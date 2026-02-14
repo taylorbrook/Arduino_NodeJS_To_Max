@@ -591,5 +591,5 @@ maxAPI.addHandler("ip", function (addr) {
 // Begin port discovery immediately when loaded by node.script
 // ============================================================
 
-startScanning();
 maxAPI.outlet("cal_status", "idle");
+maxAPI.outlet("ready", "bang");
