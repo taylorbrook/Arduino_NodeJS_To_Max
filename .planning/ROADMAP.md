@@ -113,10 +113,11 @@ Plans:
   3. Threshold triggers output via outlet 12 of imu-sensor.maxpat abstraction
   4. Help patch threshold documentation (Recipe 2) matches actual working implementation
   5. ROADMAP and STATE.md accurately reflect completion status
-**Plans:** TBD (created during `/gsd:plan-phase 6`)
+**Plans:** 2 plans
 
 Plans:
-- [ ] 06-01-PLAN.md -- TBD
+- [ ] 06-01-PLAN.md -- Threshold subpatchers with hysteresis in imu-sensor.maxpat abstraction
+- [ ] 06-02-PLAN.md -- Help patch Recipe 2 fix and project documentation updates
 
 ## Progress
 
@@ -130,7 +131,7 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6
 | 3. Calibration | 2/2 | ✓ Complete | 2026-02-12 |
 | 4. Musical Tools | 2/3 | Partial (04-03 not executed) | 2026-02-13 |
 | 5. Abstraction and WiFi | 3/3 | ✓ Complete | 2026-02-13 |
-| 6. Threshold Triggers | 0/? | Pending | — |
+| 6. Threshold Triggers | 0/2 | Pending | -- |
 
 ---
 *Roadmap created: 2026-02-12*
