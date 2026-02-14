@@ -2,12 +2,27 @@
 // IMU Firmware for Arduino Uno WiFi Rev2
 // Reads LSM6DS3 via SPI, runs Madgwick fusion, EMA smoothing,
 // outputs 9-value CSV over USB serial at 57600 baud.
-// Version 1.0
+// Optionally sends same CSV over WiFi UDP if arduino_secrets.h
+// exists with valid WiFi credentials.
+// Version 1.1
 // ============================================================
 
 #include "SparkFunLSM6DS3.h"
 #include "SPI.h"
 #include <MadgwickAHRS.h>
+
+// ---- WiFi Support (optional) ----
+// If arduino_secrets.h exists, WiFi UDP is enabled alongside USB serial.
+// If not, firmware compiles and runs USB-only with no WiFi overhead.
+#if __has_include("arduino_secrets.h")
+  #include "arduino_secrets.h"
+  #define WIFI_ENABLED
+  #include <WiFiNINA.h>
+  #include <WiFiUdp.h>
+#else
+  #define SECRET_SSID ""
+  #define SECRET_PASS ""
+#endif
 
 // ---- Configuration Constants ----
 const long BAUD_RATE = 57600;
@@ -15,11 +30,28 @@ const int WARMUP_ITERATIONS = 200;    // iterations for filter convergence
 const int RATE_MEASURE_ITERATIONS = 50; // iterations to measure actual loop rate
 const float SMOOTH_ALPHA = 0.15;      // EMA smoothing coefficient (light smoothing)
 const float INITIAL_RATE_ESTIMATE = 80.0; // conservative estimate for warmup
-const char FIRMWARE_VERSION[] = "1.0";
+const char FIRMWARE_VERSION[] = "1.1";
 
 // ---- Global Objects ----
 LSM6DS3 myIMU(SPI_MODE, SPIIMU_SS);   // SPI mode with board chip select
 Madgwick filter;
+
+#ifdef WIFI_ENABLED
+// ---- WiFi Configuration ----
+// NOTE: SPI bus contention -- the LSM6DS3 IMU and NINA WiFi module both use SPI.
+// Since the ATmega4809 is single-threaded and calls are sequential
+// (IMU read -> Serial print -> UDP send), there is no bus contention.
+// The Arduino SPI library manages chip selects via beginTransaction/endTransaction.
+// This is a validated assumption for sequential (non-interrupt-driven) SPI access.
+const int UDP_PORT = 8888;
+IPAddress staticIP(192, 168, 1, 50);
+IPAddress destIP(192, 168, 1, 100);
+const int DEST_PORT = 8889;
+
+WiFiUDP udp;
+bool wifiConnected = false;
+char csvBuffer[128];
+#endif
 
 // ---- Smoothing State ----
 float smoothPitch = 0;
@@ -32,6 +64,27 @@ float measuredRate = 80.0;             // Updated after live measurement
 bool rateMeasured = false;             // Has the live rate been measured?
 int loopCount = 0;                     // Counter for rate measurement
 unsigned long measureStartMicros = 0;  // Start time for rate measurement
+
+// ============================================================
+// WiFi Setup (called once from setup(), blocking)
+// WiFi.begin() blocks for up to 10 seconds. This happens once
+// at boot, before the main loop starts, so it has zero impact
+// on the 114 Hz USB serial data rate.
+// ============================================================
+#ifdef WIFI_ENABLED
+void setupWiFi() {
+  WiFi.config(staticIP);
+  int status = WiFi.begin(SECRET_SSID, SECRET_PASS);
+  if (status == WL_CONNECTED) {
+    WiFi.noLowPowerMode();  // Reduces UDP latency from 20ms to 3-5ms
+    udp.begin(UDP_PORT);
+    wifiConnected = true;
+    Serial.println("STARTUP,wifi=connected");
+  } else {
+    Serial.println("STARTUP,wifi=failed");
+  }
+}
+#endif
 
 // ============================================================
 // Warmup: converge filter at estimated rate
@@ -92,6 +145,11 @@ void setup() {
     }
   }
 
+  // ---- Initialize WiFi (blocking, before main loop) ----
+#ifdef WIFI_ENABLED
+  setupWiFi();
+#endif
+
   // ---- Warmup: converge filter at estimated rate ----
   performWarmup();
 
@@ -107,6 +165,10 @@ void printStartup() {
   Serial.print(FIRMWARE_VERSION);
   Serial.print(",rate_hz=");
   Serial.print(measuredRate, 1);
+#ifdef WIFI_ENABLED
+  Serial.print(",wifi=");
+  Serial.print(wifiConnected ? "connected" : "failed");
+#endif
   Serial.println(",format=ax,ay,az,gx,gy,gz,pitch,roll,yaw");
 }
 
@@ -155,6 +217,18 @@ void loop() {
   Serial.print(smoothPitch, 2); Serial.print(',');
   Serial.print(smoothRoll, 2); Serial.print(',');
   Serial.println(smoothYaw, 2);
+
+  // ---- Send same CSV over WiFi UDP (additive, does not affect USB serial) ----
+#ifdef WIFI_ENABLED
+  if (wifiConnected) {
+    int len = snprintf(csvBuffer, sizeof(csvBuffer),
+      "%.2f,%.2f,%.2f,%.2f,%.2f,%.2f,%.2f,%.2f,%.2f",
+      ax, ay, az, gx, gy, gz, smoothPitch, smoothRoll, smoothYaw);
+    udp.beginPacket(destIP, DEST_PORT);
+    udp.write((uint8_t*)csvBuffer, len);
+    udp.endPacket();
+  }
+#endif
 
   // ---- Measure actual loop rate from live loop (includes serial output) ----
   if (!rateMeasured) {

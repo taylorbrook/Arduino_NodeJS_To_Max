@@ -1,0 +1,8 @@
+# WiFi credentials (never commit)
+firmware/imu_firmware/arduino_secrets.h
+
+# Node modules
+node/node_modules/
+
+# OS files
+.DS_Store
