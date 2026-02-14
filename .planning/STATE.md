@@ -5,23 +5,23 @@
 See: .planning/PROJECT.md (updated 2026-02-12)
 
 **Core value:** Reliable, lowest-possible-latency delivery of clean sensor data from Arduino to MAX
-**Current focus:** Phase 5 in progress -- Abstraction and WiFi (WiFi transport plumbing complete, abstraction + help patch remaining)
+**Current focus:** Phase 5 in progress -- Abstraction and WiFi (Abstraction + 3D viz complete, help patch remaining)
 
 ## Current Position
 
 Phase: 5 of 5 (Abstraction and WiFi)
-Plan: 1 of 3 in current phase - COMPLETE
+Plan: 2 of 3 in current phase - COMPLETE
 Status: In Progress
-Last activity: 2026-02-14 -- Completed 05-01-PLAN.md (WiFi dual-mode firmware + UDP transport in Node)
+Last activity: 2026-02-14 -- Completed 05-02-PLAN.md (MAX abstraction + companion 3D viz patch)
 
-Progress: [█████████░] 90%
+Progress: [██████████] 95%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 9
-- Average duration: 3.6min
-- Total execution time: 0.55 hours
+- Total plans completed: 10
+- Average duration: 3.7min
+- Total execution time: 0.62 hours
 
 **By Phase:**
 
@@ -31,11 +31,11 @@ Progress: [█████████░] 90%
 | 02-serial-bridge | 2 | 6min | 3min |
 | 03-calibration | 2 | 6min | 3min |
 | 04-musical-tools | 2 | 12min | 6min |
-| 05-abstraction-wifi | 1 | 4min | 4min |
+| 05-abstraction-wifi | 2 | 9min | 4.5min |
 
 **Recent Trend:**
-- Last 5 plans: 03-02 (5min), 04-01 (7min), 04-02 (5min), 05-01 (4min)
-- Trend: Consistent, WiFi transport plan executed efficiently at 4min
+- Last 5 plans: 04-01 (7min), 04-02 (5min), 05-01 (4min), 05-02 (5min)
+- Trend: Consistent, abstraction plan executed at 5min despite 17k+ lines of maxpat generation
 
 *Updated after each plan completion*
 
@@ -91,6 +91,11 @@ Recent decisions affecting current work:
 - Auto mode: 5s USB scan timeout before WiFi UDP fallback (05-01)
 - dgram (Node built-in) for UDP reception -- no npm install, unified data pipeline (05-01)
 - disconnect handler stops both USB serial and UDP for complete cleanup (05-01)
+- #0 prefix on all internal send/receive for instance isolation in abstraction (05-02)
+- patcherargs right outlet dispatches @attributes through deferlow chain to node.script (05-02)
+- Euler-based 3D rotation in companion patch matching established X=pitch Y=yaw Z=roll convention (05-02)
+- Triggers outlet (12) is placeholder -- wired but no threshold module routing yet (05-02)
+- Mapping subpatchers use #0_mapped_<axis> instance-isolated sends (05-02)
 
 ### Pending Todos
 
@@ -105,5 +110,5 @@ None.
 ## Session Continuity
 
 Last session: 2026-02-14
-Stopped at: Completed 05-01-PLAN.md -- WiFi dual-mode firmware + UDP transport switching in Node, ready for Plan 02 (MAX abstraction packaging)
+Stopped at: Completed 05-02-PLAN.md -- MAX abstraction + companion 3D viz patch, ready for Plan 03 (help patch)
 Resume file: None
