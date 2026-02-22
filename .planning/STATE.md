@@ -52,9 +52,10 @@ None.
 | # | Description | Date | Commit | Directory |
 |---|-------------|------|--------|-----------|
 | 1 | add normalization toggle that normalize outputs to be between 0. and 1. | 2026-02-22 | ab937d6 | [1-add-normalization-toggle-that-normalize-](./quick/1-add-normalization-toggle-that-normalize-/) |
+| 2 | update the maxhelp file to account for the new normalization outlets | 2026-02-22 | 583286e | [2-update-the-maxhelp-file-to-account-for-t](./quick/2-update-the-maxhelp-file-to-account-for-t/) |
 
 ## Session Continuity
 
 Last session: 2026-02-22
-Stopped at: Milestone v1.1 initialization in progress.
+Stopped at: Completed quick-2 (maxhelp normalization docs).
 Resume file: None
