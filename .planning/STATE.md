@@ -12,7 +12,7 @@ See: .planning/PROJECT.md (updated 2026-02-22)
 Phase: Not started (defining requirements)
 Plan: —
 Status: Defining requirements
-Last activity: 2026-02-22 — Milestone v1.1 started
+Last activity: 2026-02-22 - Completed quick task 2: update the .maxhelp file to account for the new normalized outputs
 
 ## Performance Metrics
 
