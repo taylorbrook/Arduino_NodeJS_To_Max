@@ -2,19 +2,17 @@
 
 ## Project Reference
 
-See: .planning/PROJECT.md (updated 2026-02-13)
+See: .planning/PROJECT.md (updated 2026-02-22)
 
 **Core value:** Reliable, lowest-possible-latency delivery of clean sensor data from Arduino to MAX
-**Current focus:** Planning next milestone
+**Current focus:** v1.1 Gesture Recognition & Mapping
 
 ## Current Position
 
-Phase: v1.0 complete (6 phases, 13 plans)
-Plan: N/A -- milestone archived
-Status: v1.0 MVP Shipped
-Last activity: 2026-02-22 - Completed quick task 1: add normalization toggle that normalize outputs to be between 0. and 1.
-
-Progress: [██████████████] 100% (v1.0)
+Phase: Not started (defining requirements)
+Plan: —
+Status: Defining requirements
+Last activity: 2026-02-22 — Milestone v1.1 started
 
 ## Performance Metrics
 
@@ -47,7 +45,7 @@ None.
 
 ### Blockers/Concerns
 
-None -- v1.0 shipped clean.
+None.
 
 ### Quick Tasks Completed
 
@@ -57,6 +55,6 @@ None -- v1.0 shipped clean.
 
 ## Session Continuity
 
-Last session: 2026-02-13
-Stopped at: v1.0 milestone archived. Next step: /gsd:new-milestone for v1.1 planning.
+Last session: 2026-02-22
+Stopped at: Milestone v1.1 initialization in progress.
 Resume file: None

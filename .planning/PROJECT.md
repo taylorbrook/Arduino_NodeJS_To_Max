@@ -30,12 +30,21 @@ Reliable, lowest-possible-latency delivery of sensor data from Arduino to MAX --
 
 ### Active
 
-(None -- planning next milestone)
+#### Current Milestone: v1.1 Gesture Recognition & Mapping
+
+**Goal:** Add gesture recognition (predefined + custom DTW) and position interpolation to the sensor pipeline, implemented as both a Node for Max script and pure MAX/MSP objects, with rich visualization.
+
+**Target features:**
+- Predefined gesture library (shake, flip, tap, circle, etc.) with bang outputs
+- Custom gesture recording and recognition via Dynamic Time Warping (DTW)
+- Position interpolation (record A & B, output 0. to 1. blend)
+- Rich visualization (motion trails, matching progress, position space map)
+- Dual implementation: separate Node script + pure MAX/MSP version
 
 ### Out of Scope
 
 - Absolute yaw/heading -- LSM6DS3 has no magnetometer
-- Machine learning gesture recognition -- ATmega4809 too constrained
+- Machine learning gesture recognition -- DTW first; ML deferred to future milestone
 - Multi-board support -- single Arduino pipeline
 - Auto-discovery of serial port -- fragile and platform-specific
 - WiFi configuration UI in MAX -- credentials hardcoded in sketch
@@ -75,4 +84,4 @@ All 28 v1 requirements satisfied. No known blocking issues.
 | dgram (Node built-in) for UDP | No npm install, unified data pipeline | ✓ Good -- zero dependencies added |
 
 ---
-*Last updated: 2026-02-13 after v1.0 milestone*
+*Last updated: 2026-02-22 after v1.1 milestone start*
