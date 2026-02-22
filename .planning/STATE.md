@@ -39,6 +39,7 @@ Progress: [██████████████] 100% (v1.0)
 ### Decisions
 
 Full decision log in PROJECT.md Key Decisions table.
+- [Phase quick]: Normalization uses separate norm_* outlets (non-destructive) with min-max mapping and 0-1 clamping
 
 ### Pending Todos
 
