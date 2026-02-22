@@ -1,197 +1,228 @@
-# Feature Research
+# Feature Landscape: v1.1 Gesture Recognition & Mapping
 
-**Domain:** Real-time Arduino IMU sensor-to-MAX/MSP creative software pipeline
-**Researched:** 2026-02-12
+**Domain:** IMU gesture recognition, DTW-based custom gestures, position interpolation, and motion visualization for sensor-to-music pipelines
+**Researched:** 2026-02-22
 **Confidence:** MEDIUM-HIGH
 
-## Feature Landscape
+## Table Stakes
 
-### Table Stakes (Users Expect These)
+Features users expect from any gesture recognition system built on top of an IMU pipeline. Missing any of these makes the system feel incomplete or broken.
 
-Features users assume exist. Missing these = product feels incomplete.
+| Feature | Why Expected | Complexity | Dependencies on v1.0 | Notes |
+|---------|--------------|------------|----------------------|-------|
+| Gesture segmentation (activity detection) | System must know when a gesture starts and stops. Without segmentation, DTW runs on noise or overlapping motions and produces garbage. | MEDIUM | Smoothed accel/gyro from EMA pipeline, threshold triggers with hysteresis | Use energy-based segmentation: compute Euclidean norm of acceleration (`sqrt(aX^2 + aY^2 + aZ^2)`), apply a stillness threshold (e.g. magnitude within 0.05g of 1.0g for 100ms = idle). Gesture starts when energy exceeds threshold, ends when energy drops below for a debounce window. Research shows adaptive thresholding with Bayes decision theory improves accuracy, but a fixed threshold with configurable sensitivity is the practical starting point at 114 Hz. |
+| Predefined shake detection | Shake is the most universally expected gesture for any motion controller. Every IMU toolkit supports it. Users will test shake first. | LOW | Raw accel data (outlets 1-3 of imu-sensor) | Detect high-frequency, high-magnitude oscillation on any axis. Algorithm: compute acceleration magnitude, detect N peaks above threshold within a time window (e.g. 3+ peaks above 1.5g within 500ms). Use existing hysteresis threshold infrastructure. Output: bang on detection, optional intensity float (0-1 based on peak magnitude). |
+| Predefined tap detection | Second most expected gesture. Physical tapping the sensor is intuitive and maps naturally to percussive triggers. | LOW | Raw accel data, threshold triggers | Detect sharp acceleration spike followed by rapid decay. Algorithm: magnitude exceeds high threshold (e.g. 2.0g) then drops below low threshold within a narrow window (50-100ms). Double-tap: two single taps within 200-400ms. The LSM6DS3 does NOT have built-in tap detection hardware (unlike CurieIMU), so this must be done in software. Use peak detection with debounce. |
+| Predefined flip detection | Natural gesture for toggling states (flip the controller over). Orientation data already exists. | LOW | Pitch/roll from orientation outlets (4-5 of imu-sensor) | Detect pitch or roll crossing +/-150 degrees from rest position (near +/-180 means upside down). Use existing threshold trigger with hysteresis: "flipped" when abs(pitch) > 150, "unflipped" when abs(pitch) < 30. Output: bang on flip, bang on unflip. Already have the orientation data from Madgwick filter. |
+| Custom gesture recording | Users must be able to record their own reference gestures. A library of only predefined gestures is too limiting for creative music applications. | MEDIUM | All 9 sensor values (accel, gyro, orientation), smoothing pipeline | Record a fixed-duration buffer of sensor data (1-3 seconds at 114 Hz = 114-342 samples). Use a "record" toggle: start fills a circular buffer, stop trims to the gesture segment using activity detection. Store as a template (array of N-dimensional sample vectors). Multiple recordings of the same gesture improve robustness (average or keep best 3). |
+| DTW matching against recorded templates | DTW is the standard algorithm for time-series gesture recognition. It handles tempo variation (fast vs. slow performance of same gesture) which simple template correlation cannot. | HIGH | Gesture segmentation, recorded templates, smoothed sensor data | Standard DTW computes cost matrix between observed sequence and template, finds minimum-cost warping path. Distance metric: Euclidean distance across selected axes. At 114 Hz with 1-second gestures (~114 samples, 6-9 dimensions), DTW cost matrix is ~13K cells -- feasible in JavaScript but needs optimization. Use Sakoe-Chiba band constraint (e.g. band width = 10% of sequence length) to reduce computation to O(n*w) instead of O(n^2). Research shows 98.6% accuracy with 0.4ms recognition time at 100 Hz. |
+| DTW confidence/distance output | Users need to know HOW WELL a gesture matched, not just whether it matched. Confidence enables downstream mapping (strong match = louder note). | LOW | DTW matching | DTW produces a raw distance cost. Normalize by path length to get per-step cost. Convert to 0-1 confidence: `confidence = max(0, 1 - (cost / rejection_threshold))`. Output both bang (matched) and float (confidence). Rejection threshold should be user-configurable. |
+| Position A/B recording | Record two physical positions of the sensor and interpolate between them. This is the core of "position interpolation" and maps naturally to crossfade, morph, and blend controls. | MEDIUM | Smoothed orientation data (pitch/roll/yaw), optionally quaternion output | Record snapshot of orientation at position A and position B. Each snapshot is a 3D vector (pitch, roll, yaw) or quaternion. Store as reference points. Must handle the case where A and B are recorded at different times/sessions -- persist with `[dict]` or `[coll]`. |
+| Continuous position interpolation output | The interpolated 0-1 value between recorded positions is the main continuous output. This is what drives musical parameters (crossfade, filter cutoff, mix amount). | MEDIUM | Position A/B snapshots, live orientation stream | Compute current position's proximity to A vs B. For Euler angles: project current orientation onto the A-B line in angle space, clamp to 0-1. For quaternions: use quaternion distance (angle between quaternions via dot product), compute `t = distance(current, A) / distance(A, B)`, clamp to 0-1. Quaternion approach avoids gimbal lock issues near pitch +/-90. Output at full 114 Hz rate as a continuous float stream. |
+| Gesture library save/load | Recorded gestures and positions must persist across sessions. Losing recorded gestures when closing the patch is unacceptable for performance use. | MEDIUM | Custom gesture recording, position A/B recording | Save gesture templates and position snapshots to disk. Use MAX `[dict]` with `writeJSON` for structured data, or `[coll]` with `write` for simpler flat storage. File format should be human-readable (JSON) for debugging and sharing. Load on patch open. |
+| Visual feedback during recording | Users need to see that recording is happening and when it captured a valid gesture. Without feedback, users wonder "did it get it?" | LOW | Custom gesture recording | During recording: animated indicator (pulsing color, progress bar). On capture: brief flash confirmation. On failed capture (too short, too still): error indicator. Use existing MAX UI patterns (toggle color, `[panel]` color changes). |
 
-| Feature | Why Expected | Complexity | Notes |
-|---------|--------------|------------|-------|
-| Raw 6-axis data output (accel XYZ + gyro XYZ) | Fundamental purpose of the IMU pipeline. Without raw data, nothing downstream works. | LOW | Arduino_LSM6DS3 library provides `readAcceleration()` and `readGyroscope()` out of the box. Default ODR is 104 Hz. Values in g and deg/s respectively. |
-| Computed pitch and roll angles | Users expect orientation, not just raw sensor values. Accelerometer alone gives tilt via trigonometry (`atan2`). | MEDIUM | Accelerometer-only pitch/roll is noisy but zero-drift. Must fuse with gyro for stable output. This is the core value proposition. |
-| Sensor fusion for stable orientation | Raw gyro drifts, raw accelerometer is noisy. Users expect stable, responsive orientation that combines both strengths. | MEDIUM | Use Mahony filter (not Madgwick) for 6DOF. Research shows Madgwick is not appropriate for 6DOF IMUs without magnetometer. Mahony is a "glorified complementary filter" with better accuracy and low compute cost suitable for ATmega4809. |
-| USB serial transport (primary) | Most basic, most reliable connection. Every Arduino-to-MAX project starts here. Zero configuration on network layer. | LOW | Use the Max `[serial]` object or Node for Max with the `serialport` npm package. Baud rate must match both sides. 115200 baud recommended for throughput (not 9600). |
-| Configurable sample rate | Users need to match data rate to their application (audio needs fast, visual can be slower). Mismatch causes either wasted bandwidth or missed data. | LOW | LSM6DS3 supports ODR of 13, 26, 52, 104, 208, 416, 833, 1666 Hz. Arduino_LSM6DS3 library defaults to 104 Hz and lacks easy rate-change API. Use SparkFun LSM6DS3 library or direct register writes for rate control. |
-| Data parsing and delimiting in MAX | MAX must reliably parse multi-value serial streams without corruption or desync. | MEDIUM | Establish a clear protocol: delimiter-separated values (comma or space) with a newline terminator. Use `[route]` or `[unpack]` in MAX. Alternatively, Node for Max parses in JavaScript then calls `maxAPI.outlet()`. |
-| Signal smoothing in MAX | Raw sensor data is inherently noisy. Unsmoothed values cause jitter in audio parameters and visual elements. | LOW | Use `[slide]` (exponential smoothing), `[line~]` (interpolation for audio-rate), or moving average. `[slide]` with configurable up/down coefficients is the standard approach for control-rate sensor data. |
-| Value scaling and range mapping | Sensor output ranges (e.g., -2g to +2g, -180 to +180 degrees) rarely match target parameter ranges (0-1 for gain, 20-20000 for frequency). | LOW | Use `[scale]` object with exponential curve parameter for perceptual mapping. Linear mapping is wrong for frequency and amplitude -- use exponential curves (dB-to-amplitude, MIDI-to-frequency patterns). |
-| Gyroscope bias calibration (stationary offset) | Gyroscope reads non-zero when stationary due to manufacturing bias. Without calibration, orientation drifts immediately. | MEDIUM | Average N samples (500-1000) at startup while device is stationary. Subtract this offset from all subsequent readings. Must happen before sensor fusion. Simple but critical. |
-| Connection status indication | Users must know whether the Arduino is connected and sending data. Silent failures are unacceptable in live performance. | LOW | Detect serial port presence and data flow. In MAX, use `[serial]` port enumeration or Node for Max `serialport.list()`. Add a heartbeat or watchdog that flags stale data (no new samples for N ms). |
+## Differentiators
 
-### Differentiators (Competitive Advantage)
+Features that set this system apart from existing tools like IRCAM's MuBu/Gesture Follower. Not expected, but highly valued in a creative music context.
 
-Features that set the product apart. Not required, but valuable.
+| Feature | Value Proposition | Complexity | Dependencies on v1.0 | Notes |
+|---------|-------------------|------------|----------------------|-------|
+| Predefined circle/arc gesture | Circular motion detection is creatively compelling (DJ-style scrub, orbiting filter sweeps) and rarely provided as a predefined gesture. | MEDIUM | Gyro data (yaw rate primarily), orientation data | Detect sustained rotation around one axis. Algorithm: integrate gyro Z (yaw rate) over a window, detect when cumulative rotation exceeds 270 degrees within 0.5-2 seconds. Determine direction (CW vs CCW) from sign of integrated value. Also detect partial arcs (90, 180 degrees) with separate thresholds. Output: bang + direction + arc-degrees. |
+| Multi-position interpolation (more than A/B) | Place 3+ reference positions in orientation space and interpolate with inverse-distance weighting. Creates a "position space map" for complex parameter morphing. | HIGH | Position A/B infrastructure, quaternion output | Generalize A/B to N reference positions. Use inverse-distance weighting: `weight_i = 1/distance(current, pos_i)^p`, normalize weights to sum to 1. Each position can be associated with a parameter preset. This matches IRCAM's concept of "expressive timbral subspace" but implemented simply. Could use `[nodes]` object in MAX for 2D visualization of the position space. |
+| Gesture following (temporal progress) | Report not just "gesture matched" but "you are 60% through the gesture." Enables continuous control during gesture execution, not just trigger at completion. | HIGH | DTW matching infrastructure | Rather than waiting for gesture completion, run a streaming variant: compare incoming samples against the template progressively. Output a 0-1 "progress" value updated every frame. This is what IRCAM's Gesture Follower does (hybrid DTW/HMM approach). Simpler approximation: sliding window DTW matching against progressive prefix slices of the template. Computationally expensive but transformative for musical expression. |
+| Per-gesture axis selection | Let users choose which axes contribute to matching for each gesture. A "shake" might only care about accel magnitude, while a "circle" only cares about yaw. | LOW | DTW matching, predefined gesture detectors | Add a per-gesture configuration: bitmask or toggle array selecting which of the 9 data channels participate in the distance calculation. Reduces false positives and computation. Predefined gestures already implicitly do this (shake uses accel magnitude only). Expose the same control for custom DTW gestures. |
+| Motion trail visualization | Real-time 3D trail showing recent motion history. Immediately communicates gesture shape and helps users understand what the sensor "sees." | MEDIUM | 3D viz from v1.0 (Jitter companion patch), orientation data | Use `jit.gl.mesh` with `draw_mode line_strip`. Maintain a circular buffer of recent orientation points (last 2-3 seconds = 228-342 points). Push new point, shift buffer. Color gradient from old (faded) to new (bright). This is a natural extension of the existing Jitter 3D viz. The MAV Framework from academic research uses exactly this pattern for motion capture data in MAX. |
+| Gesture match progress visualization | Show a real-time bar or waveform indicating how closely the current motion matches each stored template. Provides "am I doing it right?" feedback during performance. | MEDIUM | DTW matching, gesture library | Display running DTW distance for each template as a horizontal bar (low distance = close match = green, high = red). Update at sensor rate. When distance drops below threshold, flash the matched gesture name. Use `[multislider]` for compact multi-template display. |
+| Position space map visualization | 2D plot showing reference positions and current sensor position. Users see where they are in the "gesture space." | MEDIUM | Multi-position interpolation | Use MAX `[nodes]` object or custom `jit.gl.sketch` 2D rendering. Plot reference positions as labeled circles, current position as a moving dot. Lines/colors indicate interpolation weights. Inspired by the "Metasurface" mapping interface from IRCAM and the synthesizer preset interpolation concept from sound design tools. |
+| Dual implementation (Node for Max + pure MAX) | Providing both allows users to choose based on their workflow: Node version for power users who want to extend in JS, pure MAX version for patchers who want to modify visually. | HIGH | Full feature set of both implementations | Node for Max version: DTW + gesture detection in `node/gesture-engine.js`, communicates via `maxAPI`. Pure MAX version: same logic built from `[coll]`, `[zl]`, `[expr]`, `[js]` or `[gen]` objects. The pure MAX version will be slower for DTW but removes the Node dependency. Target: Node version as primary (better performance for DTW computation), MAX version as lightweight alternative supporting predefined gestures + position interpolation (skip custom DTW). |
+| Configurable rejection threshold | Users tune how strict gesture matching is. Too strict = never matches in live performance chaos. Too lenient = false triggers everywhere. | LOW | DTW matching | Expose a single dial (0-1 mapped to distance threshold). Lower = stricter. Provide a "calibrate threshold" mode: perform the gesture 5 times, system calculates 2x the maximum inter-recording DTW distance as the default threshold. This auto-calibration approach is common in practical DTW systems. |
 
-| Feature | Value Proposition | Complexity | Notes |
-|---------|-------------------|------------|-------|
-| Computed yaw (heading) with drift acknowledgment | Completes the orientation triple. Even without a magnetometer, relative yaw from gyro integration is useful for gesture detection and short-duration performances. | MEDIUM | Yaw from gyro-only will drift. Be explicit about this: provide yaw with a "yaw reset" button. Users can periodically re-zero. For many creative applications (gesture arcs, spin detection), relative yaw is sufficient. Do NOT pretend it is absolute heading. |
-| Reusable MAX abstraction (sensor-tamer pattern) | A self-contained `.maxpat` abstraction that encapsulates the entire pipeline: serial input, parsing, calibration, fusion, smoothing, scaling, output. Drop it into any project. | HIGH | This is the real differentiator. Most Arduino-to-MAX examples are one-off patches. A proper abstraction with arguments (port, baud, smoothing amount) and clean inlets/outlets is rare. Use Max abstraction patterns: arguments via `#1`, `#2`, etc. Expose calibration toggle, raw/cooked output, individual axis outlets. |
-| Interactive calibration with toggle/reset | One-click calibration: toggle on, hold device still, toggle off. Calibration values stored and applied. Reset returns to uncalibrated state. | MEDIUM | Calibration sequence: toggle starts N-sample collection, computes gyro bias offsets, optionally computes accelerometer offsets (device must be level). Store in a Max `[dict]` for persistence. Reset clears offsets to zero. Visual feedback during calibration (progress/countdown). |
-| WiFi/UDP transport (secondary) | Wireless operation for installations, dance, wearable use cases where USB cable is limiting. | HIGH | Arduino Uno WiFi Rev2 has WiFiNINA module supporting UDP. Known issue: CNMAT OSC library 1.3.5 has compilation errors with this board. Use raw UDP with manual formatting instead of OSC, or fix the OSC library issue. Expect ~60ms+ latency vs ~1-2ms for USB serial. WiFi is secondary because of latency and reliability. |
-| Threshold/event detection (gesture triggers) | Convert continuous orientation into discrete events: "device tilted past 45 degrees", "sharp acceleration detected", "spin completed". Enables bang-based creative triggers. | MEDIUM | Use `[past]` object for threshold crossing, hysteresis via dual thresholds (above/below with dead zone) to prevent jitter-triggered events. Debounce with `[delay]` to eliminate double-triggers. The `[thresh]` and `[quickthresh]` objects handle this natively. |
-| Data recording and playback | Record a sensor performance session and replay it. Essential for iterating on mappings without needing the physical device present every time. | MEDIUM | Use `[coll]` or `[text]` to store timestamped sensor values. CSV format for interoperability. Playback with `[metro]` at recorded intervals. This enables offline development and session comparison. |
-| 3D orientation visualization | Real-time 3D rendering of device orientation in MAX. Immediate visual feedback for understanding what the sensor is doing. | MEDIUM | Use Jitter (`jit.gl.gridshape` or similar) with `rotatexyz` attribute for Euler angles or `quat` attribute for quaternion rotation. `jit.quat2axis` avoids gimbal lock. A simple colored box rotating in a `jit.gl.render` context is sufficient and immediately useful. |
-| Dual output mode (raw + computed) | Simultaneously output both raw 6-axis data and computed orientation. Different downstream consumers need different formats. | LOW | Trivial once both pipelines exist. Two outlet groups from the abstraction: one for raw accel/gyro (6 values), one for computed pitch/roll/yaw (3 values). Some users want raw for audio-rate modulation, computed for spatial reasoning. |
-| Accelerometer range configuration | Switch between +/-2g, +/-4g, +/-8g, +/-16g ranges for different use cases (gentle tilt vs. vigorous shaking). | LOW | LSM6DS3 supports configurable ranges via register writes. Higher range = less resolution per LSB. Default +/-2g is correct for orientation. +/-8g or +/-16g for percussive/impact detection. Expose as a setting, not a runtime control. |
+## Anti-Features
 
-### Anti-Features (Commonly Requested, Often Problematic)
+Features to explicitly NOT build. These seem logical but create problems in this specific context.
 
-Features that seem good but create problems.
-
-| Feature | Why Requested | Why Problematic | Alternative |
-|---------|---------------|-----------------|-------------|
-| Absolute yaw/heading without magnetometer | "I want to know which direction I'm facing" | LSM6DS3 is 6DOF (no magnetometer). Gyro-only yaw drifts continuously. Faking absolute heading creates user confusion and unreliable behavior. Madgwick filter documentation explicitly states it is not appropriate for 6DOF heading. | Provide relative yaw with explicit reset button. Document the drift behavior. If absolute heading is truly needed, recommend adding an external magnetometer (LIS3MDL or similar) as a future hardware upgrade. |
-| OSC over WiFi as primary transport | "OSC is the standard for creative sensor data" | CNMAT OSC library has known compilation issues with Arduino Uno WiFi Rev2. WiFi adds 60ms+ latency. UDP drops packets. OSC adds parsing overhead. For a primary transport, this is unreliable and slow. | Use USB serial as primary (1-2ms latency, reliable). Offer WiFi/UDP as secondary/optional transport with explicit latency warnings. If OSC is needed, implement it on the MAX side (convert serial data to OSC for forwarding to other software). |
-| Kalman filter for sensor fusion | "Kalman filter is the gold standard for IMU fusion" | Kalman filters are computationally expensive, require careful tuning of process/measurement noise covariance matrices, and offer marginal improvement over Mahony/complementary filters for creative applications on an 8-bit microcontroller. Over-engineering for this use case. | Use Mahony filter. It is specifically recommended for small processors and 6DOF IMUs. One or two tunable gains vs. multiple covariance matrices. Good enough for creative applications where perceptual quality matters more than aerospace precision. |
-| Machine learning gesture recognition on-device | "Classify gestures directly on the Arduino" | ATmega4809 at 16MHz with 6KB SRAM cannot run meaningful ML models. TinyML exists but requires different hardware (Cortex-M4+). Adding this scope would derail the project. | Send raw/fused data to MAX. Do gesture recognition in MAX or in Node for Max where JavaScript has full compute power. Simple threshold/state-machine gesture detection in MAX is more practical and debuggable. |
-| Auto-discovery of serial port | "Just find the Arduino automatically" | Serial port names vary by OS, multiple devices may be connected, and auto-detection can connect to wrong devices. Fragile and platform-specific. | List available ports and let user select. Node for Max can enumerate ports via `serialport.list()` and present a dropdown (`[umenu]`). Semi-automatic: filter by known Arduino vendor IDs, but always confirm. |
-| WiFi configuration UI in MAX | "Let me set SSID and password from the MAX patch" | Requires bidirectional serial protocol for configuration, credential storage on Arduino (security risk), and complex state machine for connection management. Massive scope expansion. | Hard-code WiFi credentials in the Arduino sketch. Document how to change them. WiFi is a secondary transport; configuration complexity should stay minimal. |
-| Sensor fusion on the MAX side | "Do all the math in MAX/JavaScript, just send raw data" | Sensor fusion quality depends on consistent, high-frequency sampling. Serial transmission introduces jitter and dropped samples. Fusion on the receiving end produces worse orientation estimates because sample timing is unreliable. | Run sensor fusion on Arduino where sampling is deterministic. Send computed orientation values over serial. Arduino has consistent loop timing; MAX's serial polling does not. |
+| Anti-Feature | Why Requested | Why Avoid | What to Do Instead |
+|--------------|---------------|-----------|-------------------|
+| Machine learning gesture classification (neural net, SVM) | "ML is better than DTW for gesture recognition" | DTW achieves 98%+ accuracy for small gesture vocabularies (under 20 gestures) typical in music performance. ML requires training data collection (dozens of examples per gesture), training time, model management, and debugging opacity. DTW works with 1-3 examples. ML adds massive complexity for marginal accuracy improvement in this use case. Explicitly listed as out of scope in PROJECT.md. | Use DTW for custom gestures. Reserve ML for a future v2.0 milestone if users hit DTW limitations (large vocabularies, highly variable performers). |
+| Absolute position tracking (dead reckoning) | "Track the sensor's position in 3D space" | IMU double-integration drift makes position tracking useless after 2-3 seconds without external reference (GPS, camera, UWB). The LSM6DS3 accelerometer noise integrates to meters of error within seconds. This is a fundamental physics limitation, not a software problem. | Position interpolation uses orientation (rotation), not translation (movement through space). Orientation from Madgwick filter is stable. Clearly document that "position" means "orientation pose" not "location in room." |
+| Real-time DTW on Arduino | "Do gesture matching on the microcontroller for lowest latency" | ATmega4809 at 16MHz with 6KB SRAM cannot hold DTW cost matrices for meaningful gesture lengths. A 100-sample x 100-sample matrix of 6D floats requires ~240KB. The Arduino is already at capacity running Madgwick at 114 Hz. | Run DTW in Node for Max (JavaScript on desktop CPU). Latency from Arduino to Node is ~1ms over USB -- negligible compared to gesture duration (500ms-3s). |
+| Continuous DTW (always matching) | "Always be looking for gestures in the stream, no segmentation needed" | Subsequence DTW (SDTW) that scans continuously is O(n*m) per frame where n = template length. With multiple templates and 114 Hz input, this becomes a significant CPU burden. More importantly, it produces constant false positives during idle/transition periods. | Use energy-based activity detection to gate DTW matching. Only run DTW when the segmenter detects active motion. This reduces computation by 80%+ (sensor is idle most of the time in music performance) and eliminates idle-period false positives. |
+| Gyroscope-only gesture recognition | "Just use gyro data, accelerometer is noisy" | Gyroscope measures angular velocity, not orientation. It drifts. Gestures involving tilt, gravity direction, or absolute pose need accelerometer data. Gyroscope-only misses tap/impact gestures entirely (those are acceleration events). | Use fused data: accelerometer for impact/tilt gestures, gyroscope for rotation gestures, orientation (pitch/roll/yaw) for pose-based gestures. Let per-gesture axis selection handle which channels matter for each gesture type. |
+| OSC gesture output protocol | "Output recognized gestures as OSC messages for network distribution" | Adding OSC introduces a dependency (CNMAT library issues documented in v1.0), network configuration complexity, and a second output format to maintain. The v1.0 decision to avoid OSC on Arduino still applies. | Output gestures as standard MAX messages (bang, list, symbol). Users who need OSC can trivially convert in MAX using `[udpsend]` + message formatting. Keep the gesture engine focused on recognition, not transport. |
+| Template morphing/blending between gestures | "Blend gesture template A with template B to create a new gesture" | Template morphing in DTW space is not well-defined. DTW aligns sequences by warping time, but averaging warped templates produces physically meaningless motion sequences. The resulting "blended gesture" would not correspond to any performable motion. | Keep gesture templates discrete. If users want continuous control, use position interpolation (which operates in orientation space where interpolation IS well-defined). Gestures are discrete events; positions are continuous spaces. |
+| Gesture recognition during calibration | "Keep recognizing gestures while recalibrating the sensor" | Calibration changes the sensor baseline, which changes the meaning of all stored gesture templates. Recognizing gestures against templates recorded with different calibration produces unreliable matches. | Disable gesture recognition during calibration. After calibration completes, optionally prompt user to re-record custom gestures. Predefined gestures (shake, tap, flip) are threshold-based and adapt to new calibration automatically. |
 
 ## Feature Dependencies
 
 ```
-[Raw 6-axis data output]
-    +--requires--> [USB serial transport]
-    +--requires--> [Data parsing in MAX]
+[Existing v1.0 Pipeline]
+    +--provides--> Raw accel/gyro (outlets 1-6)
+    +--provides--> Smoothed orientation (outlets 4-6 via EMA)
+    +--provides--> Threshold triggers with hysteresis
+    +--provides--> Quaternion output
+    +--provides--> 3D Jitter visualization
     |
-    +--enables--> [Gyroscope bias calibration]
-    |                 +--enables--> [Sensor fusion (Mahony)]
-    |                                   +--enables--> [Computed pitch/roll]
-    |                                   +--enables--> [Computed yaw (relative)]
-    |                                   +--enables--> [3D orientation visualization]
+    +--enables--> [Gesture Segmentation (energy-based)]
+    |                 |
+    |                 +--enables--> [Predefined Gestures]
+    |                 |                 +-- Shake detection (accel magnitude + peak counting)
+    |                 |                 +-- Tap detection (accel spike + decay)
+    |                 |                 +-- Flip detection (orientation threshold crossing)
+    |                 |                 +-- Circle detection (gyro integration)
+    |                 |
+    |                 +--enables--> [Custom Gesture Recording]
+    |                                   +--enables--> [DTW Template Storage]
+    |                                   |                 +--enables--> [DTW Matching]
+    |                                   |                                   +--enables--> [Confidence Output]
+    |                                   |                                   +--enables--> [Gesture Following (progress)]
+    |                                   |
+    |                                   +--enables--> [Gesture Library Save/Load]
     |
-    +--enables--> [Signal smoothing]
-    |                 +--enables--> [Value scaling/mapping]
-    |                                   +--enables--> [Threshold/event detection]
+    +--enables--> [Position A/B Recording]
+    |                 +--enables--> [Position Interpolation (0-1 output)]
+    |                 |                 +--enables--> [Multi-Position Interpolation]
+    |                 |
+    |                 +--enables--> [Position Space Map Visualization]
     |
-    +--enables--> [Data recording/playback]
+    +--enables--> [Motion Trail Visualization]
+    |                 +--builds-on--> Existing Jitter 3D viz
+    |
+    +--enables--> [Gesture Match Progress Visualization]
 
-[Reusable MAX abstraction]
-    +--requires--> ALL table stakes features
-    +--requires--> [Interactive calibration]
-    +--requires--> [Dual output mode]
+[Predefined Gestures] --independent of--> [DTW Custom Gestures]
+    (predefined use threshold algorithms; custom uses DTW)
 
-[WiFi/UDP transport]
-    +--independent of--> [USB serial transport]
-    +--requires--> [Data parsing in MAX] (same parser, different source)
+[Position Interpolation] --independent of--> [Gesture Recognition]
+    (interpolation is continuous; gestures are discrete events)
 
-[Configurable sample rate]
-    +--independent--> can be set at any phase
-    +--affects--> [Sensor fusion] (filter tuning depends on sample rate)
-
-[Connection status]
-    +--requires--> [USB serial transport] OR [WiFi/UDP transport]
+[Dual Implementation]
+    +--requires--> All features above finalized
+    +-- Node version: primary, full features including DTW
+    +-- MAX version: secondary, predefined gestures + position interpolation only
 ```
 
 ### Dependency Notes
 
-- **Sensor fusion requires calibration:** Gyro bias must be removed before fusion filter receives data, otherwise the filter converges on wrong orientation.
-- **Smoothing requires parsed data:** Cannot smooth until serial stream is reliably parsed into individual axis values.
-- **Abstraction requires all table stakes:** The reusable abstraction is the packaging of all core features. It cannot be built until those features are individually working.
-- **WiFi is independent:** Can be developed in parallel with serial pipeline. Same data format, different transport.
-- **Sample rate affects fusion tuning:** Mahony filter gains must be tuned for the actual sample rate. Changing ODR requires re-tuning filter parameters.
+- **Segmentation gates everything:** Without activity detection, both predefined and custom gestures produce false positives during idle periods. Build segmentation first.
+- **Predefined gestures are independent of DTW:** Shake/tap/flip/circle use simple threshold/peak/integration algorithms. They do not need the DTW engine. Build these first for quick wins.
+- **Position interpolation is fully independent:** It operates on orientation snapshots, not gesture sequences. Can be developed in parallel with gesture recognition.
+- **Visualization depends on the features it displays:** Motion trails need the orientation buffer; match progress needs DTW scores; position map needs position snapshots. Build features first, visualization second.
+- **Dual implementation is the capstone:** Finalize all features in Node for Max first, then port the subset to pure MAX. Do not develop both simultaneously.
+- **DTW requires segmentation + recording:** The DTW engine cannot be tested without recorded templates and segmented input. Build the recording pipeline before the matching engine.
 
-## MVP Definition
+## MVP Recommendation
 
-### Launch With (v1)
+### Phase 1: Predefined Gestures + Position Interpolation
 
-Minimum viable product -- what is needed to validate end-to-end data flow.
+Build the highest-value, lowest-complexity features first.
 
-- [x] Raw 6-axis data output from Arduino over USB serial -- proves the hardware works
-- [x] Data parsing in MAX (serial receive, delimiter split, route to outlets) -- proves MAX receives
-- [x] Gyroscope bias calibration (startup, stationary averaging) -- required for any useful orientation
-- [x] Sensor fusion via Mahony filter on Arduino -- produces stable pitch/roll
-- [x] Basic signal smoothing in MAX (`[slide]`) -- removes jitter for downstream use
-- [x] Value scaling with `[scale]` -- maps sensor ranges to useful parameter ranges
-- [x] Connection status indicator -- know when it is working vs. broken
+Prioritize:
+1. **Gesture segmentation** (energy-based activity detection) -- gates all gesture features, reuses existing threshold infrastructure
+2. **Shake detection** -- simplest predefined gesture, highest user expectation, validates the segmentation pipeline
+3. **Tap detection** -- second simplest, validates impact detection path
+4. **Flip detection** -- validates orientation-based gesture path
+5. **Position A/B recording + interpolation** -- independent track, delivers continuous control output immediately
 
-### Add After Validation (v1.x)
+Defer: Circle detection (needs gyro integration testing), DTW engine, visualization, dual implementation
 
-Features to add once core pipeline is proven reliable.
+### Phase 2: Custom DTW Gestures
 
-- [ ] Interactive calibration with toggle/reset -- triggered by poor initial calibration or need to re-zero
-- [ ] Relative yaw output with reset -- when users want rotation around vertical axis
-- [ ] Threshold/event detection -- when users want discrete triggers, not just continuous streams
-- [ ] Dual output mode (raw + computed simultaneously) -- when mapping needs both
-- [ ] 3D orientation visualization (Jitter) -- when debugging orientation or showing live feedback
-- [ ] Configurable sample rate -- when 104 Hz default is insufficient (audio-rate modulation)
-- [ ] Data recording and playback -- when iterating on mappings without hardware
+6. **Custom gesture recording** -- record reference templates with visual feedback
+7. **DTW matching engine** -- core algorithm with Sakoe-Chiba band optimization
+8. **Confidence output** -- normalized distance score
+9. **Gesture library save/load** -- persistence across sessions
+10. **Rejection threshold configuration** -- tuning for live performance reliability
 
-### Future Consideration (v2+)
+Defer: Gesture following (progress), multi-position interpolation
 
-Features to defer until core product is solid and real usage patterns emerge.
+### Phase 3: Visualization + Advanced Features
 
-- [ ] WiFi/UDP secondary transport -- only when wireless is actually needed for a use case
-- [ ] Accelerometer range configuration -- only when impact/shake detection is needed
-- [ ] Reusable MAX abstraction packaging -- requires stable API from all v1.x features; this is the capstone deliverable
-- [ ] OSC output from MAX (convert serial to OSC for forwarding) -- only when interop with other creative software is needed
+11. **Motion trail visualization** -- extends existing Jitter companion
+12. **Gesture match progress visualization** -- multislider DTW scores
+13. **Circle/arc gesture** -- completes predefined gesture library
+14. **Multi-position interpolation** -- extends A/B to N positions
+15. **Position space map visualization** -- 2D plot of position space
+16. **Per-gesture axis selection** -- fine-tuning for custom gestures
+
+Defer: Gesture following (progress tracking), dual implementation
+
+### Phase 4: Dual Implementation + Polish
+
+17. **Gesture following (temporal progress)** -- streaming DTW progress output
+18. **Pure MAX implementation** -- predefined gestures + position interpolation only (no DTW)
+19. **Configurable rejection threshold auto-calibration** -- record 5x, compute threshold
+20. **Help patches and documentation** for gesture abstractions
 
 ## Feature Prioritization Matrix
 
-| Feature | User Value | Implementation Cost | Priority |
-|---------|------------|---------------------|----------|
-| Raw 6-axis data output | HIGH | LOW | P1 |
-| USB serial transport | HIGH | LOW | P1 |
-| Data parsing in MAX | HIGH | MEDIUM | P1 |
-| Gyroscope bias calibration | HIGH | LOW | P1 |
-| Sensor fusion (Mahony) | HIGH | MEDIUM | P1 |
-| Computed pitch/roll | HIGH | LOW (falls out of fusion) | P1 |
-| Signal smoothing | HIGH | LOW | P1 |
-| Value scaling/mapping | HIGH | LOW | P1 |
-| Connection status | MEDIUM | LOW | P1 |
-| Interactive calibration toggle/reset | HIGH | MEDIUM | P2 |
-| Relative yaw with reset | MEDIUM | LOW | P2 |
-| Threshold/event detection | MEDIUM | MEDIUM | P2 |
-| Dual output mode | MEDIUM | LOW | P2 |
-| 3D visualization (Jitter) | MEDIUM | MEDIUM | P2 |
-| Configurable sample rate | LOW | LOW | P2 |
-| Data recording/playback | MEDIUM | MEDIUM | P2 |
-| WiFi/UDP transport | MEDIUM | HIGH | P3 |
-| Accelerometer range config | LOW | LOW | P3 |
-| Reusable MAX abstraction | HIGH | HIGH | P3 (capstone) |
+| Feature | User Value | Complexity | Priority | Phase |
+|---------|------------|------------|----------|-------|
+| Gesture segmentation (activity detection) | HIGH | MEDIUM | P1 | 1 |
+| Shake detection | HIGH | LOW | P1 | 1 |
+| Tap detection | HIGH | LOW | P1 | 1 |
+| Flip detection | HIGH | LOW | P1 | 1 |
+| Position A/B recording + interpolation | HIGH | MEDIUM | P1 | 1 |
+| Visual feedback during recording | MEDIUM | LOW | P1 | 1 |
+| Custom gesture recording | HIGH | MEDIUM | P2 | 2 |
+| DTW matching engine | HIGH | HIGH | P2 | 2 |
+| DTW confidence output | MEDIUM | LOW | P2 | 2 |
+| Gesture library save/load | HIGH | MEDIUM | P2 | 2 |
+| Rejection threshold configuration | MEDIUM | LOW | P2 | 2 |
+| Motion trail visualization | MEDIUM | MEDIUM | P3 | 3 |
+| Match progress visualization | MEDIUM | MEDIUM | P3 | 3 |
+| Circle/arc gesture detection | MEDIUM | MEDIUM | P3 | 3 |
+| Multi-position interpolation | MEDIUM | HIGH | P3 | 3 |
+| Position space map visualization | LOW | MEDIUM | P3 | 3 |
+| Per-gesture axis selection | LOW | LOW | P3 | 3 |
+| Gesture following (progress) | MEDIUM | HIGH | P4 | 4 |
+| Pure MAX implementation | MEDIUM | HIGH | P4 | 4 |
+| Rejection threshold auto-calibration | LOW | LOW | P4 | 4 |
 
 **Priority key:**
-- P1: Must have for launch -- without these, the pipeline does not function
-- P2: Should have, add when core is stable -- each adds real value independently
-- P3: Nice to have / capstone -- WiFi requires network debugging; abstraction requires stable API
+- P1: Must have -- delivers immediate value, validates the pipeline
+- P2: Core DTW -- the main differentiating capability of v1.1
+- P3: Visual + advanced -- polish and power-user features
+- P4: Capstone -- dual implementation and streaming progress
 
-## Competitor Feature Analysis
+## Existing Ecosystem Reference
 
-| Feature | Traditional MAX `[serial]` approach | Node for Max approach | Our Approach |
-|---------|-------------------------------------|----------------------|--------------|
-| Serial parsing | `[serial]` + `[select]` + `[zl group]` -- brittle, hard to debug | `serialport` npm + JavaScript parsing -- robust, programmable | Node for Max for parsing (JavaScript is far better for string/protocol handling), with `maxAPI.outlet()` to MAX message flow |
-| Sensor fusion | Done in MAX with `[expr]` chains or external -- clunky, timing-dependent | Could be done in JS -- but timing jitter from serial polling degrades quality | Done on Arduino (deterministic timing), sent as computed values |
-| Calibration | Manual offset entry or basic `[mean]` -- error-prone | Computed in JS with statistical methods -- better but still timing-dependent | On Arduino: startup bias averaging. Interactive recalibration triggered from MAX via serial command. |
-| Smoothing | `[slide]` or `[line]` -- well-established | `line~` equivalent not available; would need custom JS | In MAX using `[slide]` -- this is what MAX is built for |
-| Abstraction/reuse | Copy-paste patches between projects | npm package pattern -- possible but unusual for MAX users | MAX abstraction (`.maxpat` with arguments) -- standard MAX pattern that users expect |
-| WiFi/wireless | Requires separate OSC library, `[udpreceive]` | Could use Node.js `dgram` module | Arduino WiFiNINA UDP + MAX `[udpreceive]` or Node for Max `dgram` |
+### IRCAM MuBu / Gesture Follower
+The closest existing tool. MuBu provides DTW, HMM, KNN, GMM, PCA, and Gesture Following in MAX via externals. It is the academic gold standard but: (a) requires IRCAM Forum account, (b) complex API with steep learning curve, (c) designed for researchers not musicians, (d) does not integrate with a specific IMU pipeline. Our system is simpler, opinionated, and tightly integrated with the existing imu-sensor abstraction.
+
+### JavaScript DTW Libraries (npm)
+- `dtw` (npm): Minimal, MIT license, dormant (5 commits total). API: `new DTW()`, `.compute(s,t)`, `.path()`. No band constraint support.
+- `dynamic-time-warping` (npm): Slightly more active. Custom distance function support. Also minimal.
+- `dynamic-time-warping-2` (npm): Modern fork of above.
+
+**Recommendation:** Implement DTW from scratch in the gesture engine script. The algorithm is ~50 lines of JavaScript. Custom implementation allows adding Sakoe-Chiba band constraint, multi-dimensional distance, and streaming updates -- none of which the npm packages support. Avoids an npm dependency for a trivial algorithm.
+
+### uWave (Academic Reference)
+Accelerometer-based personalized gesture recognition system using DTW with quantization. Achieved 98.6% accuracy with single training example. Key insight: quantize acceleration vectors to reduce computation. Worth studying for the quantization optimization but the full system is overkill for our use case.
 
 ## Sources
 
-- [Arduino_LSM6DS3 library](https://www.arduino.cc/en/Reference/ArduinoLSM6DS3) -- Official Arduino library reference
-- [Arduino_LSM6DS3 roll/pitch/yaw PR (unmerged)](https://github.com/arduino-libraries/Arduino_LSM6DS3/pull/4) -- Complementary filter approach, calibration patterns
-- [Woolsey Workshop: LSM6DS3 on Uno WiFi Rev2](https://www.woolseyworkshop.com/2020/02/12/using-the-arduino_lsm6ds3-library-to-access-the-arduino-uno-wifi-rev2-imu/) -- Board-specific library usage
-- [LSM6DS3 sample rate forum thread](https://forum.arduino.cc/t/lsm6ds3-sample-rate/1156756) -- ODR configuration, SparkFun library alternative
-- [MadgwickAHRS Arduino library](https://github.com/arduino-libraries/MadgwickAHRS) -- Official Madgwick implementation
-- [OlliW: IMU Data Fusing](https://www.olliw.eu/2013/imu-data-fusing/) -- Critical analysis showing Madgwick is not appropriate for 6DOF; Mahony recommended (MEDIUM confidence -- single but authoritative source)
-- [Adafruit: Sensor Fusion Algorithms](https://learn.adafruit.com/ahrs-for-adafruits-9-dof-10-dof-breakout/sensor-fusion-algorithms) -- Mahony vs Madgwick comparison
-- [x-io Technologies: Open source AHRS algorithms](https://x-io.co.uk/open-source-imu-and-ahrs-algorithms/) -- Madgwick's original implementation
-- [Node for Max API](https://docs.cycling74.com/apiref/nodeformax/) -- `outlet()`, `addHandler()`, `post()` methods
-- [Max serial object reference](https://docs.cycling74.com/reference/serial/) -- Baud rates, polling, async reading
-- [Cycling '74: Abstractions documentation](https://docs.cycling74.com/userguide/abstractions/) -- Reusable abstraction patterns
-- [CNMAT OSC library](https://github.com/CNMAT/OSC) -- Known issue #106 with Arduino Uno WiFi Rev2
-- [jit.quat2euler](https://docs.cycling74.com/max7/refpages/jit.quat2euler) -- Quaternion to Euler conversion in Jitter
-- [Cycling '74: Smoothing control signals](https://cycling74.com/forums/averagingsmoothing-a-ctrl-object-output) -- `[slide]` and `[line~]` patterns
-- [Adafruit: Gyroscope Calibration](https://learn.adafruit.com/adafruit-sensorlab-gyroscope-calibration?view=all) -- Stationary bias averaging methodology
-- [WiFiNINA library](https://github.com/arduino-libraries/WiFiNINA) -- UDP support for Uno WiFi Rev2
-- [Arduino Forum: Connecting Uno WiFi Rev2 and MaxMSP](https://forum.arduino.cc/t/connecting-uno-wifi-rev-2-and-maxmsp/1317264) -- Community integration examples
+- [IMU Sensor-Based Hand Gesture Recognition for HMI (Kim et al., 2019)](https://www.mdpi.com/1424-8220/19/18/3827) -- DTW accuracy benchmarks, 98.6% with 0.4ms recognition time
+- [MATLAB: Gesture Recognition Using IMUs](https://www.mathworks.com/help/nav/ug/gesture-recognition-using-inertial-measurement-units.html) -- Quaternion DTW, segmentation patterns
+- [Head Gesture Recognition with DTW (2024)](https://pmc.ncbi.nlm.nih.gov/articles/PMC11122069/) -- DTW barycenter averaging, 97.5% accuracy
+- [uWave: Accelerometer-based Gesture Recognition](https://www.yecl.org/publications/liu09percom.pdf) -- Single-template DTW, quantization optimization
+- [IRCAM MuBu for Max](https://ircam-ismm.github.io/max-msp/mubu.html) -- Gesture Follower, XMM, DTW/HMM/KNN externals for MAX
+- [IRCAM Gesture Follower](https://ismm.ircam.fr/gesture-follower/) -- Real-time gesture following with temporal progress
+- [Real-time DTW for MAX/MSP and Pure Data (Bevilacqua et al.)](https://www.researchgate.net/publication/228987911_Real-time_DTW-based_gesture_recognition_external_object_for_MAXMSP_and_puredata) -- Academic precedent for DTW in MAX
+- [MetaBow: NIME 2025](https://nime.org/proceedings/2025/nime2025_62.pdf) -- Recent IMU gesture mapping for musical performance
+- [Arduino Tap Detection (CurieIMU)](https://www.arduino.cc/en/Tutorial/Genuino101CurieIMUTapDetect/) -- Hardware tap detection reference (different chip but same algorithm concept)
+- [NXP AN3919: Tap Detection](https://www.nxp.com/docs/en/application-note/AN3919.pdf) -- Detailed tap detection algorithm with thresholds
+- [MMA Framework: Motion Data in Max/Jitter](https://www.academia.edu/20910357/The_MAV_Framework_Working_with_3D_Motion_Data_in_Max_MSP_Jitter) -- Motion trail visualization patterns
+- [jit.gl.mesh Reference](https://docs.cycling74.com/reference/jit.gl.mesh) -- line_strip mode for trail rendering
+- [Cycling '74: jit.gl.mesh tutorial](https://cycling74.com/tutorials/my-favorite-object-jit%C2%B7gl%C2%B7mesh-1) -- Practical mesh usage patterns
+- [dtw npm package](https://github.com/langholz/dtw) -- JavaScript DTW implementation (reviewed, too minimal)
+- [dynamic-time-warping npm](https://www.npmjs.com/package/dynamic-time-warping) -- Alternative JS DTW (reviewed, adequate but no band constraint)
+- [SensorWiki: Mapping References](https://sensorwiki.org/isidm/mapping/introductory_references) -- Comprehensive gesture-to-music mapping bibliography
+- [IRCAM: Gestural Control of Music (Wanderley)](http://recherche.ircam.fr/equipes/analyse-synthese/wanderle/pub/kassel/) -- Foundational gesture mapping strategies
+- [Gesture Segmentation with Adaptive Thresholds](https://link.springer.com/article/10.1007/s11042-014-2111-2) -- Bayes decision theory for threshold selection
+- [Wireless IMUs in Performing Arts (2025)](https://www.mdpi.com/1424-8220/25/19/6188) -- Recent survey of IMU usage in music/dance performance
 
 ---
-*Feature research for: Arduino-to-MAX IMU sensor pipeline*
-*Researched: 2026-02-12*
+*Feature research for: v1.1 Gesture Recognition & Mapping milestone*
+*Builds on: v1.0 MVP pipeline (shipped 2026-02-13)*
+*Researched: 2026-02-22*

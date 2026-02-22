@@ -1,141 +1,200 @@
 # Pitfalls Research
 
-**Domain:** Arduino IMU-to-MAX/MSP Sensor Pipeline (LSM6DS3 on Uno WiFi Rev2)
-**Researched:** 2026-02-12
-**Confidence:** MEDIUM-HIGH (multiple community sources corroborate; some board-specific claims verified via official forums only)
+**Domain:** Gesture recognition (DTW), position interpolation, and motion visualization added to existing real-time IMU sensor pipeline
+**Researched:** 2026-02-22
+**Confidence:** MEDIUM-HIGH (DTW pitfalls well-documented in academic literature and GRT toolkit; Node/MAX integration pitfalls based on v1.0 experience and official docs; position interpolation pitfalls verified by physics constraints)
 
 ## Critical Pitfalls
 
-### Pitfall 1: Uno WiFi Rev2 USB Serial Capped at 57600 Baud
+### Pitfall 1: Gesture Segmentation -- Not Knowing When a Gesture Starts and Ends
 
 **What goes wrong:**
-The Arduino Uno WiFi Rev2 cannot reliably transmit USB serial data above 57600 baud. Setting `Serial.begin(115200)` produces garbled/corrupt data. This is the single most impactful constraint for a "maximum sample rate, minimum latency" project because it directly caps your throughput budget.
+DTW compares two complete time series. But the incoming IMU data is a continuous stream at 114 Hz with no markers indicating "gesture starts here" or "gesture ends here." Without proper segmentation, DTW either never triggers (comparing against the entire infinite stream) or triggers constantly on noise (sliding window matches partial patterns in ambient motion). This is the single hardest problem in real-time DTW gesture recognition and the most common reason implementations fail.
 
 **Why it happens:**
-The board uses an ATmega32u4-based mEDBG (Microchip Embedded Debugger) chip for USB-to-serial conversion. This chip has a baud rate error of approximately -3.5% at 115200 bps, causing bit-level corruption. Unlike the standard Uno Rev3 (which uses a separate USB interface chip), or the Uno R4 (which has native USB), the WiFi Rev2's debug chip is the bottleneck. There is a workaround of calling `Serial.begin(111111)` while the host reads at 115200, but this is fragile and undocumented behavior.
+Developers implement DTW distance computation correctly, then realize they have no way to feed it bounded sequences from a continuous stream. The academic DTW literature often assumes pre-segmented data. When developers encounter continuous streams, the naive solution is a fixed-size sliding window, but gesture duration varies (a quick shake is 0.3s, a slow circle is 2s), so no single window size works. Developers then spend weeks tweaking window sizes and thresholds without understanding that segmentation is a separate problem from matching.
 
 **How to avoid:**
-- Design the entire pipeline around 57600 baud as a hard constraint from day one.
-- Calculate your byte budget: at 57600 baud you get roughly 5760 bytes/sec (10 bits per byte with start/stop bits). If sending 6 float values as ASCII CSV with newline, each line is roughly 40-50 bytes, giving you ~115-144 lines/sec maximum throughput.
-- Use binary protocol (Serial.write() with packed structs) instead of ASCII to cut per-sample byte count roughly in half, pushing practical throughput toward ~200+ samples/sec.
-- Alternatively, if 57600 truly cannot meet requirements, plan the WiFi/UDP path as the primary transport from the start rather than treating it as secondary.
+- Implement explicit motion detection as a separate stage before DTW. Use acceleration magnitude thresholding: when `sqrt(ax^2 + ay^2 + az^2)` exceeds a "motion" threshold (e.g., 1.3g) after a period of stillness (below 1.1g), mark gesture start. When magnitude returns below threshold for N consecutive samples (e.g., 10 samples = ~88ms at 114 Hz), mark gesture end. Only then pass the captured segment to DTW.
+- Use a minimum and maximum gesture duration constraint. Discard segments shorter than 0.2s (noise/bumps) or longer than 3s (not a gesture, just sustained movement).
+- The GRT (Gesture Recognition Toolkit) uses this approach: a dead-reckoning state machine with IDLE -> MOTION_DETECTED -> RECORDING -> MATCHING states, and it works.
+- For predefined gestures (shake, flip, tap), skip DTW entirely and use threshold-based state machines. DTW is for custom/complex gestures only.
 
 **Warning signs:**
-- Random garbage characters in serial monitor at baud rates above 57600.
-- Intermittent data corruption that "sometimes works" -- the -3.5% error means some bytes land correctly by chance.
-- Data looks fine for short bursts but corrupts under sustained throughput.
+- DTW matching works perfectly on pre-recorded test data but fails on live data.
+- System fires gesture events during normal handling/repositioning of the device.
+- Gesture detection requires the user to hold perfectly still before and after the gesture.
+- Recognition accuracy drops when gesture speed varies.
 
 **Phase to address:**
-Phase 1 (Serial Foundation). This must be validated in the first hours of development. Building anything on an assumed 115200 baud rate will require rearchitecting later.
+Phase 1 (Predefined Gestures) should establish the motion detection/segmentation framework. Phase 2 (DTW Custom Gestures) builds on this segmentation for template matching.
 
-**Confidence:** MEDIUM -- verified by multiple Arduino forum threads, but the `Serial.begin(111111)` workaround has not been independently tested.
+**Confidence:** HIGH -- gesture segmentation is the most-discussed challenge in DTW gesture recognition literature; the GRT, uWave, and num.dtw implementations all address it explicitly.
 
 ---
 
-### Pitfall 2: LSM6DS3 Library Hardcodes 104 Hz Sample Rate
+### Pitfall 2: DTW Computational Cost Blowing the Real-Time Budget
 
 **What goes wrong:**
-The official Arduino_LSM6DS3 library initializes both the accelerometer and gyroscope at 104 Hz ODR (Output Data Rate). There is no API to change this. Calling `IMU.readAcceleration()` or `IMU.readGyroscope()` faster than 104 Hz just re-reads stale register values, wasting cycles and serial bandwidth on duplicate data. The sensor hardware supports up to 1666 Hz (gyro) and 6664 Hz (accel), but the library locks you out.
+Standard DTW has O(N*M) time and space complexity where N and M are the lengths of the two sequences. With 9-dimensional sensor data (aX/aY/aZ, gX/gY/gZ, pitch/roll/yaw) at 114 Hz, a 2-second gesture template is 228 samples. Matching one incoming segment against one template requires a 228x228 = 51,984-cell cost matrix computation with 9-dimensional distance calculations per cell. Matching against K templates multiplies this by K. If done in the real-time data callback, it blocks the Node for Max process, stalling all serial data processing and causing data loss in the existing pipeline.
 
 **Why it happens:**
-The Arduino_LSM6DS3 library was designed for simplicity, not performance. The ODR is set via a hardcoded register write in the library's `.cpp` file during `begin()`. There are no setter methods exposed. Developers assume "read faster = more data" without realizing the sensor itself has a fixed output cadence.
+Developers implement DTW in the serial data handler (or directly downstream of `maxAPI.outlet`) because "that's where the data is." DTW computation then blocks the event loop during matching, causing serial buffer overflow. The `serialport` ReadlineParser buffers incoming data, but if the Node event loop is blocked for more than ~50ms, the serial buffer starts to fill. At 114 Hz with ~50-byte lines, that is about 5.7 KB/sec -- the 64KB default Node buffer fills in ~11 seconds of blocked processing, after which data is lost.
 
 **How to avoid:**
-- Option A (Recommended): Fork/modify the Arduino_LSM6DS3 library to change the ODR register values in `LSM6DS3.cpp`. The CTRL1_XL register (0x10) controls accelerometer ODR, and CTRL2_G (0x11) controls gyroscope ODR. Set both to 0x60 for 416 Hz, or 0x80 for 1666 Hz.
-- Option B: Use the SparkFun LSM6DS3 library which exposes `settings.gyroSampleRate` and `settings.accelSampleRate` -- but note it has a known compilation error on the Uno WiFi Rev2 (`MSB_FIRST` vs `MSBFIRST` constant mismatch that requires a one-line fix).
-- Option C: Write raw register values via Wire library after calling `IMU.begin()`, overriding the library's defaults.
-- Match your Arduino loop rate to the actual sensor ODR. Polling at 416 Hz when the sensor outputs at 104 Hz wastes 75% of your serial bandwidth on duplicates.
+- Never run DTW in the serial data callback. The existing `serial-bridge.js` must remain untouched (per project constraint). The new gesture recognition Node script must receive data from MAX via `maxAPI.addHandler()`, not by tapping into the serial stream directly.
+- Use Sakoe-Chiba band constraint to limit the DTW warping path width. A band width of 10-15% of sequence length reduces computation by ~70-80% with minimal accuracy loss for gesture recognition.
+- Reduce dimensionality before DTW: match on 3 axes (e.g., accel magnitude + pitch + roll) instead of all 9. Most gestures are distinguishable with 3-4 features.
+- Implement DTW asynchronously: capture the segment, then compute DTW on the next event loop tick using `setImmediate()` or `process.nextTick()`. This keeps the data flow responsive.
+- In the pure MAX/MSP implementation, use `deferlow` to push DTW computation out of the high-priority scheduler thread.
 
 **Warning signs:**
-- Pitch/roll/yaw values update noticeably slower than expected despite a fast loop.
-- Serial output shows identical consecutive readings.
-- Increasing baud rate or loop speed doesn't improve responsiveness.
+- Serial data starts arriving in bursts instead of smoothly at 114 Hz.
+- MAX console shows "[serial-bridge] error" messages during gesture matching.
+- Sensor visualization stutters or freezes momentarily when DTW matching runs.
+- CPU usage spikes during gesture matching periods.
 
 **Phase to address:**
-Phase 1 (Sensor Reading). Must be resolved before any meaningful latency measurement. The choice between library modification approaches should be made during initial setup.
+Phase 2 (DTW Custom Gestures). Must be designed from the start with async computation in mind. This is architectural, not a tuning problem.
 
-**Confidence:** HIGH -- verified via Arduino official docs, forum threads, and the library source code on GitHub.
+**Confidence:** HIGH -- DTW O(N*M) complexity is well-documented; the serial buffer overflow scenario is verified by project experience with Node for Max at 114 Hz.
 
 ---
 
-### Pitfall 3: Yaw Drift Is Physically Unavoidable Without a Magnetometer
+### Pitfall 3: DTW False Positives -- Everything Looks Like a Gesture
 
 **What goes wrong:**
-The LSM6DS3 is a 6-DOF sensor (3-axis accelerometer + 3-axis gyroscope). No sensor fusion algorithm -- Madgwick, Mahony, complementary filter, or Kalman -- can produce a stable yaw (heading) estimate without a magnetometer. Yaw will drift continuously, accumulating degrees of error per minute. Developers spend weeks tuning filter parameters trying to "fix" what is a fundamental physics limitation.
+DTW always returns a distance value, even when the input is nothing like any trained gesture. Without proper null rejection, every segment of motion gets classified as the "closest" gesture, even if that closest match is terrible. The system fires gesture events during walking, adjusting the device, scratching your nose while holding it, or any motion whatsoever. Users lose trust in the system immediately.
 
 **Why it happens:**
-Accelerometers measure the gravity vector, which provides a reference for pitch and roll (tilt relative to Earth's surface). But gravity tells you nothing about rotation around the vertical axis (yaw). Gyroscopes measure angular velocity, which can be integrated to get yaw change, but integration accumulates bias error over time. A magnetometer provides an absolute heading reference (like a compass) that corrects this drift. Without it, no algorithm can distinguish real yaw rotation from sensor noise.
+DTW is a distance metric, not a classifier with a rejection option. Developers set a single threshold ("if DTW distance < 500, it's a match") without understanding that the threshold must be calibrated per gesture class. A simple flick gesture has a small typical DTW distance (say 50-200) while a complex circle gesture has a larger typical distance (say 300-800). A single threshold either misses the flick (too high) or false-triggers the circle on noise (too low). Additionally, without training a "null class" (examples of non-gesture motion), the system has no concept of "this is not a gesture."
 
 **How to avoid:**
-- Set expectations explicitly: document that yaw is "relative, not absolute" and will drift over time. This is a product decision, not a bug.
-- For musical/artistic applications, consider whether you actually need yaw at all. Pitch and roll (tilt) are stable and often sufficient for gestural control.
-- If relative yaw is acceptable, implement a "reset yaw to zero" button that the performer can trigger. This is common in IMU-based musical controllers.
-- If absolute heading is required, the project scope must expand to include an external magnetometer module (e.g., LIS3MDL) connected via I2C -- this is a hardware change, not a software fix.
-- Do NOT increase the Madgwick/Mahony beta parameter trying to fix yaw drift; this makes pitch and roll noisier without helping yaw.
+- Compute per-class rejection thresholds using the GRT approach: `threshold = training_mean_distance + (training_sigma * null_rejection_coefficient)`. The default null rejection coefficient is 3.0 (three standard deviations). This requires at least 3-5 training examples per gesture class to compute meaningful mean and sigma values.
+- Require a minimum of 3 training examples per custom gesture. With only 1 example, null rejection cannot work (no sigma to compute). Document this clearly: "Record at least 3 examples of each gesture."
+- Add a "null class" of everyday motion: picking up the device, setting it down, walking with it. If the DTW distance to a gesture template is larger than the distance to any null-class template, reject the match.
+- Implement a cooldown period after each gesture detection (e.g., 500ms) to prevent rapid-fire false triggers.
+- Normalize DTW distance by sequence length. Raw DTW distance grows with longer sequences, making cross-gesture threshold comparison meaningless without normalization.
 
 **Warning signs:**
-- Yaw reading slowly climbs or drops when the sensor is stationary.
-- Yaw drifts faster after physical movement (gyro bias changes with temperature/vibration).
-- Hours spent tuning filter parameters with no improvement in yaw stability.
+- Gesture events fire when the user is not intentionally performing gestures.
+- Changing the rejection threshold fixes one gesture but breaks another.
+- Recognition accuracy reported as "90%+" in testing but feels unreliable in practice (the 10% false positives destroy user experience).
+- System works well for the developer but fails for other users (different gesture styles produce different distance distributions).
 
 **Phase to address:**
-Phase 2 (Sensor Fusion). This should be an explicit design decision made before writing any fusion code. The calibration/reset feature addresses this directly.
+Phase 2 (DTW Custom Gestures). Null rejection must be designed into the DTW pipeline from the start, not added as an afterthought.
 
-**Confidence:** HIGH -- this is a well-documented physical limitation confirmed across dozens of sources, official ST Microelectronics documentation, and the Madgwick paper itself.
+**Confidence:** HIGH -- this is extensively documented in the GRT wiki and academic literature on DTW gesture recognition. The GRT's null rejection implementation (mean + sigma * coefficient) is the standard approach.
 
 ---
 
-### Pitfall 4: Madgwick/Mahony Filter Sample Rate Mismatch
+### Pitfall 4: Position Integration Drift Makes Position Interpolation Unusable
 
 **What goes wrong:**
-The Madgwick filter's `begin(sampleFrequency)` parameter and the actual loop execution rate silently diverge, causing the filter to produce wildly wrong orientation estimates. If you tell the filter it's running at 104 Hz but your loop actually runs at 60 Hz (due to Serial.print overhead, for example), the filter's internal integration uses wrong time steps. The result: sluggish response, overshoot, or oscillating orientation values.
+Position interpolation (record position A, record position B, output 0.0-1.0 blend based on current position) seems to require knowing the device's position in space. The obvious approach is double-integrating accelerometer data to get position. This produces wildly inaccurate results within seconds: a constant error in acceleration produces a linear error in velocity and a quadratic error in position. After 10 seconds of integration, position estimates are meters off from reality. The feature appears broken.
 
 **Why it happens:**
-The Madgwick/Mahony filters are regression algorithms where the beta/Kp gain parameters are tuned relative to the declared sample rate. The `begin()` call sets an internal time step (`1.0 / sampleFrequency`). If the actual rate differs, the filter either over-corrects (actual rate < declared rate, filter thinks more time passed than really did) or under-corrects (actual rate > declared). Developers typically set `begin(104)` to match the sensor ODR but forget that Serial.print(), sensor reads, and other processing consume time that reduces the effective loop rate.
+Developers confuse "position in space" (translation) with "orientation" (rotation). The existing pipeline provides excellent orientation data (pitch/roll/yaw from the Madgwick filter). But translational position from accelerometer double integration is a fundamentally different and much harder problem. The LSM6DS3 accelerometer noise is ~0.004g per sample -- after double integration at 114 Hz, this accumulates to multi-meter position errors within seconds. No amount of filtering fixes this because the error is systematic (bias drift), not just noise.
 
 **How to avoid:**
-- Measure your actual loop rate with `micros()` timing and use that value in `begin()`.
-- Better: compute delta-time per iteration using `micros()` and pass it to the filter update. The Arduino MadgwickAHRS library does not natively support variable delta-time, but a simple fork adding a `dt` parameter to `updateIMU()` eliminates this class of bugs entirely.
-- Keep the Arduino loop as tight as possible: minimize string formatting, avoid `delay()`, avoid `Serial.print()` of debug text during production operation.
-- Validate by printing actual loop frequency periodically (e.g., count iterations per second) and comparing to the declared filter rate.
+- Do NOT implement position interpolation as translational position tracking. This is the wrong approach entirely.
+- Instead, implement position interpolation as orientation interpolation: record orientation A (pitch_A, roll_A, yaw_A), record orientation B (pitch_B, roll_B, yaw_B), then compute how close the current orientation is to each reference orientation. Output 0.0 when orientation matches A, 1.0 when it matches B, and interpolated values between.
+- Use angular distance (not Euclidean distance on Euler angles) for the interpolation metric. Quaternion dot product or geodesic distance avoids gimbal lock issues near pitch = 90 degrees.
+- For the "position space map" visualization, display the orientation space (pitch vs. roll scatter plot), not a translational position map.
+- If users truly need translational position (e.g., "how far left have I moved my hand?"), document clearly that this is not possible with a 6-DOF IMU without external reference (camera, UWB, etc.). This is a hard physics limitation, not a software problem.
 
 **Warning signs:**
-- Orientation responds sluggishly to fast movements but overshoots on slow movements.
-- Filter output oscillates or rings after a quick rotation.
-- Changing beta doesn't behave as expected (because the real issue is timing, not gain).
-- `millis()` or `micros()` measurements show loop period varying significantly from expected.
+- Position values drift continuously even when the device is stationary.
+- Position "resets" produce temporarily correct values that drift again within seconds.
+- Position interpolation works for a few seconds after recording reference points, then becomes random.
+- User complaints that "the blend doesn't respond to my movements" (because drift has overwhelmed the actual motion signal).
 
 **Phase to address:**
-Phase 2 (Sensor Fusion). Must be validated immediately when integrating the filter. Build a loop-timing diagnostic into the firmware from the start.
+Phase 3 (Position Interpolation). This must be explicitly scoped as orientation interpolation during architecture/design, before any code is written. Using the wrong approach (translational position) wastes an entire phase.
 
-**Confidence:** HIGH -- extensively documented in Arduino forums, Madgwick library GitHub issues, and the original Madgwick paper discusses sample rate assumptions.
+**Confidence:** HIGH -- double integration drift is a well-documented fundamental limitation of IMU position estimation. Academic consensus: position from IMU alone is reliable for only 1-2 seconds maximum.
 
 ---
 
-### Pitfall 5: Serial Protocol Framing Errors (Lost/Merged Messages)
+### Pitfall 5: Modifying serial-bridge.js Instead of Building a Separate Script
 
 **What goes wrong:**
-Without proper message framing, the receiving side (Node for Max) sees corrupted data: partial lines merged together, split across reads, or truncated mid-value. A typical failure: the Arduino sends `"1.23,4.56,7.89\n"` but Node for Max reads `"1.23,4.56,7.8"` followed by `"9\n-0.12,3.45,6.78\n"`, causing parse errors that produce NaN values or wild spikes in the MAX patch.
+The temptation to add gesture recognition directly into the existing `serial-bridge.js` is strong because "all the data is right there." But this violates the project constraint (serial-bridge.js must not be modified) and creates a maintenance nightmare: every gesture-related bug potentially breaks the core data pipeline, calibration, smoothing, and normalization that 100% of users depend on. A gesture recognition bug could cause data loss, latency spikes, or crashes in the foundational pipeline.
 
 **Why it happens:**
-Serial is a byte stream, not a message stream. `Serial.println()` does not guarantee the receiver gets a complete line in one read. The Arduino's 64-byte transmit buffer, the OS USB driver buffering, and node-serialport's read chunking all introduce boundaries that don't align with message boundaries. At high data rates (approaching the 57600 baud limit), partial reads become more frequent. Additionally, when the Arduino starts up or the serial connection opens, partial messages are common because the Arduino may already be mid-transmission.
+The serial-bridge.js already has the parsed sensor data flowing through `outputData()`. Adding gesture detection there seems efficient -- one processing loop, no inter-process communication overhead, direct access to calibrated and smoothed data. Developers rationalize "I'll just add a small function" without realizing that DTW template storage, segmentation state machines, recording buffers, and matching computation represent a significant code surface that can interact badly with the existing calibration and smoothing state.
 
 **How to avoid:**
-- Always use a line-based parser on the receive side: node-serialport's `ReadlineParser` with `\n` delimiter handles reassembly automatically. Never parse raw `data` events directly.
-- Add a start-of-message marker for robustness: e.g., each line starts with a known character like `$` so the parser can discard any partial first message after connection.
-- Keep message length well under 64 bytes to avoid Arduino transmit buffer backpressure (at 57600 baud, the buffer drains fast enough for short messages, but long messages can cause blocking in `Serial.print()`).
-- Binary protocols need proper framing (header bytes, length field, checksum) -- CSV with newline delimiter is simpler and sufficient for 6-axis IMU data at the rates this hardware supports.
+- Create a completely separate Node for Max script (e.g., `gesture-engine.js`) that runs in its own `node.script` instance.
+- Route data from serial-bridge.js outputs through MAX patch wiring to the gesture engine's inputs. The data path is: `serial-bridge.js -> maxAPI.outlet("smooth_accel",...) -> [route smooth_accel] -> [node.script gesture-engine.js]`. This adds ~1ms of IPC latency, which is negligible for gesture recognition (gestures are 200ms-3000ms events).
+- The gesture engine receives pre-processed data (calibrated, smoothed) without needing to know anything about serial communication, calibration state, or smoothing parameters.
+- This separation also enables the dual implementation goal: the pure MAX/MSP version replaces the gesture-engine.js node.script with MAX objects, while serial-bridge.js remains unchanged in both cases.
 
 **Warning signs:**
-- Occasional NaN or "undefined" values appearing in MAX.
-- Data that's correct 99% of the time but occasionally spikes to extreme values.
-- Problems that appear only at higher data rates or under sustained load.
-- First 1-2 readings after serial port open are always garbage.
+- PR diffs showing changes to `serial-bridge.js`.
+- Gesture-related state variables (templates, buffers, matching state) appearing alongside calibration and smoothing state.
+- Gesture recognition bugs that also break raw data output.
+- Difficulty testing gesture recognition in isolation from the serial pipeline.
 
 **Phase to address:**
-Phase 1 (Serial Communication). The protocol format and parser must be defined before any data flows. This is foundational infrastructure.
+Phase 1 (Architecture/Setup). The separate script architecture must be established before any gesture code is written.
 
-**Confidence:** HIGH -- this is a universal serial communication issue documented extensively in Arduino forums, ITP Physical Computing resources, and node-serialport documentation.
+**Confidence:** HIGH -- this is a direct project constraint and a well-established architectural principle (separation of concerns). The existing v1.0 serial-bridge.js is ~650 lines and already handles calibration, smoothing, normalization, and transport switching.
+
+---
+
+### Pitfall 6: Predefined Gesture Algorithms That Fight the Smoothing Pipeline
+
+**What goes wrong:**
+The existing pipeline applies EMA (exponential moving average) smoothing to all sensor data before output. Predefined gesture detectors (shake, tap, flip) rely on detecting sharp transients -- exactly the signal features that smoothing attenuates. A shake gesture produces high-frequency acceleration spikes; heavy smoothing (alpha near 0) turns those spikes into gentle waves that never exceed the shake detection threshold. The gesture detector works in testing (with smoothing off) but fails in production (with user-configured smoothing on).
+
+**Why it happens:**
+Smoothing and gesture detection have fundamentally opposing requirements. Smoothing wants to remove high-frequency content (noise). Shake/tap detection wants to preserve high-frequency content (transients). Developers test gesture detection with raw or lightly-smoothed data, then are surprised when it fails after the user cranks up smoothing for their audio mapping. The smoothing and gesture detection are designed by the same developer but at different times, and the interaction is not considered.
+
+**How to avoid:**
+- Feed gesture detectors with raw (pre-smoothing) data, not smoothed data. The serial-bridge.js outputs both `cal_accel`/`cal_gyro` (calibrated but unsmoothed) and `smooth_accel`/`smooth_gyro` (smoothed). Gesture detection should tap `cal_accel` and `cal_gyro` outlets. Smoothed data goes to mapping/audio; raw calibrated data goes to gesture detection.
+- For DTW custom gestures, use the same data path (raw calibrated) for both recording templates and matching. If templates are recorded from smoothed data but matching runs on raw data (or vice versa), DTW distances will be systematically wrong.
+- Document clearly in the help patch: "Gesture detection uses calibrated data before smoothing. Smoothing settings do not affect gesture detection sensitivity."
+- For predefined gestures that need some filtering (e.g., separating gravity from linear acceleration for tap detection), apply gesture-specific filters (high-pass Butterworth at 0.5 Hz for gravity removal) rather than reusing the general-purpose EMA smoothing.
+
+**Warning signs:**
+- Gesture detection works with smoothing dials at 0 but fails when smoothing is increased.
+- Shake detection sensitivity varies wildly depending on smoothing settings.
+- Users report "gestures stopped working" after adjusting smoothing for their audio mapping.
+- DTW matching produces different distances for the same gesture depending on smoothing state.
+
+**Phase to address:**
+Phase 1 (Predefined Gestures). The data routing decision (raw calibrated vs. smoothed) must be made at the start.
+
+**Confidence:** HIGH -- this is a direct consequence of the existing v1.0 architecture where smoothing is a core feature. The interaction between smoothing and transient detection is well-understood in signal processing.
+
+---
+
+### Pitfall 7: Gravity Contamination in Accelerometer-Based Gesture Features
+
+**What goes wrong:**
+The accelerometer always measures gravity (1g downward) in addition to linear acceleration from motion. When the device tilts, the gravity vector redistributes across axes. A gesture detector looking for "acceleration spike on X axis > 2g" fires incorrectly when the user simply tilts the device so the X axis points more downward (gravity contribution increases). Conversely, a shake gesture along the gravity axis appears weaker than the same shake perpendicular to gravity, because gravity is already occupying part of the measurement range on that axis.
+
+**Why it happens:**
+Developers use raw accelerometer values for gesture detection without separating the gravity component from the linear acceleration component. The Madgwick filter internally estimates the gravity vector, but the existing serial-bridge.js does not output a gravity-removed linear acceleration stream. Developers either ignore gravity (causing orientation-dependent gesture thresholds) or attempt to subtract a constant [0, 0, 1g] (which is only correct when the device is level).
+
+**How to avoid:**
+- Use acceleration magnitude `sqrt(ax^2 + ay^2 + az^2)` for orientation-invariant motion detection. At rest, this is always ~1g regardless of tilt. During motion, it deviates from 1g. A threshold of "magnitude > 1.5g" or "magnitude < 0.5g" detects motion events regardless of orientation.
+- For axis-specific gesture detection (e.g., "shook left-right"), apply a high-pass filter (simple first-order: `linear_accel = current - alpha * previous`, where alpha ~0.8) to remove the slowly-changing gravity component while preserving fast gesture accelerations.
+- Use gyroscope data for rotational gestures (circle, flip). Gyroscope is not affected by gravity. A flip is a large angular velocity spike on one axis; a circle is sustained angular velocity on one axis with sinusoidal patterns on the other two.
+- For the pure MAX/MSP implementation, use `[biquad~]` or `[slide]` configured as a high-pass filter to separate gravity from linear acceleration.
+
+**Warning signs:**
+- Gesture detection works when device is held level but fails when tilted.
+- Shake sensitivity varies depending on which direction the user shakes.
+- Tap detection triggers when the user tilts the device.
+- Circle gesture detection produces different results depending on the plane the circle is drawn in.
+
+**Phase to address:**
+Phase 1 (Predefined Gestures). Gravity handling must be addressed in the gesture feature extraction stage before any threshold or matching logic.
+
+**Confidence:** HIGH -- gravity contamination is the most commonly discussed problem in accelerometer-based gesture detection literature. Every serious IMU gesture system separates gravity from linear acceleration.
 
 ---
 
@@ -145,61 +204,62 @@ Shortcuts that seem reasonable but create long-term problems.
 
 | Shortcut | Immediate Benefit | Long-term Cost | When Acceptable |
 |----------|-------------------|----------------|-----------------|
-| Using `Serial.print()` with ASCII floats instead of binary protocol | Human-readable output, easy debugging | 2-3x more bytes per sample, lower effective sample rate, string parsing overhead on both sides | During prototyping/Phase 1 only. Switch to binary if throughput is insufficient. |
-| Hardcoding filter parameters (beta, sample rate) | Faster initial implementation | Cannot tune without reflashing Arduino, different mounting orientations need different tuning | Never in production. Expose as configurable parameters from MAX side. |
-| Running sensor fusion on Arduino | Computed values arrive ready-to-use in MAX | ATmega4809 is slow at floating-point math (no FPU), limits loop rate, harder to change algorithms | Acceptable if loop rate stays above sensor ODR. Otherwise, move fusion to Node for Max. |
-| Using `delay()` for timing | Simple loop rate control | Blocks all processing, prevents reading serial input, wastes CPU time that could be used for computation | Never. Use non-blocking `micros()` timing. |
-| Skipping IMU calibration at startup | Faster startup, no user interaction needed | Gyro bias uncorrected, accelerometer offset uncorrected, all orientation estimates degraded | Only for quick testing. Production must include at minimum a 2-second stationary calibration on startup. |
-| Using the default Arduino_LSM6DS3 library unmodified | No library management overhead | Locked to 104 Hz, no access to FIFO, no configurable ranges | Phase 1 prototyping only. Must be addressed before optimizing throughput. |
+| Single DTW distance threshold for all gesture classes | Quick to implement, one parameter to tune | Each gesture class has different distance distributions; threshold that works for one fails for others | Never in production. Always use per-class thresholds computed from training statistics. |
+| Storing gesture templates as raw sample arrays without metadata | Simple data structure, easy to serialize | No record of sample rate, axis configuration, or recording conditions; templates become invalid if pipeline changes | Phase 2 prototyping only. Production templates need metadata: sample rate, axes used, recording date, training statistics. |
+| Running DTW synchronously in the data callback | No async complexity, results available immediately | Blocks event loop, causes serial data loss during matching, creates visible stuttering | Never. Even during prototyping, use setImmediate() or deferlow to defer computation. |
+| Using Euclidean distance on Euler angles for position interpolation | Simple math, easy to understand | Gimbal lock at pitch = +/-90 degrees, discontinuity at yaw = 0/360 boundary, wrong interpolation path | Phase 3 prototyping only. Production must use quaternion distance (dot product or geodesic) for correct behavior at all orientations. |
+| Hardcoding gesture library (shake/flip/tap thresholds) | Works for the developer's device and mounting | Different users hold the device differently, requiring different thresholds | Acceptable if sensitivity parameter is exposed. Hardcoded thresholds with a configurable sensitivity multiplier is a reasonable compromise. |
+| Skipping DTW path constraint (Sakoe-Chiba band) | Correct DTW computation, maximum matching flexibility | O(N^2) instead of O(N*W) where W is band width; 5-10x slower for no practical accuracy gain in gesture recognition | Never. Band constraint should always be applied. W = 10-15% of sequence length is standard. |
 
 ## Integration Gotchas
 
-Common mistakes when connecting components in this pipeline.
+Common mistakes when connecting the gesture system to the existing pipeline.
 
 | Integration | Common Mistake | Correct Approach |
 |-------------|----------------|------------------|
-| Arduino to Node for Max (serial) | Opening serial port before Arduino finishes booting -- Arduino resets on serial open, first 1-2 seconds of data is garbage or the bootloader's output | Add a 2-second delay after port open before parsing data. Alternatively, have Arduino send a "READY" sentinel after setup() completes and wait for it. |
-| Node for Max to MAX patch | Using `maxAPI.outlet()` at the raw sensor rate (100+ Hz) floods MAX's message queue. MAX processes messages on its scheduler thread, not in real-time. | Throttle output to MAX's scheduler rate or use `[defer]`/`[deferlow]` objects. Alternatively, output to a `[buffer~]` for signal-rate data. |
-| SparkFun LSM6DS3 library on Uno WiFi Rev2 | Library won't compile: `MSB_FIRST` undefined error because the megaAVR core uses `MSBFIRST` | Change `MSB_FIRST` to `MSBFIRST` in the SparkFun library source, or add a `#define MSB_FIRST MSBFIRST` before the include. |
-| WiFi UDP (OSC) as transport | Assuming WiFi has the same latency as serial. WiFiNINA's NINA module firmware has a built-in 20ms minimum latency due to FreeRTOS tick rate (10ms ticks, processed every other tick). | Accept 20ms floor on WiFi latency unless you reflash the NINA firmware to increase FreeRTOS tick rate to 1000 Hz. For minimum latency, USB serial is mandatory. |
-| node-serialport with network activity | Serial port read/write performance degrades significantly when Node.js is also performing network I/O (documented node-serialport issue) | If using WiFi and serial simultaneously, isolate serial handling or avoid concurrent network requests during serial reads. |
-| Madgwick filter `begin()` call | Passing the sensor ODR (e.g., 104) instead of the actual measured loop rate (which may be 70-80 Hz after accounting for Serial.print and processing overhead) | Measure actual loop rate with `micros()` timing and use that value. Or modify the filter to accept per-frame delta-time. |
+| Gesture Node script receiving data from MAX | Using `maxAPI.addHandler()` with individual axis messages (one handler per axis, assembling the sample in the gesture script) -- creates timing issues where axes arrive at different times | Send all axes in one message: route `smooth_accel` output through a `[pak f f f]` or just forward the original 3-value list directly to the gesture script as a single handler call. |
+| Two node.script instances (serial-bridge + gesture-engine) | Assuming they share memory or state. Each node.script is a separate Node.js process with its own memory space. | Communicate exclusively through MAX patch wiring: serial-bridge outlets -> MAX routing -> gesture-engine inlets. No shared state, no IPC between Node processes. |
+| Pure MAX DTW vs. Node DTW producing different results | Using different distance metrics, normalization, or sequence preprocessing in the two implementations. | Define the DTW algorithm once (in documentation) and implement identically in both. Test both against the same recorded gesture data and verify identical distance values. |
+| Jitter visualization competing with data processing | Running jit.gl.render at 60 FPS in the same patch while processing 114 Hz sensor data and running DTW computation | Separate visualization into its own `jit.world` or subpatch. Use `@fps 30` for visualization (30 FPS is sufficient for motion trails). Use `deferlow` between data processing and visualization updates. |
+| Gesture events (bangs) feeding back into the sensor pipeline | A gesture "flip" detection resets orientation, which changes the data, which re-triggers the flip detection, creating a feedback loop | Gate gesture outputs with a one-shot cooldown: after a gesture fires, suppress detection on that gesture class for a configurable cooldown period (default 500ms). |
 
 ## Performance Traps
 
-Patterns that work at small scale but fail as data rate increases.
+Patterns that work at small scale but fail as gesture library grows.
 
 | Trap | Symptoms | Prevention | When It Breaks |
 |------|----------|------------|----------------|
-| ASCII CSV with `Serial.println()` for all 6 axes + 3 orientation values | Works at 50 Hz, each line ~80 bytes | Switch to binary protocol or reduce fields per message. Send raw 6-axis at full rate, computed orientation at reduced rate. | Above ~70 samples/sec at 57600 baud (80 bytes * 70 = 5600 bytes/sec, near the 5760 byte/sec limit) |
-| `String` concatenation on Arduino | Works for a few values, easy to read | Use `snprintf()` into a fixed char buffer, or `Serial.write()` with raw bytes. Arduino `String` class fragments heap memory. | After hours of continuous operation -- heap fragmentation causes memory allocation failures and crashes. |
-| Synchronous `Serial.print()` calls | Works at low rates | `Serial.print()` blocks when the 64-byte transmit buffer is full. At 57600 baud this buffer drains in ~11ms, but burst writes of long messages can stall the main loop. | When total bytes per loop iteration exceed 64 bytes and loop rate is high enough that the buffer hasn't drained between iterations. |
-| Polling IMU in main loop without checking data-ready | Works but wastes time reading stale data | Use `IMU.accelerationAvailable()` / `IMU.gyroscopeAvailable()` to check the data-ready flag before reading. Or configure the sensor's DRDY interrupt pin. | Always a waste, but becomes a throughput bottleneck when every microsecond matters for hitting target loop rate. |
-| Sending every sensor reading to MAX without decimation | Works at low rates, MAX processes fine | Implement a send-rate independent of read-rate. Read sensor at full ODR for fusion quality, but send to MAX at 50-100 Hz. | Above ~100 Hz output to MAX, where scheduler overhead and message processing lag behind real-time. |
+| Matching every segment against every template serially | Works with 3 templates, each taking ~2ms | Pre-filter with acceleration magnitude envelope; only run DTW against templates whose energy profile matches the segment's | Above 10 templates (10 * 2ms = 20ms per segment, starts competing with the ~8.8ms inter-sample interval) |
+| Storing full DTW cost matrix in memory for each match | Works for short gestures | Use only two rows of the cost matrix (current and previous), reducing space from O(N*M) to O(M). Full matrix only needed if you need the warping path. | Templates longer than ~500 samples (500*500*8 bytes = 2MB per match) |
+| Motion trail visualization storing unlimited history | Works for a few seconds | Use a ring buffer with fixed maximum length (e.g., 500 points = ~4.4 seconds at 114 Hz). Older points are overwritten. | After minutes of continuous operation, memory grows unbounded and Jitter rendering slows |
+| Recording gesture templates at full 9-axis dimensionality | Works but slow DTW matching | Reduce to the 3-4 most discriminative axes per gesture class. For most hand gestures, accel magnitude + gyro X + gyro Y are sufficient. | When matching latency exceeds 50ms and users perceive a delay between gesture completion and response |
+| Jitter `jit.gl.sketch` drawing individual points for motion trails | Works for 50 points | Use `jit.gl.mesh` with `@draw_mode lines` or `line_strip` and a matrix of vertices. GPU-accelerated rendering handles 1000+ points without frame drops. | Above 200 points, jit.gl.sketch per-point drawing causes visible frame rate drops |
 
 ## UX Pitfalls
 
-Common user experience mistakes in IMU-to-MAX controller design.
+Common user experience mistakes in gesture recognition interfaces.
 
 | Pitfall | User Impact | Better Approach |
 |---------|-------------|-----------------|
-| No calibration feedback -- user must hold sensor still for N seconds with no indication of progress or completion | User moves sensor too early, calibration is bad, all subsequent data is wrong, user doesn't know why | Provide visual/audio feedback in MAX during calibration. Show countdown. Confirm calibration quality (e.g., display gyro bias magnitude). |
-| Orientation jumps on reconnect -- sensor fusion state is lost when serial disconnects and reconnects | Performer sees wild values during reconnect, must wait for filter to converge (can take 5-10 seconds with conservative beta) | Reset filter state on reconnect. Provide a "fusion converging" status flag. Allow manual re-zero. |
-| No way to remap axes -- sensor mounted in different orientations for different use cases | Pitch and roll are swapped or inverted depending on how the Arduino is mounted | Provide axis remapping in the MAX abstraction (swap/negate axes). Better: provide a "set current orientation as zero" calibration that handles arbitrary mounting. |
-| Raw gyro/accel values exposed without scaling explanation | User receives values like "0.02, -0.98, 0.15" with no indication of units (g's? degrees/sec? radians?) | Always document units. The LSM6DS3 library returns g's for accelerometer and degrees/sec for gyroscope. Label outputs in the MAX abstraction. |
+| No feedback during gesture recording -- user performs gesture but has no idea if it was captured | User records incomplete or wrong gestures, then recognition fails, and they blame the recognition algorithm | Show real-time visualization of the recording: motion trail that appears during recording, sample count indicator, "recording complete" confirmation with playback of what was captured. |
+| Requiring exactly the same speed for gesture recognition | User learns a gesture at one speed, but DTW threshold rejects it when performed faster or slower. DTW handles speed variation in theory but poorly in practice without enough training examples. | Record 3-5 examples at different speeds (slow, medium, fast). DTW template averaging or multi-template matching handles speed variation much better than single-template with loose threshold. |
+| Position interpolation with no visual reference -- user sees a 0.0-1.0 number but has no spatial understanding of where A and B are | User cannot remember what orientation they recorded as A and B, making the interpolation feel random | Show the position space map: a 2D plot with A and B marked, and a moving dot showing current position. Even a simple `[multislider]` showing the current blend value with A/B labels helps. |
+| Gesture library management with no save/load -- user records custom gestures, closes MAX, and they're gone | Losing 20 minutes of gesture training is infuriating; users stop using custom gestures | Auto-save templates to a JSON file on recording. Auto-load on patch open. Use MAX `[dict]` for structured storage and `[dict.serialize]` for file persistence. |
+| Predefined gesture names that don't match user expectations -- "shake" triggers on gentle waggling, "flip" triggers on a 90-degree tilt | Users develop incorrect mental models of what each gesture means, leading to frustration | Define gestures precisely in the help patch with video/animation examples. Make sensitivity adjustable. Use descriptive names: "rapid-shake" not "shake", "180-flip" not "flip". |
 
 ## "Looks Done But Isn't" Checklist
 
 Things that appear complete but are missing critical pieces.
 
-- [ ] **Serial communication:** Receiving data in MAX -- but haven't tested what happens when Arduino is unplugged and reconnected mid-session. Does the patch recover automatically?
-- [ ] **Sensor fusion:** Getting pitch/roll/yaw values -- but haven't verified the declared filter sample rate matches the actual loop rate. Measure with `micros()`.
-- [ ] **Calibration:** Gyro zeroing works on bench -- but haven't tested whether calibration holds after the sensor warms up (LSM6DS3 gyro bias shifts with temperature, typically ~1-2 deg/sec over the first few minutes).
-- [ ] **Data rate:** Seeing updates in MAX -- but haven't measured actual end-to-end latency (timestamp on Arduino, compare to arrival time in Node for Max). The "feels responsive" test misses 20-50ms of hidden latency.
-- [ ] **Reusable abstraction:** MAX patch works for this project -- but haven't tested with a different Arduino board or different sensor. Hard-coded assumptions about data format, axes, and ranges make the abstraction brittle.
-- [ ] **WiFi fallback:** OSC/UDP "works" in testing -- but haven't tested under WiFi congestion, at range, or for sustained periods. WiFi IMU data is unreliable for performance use without extensive testing.
-- [ ] **Gyro saturation:** Orientation values look correct at normal movement speeds -- but haven't tested with fast gestures. The LSM6DS3 default range is +/-245 deg/sec; fast arm movements can exceed this, causing saturation and incorrect fusion output.
-- [ ] **String parsing:** CSV parsing works with test data -- but haven't handled the case where a field is empty, a line is truncated, or a value is "nan" or "inf" (which the Arduino will print for certain float edge cases).
+- [ ] **DTW matching:** Returns correct distances on test data -- but haven't tested with live segmented data from the motion detector. Segmentation boundaries change DTW distances significantly.
+- [ ] **Shake detection:** Works on your desk -- but haven't tested while walking, while the device is mounted differently, or while someone else holds it. Gravity orientation and personal gesture style change everything.
+- [ ] **Position interpolation:** Outputs 0.0 at position A and 1.0 at position B -- but haven't tested what happens between and beyond A/B. Does the value extrapolate past 1.0? Does it handle the case where current orientation is equidistant from A and B?
+- [ ] **Gesture recording:** Records a template -- but haven't verified that re-recording the same gesture produces a low DTW distance against the first recording. High intra-class variance means recognition will be unreliable.
+- [ ] **Motion trails visualization:** Looks good at first -- but haven't verified memory usage after 5 minutes of continuous operation. Unbounded arrays cause crashes.
+- [ ] **Null rejection:** Threshold set and working -- but haven't tested with everyday non-gesture motion (picking up device, setting it down, walking, scratching head while holding device). These are the real false positive sources.
+- [ ] **Dual implementation parity:** Node and MAX versions both detect gestures -- but haven't verified they produce the same results for the same input. Different floating-point behavior, different distance calculations, or different preprocessing will cause divergence.
+- [ ] **Cooldown between gestures:** Added a 500ms cooldown -- but haven't tested rapid intentional repeated gestures. Does the user want to shake-shake-shake and get three events, or just one? Cooldown should be configurable and gesture-class-specific.
+- [ ] **Template persistence:** Templates save and load -- but haven't tested loading templates recorded at a different smoothing level, different calibration state, or different sample rate. Templates must record their recording conditions or be invalidated when conditions change.
 
 ## Recovery Strategies
 
@@ -207,13 +267,13 @@ When pitfalls occur despite prevention, how to recover.
 
 | Pitfall | Recovery Cost | Recovery Steps |
 |---------|---------------|----------------|
-| Built pipeline assuming 115200 baud | MEDIUM | Reduce to 57600, switch to binary protocol to recover throughput, or pivot to WiFi/UDP as primary transport. May require restructuring Arduino code and Node parser. |
-| Hardcoded 104 Hz sample rate discovered late | LOW | Fork library or add register writes after `IMU.begin()`. Two lines of Wire library code. Test thoroughly as higher ODR means more noise. |
-| Yaw drift discovered after building yaw-dependent features | HIGH | Fundamental limitation. Either add magnetometer hardware, redesign features to use pitch/roll only, or add manual yaw reset. All require significant rework if yaw was central to the design. |
-| Filter sample rate mismatch causing bad orientation | LOW | Measure actual loop rate, update `begin()` parameter. Or add delta-time computation. Usually fixable in under an hour once diagnosed. |
-| Serial framing errors causing intermittent crashes | MEDIUM | Add ReadlineParser if not present, add start-of-message sentinel, add per-field validation. Requires changes on both Arduino and Node sides. |
-| Arduino `String` heap fragmentation causing crashes after hours | MEDIUM | Rewrite all string handling to use fixed `char[]` buffers and `snprintf()`. Tedious but mechanical refactoring. |
-| MAX scheduler overwhelmed by high-rate messages | LOW-MEDIUM | Add decimation in Node for Max (send every Nth sample), or batch values into dictionaries. May require restructuring MAX patch routing. |
+| Segmentation not working (missed or false triggers) | MEDIUM | Retrofit motion detection stage between data input and DTW. Requires adding state machine, activity detection, and segment buffering. Does not require changing DTW implementation itself. |
+| DTW too slow for real-time | LOW | Add Sakoe-Chiba band constraint (narrow the search corridor). Reduce feature dimensionality. If already constrained, move to subsequence DTW (sDTW) which avoids full matrix computation. |
+| False positives overwhelming | MEDIUM | Retrain with more examples (minimum 5 per class). Add null class with non-gesture motion. Increase null rejection coefficient from 3.0 to 5.0. Add post-detection validation (gesture must repeat within 2 seconds to confirm). |
+| Position interpolation built on double integration | HIGH | Complete redesign required. Replace translational position tracking with orientation-based interpolation. All UI, visualization, and downstream connections must be rewired. This is why it must be scoped correctly before coding begins. |
+| Modified serial-bridge.js and broke existing pipeline | HIGH | Revert serial-bridge.js to v1.0 state. Extract gesture code into separate file. Re-route data through MAX wiring. May require significant MAX patch restructuring if gesture state was entangled with calibration/smoothing state. |
+| Smoothing-dependent gesture detection | LOW-MEDIUM | Re-route gesture input from smoothed outlets to calibrated (pre-smoothing) outlets. May require adjusting gesture thresholds since calibrated data is noisier than smoothed data. |
+| Gravity contamination in gesture thresholds | MEDIUM | Replace per-axis thresholds with magnitude-based detection. Add high-pass filter for gravity removal. All threshold values must be re-tuned after the change. |
 
 ## Pitfall-to-Phase Mapping
 
@@ -221,38 +281,36 @@ How roadmap phases should address these pitfalls.
 
 | Pitfall | Prevention Phase | Verification |
 |---------|------------------|--------------|
-| 57600 baud ceiling | Phase 1: Serial Foundation | Send continuous data at target rate, verify zero corruption over 5 minutes |
-| 104 Hz ODR lock | Phase 1: Sensor Reading | Print `IMU.accelerationAvailable()` timing to confirm actual sensor output rate matches configured ODR |
-| Yaw drift (6-DOF limitation) | Phase 2: Sensor Fusion (design decision) | Document as known limitation. Verify pitch/roll stability over 10 minutes stationary. Measure yaw drift rate (deg/min). |
-| Filter sample rate mismatch | Phase 2: Sensor Fusion | Measure actual loop rate with `micros()`. Compare to `begin()` parameter. Must match within 10%. |
-| Serial framing errors | Phase 1: Serial Protocol | Send 10,000 messages, verify all 10,000 parse correctly on receive side. Test disconnect/reconnect. |
-| Node for Max event loop blocking | Phase 3: Node for Max Integration | Measure message arrival jitter in Node. Should be < 5ms standard deviation at target rate. |
-| Calibration quality | Phase 4: Calibration System | Compare calibrated vs uncalibrated gyro readings at rest. Calibrated should be < 0.5 deg/sec on all axes. |
-| WiFi/UDP 20ms floor latency | Phase 5: WiFi Transport (if pursued) | Measure round-trip with timestamps. Accept 20ms+ or reflash NINA firmware. |
-| MAX scheduler flooding | Phase 3: MAX Abstraction | Monitor MAX CPU meter while running at target rate. Should stay below 30%. |
-| Gyro range saturation | Phase 4: Calibration/Configuration | Test with fast gestures. If saturation occurs, increase range via register write (costs resolution). |
+| Gesture segmentation failure | Phase 1: Predefined Gestures (establish motion detection framework) | Record 50 natural gesture performances; verify >90% are correctly segmented (start/end within 100ms of actual gesture boundary) |
+| DTW computational cost | Phase 2: DTW Custom Gestures (architecture with async matching) | Measure end-to-end latency from gesture completion to bang output. Must be <100ms with 10 templates loaded. Verify no serial data loss during matching. |
+| DTW false positives | Phase 2: DTW Custom Gestures (null rejection design) | Perform 5 minutes of non-gesture activity (walking, repositioning, scratching). Count false positives. Target: <2 false positives per 5 minutes per gesture class. |
+| Position integration drift | Phase 3: Position Interpolation (scope as orientation interpolation) | Verify position interpolation output is stable when device is held stationary. Value must not drift more than 0.01 per minute. |
+| Modifying serial-bridge.js | Phase 1: Architecture Setup | Code review: serial-bridge.js diff must be empty. All gesture code in separate files. |
+| Smoothing vs. gesture detection conflict | Phase 1: Predefined Gestures (data routing) | Test all gestures with smoothing at 0.0, 0.5, and 1.0. Gesture detection must work identically at all smoothing levels. |
+| Gravity contamination | Phase 1: Predefined Gestures (feature extraction) | Test all gestures at three orientations: level, tilted 45 degrees, tilted 90 degrees. Detection thresholds must produce consistent results across orientations. |
+| Jitter visualization performance | Phase 4: Rich Visualization | Run visualization continuously for 10 minutes while gesture detection is active. Frame rate must stay above 24 FPS. Memory usage must not grow by more than 10MB. |
+| Template persistence | Phase 2: DTW Custom Gestures (save/load) | Close and reopen MAX patch. Verify all previously recorded custom gestures are automatically loaded and still recognized correctly. |
+| Dual implementation divergence | Phase 2 + pure MAX implementation phase | Feed identical recorded data to both Node and MAX implementations. DTW distances must match within 0.1%. Gesture detection results must be identical. |
 
 ## Sources
 
-- [Arduino Forum: Serial max speed Uno WiFi Rev 2](https://forum.arduino.cc/t/serial-max-speed-uno-wifi-rev-2/617529) -- 57600 baud limit, mEDBG chip limitation
-- [Arduino Forum: UNO WiFi Rev2 USB Serial can't go faster than 57600](https://forum.arduino.cc/t/uno-wifi-rev2-usb-serial-cant-go-faster-then-57600/647341) -- confirmation of baud rate ceiling
-- [Arduino Forum: LSM6DS3 sample rate](https://forum.arduino.cc/t/lsm6ds3-sample-rate/1156756) -- ODR register modification, library limitations
-- [Arduino Forum: IMU polling rate hack for Arduino_LSM6DS3](https://forum.arduino.cc/t/imu-polling-rate-hack-for-arduino-lsm6ds3/1161593) -- direct register access approach
-- [Arduino Forum: Drift in Yaw using the Madgwick library](https://forum.arduino.cc/t/drift-in-yaw-using-the-madgwick-library-example/955324) -- 6-DOF yaw drift is fundamental
-- [GitHub: MadgwickAHRS Issue #33 - Yaw drift LSM6DS3](https://github.com/arduino-libraries/MadgwickAHRS/issues/33) -- LSM6DS3-specific yaw drift
-- [GitHub: MadgwickAHRS Issue #1 - Implementation](https://github.com/arduino-libraries/MadgwickAHRS/issues/1) -- sample rate sensitivity
-- [Arduino Forum: Help with Mahony or Madgwick AHRS filter settings](https://forum.arduino.cc/t/help-with-choosing-the-correct-settings-for-mahony-or-madgwick-ahrs-filters/968160) -- beta tuning, sample rate mismatch
-- [Woolsey Workshop: Using Arduino_LSM6DS3 Library](https://www.woolseyworkshop.com/2020/02/12/using-the-arduino_lsm6ds3-library-to-access-the-arduino-uno-wifi-rev2-imu/) -- library capabilities and limitations
-- [GitHub: WiFiNINA Issue #192 - UDP 20ms latency](https://github.com/arduino-libraries/WiFiNINA/issues/192) -- FreeRTOS tick rate root cause
-- [GitHub: node-serialport Issue #797 - Network delays affect serial](https://github.com/serialport/node-serialport/issues/797) -- network I/O interference
-- [GitHub: node-serialport Issue #165 - Event loop blocking](https://github.com/serialport/node-serialport/issues/165) -- serialport + Socket.IO blocking
-- [Cycling '74: Node for Max API](https://docs.cycling74.com/nodeformax/api/module-max-api.html) -- maxAPI.outlet() behavior
-- [ITP Physical Computing: Interpreting Serial Data](https://itp.nyu.edu/physcomp/lessons/interpreting-serial-data/) -- serial framing fundamentals
-- [Embedded Related: Serial Data Framing](https://www.embeddedrelated.com/showarticle/113.php) -- protocol design best practices
-- [Arduino Forum: Uno WiFi R2 gyroscope precision](https://forum.arduino.cc/t/uno-wifi-r2-gyroscope-precision-lsm6ds3tr-imu/851867) -- noise and precision issues
-- [Hackaday: Fixing Arduino's Serial Latency Issues](https://hackaday.com/2011/05/18/fixing-arduinos-serial-latency-issues/) -- USB driver latency
-- [Arduino Forum: How to calibrate a 6dof IMU](https://forum.arduino.cc/t/how-to-calibrate-a-6dof-imu/915970) -- calibration approaches
+- [GRT DTW Implementation (GitHub)](https://github.com/nickgillian/grt/blob/master/GRT/ClassificationModules/DTW/DTW.h) -- Null rejection coefficient, per-class thresholds, template training (HIGH confidence)
+- [GRT DTW Wiki](https://github.com/nickgillian/grt/wiki/dtw) -- Rejection threshold formula: mean + sigma * coefficient, minimum training examples (HIGH confidence)
+- [Real-time DTW-based gesture recognition for MAX/MSP and PureData](https://www.researchgate.net/publication/228987911_Real-time_DTW-based_gesture_recognition_external_object_for_MAXMSP_and_puredata) -- Multi-grid DTW without prior segmentation, num.dtw external object (MEDIUM confidence)
+- [uWave: Accelerometer-based Personalized Gesture Recognition](https://www.yecl.org/publications/liu09percom.pdf) -- Single-template DTW for accelerometer gestures, quantization for speed (MEDIUM confidence)
+- [Structured Dynamic Time Warping for Continuous Hand Trajectory Gesture Recognition (ScienceDirect)](https://www.sciencedirect.com/science/article/abs/pii/S0031320318300621) -- Segmentation approaches for continuous streams (MEDIUM confidence)
+- [Unsupervised Gesture Segmentation by Motion Detection (IEEE)](https://ieeexplore.ieee.org/document/7576613/) -- Threshold-based segmentation of continuous IMU streams (MEDIUM confidence)
+- [IMU Position Estimation (arxiv)](https://arxiv.org/pdf/1311.4572) -- Drift error: constant acceleration error produces quadratic position error (HIGH confidence)
+- [CH Robotics: Using Accelerometers to Estimate Position](https://www.chrobotics.com/library/accel-position-velocity) -- Double integration drift, practical limitations (HIGH confidence)
+- [dtw npm package](https://www.npmjs.com/package/dtw) -- JavaScript DTW implementation for Node.js (HIGH confidence)
+- [dynamic-time-warping npm](https://www.npmjs.com/package/dynamic-time-warping) -- Alternative JS DTW with custom distance functions (HIGH confidence)
+- [Node for Max - Script Lifecycle](https://docs.cycling74.com/max8/vignettes/08_n4m_lifecycle) -- Each node.script is a separate process (HIGH confidence)
+- [IMU Sensor-Based Hand Gesture Recognition (MDPI)](https://www.mdpi.com/1424-8220/19/18/3827) -- DTW outperforms other methods for time-dependent IMU data; gravity separation with high-pass Butterworth filter (MEDIUM confidence)
+- [Head Gesture Recognition via DTW and Threshold Optimization (IEEE)](https://ieeexplore.ieee.org/document/7929592) -- Threshold-false positive tradeoff, F1-score optimization (MEDIUM confidence)
+- [Cycling '74: Best Practices in Jitter](https://cycling74.com/tutorials/best-practices-in-jitter-part-1) -- Minimize CPU-GPU data copies, use textures over matrices (MEDIUM confidence)
+- [Gesture Variation Follower (GVF) for MaxMSP](https://github.com/bcaramiaux/ofxGVF) -- Alternative to DTW: continuous gesture following, developed at IRCAM (LOW confidence -- not directly used but worth knowing)
+- [MATLAB IMU Gesture Recognition](https://www.mathworks.com/help/nav/ug/gesture-recognition-using-inertial-measurement-units.html) -- Quaternion DTW for orientation-based gesture matching (MEDIUM confidence)
 
 ---
-*Pitfalls research for: Arduino IMU-to-MAX/MSP Sensor Pipeline*
-*Researched: 2026-02-12*
+*Pitfalls research for: Adding gesture recognition (DTW), position interpolation, and motion visualization to existing real-time IMU sensor pipeline*
+*Researched: 2026-02-22*

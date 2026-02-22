@@ -1,188 +1,423 @@
-# Stack Research
+# Technology Stack: v1.1 Gesture Recognition & Mapping
 
-**Domain:** Arduino IMU-to-MAX/MSP Sensor Pipeline via Node for Max
-**Researched:** 2026-02-12
-**Confidence:** MEDIUM-HIGH (Arduino/serial layers verified via official docs; Node for Max specifics rely on multiple credible sources but some version details are training-data-only)
+**Project:** Arduino-to-MAX Sensor Pipeline
+**Milestone:** v1.1 -- Gesture Recognition, DTW, Position Interpolation, Rich Visualization
+**Researched:** 2026-02-22
+**Overall Confidence:** MEDIUM-HIGH
 
-## Recommended Stack
+---
 
-### Arduino Side -- Core Technologies
+## Scope: What Is NEW vs What Already Exists
 
-| Technology | Version | Purpose | Why Recommended |
-|------------|---------|---------|-----------------|
-| Arduino_LSM6DS3 | 1.0.3 | Read accelerometer + gyroscope from onboard LSM6DS3 IMU | Official Arduino library for the Uno WiFi Rev2's built-in IMU. Connected via SPI internally -- zero wiring needed. Simpler API than SparkFun alternative. **Confidence: HIGH** (verified via Arduino reference + GitHub) |
-| Arduino IDE / CLI | 2.x | Compile and upload sketches | Standard toolchain. CLI enables scripting uploads. **Confidence: HIGH** |
-| WiFiNINA | latest (1.8.x+) | WiFi + UDP for secondary wireless transport | Official library for the NINA-W102 module on this board. Required for any WiFi/UDP/OSC path. **Confidence: HIGH** (verified via Arduino docs) |
-| CNMAT OSC | 3.5.8 | OSC message encoding on Arduino for WiFi path | Most feature-rich OSC implementation for Arduino. Supports UDP transport via Arduino Stream class. Only needed for WiFi/OSC secondary path. **Confidence: MEDIUM** (last release Sep 2023, occasionally maintained) |
+This document covers ONLY the stack additions needed for v1.1. The existing v1.0 stack is validated and stable:
 
-### Node for Max Side -- Core Technologies
+### Existing Stack (DO NOT CHANGE)
 
-| Technology | Version | Purpose | Why Recommended |
-|------------|---------|---------|-----------------|
-| max-api | (bundled) | Node-to-Max communication | Ships with Max. Provides `outlet()`, `post()`, `addHandler()` for bidirectional communication between Node.js and Max patch. No install needed. **Confidence: HIGH** (official Cycling 74 API) |
-| serialport | 12.x | USB serial communication with Arduino | De facto standard for Node.js serial (5200+ dependents on npm). Uses N-API via prebuildify -- no recompilation needed across Node versions. Ships with prebuilt binaries for macOS/Windows/Linux. **Confidence: HIGH** (verified via serialport.io docs) |
-| @serialport/parser-readline | 12.x (match serialport) | Parse newline-delimited serial data | Transform stream that buffers incoming bytes and emits complete lines on `\n` delimiter. Essential for text-based serial protocols. **Confidence: HIGH** |
-| ahrs | 1.3.3 | Madgwick/Mahony sensor fusion (orientation from raw IMU) | JavaScript AHRS implementation supporting both Madgwick and Mahony algorithms. Outputs quaternion, Euler angles (heading/pitch/roll). Configurable sample interval, beta (noise), kp/ki gains. **Confidence: MEDIUM** (last updated Oct 2023, small package, but well-tested algorithm) |
+| Already Have | Version | Status |
+|-------------|---------|--------|
+| max-api | bundled | Stable -- bidirectional Node-to-Max communication |
+| serialport | 12.x | Stable -- USB serial bridge |
+| @serialport/parser-readline | 12.x | Stable -- CSV line parsing |
+| dgram (Node built-in) | N/A | Stable -- WiFi UDP transport |
+| Arduino_LSM6DS3 | 1.0.3 | Stable -- IMU hardware access |
+| Madgwick filter (Arduino-side) | N/A | Stable -- orientation fusion at 114 Hz |
+| EMA smoothing (serial-bridge.js) | N/A | Stable -- three-tier smoothing |
+| Jitter (jit.gl.sketch, jit.gl.render) | bundled | Stable -- existing 3D viz patch |
 
-### Supporting Libraries
+### What v1.1 Needs
 
-| Library | Version | Purpose | When to Use |
-|---------|---------|---------|-------------|
-| osc-js | 2.4.x | OSC message handling in Node.js | Only for WiFi/UDP secondary transport path. DatagramPlugin for UDP receive. Bridge mode if forwarding to WebSocket. Not needed for USB serial primary path. **Confidence: MEDIUM** |
-| @serialport/parser-byte-length | 12.x | Parse fixed-length binary serial packets | Only if you switch from text to binary serial protocol for higher throughput (Phase 2+ optimization). **Confidence: HIGH** |
+1. **DTW algorithm** -- for custom gesture matching (Node + pure MAX)
+2. **Gesture buffer/template storage** -- recording and persisting gesture data
+3. **Predefined gesture detectors** -- heuristic shake/tap/flip/circle detection
+4. **Position interpolation engine** -- record A/B states, output 0-1 blend
+5. **Rich visualization** -- motion trails, DTW match progress, position space
 
-### Development Tools
+---
 
-| Tool | Purpose | Notes |
-|------|---------|-------|
-| Arduino IDE 2.x | Sketch development, Serial Monitor for debugging | Serial Monitor locks COM port -- close before running Max. Only one program can own the serial port at a time. |
-| Arduino CLI | Scriptable compile/upload | Useful for automated workflows. `arduino-cli compile --fqbn arduino:megaavr:uno2018wifi` |
-| Max 8.6+ / Max 9 | Patcher environment with Node for Max | Max 8.6+ bundles Node.js v20.x (LTS). Older Max 8 versions ship Node 16 (EOL). Verify with Max > About. |
-| node.script | Run Node.js scripts from Max | Primary interface. Send `script npm install <package>` to install dependencies. Outputs to Max via `maxApi.outlet()`. |
+## Recommended Stack Additions
 
-## Critical Configuration
+### Node for Max: New Dependencies
 
-### Baud Rate: Use 115200
+| Technology | Version | Purpose | Why |
+|------------|---------|---------|-----|
+| **None (zero new npm packages)** | -- | -- | See rationale below |
 
-**Rationale:** The ATmega4809 on the Uno WiFi Rev2 has 4 USARTs with fractional baud rate generators supporting up to 500kbps. However, 115200 is the sweet spot:
+**Critical decision: Implement DTW from scratch in a NEW gesture-engine.js script (separate from serial-bridge.js).**
 
-- At 115200 baud, throughput is ~14.4 KB/s (115200 / 8 bits / ~1 byte overhead)
-- A 6-axis CSV line like `ax,ay,az,gx,gy,gz\n` is ~40-50 bytes
-- That supports ~280-360 samples/sec -- well above the LSM6DS3 default 104 Hz ODR
-- Universally supported, no compatibility issues with USB-CDC on this board
-- Higher rates (230400, 500000) are possible but add risk of framing errors with no practical benefit at 104 Hz ODR
+Rationale for zero new dependencies:
 
-**Do NOT use 9600.** At 9600 baud (~1.2 KB/s), you max out at ~24-30 samples/sec, creating a bottleneck below the sensor's capability.
+1. **dynamic-time-warping (npm)**: v1.0.0, last updated July 2016, 52 GitHub stars. Supports custom distance functions (good for multivariate), but the library is a single file of ~60 lines. Wrapping it provides negligible benefit over writing DTW directly. **Not worth the dependency.**
 
-### LSM6DS3 Output Data Rate (ODR): Start at 104 Hz
+2. **dtw (npm)**: v0.0.3, last updated 11 years ago. No multivariate support, no window constraints (Sakoe-Chiba band), no configuration. **Abandoned.**
 
-**Rationale:** The Arduino_LSM6DS3 library defaults to 104 Hz for both accel and gyro. This is sufficient for human motion tracking and musical gesture control. The LSM6DS3 hardware supports 13/26/52/104/208/416/833/1666 Hz, but:
+3. **The DTW algorithm is ~40 lines of JavaScript.** For 9-axis IMU data at 114 Hz, the core cost matrix computation with a Sakoe-Chiba window constraint is straightforward. Writing it yourself gives you: multivariate Euclidean distance over selected axes, configurable window width to bound computation, early abandonment (stop if cost exceeds threshold), and direct integration with the existing smoothed data pipeline. No serialization overhead, no API mismatch.
 
-- 104 Hz provides ~10ms resolution, adequate for most interactive applications
-- Higher ODRs (416 Hz+) require direct register manipulation (the official library hardcodes 104 Hz)
-- The ATmega4809 at 16 MHz can read SPI fast enough, but serial throughput becomes the bottleneck above ~300 Hz at 115200 baud
-- Start at 104 Hz; optimize to 208 or 416 Hz later via register writes if needed
+**Confidence: HIGH** -- DTW is a well-understood O(N*M) dynamic programming algorithm. Both npm libraries are unmaintained and lack multivariate support. Custom implementation is the standard approach in IMU gesture recognition literature.
 
-### Serial Protocol: Newline-Delimited CSV (Text)
+### MAX/MSP: New Objects Needed
 
-**Format:** `ax,ay,az,gx,gy,gz\n`
+| Object | Source | Purpose | Why |
+|--------|--------|---------|-----|
+| `js` | Built-in | DTW computation for pure MAX version | The `js` object runs embedded JavaScript (ES5/SpiderMonkey). DTW is pure math -- no npm needed, no async, no Node.js features required. Runs in the Max scheduler thread for tighter timing than node.script. |
+| `dict` | Built-in | Gesture template storage and persistence | JSON-native storage. `@embed 1` saves templates inside the patch. `read`/`write` for external JSON files. Supports nested structures for multi-gesture libraries. |
+| `coll` | Built-in | Time-series sample buffer for recording | Index-addressed storage. Record gesture samples as `index: ax ay az gx gy gz pitch roll yaw`. Faster sequential access than dict for time-ordered data. `write`/`read` for file persistence. |
+| `multislider` | Built-in | Gesture waveform display and template visualization | Displays recorded gesture as waveform overlay. Set `@size N` for sample count, `@setminmax -1. 1.` for normalized range. Multiple instances for multi-axis display. |
+| `jit.gl.mesh` | Built-in (Jitter) | Motion trail rendering in 3D space | `@draw_mode line_strip` draws polylines from vertex matrix. Feed a ring buffer of XYZ positions to create fading motion trails. Already have Jitter context from imu-sensor-3dviz.maxpat. |
+| `jit.matrix` | Built-in (Jitter) | Vertex data buffer for motion trails | Store ring buffer of N recent position samples as Nx3 float32 matrix. Feed to jit.gl.mesh position inlet. |
+| `function` | Built-in | Position interpolation curve editor | Already used in v1.0 for smoothing curves. Reuse for custom interpolation response curves between positions A and B. |
 
-**Rationale for text over binary:**
-- Human-readable in Arduino Serial Monitor for debugging
-- Trivially parsed with `@serialport/parser-readline`
-- No endianness or struct packing concerns
-- At 104 Hz / 115200 baud, throughput is not a constraint
-- Binary protocol is a Phase 2+ optimization if you need 400+ Hz
+### MAX/MSP: External Package (for Pure MAX DTW)
+
+| Package | Source | Purpose | Why This One |
+|---------|--------|---------|-------------|
+| **ml-lib** | Max Package Manager | `ml.dtw` external for pure MAX DTW implementation | Provides a native DTW external based on the Gesture Recognition Toolkit (GRT). Handles multivariate time series, real-time classification without prior segmentation. Available via `File > Show Package Manager` in Max. The pure MAX implementation should use ml.dtw as the primary approach. **Fallback: custom DTW in the `js` object if ml-lib is unavailable.** |
+
+**Confidence: MEDIUM** -- ml-lib is available in the Max Package Manager and is based on GRT, but maintenance status is uncertain. The `js` object fallback ensures the feature works regardless.
+
+### MAX/MSP: External Package (OPTIONAL, NOT Required)
+
+| Package | Source | Purpose | Why Optional |
+|---------|--------|---------|-------------|
+| MuBu | IRCAM via Max Package Manager | Professional gesture following (mubu.gf, mubu.dtw, mubu.xmm) | Extremely powerful but heavyweight. Adds IRCAM dependency, learning curve, and a large external package for what we can accomplish with custom code. **Recommendation: Do NOT use for v1.1.** If ML-based gesture recognition is needed later (v2.0+), MuBu becomes relevant. For DTW + predefined gestures, our custom implementation is simpler, more transparent, and has zero external dependencies. |
+
+**Confidence: HIGH** -- MuBu is well-regarded in the IRCAM/Cycling74 community, but it is overkill for template-matching DTW and threshold-based predefined gestures.
+
+---
+
+## Architecture of New Code
+
+### Separate Script (Required by Project Constraint)
+
+**The gesture engine is a NEW, SEPARATE `node.script` called `gesture-engine.js`.** It does NOT modify serial-bridge.js. This is a hard constraint from the milestone specification.
+
+```
+serial-bridge.js (UNCHANGED) --> outlets --> MAX routing --> gesture-engine.js (NEW)
+gesture-engine.js (~500 lines)
+  + sliding window buffer
+  + predefined gesture detection (state machines)
+  + DTW engine (~40 lines core)
+  + DTW template management
+  + position interpolation
+  + JSON template persistence
+```
+
+**How gesture-engine.js receives sensor data:**
+
+The imu-gesture.maxpat abstraction receives smoothed sensor data from imu-sensor.maxpat's outlets (7, 8, 9) and forwards it to gesture-engine.js via `maxAPI.addHandler()`. The data path is:
+
+```
+imu-sensor.maxpat (outlet 7: smooth_accel, 8: smooth_gyro, 9: smooth_orient)
+    |
+    v  (patch cables in user's patch)
+imu-gesture.maxpat (inlet 0)
+    |
+    v  (prepend tag, send to node.script)
+gesture-engine.js (handlers: smooth_accel, smooth_gyro, smooth_orient)
+    |
+    v  (maxAPI.outlet with tagged results)
+imu-gesture.maxpat (route -> outlets)
+```
+
+**Why separate scripts, not single script:**
+
+The milestone constraint requires this, but it is also architecturally sound:
+- **Stability:** serial-bridge.js is the foundation. A bug in gesture code cannot crash the serial pipeline.
+- **Independence:** Gesture recognition can be added/removed without affecting core data flow.
+- **Multiple instances:** Multiple imu-gesture instances can run on the same imu-sensor data.
+- **Latency impact:** The extra IPC hop (Node -> MAX -> Node) adds ~1-2ms. At 114 Hz (8.7ms budget) this is 12-23% overhead. Acceptable because gesture recognition is event-based, not requiring the lowest possible latency for every sample.
+
+### Pure MAX Implementation
+
+A parallel implementation using only built-in MAX objects (plus ml-lib for DTW):
+
+```
+imu-sensor.maxpat outlets
+  --> [gesture-detect] subpatcher (predefined gestures via threshold logic)
+  --> [gesture-dtw] subpatcher (DTW via ml.dtw or js object)
+  --> [position-interp] subpatcher (A/B recording + blend)
+  --> [gesture-viz] subpatcher (Jitter trails + multislider displays)
+```
+
+The pure MAX version gives users a choice: use the Node version (gesture-engine.js) for the full pipeline, or use the pure MAX version if they do not want Node for Max dependency.
+
+---
+
+## DTW Implementation Specification
+
+### Core Algorithm (Both Node and MAX js)
+
+```javascript
+// DTW with Sakoe-Chiba band constraint
+// template: Array of N-dimensional frames (e.g. [ax,ay,az,gx,gy,gz,pitch,roll,yaw])
+// candidate: Array of N-dimensional frames
+// window: max frames of warping allowed (e.g., 20)
+// Returns: normalized cost (lower = better match)
+
+function dtw(template, candidate, window) {
+  var n = template.length;
+  var m = candidate.length;
+  var w = Math.max(window, Math.abs(n - m));
+  // Cost matrix initialized to Infinity
+  var cost = [];
+  for (var i = 0; i <= n; i++) {
+    cost[i] = [];
+    for (var j = 0; j <= m; j++) {
+      cost[i][j] = Infinity;
+    }
+  }
+  cost[0][0] = 0;
+
+  for (var i = 1; i <= n; i++) {
+    for (var j = Math.max(1, i - w); j <= Math.min(m, i + w); j++) {
+      var d = euclideanDist(template[i-1], candidate[j-1]);
+      cost[i][j] = d + Math.min(cost[i-1][j], cost[i][j-1], cost[i-1][j-1]);
+    }
+  }
+  // Normalize by path length
+  return cost[n][m] / (n + m);
+}
+
+function euclideanDist(a, b) {
+  var sum = 0;
+  for (var k = 0; k < a.length; k++) {
+    var diff = a[k] - b[k];
+    sum += diff * diff;
+  }
+  return Math.sqrt(sum);
+}
+```
+
+**Key parameters:**
+- **Template length:** 50-200 frames (0.4-1.8 seconds at 114 Hz)
+- **Sakoe-Chiba window:** 15-30 frames (~130-260ms of warping tolerance)
+- **Match threshold:** Normalized cost < 0.3 for same gesture, > 0.7 for different
+- **Axes used:** Configurable -- default all 9 axes; can narrow to accel-only or orient-only
+
+**Confidence: HIGH** -- This is textbook DTW. The Sakoe-Chiba band reduces O(N*M) to O(N*W) which at 200 frames and W=30 is 6000 operations -- trivial for any modern CPU.
+
+---
+
+## Predefined Gesture Detection (Heuristic)
+
+These do NOT use DTW. They use threshold-based heuristics for speed and reliability.
+
+| Gesture | Detection Method | Key Parameters |
+|---------|-----------------|----------------|
+| **Shake** | Acceleration magnitude RMS exceeds threshold over sustained window | Threshold: 2.5g RMS, window: 200ms, min reversals: 3 |
+| **Tap** | Sharp acceleration spike followed by rapid decay | Threshold: 3.0g spike, decay to baseline within 100ms |
+| **Double-tap** | Two tap events within timing window | Tap gap: 100-400ms |
+| **Flip** | Gravity vector (aZ) inverts sign with sufficient magnitude | aZ crosses from >0.8g to <-0.8g, debounce: 500ms |
+| **Circle** | Gyro Z integration exceeds 300 degrees within window | Min rotation: 300 deg, max time: 2s |
+| **Tilt (4 directions)** | Pitch or roll crosses threshold | Threshold: +/-30 deg, hysteresis: 5 deg |
+
+**Implementation:** Each detector is a state machine that runs on every sample. Output is a gesture name as a symbol via `maxAPI.outlet("gesture", name)`.
+
+**Confidence: HIGH for shake/tap/flip** -- well-documented threshold algorithms from accelerometer datasheets (ST, NXP). **MEDIUM for circle** -- requires empirical tuning.
+
+---
+
+## Position Interpolation Specification
+
+### Implementation
+
+```javascript
+// posA, posB: arrays of sensor values at recorded positions
+// current: array of current sensor values
+// Returns: 0.0 (at A) to 1.0 (at B), clamped
+
+function interpolatePosition(posA, posB, current) {
+  var ab = [];
+  var ac = [];
+  for (var i = 0; i < posA.length; i++) {
+    ab.push(posB[i] - posA[i]);
+    ac.push(current[i] - posA[i]);
+  }
+  var dot = 0, lenSq = 0;
+  for (var i = 0; i < ab.length; i++) {
+    dot += ab[i] * ac[i];
+    lenSq += ab[i] * ab[i];
+  }
+  if (lenSq < 0.001) return 0.0;
+  return Math.max(0.0, Math.min(1.0, dot / lenSq));
+}
+```
+
+**Axes:** Default uses orientation (pitch, roll, yaw) -- 3 dimensions. Configurable to use all 9 axes.
+
+**Confidence: HIGH** -- Linear projection (dot product) onto A-B vector is standard for 1D interpolation in multi-dimensional space.
+
+---
+
+## Visualization Stack
+
+### Motion Trail (3D)
+
+Builds on existing `imu-sensor-3dviz.maxpat` Jitter context.
+
+| Component | Object | Role |
+|-----------|--------|------|
+| Ring buffer | `jit.matrix 3 float32 256 1` | Store last 256 position samples as XYZ vertices |
+| Trail renderer | `jit.gl.mesh @draw_mode line_strip` | Render ring buffer as polyline |
+| Color fade | `jit.matrix 4 float32 256 1` | RGBA per-vertex; fade alpha from newest to oldest |
+| Update driver | `metro 33` (30 fps) | Trigger trail update at render rate, not sensor rate |
+
+### DTW Match Progress (2D)
+
+| Component | Object | Role |
+|-----------|--------|------|
+| Template waveform | `multislider @size N` | Blue waveform showing stored gesture template |
+| Live waveform | `multislider @size N` | Red waveform showing incoming gesture candidate |
+| Match score | `dial` or `number~` | Display current DTW distance score |
+| Match indicator | `panel` with color change | Green on match, red on no-match |
+
+### Position Space Map (2D)
+
+| Component | Object | Role |
+|-----------|--------|------|
+| 2D position display | `lcd` or `jit.pwindow` | Show A, B dots and current position cursor |
+| Interpolation bar | `slider @floatoutput 1` | Horizontal 0-1 bar showing blend position |
+| Response curve | `function` | User-editable non-linear interpolation response |
+
+**Confidence: HIGH** -- All built-in MAX/MSP and Jitter objects. No external dependencies.
+
+---
+
+## Gesture Template Storage Format
+
+### JSON Structure
+
+```json
+{
+  "version": "1.1",
+  "gestures": {
+    "custom_wave": {
+      "name": "Wave",
+      "axes": [0, 1, 2, 3, 4, 5, 6, 7, 8],
+      "sampleRate": 114,
+      "frames": [
+        [0.12, -0.03, 0.98, 1.2, -0.5, 0.3, 5.2, -2.1, 180.0],
+        [0.15, -0.01, 0.95, 2.1, -0.8, 0.6, 7.1, -3.0, 182.5]
+      ],
+      "threshold": 0.35,
+      "created": "2026-02-22T10:30:00Z"
+    }
+  },
+  "positions": {
+    "A": [0.0, 0.0, 0.0],
+    "B": [45.0, 0.0, 0.0]
+  }
+}
+```
+
+### Storage Implementation
+
+| Context | Storage | Persistence |
+|---------|---------|-------------|
+| Node for Max | JSON file via `fs.writeFileSync` / `fs.readFileSync` | File in project directory (e.g., `node/gestures/library.json`) |
+| Pure MAX | `dict @embed 1` | Embedded in patch file (auto-save). Also `dict.write` for external JSON |
+| Gesture recording buffer | Array (Node) / `coll` (MAX) | Transient during recording; committed on save |
+
+**Confidence: HIGH** -- dict JSON support is well-documented. fs module is Node.js built-in.
+
+---
+
+## What NOT to Add
+
+| Technology | Why NOT | What to Use Instead |
+|------------|---------|---------------------|
+| **MuBu (IRCAM)** | Heavyweight package, steep learning curve. Overkill for template-matching DTW. | Custom DTW + threshold heuristics |
+| **dynamic-time-warping (npm)** | Unmaintained since 2016. Saves ~30 lines at the cost of a stale dependency. | Custom DTW (~40 lines) |
+| **dtw (npm)** | Unmaintained since 2013. No multivariate support. | Custom DTW |
+| **TensorFlow.js / ml5.js** | ML-based recognition is out of scope for v1.1. 50MB+ dependency. | DTW for custom gestures; heuristics for predefined |
+| **ahrs (npm)** | Already running Madgwick on Arduino. Orientation arrives pre-computed. | Use orientation from Arduino CSV directly |
+| **New Arduino firmware changes** | Arduino already outputs all 9 values needed. Gesture recognition belongs in Node/MAX. | Process gestures on the host |
+
+---
+
+## Dual Implementation Strategy
+
+### Node for Max Version (gesture-engine.js)
+
+| Feature | Implementation | Stack |
+|---------|---------------|-------|
+| Predefined gestures | State machines in gesture-engine.js | Pure JS, no dependencies |
+| Custom DTW | DTW function in gesture-engine.js | Pure JS, ~40 lines |
+| Template storage | JSON file via fs module | Node built-in |
+| Position interpolation | Dot product projection in gesture-engine.js | Pure JS, ~20 lines |
+| Visualization data | Outlet messages to MAX patch | maxAPI.outlet() |
+
+### Pure MAX/MSP Version (imu-gesture-max.maxpat)
+
+| Feature | Implementation | Stack |
+|---------|---------------|-------|
+| Predefined gestures | Threshold subpatchers using `>`, `<`, `counter`, `timer` | Built-in MAX objects |
+| Custom DTW | `ml.dtw` from ml-lib (primary) or `js` object (fallback) | ml-lib external or built-in MAX js |
+| Template storage | `dict @embed 1` with JSON read/write | Built-in MAX object |
+| Gesture recording | `coll` for sample buffering during capture | Built-in MAX object |
+| Position interpolation | `vexpr` for vector math, `scale` for mapping | Built-in MAX objects |
+| Motion trails | `jit.gl.mesh @draw_mode line_strip` + `jit.matrix` | Built-in Jitter objects |
+| DTW progress | `multislider` waveform overlays | Built-in MAX object |
+| Position space map | `lcd` or `jit.pwindow` with `jit.gl.sketch` | Built-in MAX/Jitter objects |
+
+---
 
 ## Installation
 
-### Arduino Libraries (via Library Manager)
-
-```
-Arduino_LSM6DS3    -- IMU access (install via Arduino IDE Library Manager)
-WiFiNINA           -- WiFi/UDP (install via Arduino IDE Library Manager)
-OSC                -- CNMAT OSC encoding (install via Arduino IDE Library Manager, only for WiFi path)
-```
-
-### Node for Max Packages (via node.script message or terminal)
+### For v1.1: Minimal New Installations
 
 ```bash
-# Primary: USB serial pipeline
-npm install serialport@12 @serialport/parser-readline@12
+# Node for Max: NO new npm packages needed
+# All gesture/DTW/interpolation code is custom JavaScript
 
-# Orientation computation
-npm install ahrs
+# MAX/MSP: One optional package (for pure MAX DTW)
+# Install ml-lib via File > Show Package Manager > search "ml-lib"
+# If ml-lib unavailable, DTW runs in the built-in js object instead
 
-# Secondary: WiFi/OSC path (only if implementing wireless)
-npm install osc-js
+# Arduino: NO firmware changes needed
+# Existing 9-value CSV output is sufficient
 ```
 
-**Important:** Install packages in the same directory as your `.js` script file, or in the Max project directory. Send `script npm install serialport` to the node.script object, or run npm from terminal in the script's directory.
+---
 
-### Why serialport@12 not @13
+## Performance Budget
 
-serialport v13.0.0 exists but was released over a year ago with limited adoption data. Version 12.x is the well-tested stable branch. The API is identical for our use case (both use named exports). If v13 works in your Node for Max environment, it is also acceptable -- the N-API/prebuildify architecture means binary compatibility is not version-sensitive. **Confidence: LOW** -- I could not find definitive evidence that v13 has issues; this is a conservative recommendation.
+At 114 Hz, each sample has an **8.77ms budget** before the next arrives. However, gesture-engine.js receives data via an extra IPC hop, so its budget is slightly tighter.
 
-## Alternatives Considered
+| Operation | Estimated Time | Notes |
+|-----------|---------------|-------|
+| IPC: MAX to gesture-engine.js | ~1.0ms | maxAPI message forwarding |
+| Predefined gesture check (9 detectors) | ~0.03ms | Simple threshold comparisons |
+| DTW match (every 5th frame, 200 frames, window 30) | ~0.5ms | Only runs every ~44ms |
+| Position interpolation | ~0.01ms | 3 multiplies + 1 divide |
+| maxAPI.outlet() calls (gesture results) | ~0.3ms | IPC back to MAX (only on events) |
+| **Total per frame** | **~1.3ms** | **15% of 8.77ms budget** |
 
-| Recommended | Alternative | When to Use Alternative |
-|-------------|-------------|-------------------------|
-| Arduino_LSM6DS3 (official) | SparkFun_LSM6DS3 Arduino Library 1.0.1 | When you need configurable ODR (settings.gyroSampleRate = 416), configurable range, or FIFO access. SparkFun lib exposes full register set. Trade-off: more complex init, designed for I2C by default (Uno WiFi Rev2 uses SPI internally). |
-| serialport (npm) | Max `[serial]` object (native) | When you want zero Node.js dependency. Max's built-in `[serial]` object can read serial directly. Trade-off: requires manual byte parsing in Max, no readline equivalent, harder to compute orientation in pure Max. |
-| ahrs (npm, Madgwick) | Complementary filter (hand-rolled) | When you want simpler math with fewer tuning params. A complementary filter blends gyro integration with accel tilt using a single alpha weight. Trade-off: less accurate during dynamic motion, no quaternion output, drift-prone on yaw axis. |
-| ahrs (npm, Madgwick) | Run Madgwick on Arduino side (MadgwickAHRS Arduino library) | When you want to offload fusion to the microcontroller. Trade-off: ATmega4809 at 16 MHz is slower for floating-point math; reduces sample rate headroom; harder to tune interactively. Running fusion in Node lets you adjust beta in real-time from Max. |
-| USB Serial (primary) | WiFi UDP/OSC | When wireless is required. Trade-off: WiFiNINA has a firmware-level ~20ms latency floor (FreeRTOS tick delay in NINA-W102 firmware), packet loss under congestion, and setup complexity. USB serial is deterministic and sub-1ms. |
-| Text CSV protocol | Binary struct protocol | When you need >300 Hz sample rate. Binary cuts packet size from ~45 bytes to ~12 bytes (6x int16). Trade-off: not human-readable, requires `@serialport/parser-byte-length` + manual unpacking, struct alignment concerns. |
-| osc-js (npm) | osc (npm, by Colin Clark) | osc.js is also a solid OSC library for Node.js. osc-js has cleaner plugin architecture and better docs. Either works for UDP receive in Node for Max. |
+**Conclusion:** Ample headroom. DTW only runs every 5th frame (~22Hz), and gesture/position outlets only fire on events -- not every frame. Real-world CPU usage will be well under 15%.
 
-## What NOT to Use
+**Confidence: MEDIUM** -- Estimates based on similar JavaScript benchmarks and Node for Max IPC measurements. Actual performance should be validated during implementation.
 
-| Avoid | Why | Use Instead |
-|-------|-----|-------------|
-| Firmata / Johnny-Five | Designed for remote-controlling Arduino from Node, not high-speed sensor streaming. Adds protocol overhead, limits sample rate, wrong abstraction for this use case. | Direct serial with custom protocol |
-| Max `[serial]` object alone | Byte-level parsing in Max is tedious. No readline equivalent. Computing Madgwick filter in pure Max/gen~ is possible but unnecessarily complex. | Node for Max with serialport + ahrs |
-| WiFi as primary transport | WiFiNINA firmware has hardcoded ~20ms latency floor (FreeRTOS tick in NINA-W102). That limits you to ~50 Hz max with packet loss risk. USB serial is 10-100x lower latency. | USB serial as primary; WiFi as secondary/optional |
-| serialport v9 or older | Deprecated import patterns (`const SerialPort = require('serialport')`), no N-API support, requires rebuild per Node version. | serialport v12+ with named exports |
-| Running Madgwick on ATmega4809 | 8-bit AVR at 16 MHz is slow for floating-point quaternion math. Reduces available CPU for sensor reading and serial output. Harder to tune beta interactively. | Run ahrs filter in Node for Max where you have GHz-class CPU |
-| Arduino_LSM6DS3 for high-ODR | Library hardcodes 104 Hz ODR. No API to change it. | SparkFun_LSM6DS3 if you need 208+ Hz, or direct register writes |
-| Baud rate 9600 | Only ~1.2 KB/s. Bottlenecks at ~25 samples/sec. Wastes the sensor's 104 Hz capability. | 115200 baud minimum |
-
-## Stack Patterns by Variant
-
-**If USB-only (recommended for Phase 1):**
-- Arduino: Arduino_LSM6DS3 + Serial at 115200
-- Node for Max: serialport + @serialport/parser-readline + ahrs
-- Protocol: CSV text, newline-delimited
-- Because: simplest path, lowest latency, most reliable
-
-**If WiFi/OSC secondary path (Phase 2+):**
-- Arduino: add WiFiNINA + CNMAT OSC library
-- Node for Max: add osc-js with DatagramPlugin
-- Protocol: OSC over UDP
-- Because: wireless freedom, but accept 20ms+ latency floor and packet loss risk
-
-**If high sample rate needed (Phase 3+ optimization):**
-- Arduino: SparkFun_LSM6DS3 with ODR set to 416 Hz, binary struct protocol
-- Node for Max: @serialport/parser-byte-length, manual struct unpacking
-- Baud rate: 230400 or higher
-- Because: 4x more data, requires binary protocol to fit in serial bandwidth
-
-## Version Compatibility
-
-| Package | Compatible With | Notes |
-|---------|-----------------|-------|
-| serialport@12 | Node.js 16, 18, 20 | N-API means no rebuild needed. Max 8.6+ ships Node 20. |
-| ahrs@1.3.3 | Node.js 12+ | Pure JavaScript, no native dependencies. Works everywhere. |
-| osc-js@2.4.x | Node.js 14+ | Pure JavaScript. UDP via Node's dgram module. |
-| max-api | Max 8.x, Max 9 | Bundled with Max. Version matches your Max installation. |
-| Arduino_LSM6DS3@1.0.3 | Arduino IDE 1.8+, 2.x | Requires megaAVR boards package for Uno WiFi Rev2. |
-| WiFiNINA@1.8.x+ | Arduino IDE 1.8+, 2.x | Board must have NINA-W102 module. Uno WiFi Rev2 qualifies. |
-| CNMAT OSC@3.5.8 | Arduino IDE 1.8+, 2.x | Works with any UDP-capable Arduino. |
-
-**Critical compatibility note:** Max 8.6+ bundles Node.js v20. If you are on an older Max 8 (pre-8.6) or Ableton Live 11 (which ships an older Max), you have Node 16 which is EOL. serialport@12 still works on Node 16, but upgrade Max or use a custom Node binary for security. Check your Node version: in Max, send `script node -v` to node.script.
+---
 
 ## Sources
 
-- [Arduino_LSM6DS3 GitHub](https://github.com/arduino-libraries/Arduino_LSM6DS3) -- version 1.0.3, last release Jan 2024 **[HIGH confidence]**
-- [Arduino_LSM6DS3 Reference](https://reference.arduino.cc/reference/en/libraries/arduino_lsm6ds3/) -- official API docs **[HIGH confidence]**
-- [Arduino Uno WiFi Rev2 Docs](https://docs.arduino.cc/hardware/uno-wifi-rev2/) -- hardware specs, SPI IMU connection **[HIGH confidence]**
-- [Node for Max API](https://docs.cycling74.com/nodeformax/api/) -- max-api outlet, post, handlers **[HIGH confidence]**
-- [Node for Max npm guide](https://docs.cycling74.com/max8/vignettes/02_n4m_usingnpm) -- package installation patterns **[HIGH confidence]**
-- [Cycling 74 Forum: Node.js version](https://cycling74.com/forums/bundled-nodejs-version-end-of-life-on-2023-09-11) -- Max 8.6 ships Node v20 **[MEDIUM confidence]**
-- [SerialPort docs](https://serialport.io/) -- API, parsers, installation, platform support **[HIGH confidence]**
-- [serialport npm](https://www.npmjs.com/package/serialport) -- v13.0.0 latest, v12.x stable **[HIGH confidence]**
-- [ahrs npm](https://www.npmjs.com/package/ahrs) -- v1.3.3, Madgwick/Mahony, last updated Oct 2023 **[MEDIUM confidence]**
-- [ahrs GitHub](https://github.com/psiphi75/ahrs) -- API docs, configuration options **[MEDIUM confidence]**
-- [LSM6DS3 Datasheet](https://content.arduino.cc/assets/st_imu_lsm6ds3_datasheet.pdf) -- ODR tables, register config **[HIGH confidence]**
-- [LSM6DS3 Sample Rate Forum](https://forum.arduino.cc/t/lsm6ds3-sample-rate/1156756) -- 104Hz default, SparkFun alternative for ODR config **[MEDIUM confidence]**
-- [SparkFun LSM6DS3 Library](https://github.com/sparkfun/SparkFun_LSM6DS3_Arduino_Library) -- configurable ODR, v1.0.1 **[MEDIUM confidence]**
-- [WiFiNINA UDP Latency Issue #192](https://github.com/arduino-libraries/WiFiNINA/issues/192) -- 20ms latency floor, NINA firmware root cause **[HIGH confidence]**
-- [CNMAT OSC Releases](https://github.com/CNMAT/OSC/releases) -- v3.5.8, Sep 2023 **[MEDIUM confidence]**
-- [osc-js npm](https://www.npmjs.com/package/osc-js) -- v2.4.x, UDP/WebSocket/Bridge plugins **[MEDIUM confidence]**
-- [SerialPort Upgrade Guide](https://serialport.io/docs/guide-upgrade/) -- v10+ named exports, N-API migration **[HIGH confidence]**
-- [Woolsey Workshop LSM6DS3 Tutorial](https://www.woolseyworkshop.com/2020/02/12/using-the-arduino_lsm6ds3-library-to-access-the-arduino-uno-wifi-rev2-imu/) -- SPI connection details, range specs **[MEDIUM confidence]**
-- [Arduino Forum: IMU Polling Rate Hack](https://forum.arduino.cc/t/imu-polling-rate-hack-for-arduino-lsm6ds3/1161593) -- direct register writes for ODR changes **[MEDIUM confidence]**
+- [dynamic-time-warping npm](https://www.npmjs.com/package/dynamic-time-warping) -- v1.0.0, July 2016, custom distance function support [HIGH confidence]
+- [dtw npm](https://www.npmjs.com/package/dtw) -- v0.0.3, 11 years old, minimal API [HIGH confidence]
+- [GordonLesti/dynamic-time-warping GitHub](https://github.com/GordonLesti/dynamic-time-warping) -- 52 stars, custom distance support [HIGH confidence]
+- [langholz/dtw GitHub](https://github.com/langholz/dtw) -- 34 stars, simple API [HIGH confidence]
+- [DTW Wikipedia](https://en.wikipedia.org/wiki/Dynamic_time_warping) -- Algorithm reference, O(NM) complexity [HIGH confidence]
+- [ml-lib for Max/PureData GitHub](https://github.com/irllabs/ml-lib) -- ml.dtw external, GRT-based [MEDIUM confidence]
+- [Real-time DTW for MAX/MSP (Bettens & Todoroff)](https://www.researchgate.net/publication/228987911_Real-time_DTW-based_gesture_recognition_external_object_for_MAXMSP_and_puredata) -- Research paper on DTW in Max [HIGH confidence]
+- [MuBu for Max (IRCAM)](https://ismm.ircam.fr/mubu/) -- Gesture follower, XMM, DTW/HMM [HIGH confidence]
+- [Node for Max API](https://docs.cycling74.com/nodeformax/api/) -- outlet, handlers, process model [HIGH confidence]
+- [MAX js Object Reference](https://docs.cycling74.com/max7/refpages/js) -- ES5 SpiderMonkey [HIGH confidence]
+- [MAX dict Reference](https://docs.cycling74.com/legacy/max8/refpages/dict) -- JSON read/write, @embed [HIGH confidence]
+- [MAX coll Reference](https://docs.cycling74.com/max7/refpages/coll) -- Indexed storage [HIGH confidence]
+- [jit.gl.mesh Reference](https://docs.cycling74.com/legacy/max8/refpages/jit.gl.mesh) -- draw_mode line_strip [HIGH confidence]
+- [Shake Detection (JavaScript)](https://slicker.me/javascript/shake/shake.htm) -- Magnitude + debounce algorithm [HIGH confidence]
+- [IMU Gesture Recognition (Kim et al.)](https://www.mdpi.com/1424-8220/19/18/3827) -- DTW accuracy 98.6%, 0.4ms recognition [MEDIUM confidence]
+- [uWave: Accelerometer Gesture Recognition](https://www.yecl.org/publications/liu09percom.pdf) -- Single-template DTW [HIGH confidence]
+- [node.script Reference](https://docs.cycling74.com/max8/refpages/node.script) -- Multiple instances supported [HIGH confidence]
 
 ---
-*Stack research for: Arduino IMU-to-MAX/MSP Sensor Pipeline*
-*Researched: 2026-02-12*
+*Stack research for: v1.1 Gesture Recognition & Mapping milestone*
+*Researched: 2026-02-22*
