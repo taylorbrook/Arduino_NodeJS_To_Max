@@ -16,11 +16,25 @@ const BAUD_RATE = 57600;
 const EXPECTED_FIELDS = 9;
 const RECONNECT_INTERVAL_MS = 2000;
 
+// ---- Normalization Ranges ----
+var NORM_RANGES = {
+  ax: { min: -16.0, max: 16.0 },     // accelerometer: +/- 16g
+  ay: { min: -16.0, max: 16.0 },
+  az: { min: -16.0, max: 16.0 },
+  gx: { min: -2000.0, max: 2000.0 }, // gyroscope: +/- 2000 dps
+  gy: { min: -2000.0, max: 2000.0 },
+  gz: { min: -2000.0, max: 2000.0 },
+  pitch: { min: -90.0, max: 90.0 },  // pitch: -90 to +90
+  roll: { min: -180.0, max: 180.0 }, // roll: -180 to +180
+  yaw: { min: 0.0, max: 360.0 }      // yaw: 0 to 360
+};
+
 // ---- State ----
 let port = null;
 let parser = null;
 let reconnectTimer = null;
 let state = "disconnected";
+var normalizeEnabled = false;
 
 // ---- Transport State ----
 var transport = "usb";       // Current transport mode: "usb", "wifi", "auto"
@@ -245,6 +259,17 @@ function applySmoothing(axis, value) {
 }
 
 // ============================================================
+// Normalization (NORM-01)
+// Maps sensor values to 0.0-1.0 range using known sensor limits
+// ============================================================
+
+function normalizeValue(axis, value) {
+  var range = NORM_RANGES[axis];
+  var norm = (value - range.min) / (range.max - range.min);
+  return Math.max(0.0, Math.min(1.0, norm));  // clamp 0-1
+}
+
+// ============================================================
 // Data Output (SERL-03)
 // 3 tagged outlet calls per valid sample, plus calibrated outlets
 // ============================================================
@@ -295,6 +320,22 @@ function outputData(values) {
     maxAPI.outlet("smooth_accel", sax, say, saz);
     maxAPI.outlet("smooth_gyro", sgx, sgy, sgz);
     maxAPI.outlet("smooth_orientation", sp, sr, sy);
+
+    // Normalized outlets (smoothed data mapped to 0.0-1.0)
+    if (normalizeEnabled) {
+      maxAPI.outlet("norm_accel",
+        normalizeValue("ax", sax),
+        normalizeValue("ay", say),
+        normalizeValue("az", saz));
+      maxAPI.outlet("norm_gyro",
+        normalizeValue("gx", sgx),
+        normalizeValue("gy", sgy),
+        normalizeValue("gz", sgz));
+      maxAPI.outlet("norm_orientation",
+        normalizeValue("pitch", sp),
+        normalizeValue("roll", sr),
+        normalizeValue("yaw", sy));
+    }
   } else if (orientOffset !== null) {
     // Orientation reset is independent of bias calibration
     var dt = getTimeDelta();
@@ -306,6 +347,14 @@ function outputData(values) {
     var sr = applySmoothing("roll", orient.roll);
     var sy = applySmoothing("yaw", orient.yaw);
     maxAPI.outlet("smooth_orientation", sp, sr, sy);
+
+    // Normalized orientation (smoothed data mapped to 0.0-1.0)
+    if (normalizeEnabled) {
+      maxAPI.outlet("norm_orientation",
+        normalizeValue("pitch", sp),
+        normalizeValue("roll", sr),
+        normalizeValue("yaw", sy));
+    }
   }
 }
 
@@ -541,6 +590,14 @@ maxAPI.addHandler("smooth_gz", function (val) { smoothFactors.gz = val; });
 maxAPI.addHandler("smooth_pitch", function (val) { smoothFactors.pitch = val; });
 maxAPI.addHandler("smooth_roll", function (val) { smoothFactors.roll = val; });
 maxAPI.addHandler("smooth_yaw", function (val) { smoothFactors.yaw = val; });
+
+// ---- Normalization Handlers ----
+
+maxAPI.addHandler("normalize", function (val) {
+  normalizeEnabled = (val === 1 || val === true);
+  maxAPI.outlet("norm_status", normalizeEnabled ? 1 : 0);
+  maxAPI.post("[normalize] " + (normalizeEnabled ? "enabled" : "disabled"));
+});
 
 // ---- Transport Handlers ----
 
