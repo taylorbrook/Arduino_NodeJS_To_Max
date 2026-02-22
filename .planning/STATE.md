@@ -5,14 +5,16 @@
 See: .planning/PROJECT.md (updated 2026-02-22)
 
 **Core value:** Reliable, lowest-possible-latency delivery of clean sensor data from Arduino to MAX
-**Current focus:** v1.1 Gesture Recognition & Mapping
+**Current focus:** Phase 7 - Core Engine and Predefined Gestures (v1.1)
 
 ## Current Position
 
-Phase: Not started (defining requirements)
-Plan: —
-Status: Defining requirements
-Last activity: 2026-02-22 - Completed quick task 2: update the .maxhelp file to account for the new normalized outputs
+Phase: 7 of 11 (Core Engine and Predefined Gestures)
+Plan: 0 of 3 in current phase
+Status: Ready to plan
+Last activity: 2026-02-22 -- Roadmap created for v1.1 milestone (Phases 7-11, 39 requirements)
+
+Progress: [##########..........] 46% (13/25 plans, v1.0 complete, v1.1 starting)
 
 ## Performance Metrics
 
@@ -37,7 +39,9 @@ Last activity: 2026-02-22 - Completed quick task 2: update the .maxhelp file to 
 ### Decisions
 
 Full decision log in PROJECT.md Key Decisions table.
-- [Phase quick]: Normalization uses separate norm_* outlets (non-destructive) with min-max mapping and 0-1 clamping
+- [v1.1 architecture]: gesture-engine.js is a SEPARATE node.script from serial-bridge.js; data flows via MAX patch cables, not internal JS
+- [v1.1 architecture]: Predefined gesture detectors receive cal (pre-smoothing) data; DTW receives smoothed data
+- [v1.1 scope]: Position interpolation means ORIENTATION interpolation (pitch/roll/yaw), NOT translational position from accelerometer double integration
 
 ### Pending Todos
 
@@ -45,7 +49,8 @@ None.
 
 ### Blockers/Concerns
 
-None.
+- [Phase 8]: Async DTW pattern in node.script needs validation (setImmediate behavior in Node for Max)
+- [Phase 11]: ml-lib availability on Apple Silicon needs verification; js object fallback required
 
 ### Quick Tasks Completed
 
@@ -57,5 +62,5 @@ None.
 ## Session Continuity
 
 Last session: 2026-02-22
-Stopped at: Completed quick-2 (maxhelp normalization docs).
+Stopped at: Created v1.1 roadmap (Phases 7-11) and updated state
 Resume file: None

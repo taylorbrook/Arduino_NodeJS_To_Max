@@ -108,13 +108,51 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| (populated by roadmapper) | | |
+| CORE-01 | Phase 7 | Pending |
+| CORE-02 | Phase 7 | Pending |
+| CORE-03 | Phase 7 | Pending |
+| CORE-04 | Phase 7 | Pending |
+| GEST-01 | Phase 7 | Pending |
+| GEST-02 | Phase 7 | Pending |
+| GEST-03 | Phase 7 | Pending |
+| GEST-04 | Phase 7 | Pending |
+| GEST-05 | Phase 7 | Pending |
+| GEST-06 | Phase 7 | Pending |
+| GEST-07 | Phase 7 | Pending |
+| GEST-08 | Phase 7 | Pending |
+| GEST-09 | Phase 7 | Pending |
+| IMPL-01 | Phase 7 | Pending |
+| DTW-01 | Phase 8 | Pending |
+| DTW-02 | Phase 8 | Pending |
+| DTW-03 | Phase 8 | Pending |
+| DTW-04 | Phase 8 | Pending |
+| DTW-05 | Phase 8 | Pending |
+| DTW-06 | Phase 8 | Pending |
+| DTW-07 | Phase 8 | Pending |
+| DTW-08 | Phase 8 | Pending |
+| DTW-09 | Phase 8 | Pending |
+| DTW-10 | Phase 8 | Pending |
+| POS-01 | Phase 9 | Pending |
+| POS-02 | Phase 9 | Pending |
+| POS-03 | Phase 9 | Pending |
+| POS-04 | Phase 9 | Pending |
+| POS-05 | Phase 9 | Pending |
+| POS-06 | Phase 9 | Pending |
+| VIZ-01 | Phase 10 | Pending |
+| VIZ-02 | Phase 10 | Pending |
+| VIZ-03 | Phase 10 | Pending |
+| VIZ-04 | Phase 10 | Pending |
+| VIZ-05 | Phase 10 | Pending |
+| IMPL-02 | Phase 11 | Pending |
+| IMPL-03 | Phase 11 | Pending |
+| IMPL-04 | Phase 11 | Pending |
+| IMPL-05 | Phase 11 | Pending |
 
 **Coverage:**
-- v1.1 requirements: 34 total
-- Mapped to phases: 0 (pending roadmap)
-- Unmapped: 34
+- v1.1 requirements: 39 total
+- Mapped to phases: 39
+- Unmapped: 0
 
 ---
 *Requirements defined: 2026-02-22*
-*Last updated: 2026-02-22 after initial definition*
+*Last updated: 2026-02-22 after roadmap creation (traceability populated)*
