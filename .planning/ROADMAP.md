@@ -39,12 +39,12 @@
   3. User can tap, flip, and tilt the device in four directions and receive correctly named bang events for each gesture type
   4. User can enable/disable individual gesture types and only enabled gestures produce output
   5. User can adjust sensitivity thresholds for each gesture type and see detection behavior change accordingly
-**Plans**: TBD
+**Plans**: 3 plans
 
 Plans:
-- [ ] 07-01: TBD
-- [ ] 07-02: TBD
-- [ ] 07-03: TBD
+- [ ] 07-01-PLAN.md -- Core gesture-engine.js: serial I/O, calibration, smoothing, activity gate, circular buffer, gesture handler framework
+- [ ] 07-02-PLAN.md -- 7 predefined gesture detectors: shake, tap, flip, and 4 directional tilts
+- [ ] 07-03-PLAN.md -- imu-gesture.maxpat: MAX abstraction with per-gesture UI rows and outlet interface
 
 ### Phase 8: Custom DTW Gesture Recognition
 **Goal**: Users can record custom gestures and have the system recognize them in real-time with confidence scores, persisting gesture libraries across sessions
