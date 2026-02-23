@@ -500,9 +500,40 @@ var tiltArmed = {
 };
 
 function detectTilts(smoothedOrient) {
-  // Stub: tilt detection for all 4 directions
-  // Uses smoothed orientation for stability
-  // Implemented in Task 2
+  // Uses smoothed orientation for stable tilt detection
+  // (unlike shake/tap/flip which use calibrated pre-smoothing data)
+  var pitch = smoothedOrient.pitch;
+  var roll = smoothedOrient.roll;
+
+  // Sensitivity maps dial (0-1) to angle threshold in degrees
+  // 0.0 = very sensitive (15 deg), 0.5 = default (37.5 deg), 1.0 = insensitive (60 deg)
+  function angleThreshold(name) {
+    return 15 + gestureSensitivity[name] * 45;
+  }
+
+  // Hysteresis re-arm zone: must return past 60% of threshold to re-arm
+  function rearmAngle(name) {
+    return angleThreshold(name) * 0.6;
+  }
+
+  // Tilt-left: negative roll exceeds threshold
+  checkTilt("tilt-left", -roll, angleThreshold("tilt-left"), rearmAngle("tilt-left"));
+  // Tilt-right: positive roll exceeds threshold
+  checkTilt("tilt-right", roll, angleThreshold("tilt-right"), rearmAngle("tilt-right"));
+  // Tilt-forward: negative pitch exceeds threshold
+  checkTilt("tilt-forward", -pitch, angleThreshold("tilt-forward"), rearmAngle("tilt-forward"));
+  // Tilt-back: positive pitch exceeds threshold
+  checkTilt("tilt-back", pitch, angleThreshold("tilt-back"), rearmAngle("tilt-back"));
+}
+
+function checkTilt(name, angle, threshold, rearm) {
+  if (!gestureEnabled[name]) return;
+  if (angle > threshold && tiltArmed[name]) {
+    fireGesture(name);
+    tiltArmed[name] = false;  // disarm until return to neutral
+  } else if (angle < rearm) {
+    tiltArmed[name] = true;   // re-arm when back near neutral
+  }
 }
 
 // ============================================================
