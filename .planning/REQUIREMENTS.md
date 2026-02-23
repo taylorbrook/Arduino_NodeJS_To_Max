@@ -9,10 +9,10 @@ Requirements for gesture recognition and mapping milestone. Each maps to roadmap
 
 ### Core Infrastructure
 
-- [ ] **CORE-01**: Gesture engine runs as separate node.script (gesture-engine.js) without modifying serial-bridge.js
-- [ ] **CORE-02**: Gesture engine receives smoothed sensor data from imu-sensor.maxpat outlets via MAX patch cables
-- [ ] **CORE-03**: Energy-based activity detection gates all gesture recognition (idle vs motion states)
-- [ ] **CORE-04**: Sliding window buffer maintains recent sensor history for pattern matching
+- [x] **CORE-01**: Gesture engine runs as separate node.script (gesture-engine.js) without modifying serial-bridge.js
+- [x] **CORE-02**: Gesture engine receives smoothed sensor data from imu-sensor.maxpat outlets via MAX patch cables
+- [x] **CORE-03**: Energy-based activity detection gates all gesture recognition (idle vs motion states)
+- [x] **CORE-04**: Sliding window buffer maintains recent sensor history for pattern matching
 
 ### Predefined Gestures
 
@@ -23,8 +23,8 @@ Requirements for gesture recognition and mapping milestone. Each maps to roadmap
 - [ ] **GEST-05**: User can detect tilt-right with configurable angle threshold
 - [ ] **GEST-06**: User can detect tilt-forward with configurable angle threshold
 - [ ] **GEST-07**: User can detect tilt-back with configurable angle threshold
-- [ ] **GEST-08**: User can enable/disable individual predefined gestures
-- [ ] **GEST-09**: All predefined gestures output as named bang events with debounce
+- [x] **GEST-08**: User can enable/disable individual predefined gestures
+- [x] **GEST-09**: All predefined gestures output as named bang events with debounce
 
 ### Custom DTW Gestures
 
@@ -108,10 +108,10 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| CORE-01 | Phase 7 | Pending |
-| CORE-02 | Phase 7 | Pending |
-| CORE-03 | Phase 7 | Pending |
-| CORE-04 | Phase 7 | Pending |
+| CORE-01 | Phase 7 | Complete |
+| CORE-02 | Phase 7 | Complete |
+| CORE-03 | Phase 7 | Complete |
+| CORE-04 | Phase 7 | Complete |
 | GEST-01 | Phase 7 | Pending |
 | GEST-02 | Phase 7 | Pending |
 | GEST-03 | Phase 7 | Pending |
@@ -119,8 +119,8 @@ Which phases cover which requirements. Updated during roadmap creation.
 | GEST-05 | Phase 7 | Pending |
 | GEST-06 | Phase 7 | Pending |
 | GEST-07 | Phase 7 | Pending |
-| GEST-08 | Phase 7 | Pending |
-| GEST-09 | Phase 7 | Pending |
+| GEST-08 | Phase 7 | Complete |
+| GEST-09 | Phase 7 | Complete |
 | IMPL-01 | Phase 7 | Pending |
 | DTW-01 | Phase 8 | Pending |
 | DTW-02 | Phase 8 | Pending |

@@ -10,18 +10,18 @@ See: .planning/PROJECT.md (updated 2026-02-22)
 ## Current Position
 
 Phase: 7 of 11 (Core Engine and Predefined Gestures)
-Plan: 0 of 3 in current phase
-Status: Ready to plan
-Last activity: 2026-02-22 -- Roadmap created for v1.1 milestone (Phases 7-11, 39 requirements)
+Plan: 1 of 3 in current phase
+Status: Executing
+Last activity: 2026-02-22 -- Completed 07-01 (gesture-engine.js core)
 
-Progress: [##########..........] 46% (13/25 plans, v1.0 complete, v1.1 starting)
+Progress: [###########.........] 56% (14/25 plans)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 13
-- Average duration: 6.5min
-- Total execution time: 1.4 hours
+- Total plans completed: 14
+- Average duration: 6.3min
+- Total execution time: 1.45 hours
 
 **By Phase:**
 
@@ -33,6 +33,7 @@ Progress: [##########..........] 46% (13/25 plans, v1.0 complete, v1.1 starting)
 | 04-musical-tools | 2 | 12min | 6min |
 | 05-abstraction-wifi | 3 | 52min | 17.3min |
 | 06-threshold-triggers | 2 | 6min | 3min |
+| 07-core-engine-gestures | 1 | 3min | 3min |
 
 ## Accumulated Context
 
@@ -42,6 +43,8 @@ Full decision log in PROJECT.md Key Decisions table.
 - [v1.1 architecture]: gesture-engine.js is a SEPARATE node.script from serial-bridge.js; data flows via MAX patch cables, not internal JS
 - [v1.1 architecture]: Predefined gesture detectors receive cal (pre-smoothing) data; DTW receives smoothed data
 - [v1.1 scope]: Position interpolation means ORIENTATION interpolation (pitch/roll/yaw), NOT translational position from accelerometer double integration
+- [07-01]: Fixed smoothing defaults (global=0.3) for gesture engine -- minimal sensor UI per user decision
+- [07-01]: Gesture detectors receive calibrated pre-smoothing data; tilts use smoothed orientation for stability
 
 ### Pending Todos
 
@@ -62,5 +65,5 @@ None.
 ## Session Continuity
 
 Last session: 2026-02-22
-Stopped at: Created v1.1 roadmap (Phases 7-11) and updated state
+Stopped at: Completed 07-01-PLAN.md (gesture-engine.js core)
 Resume file: None
