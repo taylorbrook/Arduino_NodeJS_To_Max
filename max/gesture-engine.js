@@ -5,8 +5,8 @@
 // handler framework. This is an either/or alternative to
 // serial-bridge.js -- do NOT run both simultaneously.
 //
-// Gesture detector functions are stubs in this file.
-// Actual detection algorithms are implemented in Plan 02.
+// Gesture detector functions: shake, tap, flip (acceleration-based),
+// and 4-direction tilt (orientation-based with hysteresis).
 // ============================================================
 
 var maxAPI = require("max-api");
@@ -388,29 +388,121 @@ function fireGesture(name) {
 }
 
 // ============================================================
-// Gesture Detector Stubs
-// Implemented in Plan 02 -- no-op for now
+// Gesture Detectors
+// Shake, tap, flip use calibrated (pre-smoothing) acceleration
+// Tilts use smoothed orientation for stable angle readings
 // ============================================================
 
+// ---- Shake State (GEST-01) ----
+var shakeConsecutiveCount = 0;
+var SHAKE_MIN_CONSECUTIVE = 3;  // must exceed threshold for 3+ frames (~26ms at 114Hz)
+
 function detectShake(calFrame) {
-  // Stub: shake detection (sustained high acceleration magnitude)
-  // Implemented in Plan 02
+  if (!gestureEnabled.shake) return;
+
+  var mag = Math.sqrt(
+    calFrame.ax * calFrame.ax +
+    calFrame.ay * calFrame.ay +
+    calFrame.az * calFrame.az
+  );
+
+  // Sensitivity maps dial (0-1) to threshold range
+  // 0.0 = very sensitive (1.5g), 0.5 = default (2.75g), 1.0 = insensitive (4.0g)
+  var threshold = 1.5 + gestureSensitivity.shake * 2.5;
+
+  if (mag > threshold) {
+    shakeConsecutiveCount++;
+    if (shakeConsecutiveCount >= SHAKE_MIN_CONSECUTIVE) {
+      fireGesture("shake");
+      shakeConsecutiveCount = 0;  // reset after fire
+    }
+  } else {
+    shakeConsecutiveCount = 0;
+  }
 }
+
+// ---- Tap State (GEST-02) ----
+var TAP_WINDOW = 10;  // frames for running average (~88ms)
 
 function detectTap(calFrame) {
-  // Stub: tap detection (sharp spike + rapid decay)
-  // Implemented in Plan 02
+  if (!gestureEnabled.tap) return;
+
+  var mag = Math.sqrt(
+    calFrame.ax * calFrame.ax +
+    calFrame.ay * calFrame.ay +
+    calFrame.az * calFrame.az
+  );
+
+  // Compute running average magnitude from the last TAP_WINDOW frames in buffer
+  var avgMag = 1.0;  // default to 1g (gravity baseline) if buffer not full
+  if (bufferCount >= TAP_WINDOW) {
+    var sum = 0;
+    for (var i = 1; i <= TAP_WINDOW; i++) {
+      var f = getFrame(i);
+      if (f) sum += Math.sqrt(f.ax * f.ax + f.ay * f.ay + f.az * f.az);
+    }
+    avgMag = sum / TAP_WINDOW;
+  }
+
+  // Spike detection: current magnitude exceeds average by threshold
+  // 0.0 = very sensitive (1.5g spike), 0.5 = default (3.25g), 1.0 = insensitive (5.0g)
+  var spikeThreshold = 1.5 + gestureSensitivity.tap * 3.5;
+  var delta = mag - avgMag;
+
+  if (delta > spikeThreshold) {
+    fireGesture("tap");
+  }
 }
 
+// ---- Flip State (GEST-03) ----
+var flipState = "neutral";  // "neutral" or "confirming"
+var flipConfirmCount = 0;
+var FLIP_CONFIRM_FRAMES = 10;  // ~88ms sustained inverted
+var lastZSign = 0;  // 1 = upright, -1 = inverted, 0 = unknown
+
 function detectFlip(calFrame) {
-  // Stub: flip detection (Z-axis sign change sustained)
-  // Implemented in Plan 02
+  if (!gestureEnabled.flip) return;
+
+  var currentZSign = calFrame.az > 0 ? 1 : -1;
+
+  // Sensitivity adjusts how far from vertical counts as "flipped"
+  // 0.0 = sensitive (|az| > 0.3g), 0.5 = default (|az| > 0.55g), 1.0 = insensitive (|az| > 0.8g)
+  var zThreshold = 0.3 + gestureSensitivity.flip * 0.5;
+
+  if (Math.abs(calFrame.az) < zThreshold) {
+    // In dead zone (sideways) -- don't trigger
+    flipState = "neutral";
+    flipConfirmCount = 0;
+    return;
+  }
+
+  if (lastZSign !== 0 && currentZSign !== lastZSign) {
+    // Z-axis sign changed -- start confirming
+    flipState = "confirming";
+    flipConfirmCount = 1;
+    lastZSign = currentZSign;
+  } else if (flipState === "confirming") {
+    flipConfirmCount++;
+    if (flipConfirmCount >= FLIP_CONFIRM_FRAMES) {
+      fireGesture("flip");
+      flipState = "neutral";
+      flipConfirmCount = 0;
+    }
+  } else {
+    lastZSign = currentZSign;
+  }
 }
+
+// ---- Tilt State (GEST-04 through GEST-07) ----
+var tiltArmed = {
+  "tilt-left": true, "tilt-right": true,
+  "tilt-forward": true, "tilt-back": true
+};
 
 function detectTilts(smoothedOrient) {
   // Stub: tilt detection for all 4 directions
   // Uses smoothed orientation for stability
-  // Implemented in Plan 02
+  // Implemented in Task 2
 }
 
 // ============================================================
