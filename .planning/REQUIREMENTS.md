@@ -16,13 +16,13 @@ Requirements for gesture recognition and mapping milestone. Each maps to roadmap
 
 ### Predefined Gestures
 
-- [ ] **GEST-01**: User can detect shake gesture with configurable threshold
-- [ ] **GEST-02**: User can detect tap gesture with configurable threshold
-- [ ] **GEST-03**: User can detect flip gesture (180-degree inversion)
-- [ ] **GEST-04**: User can detect tilt-left with configurable angle threshold
-- [ ] **GEST-05**: User can detect tilt-right with configurable angle threshold
-- [ ] **GEST-06**: User can detect tilt-forward with configurable angle threshold
-- [ ] **GEST-07**: User can detect tilt-back with configurable angle threshold
+- [x] **GEST-01**: User can detect shake gesture with configurable threshold
+- [x] **GEST-02**: User can detect tap gesture with configurable threshold
+- [x] **GEST-03**: User can detect flip gesture (180-degree inversion)
+- [x] **GEST-04**: User can detect tilt-left with configurable angle threshold
+- [x] **GEST-05**: User can detect tilt-right with configurable angle threshold
+- [x] **GEST-06**: User can detect tilt-forward with configurable angle threshold
+- [x] **GEST-07**: User can detect tilt-back with configurable angle threshold
 - [x] **GEST-08**: User can enable/disable individual predefined gestures
 - [x] **GEST-09**: All predefined gestures output as named bang events with debounce
 
@@ -112,13 +112,13 @@ Which phases cover which requirements. Updated during roadmap creation.
 | CORE-02 | Phase 7 | Complete |
 | CORE-03 | Phase 7 | Complete |
 | CORE-04 | Phase 7 | Complete |
-| GEST-01 | Phase 7 | Pending |
-| GEST-02 | Phase 7 | Pending |
-| GEST-03 | Phase 7 | Pending |
-| GEST-04 | Phase 7 | Pending |
-| GEST-05 | Phase 7 | Pending |
-| GEST-06 | Phase 7 | Pending |
-| GEST-07 | Phase 7 | Pending |
+| GEST-01 | Phase 7 | Complete |
+| GEST-02 | Phase 7 | Complete |
+| GEST-03 | Phase 7 | Complete |
+| GEST-04 | Phase 7 | Complete |
+| GEST-05 | Phase 7 | Complete |
+| GEST-06 | Phase 7 | Complete |
+| GEST-07 | Phase 7 | Complete |
 | GEST-08 | Phase 7 | Complete |
 | GEST-09 | Phase 7 | Complete |
 | IMPL-01 | Phase 7 | Pending |

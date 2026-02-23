@@ -10,18 +10,18 @@ See: .planning/PROJECT.md (updated 2026-02-22)
 ## Current Position
 
 Phase: 7 of 11 (Core Engine and Predefined Gestures)
-Plan: 1 of 3 in current phase
+Plan: 2 of 3 in current phase
 Status: Executing
-Last activity: 2026-02-22 -- Completed 07-01 (gesture-engine.js core)
+Last activity: 2026-02-22 -- Completed 07-02 (predefined gesture detectors)
 
-Progress: [###########.........] 56% (14/25 plans)
+Progress: [############........] 60% (15/25 plans)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 14
-- Average duration: 6.3min
-- Total execution time: 1.45 hours
+- Total plans completed: 15
+- Average duration: 6.1min
+- Total execution time: 1.48 hours
 
 **By Phase:**
 
@@ -33,7 +33,7 @@ Progress: [###########.........] 56% (14/25 plans)
 | 04-musical-tools | 2 | 12min | 6min |
 | 05-abstraction-wifi | 3 | 52min | 17.3min |
 | 06-threshold-triggers | 2 | 6min | 3min |
-| 07-core-engine-gestures | 1 | 3min | 3min |
+| 07-core-engine-gestures | 2 | 5min | 2.5min |
 
 ## Accumulated Context
 
@@ -45,6 +45,8 @@ Full decision log in PROJECT.md Key Decisions table.
 - [v1.1 scope]: Position interpolation means ORIENTATION interpolation (pitch/roll/yaw), NOT translational position from accelerometer double integration
 - [07-01]: Fixed smoothing defaults (global=0.3) for gesture engine -- minimal sensor UI per user decision
 - [07-01]: Gesture detectors receive calibrated pre-smoothing data; tilts use smoothed orientation for stability
+- [07-02]: Shake threshold 1.5g-4.0g with 3-frame consecutive; tap spike 1.5g-5.0g above 10-frame running average
+- [07-02]: Tilt hysteresis re-arm at 60% of threshold; checkTilt as sibling function for readability
 
 ### Pending Todos
 
@@ -65,5 +67,5 @@ None.
 ## Session Continuity
 
 Last session: 2026-02-22
-Stopped at: Completed 07-01-PLAN.md (gesture-engine.js core)
+Stopped at: Completed 07-02-PLAN.md (predefined gesture detectors)
 Resume file: None
