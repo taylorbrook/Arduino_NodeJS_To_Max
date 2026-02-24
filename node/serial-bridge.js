@@ -13,7 +13,8 @@ var dgram = require("dgram");
 
 // ---- Configuration ----
 const BAUD_RATE = 57600;
-const EXPECTED_FIELDS = 9;
+var EXPECTED_FIELDS_MIN = 9;
+var EXPECTED_FIELDS_MAX = 13;
 const RECONNECT_INTERVAL_MS = 2000;
 
 // ---- Normalization Ranges ----
@@ -109,7 +110,7 @@ function validateLine(line) {
 
   // Check field count
   var parts = line.split(",");
-  if (parts.length !== EXPECTED_FIELDS) {
+  if (parts.length < EXPECTED_FIELDS_MIN || parts.length > EXPECTED_FIELDS_MAX) {
     return null;
   }
 
@@ -293,6 +294,11 @@ function outputData(values) {
   maxAPI.outlet("gyro", gx, gy, gz);
   maxAPI.outlet("orientation", pitch, roll, yaw);
 
+  // Quaternion outlet (when 13-field CSV is received)
+  if (values.length >= 13) {
+    maxAPI.outlet("quaternion", values[9], values[10], values[11], values[12]);
+  }
+
   // Collect calibration sample if calibrating
   if (isCalibrating) {
     collectSample(ax, ay, az, gx, gy, gz);
@@ -306,6 +312,11 @@ function outputData(values) {
     var dt = getTimeDelta();
     var orient = applyOrientReset(pitch, roll, yaw, dt);
     maxAPI.outlet("cal_orientation", orient.pitch, orient.roll, orient.yaw);
+
+    // Calibrated quaternion passthrough (unit quaternions need no bias correction)
+    if (values.length >= 13) {
+      maxAPI.outlet("cal_quaternion", values[9], values[10], values[11], values[12]);
+    }
 
     // Smoothed outlets (EMA applied to calibrated data)
     var sax = applySmoothing("ax", cal.ax);
@@ -341,6 +352,11 @@ function outputData(values) {
     var dt = getTimeDelta();
     var orient = applyOrientReset(pitch, roll, yaw, dt);
     maxAPI.outlet("cal_orientation", orient.pitch, orient.roll, orient.yaw);
+
+    // Calibrated quaternion passthrough (unit quaternions need no bias correction)
+    if (values.length >= 13) {
+      maxAPI.outlet("cal_quaternion", values[9], values[10], values[11], values[12]);
+    }
 
     // Smoothed orientation (orient reset without bias cal)
     var sp = applySmoothing("pitch", orient.pitch);
