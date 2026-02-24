@@ -19,9 +19,9 @@ Progress: [##################..] 72% (18/25 plans)
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 17
-- Average duration: 5.7min
-- Total execution time: 1.58 hours
+- Total plans completed: 18
+- Average duration: 5.6min
+- Total execution time: 1.63 hours
 
 **By Phase:**
 
@@ -34,7 +34,7 @@ Progress: [##################..] 72% (18/25 plans)
 | 05-abstraction-wifi | 3 | 52min | 17.3min |
 | 06-threshold-triggers | 2 | 6min | 3min |
 | 07-core-engine-gestures | 3 | 8min | 2.7min |
-| 08-custom-dtw-gesture | 1 | 3min | 3min |
+| 08-custom-dtw-gesture | 2 | 6min | 3min |
 
 ## Accumulated Context
 
@@ -51,6 +51,8 @@ Full decision log in PROJECT.md Key Decisions table.
 - [Phase 07]: [07-03]: Hardware-verified all 7 predefined gestures via imu-gesture.maxpat abstraction; 7-outlet interface for gesture events + sensor data
 - [08-01]: Local Madgwick fork (MadgwickLocal class) avoids Arduino IDE update conflicts
 - [08-01]: Quaternion at 4 decimal places for DTW precision; passthrough without bias calibration
+- [08-02]: setImmediate polyfill (_setImmediate) for Node for Max compatibility; DTW buffer 256 frames separate from 64-frame gesture buffer
+- [08-02]: Wider null rejection coefficient (5.0) for 2-example slots; CSV validation extended to 9-13 fields for quaternion
 
 ### Pending Todos
 
@@ -71,5 +73,5 @@ None.
 ## Session Continuity
 
 Last session: 2026-02-24
-Stopped at: Completed 08-01-PLAN.md (quaternion firmware output)
+Stopped at: Completed 08-02-PLAN.md (DTW gesture recognition subsystem)
 Resume file: None

@@ -28,16 +28,16 @@ Requirements for gesture recognition and mapping milestone. Each maps to roadmap
 
 ### Custom DTW Gestures
 
-- [ ] **DTW-01**: User can record a custom gesture template by performing the gesture
-- [ ] **DTW-02**: User can record multiple examples (3-5) of the same gesture for better recognition
-- [ ] **DTW-03**: System recognizes custom gestures using DTW with Sakoe-Chiba band constraint
-- [ ] **DTW-04**: DTW match outputs gesture name and confidence value (0.0-1.0)
-- [ ] **DTW-05**: System rejects non-gesture motion via null rejection thresholds
-- [ ] **DTW-06**: User can save gesture library to JSON file
-- [ ] **DTW-07**: User can load gesture library from JSON file
-- [ ] **DTW-08**: User can delete individual gesture templates
+- [x] **DTW-01**: User can record a custom gesture template by performing the gesture
+- [x] **DTW-02**: User can record multiple examples (3-5) of the same gesture for better recognition
+- [x] **DTW-03**: System recognizes custom gestures using DTW with Sakoe-Chiba band constraint
+- [x] **DTW-04**: DTW match outputs gesture name and confidence value (0.0-1.0)
+- [x] **DTW-05**: System rejects non-gesture motion via null rejection thresholds
+- [x] **DTW-06**: User can save gesture library to JSON file
+- [x] **DTW-07**: User can load gesture library from JSON file
+- [x] **DTW-08**: User can delete individual gesture templates
 - [x] **DTW-09**: User can configure which sensor axes are used for matching
-- [ ] **DTW-10**: DTW matching runs at reduced rate (~22Hz) to preserve performance budget
+- [x] **DTW-10**: DTW matching runs at reduced rate (~22Hz) to preserve performance budget
 
 ### Position Interpolation
 
@@ -122,16 +122,16 @@ Which phases cover which requirements. Updated during roadmap creation.
 | GEST-08 | Phase 7 | Complete |
 | GEST-09 | Phase 7 | Complete |
 | IMPL-01 | Phase 7 | Complete |
-| DTW-01 | Phase 8 | Pending |
-| DTW-02 | Phase 8 | Pending |
-| DTW-03 | Phase 8 | Pending |
-| DTW-04 | Phase 8 | Pending |
-| DTW-05 | Phase 8 | Pending |
-| DTW-06 | Phase 8 | Pending |
-| DTW-07 | Phase 8 | Pending |
-| DTW-08 | Phase 8 | Pending |
+| DTW-01 | Phase 8 | Complete |
+| DTW-02 | Phase 8 | Complete |
+| DTW-03 | Phase 8 | Complete |
+| DTW-04 | Phase 8 | Complete |
+| DTW-05 | Phase 8 | Complete |
+| DTW-06 | Phase 8 | Complete |
+| DTW-07 | Phase 8 | Complete |
+| DTW-08 | Phase 8 | Complete |
 | DTW-09 | Phase 8 | Complete |
-| DTW-10 | Phase 8 | Pending |
+| DTW-10 | Phase 8 | Complete |
 | POS-01 | Phase 9 | Pending |
 | POS-02 | Phase 9 | Pending |
 | POS-03 | Phase 9 | Pending |
