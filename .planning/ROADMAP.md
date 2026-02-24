@@ -56,12 +56,12 @@ Plans:
   3. User can save their gesture library to a JSON file, quit MAX, relaunch, load the library, and resume recognition with no re-recording
   4. User can delete individual gesture templates and configure which sensor axes are used for matching
   5. DTW matching does not cause any audible dropouts, serial data loss, or perceptible latency increase in the existing sensor pipeline
-**Plans**: TBD
+**Plans**: 3 plans
 
 Plans:
-- [ ] 08-01: TBD
-- [ ] 08-02: TBD
-- [ ] 08-03: TBD
+- [ ] 08-01-PLAN.md -- Firmware quaternion output + serial-bridge 13-field CSV support
+- [ ] 08-02-PLAN.md -- DTW engine: recording, matching, templates, null rejection, save/load, axis detection
+- [ ] 08-03-PLAN.md -- MAX patch DTW UI: recording controls, slot management, save/load dialogs, match output routing
 
 ### Phase 9: Position Interpolation
 **Goal**: Users can record two orientation positions and receive a continuous 0-1 blend value as they move between them, enabling smooth parameter control from physical gesture
