@@ -36,7 +36,7 @@ Requirements for gesture recognition and mapping milestone. Each maps to roadmap
 - [ ] **DTW-06**: User can save gesture library to JSON file
 - [ ] **DTW-07**: User can load gesture library from JSON file
 - [ ] **DTW-08**: User can delete individual gesture templates
-- [ ] **DTW-09**: User can configure which sensor axes are used for matching
+- [x] **DTW-09**: User can configure which sensor axes are used for matching
 - [ ] **DTW-10**: DTW matching runs at reduced rate (~22Hz) to preserve performance budget
 
 ### Position Interpolation
@@ -130,7 +130,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | DTW-06 | Phase 8 | Pending |
 | DTW-07 | Phase 8 | Pending |
 | DTW-08 | Phase 8 | Pending |
-| DTW-09 | Phase 8 | Pending |
+| DTW-09 | Phase 8 | Complete |
 | DTW-10 | Phase 8 | Pending |
 | POS-01 | Phase 9 | Pending |
 | POS-02 | Phase 9 | Pending |
