@@ -21,7 +21,7 @@
 
 ### v1.1 Gesture Recognition & Mapping
 
-- [ ] **Phase 7: Core Engine and Predefined Gestures** - Separate gesture engine with activity detection and 7 predefined gesture detectors
+- [x] **Phase 7: Core Engine and Predefined Gestures** - Separate gesture engine with activity detection and 7 predefined gesture detectors
 - [ ] **Phase 8: Custom DTW Gesture Recognition** - Record, match, and persist custom gestures via Dynamic Time Warping
 - [ ] **Phase 9: Position Interpolation** - Record orientation snapshots A and B, output continuous 0-1 blend
 - [ ] **Phase 10: Visualization** - Motion trails, DTW match progress, position space map, and gesture indicators
@@ -42,9 +42,9 @@
 **Plans**: 3 plans
 
 Plans:
-- [ ] 07-01-PLAN.md -- Core gesture-engine.js: serial I/O, calibration, smoothing, activity gate, circular buffer, gesture handler framework
-- [ ] 07-02-PLAN.md -- 7 predefined gesture detectors: shake, tap, flip, and 4 directional tilts
-- [ ] 07-03-PLAN.md -- imu-gesture.maxpat: MAX abstraction with per-gesture UI rows and outlet interface
+- [x] 07-01-PLAN.md -- Core gesture-engine.js: serial I/O, calibration, smoothing, activity gate, circular buffer, gesture handler framework
+- [x] 07-02-PLAN.md -- 7 predefined gesture detectors: shake, tap, flip, and 4 directional tilts
+- [x] 07-03-PLAN.md -- imu-gesture.maxpat: MAX abstraction with per-gesture UI rows and outlet interface
 
 ### Phase 8: Custom DTW Gesture Recognition
 **Goal**: Users can record custom gestures and have the system recognize them in real-time with confidence scores, persisting gesture libraries across sessions
@@ -118,7 +118,7 @@ Plans:
 | 4. Musical Tools | v1.0 | 2/3 | Complete (04-03 deferred) | 2026-02-13 |
 | 5. Abstraction and WiFi | v1.0 | 3/3 | Complete | 2026-02-13 |
 | 6. Threshold Triggers | v1.0 | 2/2 | Complete | 2026-02-13 |
-| 7. Core Engine and Predefined Gestures | v1.1 | 0/3 | Not started | - |
+| 7. Core Engine and Predefined Gestures | v1.1 | 3/3 | Complete | 2026-02-24 |
 | 8. Custom DTW Gesture Recognition | v1.1 | 0/3 | Not started | - |
 | 9. Position Interpolation | v1.1 | 0/2 | Not started | - |
 | 10. Visualization | v1.1 | 0/2 | Not started | - |

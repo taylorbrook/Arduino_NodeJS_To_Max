@@ -9,19 +9,18 @@
             "modernui": 1
         },
         "classnamespace": "box",
-        "rect": [ 100.0, 100.0, 830.0, 750.0 ],
-        "gridsize": [ 15.0, 15.0 ],
+        "rect": [ 100.0, 100.0, 1206.0, 745.0 ],
         "boxes": [
             {
                 "box": {
+                    "fontface": 1,
+                    "fontsize": 14.0,
                     "id": "obj-comment-title",
                     "maxclass": "comment",
                     "numinlets": 1,
                     "numoutlets": 0,
-                    "patching_rect": [ 20.0, 10.0, 300.0, 20.0 ],
-                    "text": "imu-gesture: Gesture Detection Abstraction",
-                    "fontsize": 14.0,
-                    "fontface": 1
+                    "patching_rect": [ 20.0, 7.0, 300.0, 22.0 ],
+                    "text": "imu-gesture: Gesture Detection Abstraction"
                 }
             },
             {
@@ -38,35 +37,13 @@
             },
             {
                 "box": {
-                    "id": "obj-loadbang",
-                    "maxclass": "newobj",
-                    "numinlets": 1,
-                    "numoutlets": 1,
-                    "outlettype": [ "bang" ],
-                    "patching_rect": [ 600.0, 35.0, 61.0, 22.0 ],
-                    "text": "loadbang"
-                }
-            },
-            {
-                "box": {
-                    "id": "obj-deferlow",
-                    "maxclass": "newobj",
-                    "numinlets": 1,
-                    "numoutlets": 1,
-                    "outlettype": [ "" ],
-                    "patching_rect": [ 600.0, 60.0, 55.0, 22.0 ],
-                    "text": "deferlow"
-                }
-            },
-            {
-                "box": {
+                    "fontface": 1,
                     "id": "obj-comment-connection",
                     "maxclass": "comment",
                     "numinlets": 1,
                     "numoutlets": 0,
                     "patching_rect": [ 20.0, 72.0, 120.0, 20.0 ],
-                    "text": "--- Connection ---",
-                    "fontface": 1
+                    "text": "--- Connection ---"
                 }
             },
             {
@@ -109,7 +86,7 @@
                     "numoutlets": 1,
                     "outlettype": [ "" ],
                     "patching_rect": [ 170.0, 92.0, 120.0, 22.0 ],
-                    "text": "disconnected"
+                    "text": "scanning"
                 }
             },
             {
@@ -128,11 +105,11 @@
                     "maxclass": "led",
                     "numinlets": 1,
                     "numoutlets": 1,
+                    "offcolor": [ 0.4, 0.4, 0.4, 1.0 ],
+                    "oncolor": [ 0.0, 0.8, 0.0, 1.0 ],
                     "outlettype": [ "int" ],
                     "parameter_enable": 0,
-                    "patching_rect": [ 310.0, 92.0, 20.0, 20.0 ],
-                    "oncolor": [ 0.0, 0.8, 0.0, 1.0 ],
-                    "offcolor": [ 0.4, 0.4, 0.4, 1.0 ]
+                    "patching_rect": [ 310.0, 92.0, 20.0, 20.0 ]
                 }
             },
             {
@@ -179,8 +156,6 @@
                     "saved_object_attributes": {
                         "autostart": 1,
                         "defer": 0,
-                        "node_bin_path": "",
-                        "npm_bin_path": "",
                         "watch": 0
                     },
                     "text": "node.script gesture-engine.js @autostart 1",
@@ -195,11 +170,12 @@
             {
                 "box": {
                     "id": "obj-route-main",
+                    "linecount": 2,
                     "maxclass": "newobj",
-                    "numinlets": 17,
-                    "numoutlets": 17,
-                    "outlettype": [ "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "" ],
-                    "patching_rect": [ 20.0, 160.0, 790.0, 22.0 ],
+                    "numinlets": 18,
+                    "numoutlets": 18,
+                    "outlettype": [ "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "" ],
+                    "patching_rect": [ 20.0, 158.5, 953.9999999999998, 35.0 ],
                     "text": "route gesture gesture_led engine_status smooth_accel smooth_gyro smooth_orientation cal_accel cal_gyro cal_orientation norm_accel norm_gyro norm_orientation status cal_status cal_progress cal_bias cal_toggle"
                 }
             },
@@ -210,7 +186,7 @@
                     "numinlets": 2,
                     "numoutlets": 2,
                     "outlettype": [ "bang", "" ],
-                    "patching_rect": [ 440.0, 92.0, 110.0, 22.0 ],
+                    "patching_rect": [ 370.0, 39.0, 110.0, 22.0 ],
                     "text": "sel connected-usb"
                 }
             },
@@ -221,7 +197,7 @@
                     "numinlets": 2,
                     "numoutlets": 1,
                     "outlettype": [ "bang" ],
-                    "patching_rect": [ 440.0, 115.0, 63.0, 22.0 ],
+                    "patching_rect": [ 370.0, 62.0, 63.0, 22.0 ],
                     "text": "delay 500"
                 }
             },
@@ -232,19 +208,19 @@
                     "numinlets": 2,
                     "numoutlets": 1,
                     "outlettype": [ "" ],
-                    "patching_rect": [ 440.0, 138.0, 95.0, 22.0 ],
+                    "patching_rect": [ 370.0, 91.0, 95.0, 22.0 ],
                     "text": "calibrate_start"
                 }
             },
             {
                 "box": {
+                    "fontface": 1,
                     "id": "obj-comment-gestures",
                     "maxclass": "comment",
                     "numinlets": 1,
                     "numoutlets": 0,
                     "patching_rect": [ 20.0, 192.0, 200.0, 20.0 ],
-                    "text": "--- Gesture Configuration ---",
-                    "fontface": 1
+                    "text": "--- Gesture Configuration ---"
                 }
             },
             {
@@ -304,11 +280,10 @@
                     "numinlets": 8,
                     "numoutlets": 8,
                     "outlettype": [ "", "", "", "", "", "", "", "" ],
-                    "patching_rect": [ 420.0, 192.0, 390.0, 22.0 ],
+                    "patching_rect": [ 723.0, 216.0, 390.0, 22.0 ],
                     "text": "route shake tap flip tilt-left tilt-right tilt-forward tilt-back"
                 }
             },
-
             {
                 "box": {
                     "id": "obj-comment-shake",
@@ -328,15 +303,16 @@
                     "outlettype": [ "int" ],
                     "parameter_enable": 1,
                     "patching_rect": [ 115.0, 233.0, 24.0, 24.0 ],
-                    "int": 1,
                     "saved_attribute_attributes": {
                         "valueof": {
-                            "parameter_longname": "shake_enable",
-                            "parameter_shortname": "shake_en",
-                            "parameter_type": 2,
-                            "parameter_mmax": 1.0,
+                            "parameter_enum": [ "off", "on" ],
+                            "parameter_initial": [ 1 ],
                             "parameter_initial_enable": 1,
-                            "parameter_initial": [ 1 ]
+                            "parameter_longname": "shake_enable",
+                            "parameter_mmax": 1,
+                            "parameter_modmode": 0,
+                            "parameter_shortname": "shake_en",
+                            "parameter_type": 2
                         }
                     },
                     "varname": "shake_enable"
@@ -349,12 +325,13 @@
                     "numinlets": 1,
                     "numoutlets": 1,
                     "outlettype": [ "" ],
-                    "patching_rect": [ 115.0, 260.0, 140.0, 22.0 ],
+                    "patching_rect": [ 115.0, 260.0, 174.0, 22.0 ],
                     "text": "prepend gesture_enable shake"
                 }
             },
             {
                 "box": {
+                    "floatoutput": 1,
                     "id": "obj-dial-sens-shake",
                     "maxclass": "dial",
                     "numinlets": 1,
@@ -362,19 +339,19 @@
                     "outlettype": [ "float" ],
                     "parameter_enable": 1,
                     "patching_rect": [ 170.0, 230.0, 32.0, 32.0 ],
-                    "size": 1.0,
-                    "floatoutput": 1,
                     "saved_attribute_attributes": {
                         "valueof": {
+                            "parameter_initial": [ 0.5 ],
+                            "parameter_initial_enable": 1,
                             "parameter_longname": "shake_sensitivity",
+                            "parameter_mmax": 1.0,
+                            "parameter_modmode": 0,
                             "parameter_shortname": "shake_sens",
                             "parameter_type": 0,
-                            "parameter_unitstyle": 1,
-                            "parameter_mmax": 1.0,
-                            "parameter_initial_enable": 1,
-                            "parameter_initial": [ 0.5 ]
+                            "parameter_unitstyle": 1
                         }
                     },
+                    "size": 1.0,
                     "varname": "shake_sensitivity"
                 }
             },
@@ -385,32 +362,33 @@
                     "numinlets": 1,
                     "numoutlets": 1,
                     "outlettype": [ "" ],
-                    "patching_rect": [ 170.0, 265.0, 180.0, 22.0 ],
+                    "patching_rect": [ 317.0, 260.0, 190.0, 22.0 ],
                     "text": "prepend gesture_sensitivity shake"
                 }
             },
             {
                 "box": {
+                    "floatoutput": 1,
                     "id": "obj-dial-cool-shake",
                     "maxclass": "dial",
                     "numinlets": 1,
                     "numoutlets": 1,
                     "outlettype": [ "float" ],
                     "parameter_enable": 1,
-                    "patching_rect": [ 275.0, 230.0, 32.0, 32.0 ],
-                    "size": 1000.0,
-                    "floatoutput": 1,
+                    "patching_rect": [ 422.0, 225.0, 32.0, 32.0 ],
                     "saved_attribute_attributes": {
                         "valueof": {
+                            "parameter_initial": [ 300.0 ],
+                            "parameter_initial_enable": 1,
                             "parameter_longname": "shake_cooldown",
+                            "parameter_mmax": 1000.0,
+                            "parameter_modmode": 0,
                             "parameter_shortname": "shake_cd",
                             "parameter_type": 0,
-                            "parameter_unitstyle": 1,
-                            "parameter_mmax": 1000.0,
-                            "parameter_initial_enable": 1,
-                            "parameter_initial": [ 300.0 ]
+                            "parameter_unitstyle": 1
                         }
                     },
+                    "size": 1000.0,
                     "varname": "shake_cooldown"
                 }
             },
@@ -421,7 +399,7 @@
                     "numinlets": 1,
                     "numoutlets": 1,
                     "outlettype": [ "" ],
-                    "patching_rect": [ 275.0, 265.0, 170.0, 22.0 ],
+                    "patching_rect": [ 601.0, 260.0, 189.0, 22.0 ],
                     "text": "prepend gesture_cooldown shake"
                 }
             },
@@ -431,14 +409,13 @@
                     "maxclass": "led",
                     "numinlets": 1,
                     "numoutlets": 1,
+                    "offcolor": [ 0.4, 0.4, 0.4, 1.0 ],
+                    "oncolor": [ 1.0, 0.5, 0.0, 1.0 ],
                     "outlettype": [ "int" ],
                     "parameter_enable": 0,
-                    "patching_rect": [ 375.0, 237.0, 20.0, 20.0 ],
-                    "oncolor": [ 1.0, 0.5, 0.0, 1.0 ],
-                    "offcolor": [ 0.4, 0.4, 0.4, 1.0 ]
+                    "patching_rect": [ 701.0, 232.0, 20.0, 20.0 ]
                 }
             },
-
             {
                 "box": {
                     "id": "obj-comment-tap",
@@ -458,15 +435,16 @@
                     "outlettype": [ "int" ],
                     "parameter_enable": 1,
                     "patching_rect": [ 115.0, 288.0, 24.0, 24.0 ],
-                    "int": 1,
                     "saved_attribute_attributes": {
                         "valueof": {
-                            "parameter_longname": "tap_enable",
-                            "parameter_shortname": "tap_en",
-                            "parameter_type": 2,
-                            "parameter_mmax": 1.0,
+                            "parameter_enum": [ "off", "on" ],
+                            "parameter_initial": [ 1 ],
                             "parameter_initial_enable": 1,
-                            "parameter_initial": [ 1 ]
+                            "parameter_longname": "tap_enable",
+                            "parameter_mmax": 1,
+                            "parameter_modmode": 0,
+                            "parameter_shortname": "tap_en",
+                            "parameter_type": 2
                         }
                     },
                     "varname": "tap_enable"
@@ -479,12 +457,13 @@
                     "numinlets": 1,
                     "numoutlets": 1,
                     "outlettype": [ "" ],
-                    "patching_rect": [ 115.0, 315.0, 130.0, 22.0 ],
+                    "patching_rect": [ 115.0, 315.0, 159.0, 22.0 ],
                     "text": "prepend gesture_enable tap"
                 }
             },
             {
                 "box": {
+                    "floatoutput": 1,
                     "id": "obj-dial-sens-tap",
                     "maxclass": "dial",
                     "numinlets": 1,
@@ -492,19 +471,19 @@
                     "outlettype": [ "float" ],
                     "parameter_enable": 1,
                     "patching_rect": [ 170.0, 285.0, 32.0, 32.0 ],
-                    "size": 1.0,
-                    "floatoutput": 1,
                     "saved_attribute_attributes": {
                         "valueof": {
+                            "parameter_initial": [ 0.5 ],
+                            "parameter_initial_enable": 1,
                             "parameter_longname": "tap_sensitivity",
+                            "parameter_mmax": 1.0,
+                            "parameter_modmode": 0,
                             "parameter_shortname": "tap_sens",
                             "parameter_type": 0,
-                            "parameter_unitstyle": 1,
-                            "parameter_mmax": 1.0,
-                            "parameter_initial_enable": 1,
-                            "parameter_initial": [ 0.5 ]
+                            "parameter_unitstyle": 1
                         }
                     },
+                    "size": 1.0,
                     "varname": "tap_sensitivity"
                 }
             },
@@ -515,32 +494,33 @@
                     "numinlets": 1,
                     "numoutlets": 1,
                     "outlettype": [ "" ],
-                    "patching_rect": [ 170.0, 320.0, 170.0, 22.0 ],
+                    "patching_rect": [ 317.0, 315.0, 175.0, 22.0 ],
                     "text": "prepend gesture_sensitivity tap"
                 }
             },
             {
                 "box": {
+                    "floatoutput": 1,
                     "id": "obj-dial-cool-tap",
                     "maxclass": "dial",
                     "numinlets": 1,
                     "numoutlets": 1,
                     "outlettype": [ "float" ],
                     "parameter_enable": 1,
-                    "patching_rect": [ 275.0, 285.0, 32.0, 32.0 ],
-                    "size": 500.0,
-                    "floatoutput": 1,
+                    "patching_rect": [ 422.0, 280.0, 32.0, 32.0 ],
                     "saved_attribute_attributes": {
                         "valueof": {
+                            "parameter_initial": [ 200.0 ],
+                            "parameter_initial_enable": 1,
                             "parameter_longname": "tap_cooldown",
+                            "parameter_mmax": 500.0,
+                            "parameter_modmode": 0,
                             "parameter_shortname": "tap_cd",
                             "parameter_type": 0,
-                            "parameter_unitstyle": 1,
-                            "parameter_mmax": 500.0,
-                            "parameter_initial_enable": 1,
-                            "parameter_initial": [ 200.0 ]
+                            "parameter_unitstyle": 1
                         }
                     },
+                    "size": 500.0,
                     "varname": "tap_cooldown"
                 }
             },
@@ -551,7 +531,7 @@
                     "numinlets": 1,
                     "numoutlets": 1,
                     "outlettype": [ "" ],
-                    "patching_rect": [ 275.0, 320.0, 160.0, 22.0 ],
+                    "patching_rect": [ 601.0, 315.0, 173.0, 22.0 ],
                     "text": "prepend gesture_cooldown tap"
                 }
             },
@@ -561,14 +541,13 @@
                     "maxclass": "led",
                     "numinlets": 1,
                     "numoutlets": 1,
+                    "offcolor": [ 0.4, 0.4, 0.4, 1.0 ],
+                    "oncolor": [ 1.0, 0.5, 0.0, 1.0 ],
                     "outlettype": [ "int" ],
                     "parameter_enable": 0,
-                    "patching_rect": [ 375.0, 292.0, 20.0, 20.0 ],
-                    "oncolor": [ 1.0, 0.5, 0.0, 1.0 ],
-                    "offcolor": [ 0.4, 0.4, 0.4, 1.0 ]
+                    "patching_rect": [ 701.0, 287.0, 20.0, 20.0 ]
                 }
             },
-
             {
                 "box": {
                     "id": "obj-comment-flip",
@@ -588,15 +567,16 @@
                     "outlettype": [ "int" ],
                     "parameter_enable": 1,
                     "patching_rect": [ 115.0, 343.0, 24.0, 24.0 ],
-                    "int": 1,
                     "saved_attribute_attributes": {
                         "valueof": {
-                            "parameter_longname": "flip_enable",
-                            "parameter_shortname": "flip_en",
-                            "parameter_type": 2,
-                            "parameter_mmax": 1.0,
+                            "parameter_enum": [ "off", "on" ],
+                            "parameter_initial": [ 1 ],
                             "parameter_initial_enable": 1,
-                            "parameter_initial": [ 1 ]
+                            "parameter_longname": "flip_enable",
+                            "parameter_mmax": 1,
+                            "parameter_modmode": 0,
+                            "parameter_shortname": "flip_en",
+                            "parameter_type": 2
                         }
                     },
                     "varname": "flip_enable"
@@ -609,12 +589,13 @@
                     "numinlets": 1,
                     "numoutlets": 1,
                     "outlettype": [ "" ],
-                    "patching_rect": [ 115.0, 370.0, 135.0, 22.0 ],
+                    "patching_rect": [ 115.0, 370.0, 157.0, 22.0 ],
                     "text": "prepend gesture_enable flip"
                 }
             },
             {
                 "box": {
+                    "floatoutput": 1,
                     "id": "obj-dial-sens-flip",
                     "maxclass": "dial",
                     "numinlets": 1,
@@ -622,19 +603,19 @@
                     "outlettype": [ "float" ],
                     "parameter_enable": 1,
                     "patching_rect": [ 170.0, 340.0, 32.0, 32.0 ],
-                    "size": 1.0,
-                    "floatoutput": 1,
                     "saved_attribute_attributes": {
                         "valueof": {
+                            "parameter_initial": [ 0.5 ],
+                            "parameter_initial_enable": 1,
                             "parameter_longname": "flip_sensitivity",
+                            "parameter_mmax": 1.0,
+                            "parameter_modmode": 0,
                             "parameter_shortname": "flip_sens",
                             "parameter_type": 0,
-                            "parameter_unitstyle": 1,
-                            "parameter_mmax": 1.0,
-                            "parameter_initial_enable": 1,
-                            "parameter_initial": [ 0.5 ]
+                            "parameter_unitstyle": 1
                         }
                     },
+                    "size": 1.0,
                     "varname": "flip_sensitivity"
                 }
             },
@@ -645,32 +626,33 @@
                     "numinlets": 1,
                     "numoutlets": 1,
                     "outlettype": [ "" ],
-                    "patching_rect": [ 170.0, 375.0, 175.0, 22.0 ],
+                    "patching_rect": [ 317.0, 370.0, 175.0, 22.0 ],
                     "text": "prepend gesture_sensitivity flip"
                 }
             },
             {
                 "box": {
+                    "floatoutput": 1,
                     "id": "obj-dial-cool-flip",
                     "maxclass": "dial",
                     "numinlets": 1,
                     "numoutlets": 1,
                     "outlettype": [ "float" ],
                     "parameter_enable": 1,
-                    "patching_rect": [ 275.0, 340.0, 32.0, 32.0 ],
-                    "size": 2000.0,
-                    "floatoutput": 1,
+                    "patching_rect": [ 422.0, 335.0, 32.0, 32.0 ],
                     "saved_attribute_attributes": {
                         "valueof": {
+                            "parameter_initial": [ 800.0 ],
+                            "parameter_initial_enable": 1,
                             "parameter_longname": "flip_cooldown",
+                            "parameter_mmax": 2000.0,
+                            "parameter_modmode": 0,
                             "parameter_shortname": "flip_cd",
                             "parameter_type": 0,
-                            "parameter_unitstyle": 1,
-                            "parameter_mmax": 2000.0,
-                            "parameter_initial_enable": 1,
-                            "parameter_initial": [ 800.0 ]
+                            "parameter_unitstyle": 1
                         }
                     },
+                    "size": 2000.0,
                     "varname": "flip_cooldown"
                 }
             },
@@ -681,7 +663,7 @@
                     "numinlets": 1,
                     "numoutlets": 1,
                     "outlettype": [ "" ],
-                    "patching_rect": [ 275.0, 375.0, 165.0, 22.0 ],
+                    "patching_rect": [ 601.0, 370.0, 172.0, 22.0 ],
                     "text": "prepend gesture_cooldown flip"
                 }
             },
@@ -691,14 +673,13 @@
                     "maxclass": "led",
                     "numinlets": 1,
                     "numoutlets": 1,
+                    "offcolor": [ 0.4, 0.4, 0.4, 1.0 ],
+                    "oncolor": [ 1.0, 0.5, 0.0, 1.0 ],
                     "outlettype": [ "int" ],
                     "parameter_enable": 0,
-                    "patching_rect": [ 375.0, 347.0, 20.0, 20.0 ],
-                    "oncolor": [ 1.0, 0.5, 0.0, 1.0 ],
-                    "offcolor": [ 0.4, 0.4, 0.4, 1.0 ]
+                    "patching_rect": [ 701.0, 342.0, 20.0, 20.0 ]
                 }
             },
-
             {
                 "box": {
                     "id": "obj-comment-tilt-left",
@@ -718,15 +699,16 @@
                     "outlettype": [ "int" ],
                     "parameter_enable": 1,
                     "patching_rect": [ 115.0, 398.0, 24.0, 24.0 ],
-                    "int": 1,
                     "saved_attribute_attributes": {
                         "valueof": {
-                            "parameter_longname": "tilt_left_enable",
-                            "parameter_shortname": "tl_en",
-                            "parameter_type": 2,
-                            "parameter_mmax": 1.0,
+                            "parameter_enum": [ "off", "on" ],
+                            "parameter_initial": [ 1 ],
                             "parameter_initial_enable": 1,
-                            "parameter_initial": [ 1 ]
+                            "parameter_longname": "tilt_left_enable",
+                            "parameter_mmax": 1,
+                            "parameter_modmode": 0,
+                            "parameter_shortname": "tl_en",
+                            "parameter_type": 2
                         }
                     },
                     "varname": "tilt_left_enable"
@@ -739,12 +721,13 @@
                     "numinlets": 1,
                     "numoutlets": 1,
                     "outlettype": [ "" ],
-                    "patching_rect": [ 115.0, 425.0, 155.0, 22.0 ],
+                    "patching_rect": [ 115.0, 425.0, 174.0, 22.0 ],
                     "text": "prepend gesture_enable tilt-left"
                 }
             },
             {
                 "box": {
+                    "floatoutput": 1,
                     "id": "obj-dial-sens-tilt-left",
                     "maxclass": "dial",
                     "numinlets": 1,
@@ -752,19 +735,19 @@
                     "outlettype": [ "float" ],
                     "parameter_enable": 1,
                     "patching_rect": [ 170.0, 395.0, 32.0, 32.0 ],
-                    "size": 1.0,
-                    "floatoutput": 1,
                     "saved_attribute_attributes": {
                         "valueof": {
+                            "parameter_initial": [ 0.5 ],
+                            "parameter_initial_enable": 1,
                             "parameter_longname": "tilt_left_sensitivity",
+                            "parameter_mmax": 1.0,
+                            "parameter_modmode": 0,
                             "parameter_shortname": "tl_sens",
                             "parameter_type": 0,
-                            "parameter_unitstyle": 1,
-                            "parameter_mmax": 1.0,
-                            "parameter_initial_enable": 1,
-                            "parameter_initial": [ 0.5 ]
+                            "parameter_unitstyle": 1
                         }
                     },
+                    "size": 1.0,
                     "varname": "tilt_left_sensitivity"
                 }
             },
@@ -775,32 +758,33 @@
                     "numinlets": 1,
                     "numoutlets": 1,
                     "outlettype": [ "" ],
-                    "patching_rect": [ 170.0, 430.0, 195.0, 22.0 ],
+                    "patching_rect": [ 317.0, 425.0, 195.0, 22.0 ],
                     "text": "prepend gesture_sensitivity tilt-left"
                 }
             },
             {
                 "box": {
+                    "floatoutput": 1,
                     "id": "obj-dial-cool-tilt-left",
                     "maxclass": "dial",
                     "numinlets": 1,
                     "numoutlets": 1,
                     "outlettype": [ "float" ],
                     "parameter_enable": 1,
-                    "patching_rect": [ 275.0, 395.0, 32.0, 32.0 ],
-                    "size": 1000.0,
-                    "floatoutput": 1,
+                    "patching_rect": [ 422.0, 390.0, 32.0, 32.0 ],
                     "saved_attribute_attributes": {
                         "valueof": {
+                            "parameter_initial": [ 400.0 ],
+                            "parameter_initial_enable": 1,
                             "parameter_longname": "tilt_left_cooldown",
+                            "parameter_mmax": 1000.0,
+                            "parameter_modmode": 0,
                             "parameter_shortname": "tl_cd",
                             "parameter_type": 0,
-                            "parameter_unitstyle": 1,
-                            "parameter_mmax": 1000.0,
-                            "parameter_initial_enable": 1,
-                            "parameter_initial": [ 400.0 ]
+                            "parameter_unitstyle": 1
                         }
                     },
+                    "size": 1000.0,
                     "varname": "tilt_left_cooldown"
                 }
             },
@@ -811,7 +795,7 @@
                     "numinlets": 1,
                     "numoutlets": 1,
                     "outlettype": [ "" ],
-                    "patching_rect": [ 275.0, 430.0, 185.0, 22.0 ],
+                    "patching_rect": [ 601.0, 425.0, 189.0, 22.0 ],
                     "text": "prepend gesture_cooldown tilt-left"
                 }
             },
@@ -821,14 +805,13 @@
                     "maxclass": "led",
                     "numinlets": 1,
                     "numoutlets": 1,
+                    "offcolor": [ 0.4, 0.4, 0.4, 1.0 ],
+                    "oncolor": [ 1.0, 0.5, 0.0, 1.0 ],
                     "outlettype": [ "int" ],
                     "parameter_enable": 0,
-                    "patching_rect": [ 375.0, 402.0, 20.0, 20.0 ],
-                    "oncolor": [ 1.0, 0.5, 0.0, 1.0 ],
-                    "offcolor": [ 0.4, 0.4, 0.4, 1.0 ]
+                    "patching_rect": [ 701.0, 397.0, 20.0, 20.0 ]
                 }
             },
-
             {
                 "box": {
                     "id": "obj-comment-tilt-right",
@@ -848,15 +831,16 @@
                     "outlettype": [ "int" ],
                     "parameter_enable": 1,
                     "patching_rect": [ 115.0, 453.0, 24.0, 24.0 ],
-                    "int": 1,
                     "saved_attribute_attributes": {
                         "valueof": {
-                            "parameter_longname": "tilt_right_enable",
-                            "parameter_shortname": "tr_en",
-                            "parameter_type": 2,
-                            "parameter_mmax": 1.0,
+                            "parameter_enum": [ "off", "on" ],
+                            "parameter_initial": [ 1 ],
                             "parameter_initial_enable": 1,
-                            "parameter_initial": [ 1 ]
+                            "parameter_longname": "tilt_right_enable",
+                            "parameter_mmax": 1,
+                            "parameter_modmode": 0,
+                            "parameter_shortname": "tr_en",
+                            "parameter_type": 2
                         }
                     },
                     "varname": "tilt_right_enable"
@@ -869,12 +853,13 @@
                     "numinlets": 1,
                     "numoutlets": 1,
                     "outlettype": [ "" ],
-                    "patching_rect": [ 115.0, 480.0, 160.0, 22.0 ],
+                    "patching_rect": [ 115.0, 480.0, 181.0, 22.0 ],
                     "text": "prepend gesture_enable tilt-right"
                 }
             },
             {
                 "box": {
+                    "floatoutput": 1,
                     "id": "obj-dial-sens-tilt-right",
                     "maxclass": "dial",
                     "numinlets": 1,
@@ -882,19 +867,19 @@
                     "outlettype": [ "float" ],
                     "parameter_enable": 1,
                     "patching_rect": [ 170.0, 450.0, 32.0, 32.0 ],
-                    "size": 1.0,
-                    "floatoutput": 1,
                     "saved_attribute_attributes": {
                         "valueof": {
+                            "parameter_initial": [ 0.5 ],
+                            "parameter_initial_enable": 1,
                             "parameter_longname": "tilt_right_sensitivity",
+                            "parameter_mmax": 1.0,
+                            "parameter_modmode": 0,
                             "parameter_shortname": "tr_sens",
                             "parameter_type": 0,
-                            "parameter_unitstyle": 1,
-                            "parameter_mmax": 1.0,
-                            "parameter_initial_enable": 1,
-                            "parameter_initial": [ 0.5 ]
+                            "parameter_unitstyle": 1
                         }
                     },
+                    "size": 1.0,
                     "varname": "tilt_right_sensitivity"
                 }
             },
@@ -905,32 +890,33 @@
                     "numinlets": 1,
                     "numoutlets": 1,
                     "outlettype": [ "" ],
-                    "patching_rect": [ 170.0, 485.0, 200.0, 22.0 ],
+                    "patching_rect": [ 317.0, 480.0, 200.0, 22.0 ],
                     "text": "prepend gesture_sensitivity tilt-right"
                 }
             },
             {
                 "box": {
+                    "floatoutput": 1,
                     "id": "obj-dial-cool-tilt-right",
                     "maxclass": "dial",
                     "numinlets": 1,
                     "numoutlets": 1,
                     "outlettype": [ "float" ],
                     "parameter_enable": 1,
-                    "patching_rect": [ 275.0, 450.0, 32.0, 32.0 ],
-                    "size": 1000.0,
-                    "floatoutput": 1,
+                    "patching_rect": [ 422.0, 445.0, 32.0, 32.0 ],
                     "saved_attribute_attributes": {
                         "valueof": {
+                            "parameter_initial": [ 400.0 ],
+                            "parameter_initial_enable": 1,
                             "parameter_longname": "tilt_right_cooldown",
+                            "parameter_mmax": 1000.0,
+                            "parameter_modmode": 0,
                             "parameter_shortname": "tr_cd",
                             "parameter_type": 0,
-                            "parameter_unitstyle": 1,
-                            "parameter_mmax": 1000.0,
-                            "parameter_initial_enable": 1,
-                            "parameter_initial": [ 400.0 ]
+                            "parameter_unitstyle": 1
                         }
                     },
+                    "size": 1000.0,
                     "varname": "tilt_right_cooldown"
                 }
             },
@@ -941,7 +927,7 @@
                     "numinlets": 1,
                     "numoutlets": 1,
                     "outlettype": [ "" ],
-                    "patching_rect": [ 275.0, 485.0, 190.0, 22.0 ],
+                    "patching_rect": [ 601.0, 480.0, 196.0, 22.0 ],
                     "text": "prepend gesture_cooldown tilt-right"
                 }
             },
@@ -951,14 +937,13 @@
                     "maxclass": "led",
                     "numinlets": 1,
                     "numoutlets": 1,
+                    "offcolor": [ 0.4, 0.4, 0.4, 1.0 ],
+                    "oncolor": [ 1.0, 0.5, 0.0, 1.0 ],
                     "outlettype": [ "int" ],
                     "parameter_enable": 0,
-                    "patching_rect": [ 375.0, 457.0, 20.0, 20.0 ],
-                    "oncolor": [ 1.0, 0.5, 0.0, 1.0 ],
-                    "offcolor": [ 0.4, 0.4, 0.4, 1.0 ]
+                    "patching_rect": [ 701.0, 452.0, 20.0, 20.0 ]
                 }
             },
-
             {
                 "box": {
                     "id": "obj-comment-tilt-forward",
@@ -978,15 +963,16 @@
                     "outlettype": [ "int" ],
                     "parameter_enable": 1,
                     "patching_rect": [ 115.0, 508.0, 24.0, 24.0 ],
-                    "int": 1,
                     "saved_attribute_attributes": {
                         "valueof": {
-                            "parameter_longname": "tilt_forward_enable",
-                            "parameter_shortname": "tf_en",
-                            "parameter_type": 2,
-                            "parameter_mmax": 1.0,
+                            "parameter_enum": [ "off", "on" ],
+                            "parameter_initial": [ 1 ],
                             "parameter_initial_enable": 1,
-                            "parameter_initial": [ 1 ]
+                            "parameter_longname": "tilt_forward_enable",
+                            "parameter_mmax": 1,
+                            "parameter_modmode": 0,
+                            "parameter_shortname": "tf_en",
+                            "parameter_type": 2
                         }
                     },
                     "varname": "tilt_forward_enable"
@@ -999,12 +985,13 @@
                     "numinlets": 1,
                     "numoutlets": 1,
                     "outlettype": [ "" ],
-                    "patching_rect": [ 115.0, 535.0, 175.0, 22.0 ],
+                    "patching_rect": [ 115.0, 539.0, 198.0, 22.0 ],
                     "text": "prepend gesture_enable tilt-forward"
                 }
             },
             {
                 "box": {
+                    "floatoutput": 1,
                     "id": "obj-dial-sens-tilt-forward",
                     "maxclass": "dial",
                     "numinlets": 1,
@@ -1012,19 +999,19 @@
                     "outlettype": [ "float" ],
                     "parameter_enable": 1,
                     "patching_rect": [ 170.0, 505.0, 32.0, 32.0 ],
-                    "size": 1.0,
-                    "floatoutput": 1,
                     "saved_attribute_attributes": {
                         "valueof": {
+                            "parameter_initial": [ 0.5 ],
+                            "parameter_initial_enable": 1,
                             "parameter_longname": "tilt_forward_sensitivity",
+                            "parameter_mmax": 1.0,
+                            "parameter_modmode": 0,
                             "parameter_shortname": "tf_sens",
                             "parameter_type": 0,
-                            "parameter_unitstyle": 1,
-                            "parameter_mmax": 1.0,
-                            "parameter_initial_enable": 1,
-                            "parameter_initial": [ 0.5 ]
+                            "parameter_unitstyle": 1
                         }
                     },
+                    "size": 1.0,
                     "varname": "tilt_forward_sensitivity"
                 }
             },
@@ -1035,32 +1022,33 @@
                     "numinlets": 1,
                     "numoutlets": 1,
                     "outlettype": [ "" ],
-                    "patching_rect": [ 170.0, 540.0, 215.0, 22.0 ],
+                    "patching_rect": [ 416.0, 534.0, 215.0, 22.0 ],
                     "text": "prepend gesture_sensitivity tilt-forward"
                 }
             },
             {
                 "box": {
+                    "floatoutput": 1,
                     "id": "obj-dial-cool-tilt-forward",
                     "maxclass": "dial",
                     "numinlets": 1,
                     "numoutlets": 1,
                     "outlettype": [ "float" ],
                     "parameter_enable": 1,
-                    "patching_rect": [ 275.0, 505.0, 32.0, 32.0 ],
-                    "size": 1000.0,
-                    "floatoutput": 1,
+                    "patching_rect": [ 422.0, 500.0, 32.0, 32.0 ],
                     "saved_attribute_attributes": {
                         "valueof": {
+                            "parameter_initial": [ 400.0 ],
+                            "parameter_initial_enable": 1,
                             "parameter_longname": "tilt_forward_cooldown",
+                            "parameter_mmax": 1000.0,
+                            "parameter_modmode": 0,
                             "parameter_shortname": "tf_cd",
                             "parameter_type": 0,
-                            "parameter_unitstyle": 1,
-                            "parameter_mmax": 1000.0,
-                            "parameter_initial_enable": 1,
-                            "parameter_initial": [ 400.0 ]
+                            "parameter_unitstyle": 1
                         }
                     },
+                    "size": 1000.0,
                     "varname": "tilt_forward_cooldown"
                 }
             },
@@ -1071,7 +1059,7 @@
                     "numinlets": 1,
                     "numoutlets": 1,
                     "outlettype": [ "" ],
-                    "patching_rect": [ 275.0, 540.0, 205.0, 22.0 ],
+                    "patching_rect": [ 601.0, 535.0, 213.0, 22.0 ],
                     "text": "prepend gesture_cooldown tilt-forward"
                 }
             },
@@ -1081,14 +1069,13 @@
                     "maxclass": "led",
                     "numinlets": 1,
                     "numoutlets": 1,
+                    "offcolor": [ 0.4, 0.4, 0.4, 1.0 ],
+                    "oncolor": [ 1.0, 0.5, 0.0, 1.0 ],
                     "outlettype": [ "int" ],
                     "parameter_enable": 0,
-                    "patching_rect": [ 375.0, 512.0, 20.0, 20.0 ],
-                    "oncolor": [ 1.0, 0.5, 0.0, 1.0 ],
-                    "offcolor": [ 0.4, 0.4, 0.4, 1.0 ]
+                    "patching_rect": [ 701.0, 507.0, 20.0, 20.0 ]
                 }
             },
-
             {
                 "box": {
                     "id": "obj-comment-tilt-back",
@@ -1108,15 +1095,16 @@
                     "outlettype": [ "int" ],
                     "parameter_enable": 1,
                     "patching_rect": [ 115.0, 563.0, 24.0, 24.0 ],
-                    "int": 1,
                     "saved_attribute_attributes": {
                         "valueof": {
-                            "parameter_longname": "tilt_back_enable",
-                            "parameter_shortname": "tb_en",
-                            "parameter_type": 2,
-                            "parameter_mmax": 1.0,
+                            "parameter_enum": [ "off", "on" ],
+                            "parameter_initial": [ 1 ],
                             "parameter_initial_enable": 1,
-                            "parameter_initial": [ 1 ]
+                            "parameter_longname": "tilt_back_enable",
+                            "parameter_mmax": 1,
+                            "parameter_modmode": 0,
+                            "parameter_shortname": "tb_en",
+                            "parameter_type": 2
                         }
                     },
                     "varname": "tilt_back_enable"
@@ -1129,12 +1117,13 @@
                     "numinlets": 1,
                     "numoutlets": 1,
                     "outlettype": [ "" ],
-                    "patching_rect": [ 115.0, 590.0, 162.0, 22.0 ],
+                    "patching_rect": [ 115.0, 590.0, 183.0, 22.0 ],
                     "text": "prepend gesture_enable tilt-back"
                 }
             },
             {
                 "box": {
+                    "floatoutput": 1,
                     "id": "obj-dial-sens-tilt-back",
                     "maxclass": "dial",
                     "numinlets": 1,
@@ -1142,19 +1131,19 @@
                     "outlettype": [ "float" ],
                     "parameter_enable": 1,
                     "patching_rect": [ 170.0, 560.0, 32.0, 32.0 ],
-                    "size": 1.0,
-                    "floatoutput": 1,
                     "saved_attribute_attributes": {
                         "valueof": {
+                            "parameter_initial": [ 0.5 ],
+                            "parameter_initial_enable": 1,
                             "parameter_longname": "tilt_back_sensitivity",
+                            "parameter_mmax": 1.0,
+                            "parameter_modmode": 0,
                             "parameter_shortname": "tb_sens",
                             "parameter_type": 0,
-                            "parameter_unitstyle": 1,
-                            "parameter_mmax": 1.0,
-                            "parameter_initial_enable": 1,
-                            "parameter_initial": [ 0.5 ]
+                            "parameter_unitstyle": 1
                         }
                     },
+                    "size": 1.0,
                     "varname": "tilt_back_sensitivity"
                 }
             },
@@ -1165,32 +1154,33 @@
                     "numinlets": 1,
                     "numoutlets": 1,
                     "outlettype": [ "" ],
-                    "patching_rect": [ 170.0, 595.0, 202.0, 22.0 ],
+                    "patching_rect": [ 317.0, 590.0, 202.0, 22.0 ],
                     "text": "prepend gesture_sensitivity tilt-back"
                 }
             },
             {
                 "box": {
+                    "floatoutput": 1,
                     "id": "obj-dial-cool-tilt-back",
                     "maxclass": "dial",
                     "numinlets": 1,
                     "numoutlets": 1,
                     "outlettype": [ "float" ],
                     "parameter_enable": 1,
-                    "patching_rect": [ 275.0, 560.0, 32.0, 32.0 ],
-                    "size": 1000.0,
-                    "floatoutput": 1,
+                    "patching_rect": [ 422.0, 555.0, 32.0, 32.0 ],
                     "saved_attribute_attributes": {
                         "valueof": {
+                            "parameter_initial": [ 400.0 ],
+                            "parameter_initial_enable": 1,
                             "parameter_longname": "tilt_back_cooldown",
+                            "parameter_mmax": 1000.0,
+                            "parameter_modmode": 0,
                             "parameter_shortname": "tb_cd",
                             "parameter_type": 0,
-                            "parameter_unitstyle": 1,
-                            "parameter_mmax": 1000.0,
-                            "parameter_initial_enable": 1,
-                            "parameter_initial": [ 400.0 ]
+                            "parameter_unitstyle": 1
                         }
                     },
+                    "size": 1000.0,
                     "varname": "tilt_back_cooldown"
                 }
             },
@@ -1201,7 +1191,7 @@
                     "numinlets": 1,
                     "numoutlets": 1,
                     "outlettype": [ "" ],
-                    "patching_rect": [ 275.0, 595.0, 192.0, 22.0 ],
+                    "patching_rect": [ 601.0, 590.0, 198.0, 22.0 ],
                     "text": "prepend gesture_cooldown tilt-back"
                 }
             },
@@ -1211,23 +1201,22 @@
                     "maxclass": "led",
                     "numinlets": 1,
                     "numoutlets": 1,
+                    "offcolor": [ 0.4, 0.4, 0.4, 1.0 ],
+                    "oncolor": [ 1.0, 0.5, 0.0, 1.0 ],
                     "outlettype": [ "int" ],
                     "parameter_enable": 0,
-                    "patching_rect": [ 375.0, 567.0, 20.0, 20.0 ],
-                    "oncolor": [ 1.0, 0.5, 0.0, 1.0 ],
-                    "offcolor": [ 0.4, 0.4, 0.4, 1.0 ]
+                    "patching_rect": [ 701.0, 562.0, 20.0, 20.0 ]
                 }
             },
-
             {
                 "box": {
+                    "fontface": 1,
                     "id": "obj-comment-outlets",
                     "maxclass": "comment",
                     "numinlets": 1,
                     "numoutlets": 0,
                     "patching_rect": [ 20.0, 630.0, 150.0, 20.0 ],
-                    "text": "--- Outlets ---",
-                    "fontface": 1
+                    "text": "--- Outlets ---"
                 }
             },
             {
@@ -1245,7 +1234,7 @@
                 "box": {
                     "comment": "engine status: active, idle",
                     "id": "obj-outlet-engine-status",
-                    "index": 1,
+                    "index": 0,
                     "maxclass": "outlet",
                     "numinlets": 1,
                     "numoutlets": 0,
@@ -1256,7 +1245,7 @@
                 "box": {
                     "comment": "smooth accel: ax ay az (3 floats)",
                     "id": "obj-outlet-smooth-accel",
-                    "index": 2,
+                    "index": 0,
                     "maxclass": "outlet",
                     "numinlets": 1,
                     "numoutlets": 0,
@@ -1267,7 +1256,7 @@
                 "box": {
                     "comment": "smooth gyro: gx gy gz (3 floats)",
                     "id": "obj-outlet-smooth-gyro",
-                    "index": 3,
+                    "index": 0,
                     "maxclass": "outlet",
                     "numinlets": 1,
                     "numoutlets": 0,
@@ -1278,7 +1267,7 @@
                 "box": {
                     "comment": "smooth orientation: pitch roll yaw (3 floats)",
                     "id": "obj-outlet-smooth-orient",
-                    "index": 4,
+                    "index": 0,
                     "maxclass": "outlet",
                     "numinlets": 1,
                     "numoutlets": 0,
@@ -1289,7 +1278,7 @@
                 "box": {
                     "comment": "connection status: connected-usb, connected-wifi, scanning, disconnected",
                     "id": "obj-outlet-status",
-                    "index": 5,
+                    "index": 0,
                     "maxclass": "outlet",
                     "numinlets": 1,
                     "numoutlets": 0,
@@ -1300,7 +1289,7 @@
                 "box": {
                     "comment": "calibration status: idle, collecting, applied, too_few_samples",
                     "id": "obj-outlet-cal-status",
-                    "index": 6,
+                    "index": 0,
                     "maxclass": "outlet",
                     "numinlets": 1,
                     "numoutlets": 0,
@@ -1314,7 +1303,7 @@
                     "numinlets": 1,
                     "numoutlets": 2,
                     "outlettype": [ "", "" ],
-                    "patching_rect": [ 570.0, 192.0, 32.0, 22.0 ],
+                    "patching_rect": [ 679.9999999999998, 216.0, 32.0, 22.0 ],
                     "text": "t l l"
                 }
             }
@@ -1322,593 +1311,545 @@
         "lines": [
             {
                 "patchline": {
-                    "destination": [ "obj-nodescript", 0 ],
-                    "source": [ "obj-inlet-ctrl", 0 ]
-                }
-            },
-            {
-                "patchline": {
-                    "destination": [ "obj-nodescript", 0 ],
-                    "source": [ "obj-msg-connect", 0 ]
-                }
-            },
-            {
-                "patchline": {
-                    "destination": [ "obj-nodescript", 0 ],
-                    "source": [ "obj-msg-disconnect", 0 ]
-                }
-            },
-            {
-                "patchline": {
-                    "destination": [ "obj-nodescript", 0 ],
-                    "source": [ "obj-msg-calibrate", 0 ]
-                }
-            },
-
-            {
-                "patchline": {
-                    "destination": [ "obj-route-main", 0 ],
-                    "source": [ "obj-nodescript", 0 ]
-                }
-            },
-
-            {
-                "patchline": {
-                    "destination": [ "obj-outlet-gesture", 0 ],
-                    "source": [ "obj-route-main", 0 ]
-                }
-            },
-            {
-                "patchline": {
-                    "destination": [ "obj-route-led", 0 ],
-                    "source": [ "obj-route-main", 1 ]
-                }
-            },
-            {
-                "patchline": {
-                    "destination": [ "obj-sel-active", 0 ],
-                    "order": 1,
-                    "source": [ "obj-route-main", 2 ]
-                }
-            },
-            {
-                "patchline": {
-                    "destination": [ "obj-outlet-engine-status", 0 ],
-                    "order": 0,
-                    "source": [ "obj-route-main", 2 ]
-                }
-            },
-            {
-                "patchline": {
-                    "destination": [ "obj-outlet-smooth-accel", 0 ],
-                    "source": [ "obj-route-main", 3 ]
-                }
-            },
-            {
-                "patchline": {
-                    "destination": [ "obj-outlet-smooth-gyro", 0 ],
-                    "source": [ "obj-route-main", 4 ]
-                }
-            },
-            {
-                "patchline": {
-                    "destination": [ "obj-outlet-smooth-orient", 0 ],
-                    "source": [ "obj-route-main", 5 ]
-                }
-            },
-
-            {
-                "patchline": {
-                    "destination": [ "obj-thru-status", 0 ],
-                    "source": [ "obj-route-main", 12 ]
-                }
-            },
-            {
-                "patchline": {
-                    "destination": [ "obj-outlet-status", 0 ],
-                    "order": 0,
-                    "source": [ "obj-thru-status", 0 ]
-                }
-            },
-            {
-                "patchline": {
-                    "destination": [ "obj-status-display", 1 ],
-                    "order": 1,
-                    "source": [ "obj-thru-status", 0 ]
-                }
-            },
-            {
-                "patchline": {
-                    "destination": [ "obj-sel-connected", 0 ],
-                    "source": [ "obj-thru-status", 1 ]
-                }
-            },
-
-            {
-                "patchline": {
-                    "destination": [ "obj-outlet-cal-status", 0 ],
-                    "source": [ "obj-route-main", 13 ]
-                }
-            },
-
-            {
-                "patchline": {
-                    "destination": [ "obj-delay-autocal", 0 ],
-                    "source": [ "obj-sel-connected", 0 ]
-                }
-            },
-            {
-                "patchline": {
                     "destination": [ "obj-msg-calibrate", 0 ],
+                    "midpoints": [ 379.5, 87.0, 379.5, 87.0 ],
                     "source": [ "obj-delay-autocal", 0 ]
-                }
-            },
-
-            {
-                "patchline": {
-                    "destination": [ "obj-msg-led-on", 0 ],
-                    "source": [ "obj-sel-active", 0 ]
-                }
-            },
-            {
-                "patchline": {
-                    "destination": [ "obj-msg-led-off", 0 ],
-                    "source": [ "obj-sel-active", 1 ]
-                }
-            },
-            {
-                "patchline": {
-                    "destination": [ "obj-activity-led", 0 ],
-                    "source": [ "obj-msg-led-on", 0 ]
-                }
-            },
-            {
-                "patchline": {
-                    "destination": [ "obj-activity-led", 0 ],
-                    "source": [ "obj-msg-led-off", 0 ]
-                }
-            },
-
-            {
-                "patchline": {
-                    "destination": [ "obj-led-shake", 0 ],
-                    "source": [ "obj-route-led", 0 ]
-                }
-            },
-            {
-                "patchline": {
-                    "destination": [ "obj-led-tap", 0 ],
-                    "source": [ "obj-route-led", 1 ]
-                }
-            },
-            {
-                "patchline": {
-                    "destination": [ "obj-led-flip", 0 ],
-                    "source": [ "obj-route-led", 2 ]
-                }
-            },
-            {
-                "patchline": {
-                    "destination": [ "obj-led-tilt-left", 0 ],
-                    "source": [ "obj-route-led", 3 ]
-                }
-            },
-            {
-                "patchline": {
-                    "destination": [ "obj-led-tilt-right", 0 ],
-                    "source": [ "obj-route-led", 4 ]
-                }
-            },
-            {
-                "patchline": {
-                    "destination": [ "obj-led-tilt-forward", 0 ],
-                    "source": [ "obj-route-led", 5 ]
-                }
-            },
-            {
-                "patchline": {
-                    "destination": [ "obj-led-tilt-back", 0 ],
-                    "source": [ "obj-route-led", 6 ]
-                }
-            },
-
-            {
-                "patchline": {
-                    "destination": [ "obj-deferlow", 0 ],
-                    "source": [ "obj-loadbang", 0 ]
-                }
-            },
-
-            {
-                "patchline": {
-                    "destination": [ "obj-toggle-shake", 0 ],
-                    "order": 13,
-                    "source": [ "obj-deferlow", 0 ]
-                }
-            },
-            {
-                "patchline": {
-                    "destination": [ "obj-dial-sens-shake", 0 ],
-                    "order": 12,
-                    "source": [ "obj-deferlow", 0 ]
-                }
-            },
-            {
-                "patchline": {
-                    "destination": [ "obj-dial-cool-shake", 0 ],
-                    "order": 11,
-                    "source": [ "obj-deferlow", 0 ]
-                }
-            },
-            {
-                "patchline": {
-                    "destination": [ "obj-toggle-tap", 0 ],
-                    "order": 10,
-                    "source": [ "obj-deferlow", 0 ]
-                }
-            },
-            {
-                "patchline": {
-                    "destination": [ "obj-dial-sens-tap", 0 ],
-                    "order": 9,
-                    "source": [ "obj-deferlow", 0 ]
-                }
-            },
-            {
-                "patchline": {
-                    "destination": [ "obj-dial-cool-tap", 0 ],
-                    "order": 8,
-                    "source": [ "obj-deferlow", 0 ]
-                }
-            },
-            {
-                "patchline": {
-                    "destination": [ "obj-toggle-flip", 0 ],
-                    "order": 7,
-                    "source": [ "obj-deferlow", 0 ]
-                }
-            },
-            {
-                "patchline": {
-                    "destination": [ "obj-dial-sens-flip", 0 ],
-                    "order": 6,
-                    "source": [ "obj-deferlow", 0 ]
-                }
-            },
-            {
-                "patchline": {
-                    "destination": [ "obj-dial-cool-flip", 0 ],
-                    "order": 5,
-                    "source": [ "obj-deferlow", 0 ]
-                }
-            },
-            {
-                "patchline": {
-                    "destination": [ "obj-toggle-tilt-left", 0 ],
-                    "order": 4,
-                    "source": [ "obj-deferlow", 0 ]
-                }
-            },
-            {
-                "patchline": {
-                    "destination": [ "obj-toggle-tilt-right", 0 ],
-                    "order": 3,
-                    "source": [ "obj-deferlow", 0 ]
-                }
-            },
-            {
-                "patchline": {
-                    "destination": [ "obj-toggle-tilt-forward", 0 ],
-                    "order": 2,
-                    "source": [ "obj-deferlow", 0 ]
-                }
-            },
-            {
-                "patchline": {
-                    "destination": [ "obj-toggle-tilt-back", 0 ],
-                    "order": 1,
-                    "source": [ "obj-deferlow", 0 ]
-                }
-            },
-            {
-                "patchline": {
-                    "destination": [ "obj-msg-connect", 0 ],
-                    "order": 0,
-                    "source": [ "obj-deferlow", 0 ]
-                }
-            },
-
-            {
-                "patchline": {
-                    "destination": [ "obj-prepend-enable-shake", 0 ],
-                    "source": [ "obj-toggle-shake", 0 ]
-                }
-            },
-            {
-                "patchline": {
-                    "destination": [ "obj-nodescript", 0 ],
-                    "source": [ "obj-prepend-enable-shake", 0 ]
-                }
-            },
-            {
-                "patchline": {
-                    "destination": [ "obj-prepend-sens-shake", 0 ],
-                    "source": [ "obj-dial-sens-shake", 0 ]
-                }
-            },
-            {
-                "patchline": {
-                    "destination": [ "obj-nodescript", 0 ],
-                    "source": [ "obj-prepend-sens-shake", 0 ]
-                }
-            },
-            {
-                "patchline": {
-                    "destination": [ "obj-prepend-cool-shake", 0 ],
-                    "source": [ "obj-dial-cool-shake", 0 ]
-                }
-            },
-            {
-                "patchline": {
-                    "destination": [ "obj-nodescript", 0 ],
-                    "source": [ "obj-prepend-cool-shake", 0 ]
-                }
-            },
-
-            {
-                "patchline": {
-                    "destination": [ "obj-prepend-enable-tap", 0 ],
-                    "source": [ "obj-toggle-tap", 0 ]
-                }
-            },
-            {
-                "patchline": {
-                    "destination": [ "obj-nodescript", 0 ],
-                    "source": [ "obj-prepend-enable-tap", 0 ]
-                }
-            },
-            {
-                "patchline": {
-                    "destination": [ "obj-prepend-sens-tap", 0 ],
-                    "source": [ "obj-dial-sens-tap", 0 ]
-                }
-            },
-            {
-                "patchline": {
-                    "destination": [ "obj-nodescript", 0 ],
-                    "source": [ "obj-prepend-sens-tap", 0 ]
-                }
-            },
-            {
-                "patchline": {
-                    "destination": [ "obj-prepend-cool-tap", 0 ],
-                    "source": [ "obj-dial-cool-tap", 0 ]
-                }
-            },
-            {
-                "patchline": {
-                    "destination": [ "obj-nodescript", 0 ],
-                    "source": [ "obj-prepend-cool-tap", 0 ]
-                }
-            },
-
-            {
-                "patchline": {
-                    "destination": [ "obj-prepend-enable-flip", 0 ],
-                    "source": [ "obj-toggle-flip", 0 ]
-                }
-            },
-            {
-                "patchline": {
-                    "destination": [ "obj-nodescript", 0 ],
-                    "source": [ "obj-prepend-enable-flip", 0 ]
-                }
-            },
-            {
-                "patchline": {
-                    "destination": [ "obj-prepend-sens-flip", 0 ],
-                    "source": [ "obj-dial-sens-flip", 0 ]
-                }
-            },
-            {
-                "patchline": {
-                    "destination": [ "obj-nodescript", 0 ],
-                    "source": [ "obj-prepend-sens-flip", 0 ]
                 }
             },
             {
                 "patchline": {
                     "destination": [ "obj-prepend-cool-flip", 0 ],
+                    "midpoints": [ 431.5, 369.0, 417.0, 369.0, 417.0, 357.0, 303.0, 357.0, 303.0, 300.0, 417.0, 300.0, 417.0, 312.0, 588.0, 312.0, 588.0, 357.0, 610.5, 357.0 ],
                     "source": [ "obj-dial-cool-flip", 0 ]
                 }
             },
             {
                 "patchline": {
-                    "destination": [ "obj-nodescript", 0 ],
-                    "source": [ "obj-prepend-cool-flip", 0 ]
-                }
-            },
-
-            {
-                "patchline": {
-                    "destination": [ "obj-prepend-enable-tilt-left", 0 ],
-                    "source": [ "obj-toggle-tilt-left", 0 ]
+                    "destination": [ "obj-prepend-cool-shake", 0 ],
+                    "midpoints": [ 431.5, 258.0, 417.0, 258.0, 417.0, 210.0, 610.5, 210.0 ],
+                    "source": [ "obj-dial-cool-shake", 0 ]
                 }
             },
             {
                 "patchline": {
-                    "destination": [ "obj-nodescript", 0 ],
-                    "source": [ "obj-prepend-enable-tilt-left", 0 ]
+                    "destination": [ "obj-prepend-cool-tap", 0 ],
+                    "midpoints": [ 431.5, 312.0, 610.5, 312.0 ],
+                    "source": [ "obj-dial-cool-tap", 0 ]
                 }
             },
             {
                 "patchline": {
-                    "destination": [ "obj-prepend-sens-tilt-left", 0 ],
-                    "source": [ "obj-dial-sens-tilt-left", 0 ]
+                    "destination": [ "obj-prepend-cool-tilt-back", 0 ],
+                    "midpoints": [ 431.5, 588.0, 417.0, 588.0, 417.0, 576.0, 312.0, 576.0, 312.0, 624.0, 588.0, 624.0, 588.0, 585.0, 610.5, 585.0 ],
+                    "source": [ "obj-dial-cool-tilt-back", 0 ]
                 }
             },
             {
                 "patchline": {
-                    "destination": [ "obj-nodescript", 0 ],
-                    "source": [ "obj-prepend-sens-tilt-left", 0 ]
+                    "destination": [ "obj-prepend-cool-tilt-forward", 0 ],
+                    "midpoints": [ 431.5, 534.0, 417.0, 534.0, 417.0, 531.0, 324.0, 531.0, 324.0, 513.0, 312.0, 513.0, 312.0, 465.0, 417.0, 465.0, 417.0, 477.0, 588.0, 477.0, 588.0, 519.0, 610.5, 519.0 ],
+                    "source": [ "obj-dial-cool-tilt-forward", 0 ]
                 }
             },
             {
                 "patchline": {
                     "destination": [ "obj-prepend-cool-tilt-left", 0 ],
+                    "midpoints": [ 431.5, 423.0, 417.0, 423.0, 417.0, 411.0, 303.0, 411.0, 303.0, 465.0, 417.0, 465.0, 417.0, 477.0, 465.0, 477.0, 465.0, 459.0, 588.0, 459.0, 588.0, 420.0, 610.5, 420.0 ],
                     "source": [ "obj-dial-cool-tilt-left", 0 ]
                 }
             },
             {
                 "patchline": {
-                    "destination": [ "obj-nodescript", 0 ],
-                    "source": [ "obj-prepend-cool-tilt-left", 0 ]
-                }
-            },
-
-            {
-                "patchline": {
-                    "destination": [ "obj-prepend-enable-tilt-right", 0 ],
-                    "source": [ "obj-toggle-tilt-right", 0 ]
+                    "destination": [ "obj-prepend-cool-tilt-right", 0 ],
+                    "midpoints": [ 431.5, 477.0, 610.5, 477.0 ],
+                    "source": [ "obj-dial-cool-tilt-right", 0 ]
                 }
             },
             {
                 "patchline": {
-                    "destination": [ "obj-nodescript", 0 ],
-                    "source": [ "obj-prepend-enable-tilt-right", 0 ]
+                    "destination": [ "obj-prepend-sens-flip", 0 ],
+                    "midpoints": [ 179.5, 366.0, 156.0, 366.0, 156.0, 348.0, 141.0, 348.0, 141.0, 339.0, 111.0, 339.0, 111.0, 312.0, 156.0, 312.0, 156.0, 282.0, 213.0, 282.0, 213.0, 300.0, 303.0, 300.0, 303.0, 357.0, 326.5, 357.0 ],
+                    "source": [ "obj-dial-sens-flip", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-prepend-sens-shake", 0 ],
+                    "midpoints": [ 179.5, 282.0, 303.0, 282.0, 303.0, 255.0, 326.5, 255.0 ],
+                    "source": [ "obj-dial-sens-shake", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-prepend-sens-tap", 0 ],
+                    "midpoints": [ 179.5, 312.0, 165.0, 312.0, 165.0, 282.0, 213.0, 282.0, 213.0, 300.0, 326.5, 300.0 ],
+                    "source": [ "obj-dial-sens-tap", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-prepend-sens-tilt-back", 0 ],
+                    "midpoints": [ 179.5, 624.0, 312.0, 624.0, 312.0, 585.0, 326.5, 585.0 ],
+                    "source": [ "obj-dial-sens-tilt-back", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-prepend-sens-tilt-forward", 0 ],
+                    "midpoints": [ 179.5, 534.0, 111.0, 534.0, 111.0, 624.0, 312.0, 624.0, 312.0, 573.0, 402.0, 573.0, 402.0, 531.0, 425.5, 531.0 ],
+                    "source": [ "obj-dial-sens-tilt-forward", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-prepend-sens-tilt-left", 0 ],
+                    "midpoints": [ 179.5, 447.0, 303.0, 447.0, 303.0, 420.0, 326.5, 420.0 ],
+                    "source": [ "obj-dial-sens-tilt-left", 0 ]
                 }
             },
             {
                 "patchline": {
                     "destination": [ "obj-prepend-sens-tilt-right", 0 ],
+                    "midpoints": [ 179.5, 477.0, 165.0, 477.0, 165.0, 447.0, 213.0, 447.0, 213.0, 465.0, 326.5, 465.0 ],
                     "source": [ "obj-dial-sens-tilt-right", 0 ]
                 }
             },
             {
                 "patchline": {
                     "destination": [ "obj-nodescript", 0 ],
-                    "source": [ "obj-prepend-sens-tilt-right", 0 ]
-                }
-            },
-            {
-                "patchline": {
-                    "destination": [ "obj-prepend-cool-tilt-right", 0 ],
-                    "source": [ "obj-dial-cool-tilt-right", 0 ]
+                    "midpoints": [ 29.5, 66.0, 6.0, 66.0, 6.0, 126.0, 29.5, 126.0 ],
+                    "source": [ "obj-inlet-ctrl", 0 ]
                 }
             },
             {
                 "patchline": {
                     "destination": [ "obj-nodescript", 0 ],
-                    "source": [ "obj-prepend-cool-tilt-right", 0 ]
-                }
-            },
-
-            {
-                "patchline": {
-                    "destination": [ "obj-prepend-enable-tilt-forward", 0 ],
-                    "source": [ "obj-toggle-tilt-forward", 0 ]
+                    "midpoints": [ 379.5, 126.0, 29.5, 126.0 ],
+                    "source": [ "obj-msg-calibrate", 0 ]
                 }
             },
             {
                 "patchline": {
                     "destination": [ "obj-nodescript", 0 ],
-                    "source": [ "obj-prepend-enable-tilt-forward", 0 ]
-                }
-            },
-            {
-                "patchline": {
-                    "destination": [ "obj-prepend-sens-tilt-forward", 0 ],
-                    "source": [ "obj-dial-sens-tilt-forward", 0 ]
+                    "midpoints": [ 29.5, 117.0, 29.5, 117.0 ],
+                    "source": [ "obj-msg-connect", 0 ]
                 }
             },
             {
                 "patchline": {
                     "destination": [ "obj-nodescript", 0 ],
-                    "source": [ "obj-prepend-sens-tilt-forward", 0 ]
+                    "midpoints": [ 94.5, 117.0, 29.5, 117.0 ],
+                    "source": [ "obj-msg-disconnect", 0 ]
                 }
             },
             {
                 "patchline": {
-                    "destination": [ "obj-prepend-cool-tilt-forward", 0 ],
-                    "source": [ "obj-dial-cool-tilt-forward", 0 ]
+                    "destination": [ "obj-activity-led", 0 ],
+                    "midpoints": [ 364.5, 189.0, 297.0, 189.0, 297.0, 129.0, 306.0, 129.0, 306.0, 87.0, 319.5, 87.0 ],
+                    "source": [ "obj-msg-led-off", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-activity-led", 0 ],
+                    "midpoints": [ 319.5, 189.0, 297.0, 189.0, 297.0, 129.0, 306.0, 129.0, 306.0, 87.0, 319.5, 87.0 ],
+                    "source": [ "obj-msg-led-on", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-route-main", 0 ],
+                    "midpoints": [ 29.5, 153.0, 29.5, 153.0 ],
+                    "source": [ "obj-nodescript", 0 ]
                 }
             },
             {
                 "patchline": {
                     "destination": [ "obj-nodescript", 0 ],
+                    "midpoints": [ 610.5, 393.0, 504.0, 393.0, 504.0, 300.0, 456.0, 300.0, 456.0, 312.0, 408.0, 312.0, 408.0, 294.0, 204.0, 294.0, 204.0, 282.0, 102.0, 282.0, 102.0, 267.0, 6.0, 267.0, 6.0, 126.0, 29.5, 126.0 ],
+                    "source": [ "obj-prepend-cool-flip", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-nodescript", 0 ],
+                    "midpoints": [ 610.5, 300.0, 456.0, 300.0, 456.0, 312.0, 408.0, 312.0, 408.0, 294.0, 204.0, 294.0, 204.0, 282.0, 102.0, 282.0, 102.0, 267.0, 6.0, 267.0, 6.0, 126.0, 29.5, 126.0 ],
+                    "source": [ "obj-prepend-cool-shake", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-nodescript", 0 ],
+                    "midpoints": [ 610.5, 339.0, 504.0, 339.0, 504.0, 300.0, 456.0, 300.0, 456.0, 312.0, 408.0, 312.0, 408.0, 294.0, 204.0, 294.0, 204.0, 282.0, 102.0, 282.0, 102.0, 267.0, 6.0, 267.0, 6.0, 126.0, 29.5, 126.0 ],
+                    "source": [ "obj-prepend-cool-tap", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-nodescript", 0 ],
+                    "midpoints": [ 610.5, 624.0, 102.0, 624.0, 102.0, 597.0, 6.0, 597.0, 6.0, 126.0, 29.5, 126.0 ],
+                    "source": [ "obj-prepend-cool-tilt-back", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-nodescript", 0 ],
+                    "midpoints": [ 610.5, 576.0, 531.0, 576.0, 531.0, 624.0, 102.0, 624.0, 102.0, 597.0, 6.0, 597.0, 6.0, 126.0, 29.5, 126.0 ],
                     "source": [ "obj-prepend-cool-tilt-forward", 0 ]
                 }
             },
-
             {
                 "patchline": {
-                    "destination": [ "obj-prepend-enable-tilt-back", 0 ],
-                    "source": [ "obj-toggle-tilt-back", 0 ]
+                    "destination": [ "obj-nodescript", 0 ],
+                    "midpoints": [ 610.5, 450.0, 522.0, 450.0, 522.0, 312.0, 408.0, 312.0, 408.0, 294.0, 204.0, 294.0, 204.0, 282.0, 102.0, 282.0, 102.0, 267.0, 6.0, 267.0, 6.0, 126.0, 29.5, 126.0 ],
+                    "source": [ "obj-prepend-cool-tilt-left", 0 ]
                 }
             },
             {
                 "patchline": {
                     "destination": [ "obj-nodescript", 0 ],
+                    "midpoints": [ 610.5, 504.0, 528.0, 504.0, 528.0, 312.0, 408.0, 312.0, 408.0, 294.0, 204.0, 294.0, 204.0, 282.0, 102.0, 282.0, 102.0, 267.0, 6.0, 267.0, 6.0, 126.0, 29.5, 126.0 ],
+                    "source": [ "obj-prepend-cool-tilt-right", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-nodescript", 0 ],
+                    "midpoints": [ 124.5, 393.0, 102.0, 393.0, 102.0, 375.0, 6.0, 375.0, 6.0, 126.0, 29.5, 126.0 ],
+                    "source": [ "obj-prepend-enable-flip", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-nodescript", 0 ],
+                    "midpoints": [ 124.5, 285.0, 102.0, 285.0, 102.0, 267.0, 6.0, 267.0, 6.0, 126.0, 29.5, 126.0 ],
+                    "source": [ "obj-prepend-enable-shake", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-nodescript", 0 ],
+                    "midpoints": [ 124.5, 339.0, 102.0, 339.0, 102.0, 321.0, 6.0, 321.0, 6.0, 126.0, 29.5, 126.0 ],
+                    "source": [ "obj-prepend-enable-tap", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-nodescript", 0 ],
+                    "midpoints": [ 124.5, 615.0, 6.0, 615.0, 6.0, 126.0, 29.5, 126.0 ],
                     "source": [ "obj-prepend-enable-tilt-back", 0 ]
                 }
             },
             {
                 "patchline": {
-                    "destination": [ "obj-prepend-sens-tilt-back", 0 ],
-                    "source": [ "obj-dial-sens-tilt-back", 0 ]
+                    "destination": [ "obj-nodescript", 0 ],
+                    "midpoints": [ 124.5, 564.0, 102.0, 564.0, 102.0, 540.0, 6.0, 540.0, 6.0, 126.0, 29.5, 126.0 ],
+                    "source": [ "obj-prepend-enable-tilt-forward", 0 ]
                 }
             },
             {
                 "patchline": {
                     "destination": [ "obj-nodescript", 0 ],
+                    "midpoints": [ 124.5, 450.0, 102.0, 450.0, 102.0, 432.0, 6.0, 432.0, 6.0, 126.0, 29.5, 126.0 ],
+                    "source": [ "obj-prepend-enable-tilt-left", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-nodescript", 0 ],
+                    "midpoints": [ 124.5, 504.0, 102.0, 504.0, 102.0, 486.0, 6.0, 486.0, 6.0, 126.0, 29.5, 126.0 ],
+                    "source": [ "obj-prepend-enable-tilt-right", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-nodescript", 0 ],
+                    "midpoints": [ 326.5, 393.0, 285.0, 393.0, 285.0, 294.0, 204.0, 294.0, 204.0, 282.0, 102.0, 282.0, 102.0, 267.0, 6.0, 267.0, 6.0, 126.0, 29.5, 126.0 ],
+                    "source": [ "obj-prepend-sens-flip", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-nodescript", 0 ],
+                    "midpoints": [ 326.5, 294.0, 204.0, 294.0, 204.0, 282.0, 102.0, 282.0, 102.0, 267.0, 6.0, 267.0, 6.0, 126.0, 29.5, 126.0 ],
+                    "source": [ "obj-prepend-sens-shake", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-nodescript", 0 ],
+                    "midpoints": [ 326.5, 339.0, 285.0, 339.0, 285.0, 294.0, 204.0, 294.0, 204.0, 282.0, 102.0, 282.0, 102.0, 267.0, 6.0, 267.0, 6.0, 126.0, 29.5, 126.0 ],
+                    "source": [ "obj-prepend-sens-tap", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-nodescript", 0 ],
+                    "midpoints": [ 326.5, 624.0, 102.0, 624.0, 102.0, 597.0, 6.0, 597.0, 6.0, 126.0, 29.5, 126.0 ],
                     "source": [ "obj-prepend-sens-tilt-back", 0 ]
                 }
             },
             {
                 "patchline": {
-                    "destination": [ "obj-prepend-cool-tilt-back", 0 ],
-                    "source": [ "obj-dial-cool-tilt-back", 0 ]
+                    "destination": [ "obj-nodescript", 0 ],
+                    "midpoints": [ 425.5, 558.0, 324.0, 558.0, 324.0, 513.0, 300.0, 513.0, 300.0, 294.0, 204.0, 294.0, 204.0, 282.0, 102.0, 282.0, 102.0, 267.0, 6.0, 267.0, 6.0, 126.0, 29.5, 126.0 ],
+                    "source": [ "obj-prepend-sens-tilt-forward", 0 ]
                 }
             },
             {
                 "patchline": {
                     "destination": [ "obj-nodescript", 0 ],
-                    "source": [ "obj-prepend-cool-tilt-back", 0 ]
+                    "midpoints": [ 326.5, 450.0, 300.0, 450.0, 300.0, 294.0, 204.0, 294.0, 204.0, 282.0, 102.0, 282.0, 102.0, 267.0, 6.0, 267.0, 6.0, 126.0, 29.5, 126.0 ],
+                    "source": [ "obj-prepend-sens-tilt-left", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-nodescript", 0 ],
+                    "midpoints": [ 326.5, 504.0, 312.0, 504.0, 312.0, 459.0, 204.0, 459.0, 204.0, 447.0, 102.0, 447.0, 102.0, 432.0, 6.0, 432.0, 6.0, 126.0, 29.5, 126.0 ],
+                    "source": [ "obj-prepend-sens-tilt-right", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-led-flip", 0 ],
+                    "midpoints": [ 838.5, 348.0, 723.0, 348.0, 723.0, 339.0, 710.5, 339.0 ],
+                    "source": [ "obj-route-led", 2 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-led-shake", 0 ],
+                    "midpoints": [ 732.5, 240.0, 723.0, 240.0, 723.0, 252.0, 675.0, 252.0, 675.0, 213.0, 711.0, 213.0, 711.0, 228.0, 710.5, 228.0 ],
+                    "source": [ "obj-route-led", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-led-tap", 0 ],
+                    "midpoints": [ 785.5, 255.0, 801.0, 255.0, 801.0, 294.0, 723.0, 294.0, 723.0, 282.0, 710.5, 282.0 ],
+                    "source": [ "obj-route-led", 1 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-led-tilt-back", 0 ],
+                    "midpoints": [ 1050.5, 567.0, 723.0, 567.0, 723.0, 558.0, 710.5, 558.0 ],
+                    "source": [ "obj-route-led", 6 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-led-tilt-forward", 0 ],
+                    "midpoints": [ 997.5, 513.0, 723.0, 513.0, 723.0, 504.0, 710.5, 504.0 ],
+                    "source": [ "obj-route-led", 5 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-led-tilt-left", 0 ],
+                    "midpoints": [ 891.5, 402.0, 723.0, 402.0, 723.0, 393.0, 710.5, 393.0 ],
+                    "source": [ "obj-route-led", 3 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-led-tilt-right", 0 ],
+                    "midpoints": [ 944.5, 459.0, 723.0, 459.0, 723.0, 447.0, 710.5, 447.0 ],
+                    "source": [ "obj-route-led", 4 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-outlet-cal-status", 0 ],
+                    "midpoints": [ 744.4999999999998, 195.0, 666.0, 195.0, 666.0, 255.0, 825.0, 255.0, 825.0, 645.0, 689.5, 645.0 ],
+                    "source": [ "obj-route-main", 13 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-outlet-engine-status", 0 ],
+                    "midpoints": [ 139.49999999999997, 153.0, 6.0, 153.0, 6.0, 702.0, 117.0, 702.0, 117.0, 657.0, 139.5, 657.0 ],
+                    "order": 1,
+                    "source": [ "obj-route-main", 2 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-outlet-gesture", 0 ],
+                    "midpoints": [ 29.5, 195.0, 6.0, 195.0, 6.0, 657.0, 29.5, 657.0 ],
+                    "source": [ "obj-route-main", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-outlet-smooth-accel", 0 ],
+                    "midpoints": [ 194.49999999999994, 195.0, 240.0, 195.0, 240.0, 246.0, 303.0, 246.0, 303.0, 525.0, 324.0, 525.0, 324.0, 576.0, 300.0, 576.0, 300.0, 645.0, 249.5, 645.0 ],
+                    "source": [ "obj-route-main", 3 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-outlet-smooth-gyro", 0 ],
+                    "midpoints": [ 249.49999999999994, 246.0, 303.0, 246.0, 303.0, 525.0, 324.0, 525.0, 324.0, 576.0, 312.0, 576.0, 312.0, 645.0, 359.5, 645.0 ],
+                    "source": [ "obj-route-main", 4 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-outlet-smooth-orient", 0 ],
+                    "midpoints": [ 304.49999999999994, 207.0, 246.0, 207.0, 246.0, 246.0, 303.0, 246.0, 303.0, 525.0, 324.0, 525.0, 324.0, 576.0, 312.0, 576.0, 312.0, 645.0, 469.5, 645.0 ],
+                    "source": [ "obj-route-main", 5 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-route-led", 0 ],
+                    "midpoints": [ 84.49999999999999, 231.0, 102.0, 231.0, 102.0, 282.0, 303.0, 282.0, 303.0, 240.0, 417.0, 240.0, 417.0, 210.0, 732.5, 210.0 ],
+                    "source": [ "obj-route-main", 1 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-sel-active", 0 ],
+                    "midpoints": [ 139.49999999999997, 153.0, 306.0, 153.0, 306.0, 138.0, 319.5, 138.0 ],
+                    "order": 0,
+                    "source": [ "obj-route-main", 2 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-thru-status", 0 ],
+                    "midpoints": [ 689.4999999999998, 195.0, 689.4999999999998, 195.0 ],
+                    "source": [ "obj-route-main", 12 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-msg-led-off", 0 ],
+                    "midpoints": [ 365.0, 165.0, 364.5, 165.0 ],
+                    "source": [ "obj-sel-active", 1 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-msg-led-on", 0 ],
+                    "midpoints": [ 319.5, 165.0, 319.5, 165.0 ],
+                    "source": [ "obj-sel-active", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-delay-autocal", 0 ],
+                    "midpoints": [ 379.5, 63.0, 379.5, 63.0 ],
+                    "source": [ "obj-sel-connected", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-outlet-status", 0 ],
+                    "midpoints": [ 689.4999999999998, 255.0, 825.0, 255.0, 825.0, 645.0, 579.5, 645.0 ],
+                    "order": 0,
+                    "source": [ "obj-thru-status", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-sel-connected", 0 ],
+                    "midpoints": [ 702.4999999999998, 240.0, 666.0, 240.0, 666.0, 195.0, 984.0, 195.0, 984.0, 24.0, 379.5, 24.0 ],
+                    "source": [ "obj-thru-status", 1 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-status-display", 1 ],
+                    "midpoints": [ 689.4999999999998, 240.0, 666.0, 240.0, 666.0, 195.0, 984.0, 195.0, 984.0, 123.0, 291.0, 123.0, 291.0, 87.0, 280.5, 87.0 ],
+                    "order": 1,
+                    "source": [ "obj-thru-status", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-prepend-enable-flip", 0 ],
+                    "midpoints": [ 124.5, 369.0, 124.5, 369.0 ],
+                    "source": [ "obj-toggle-flip", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-prepend-enable-shake", 0 ],
+                    "midpoints": [ 124.5, 258.0, 124.5, 258.0 ],
+                    "source": [ "obj-toggle-shake", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-prepend-enable-tap", 0 ],
+                    "midpoints": [ 124.5, 315.0, 124.5, 315.0 ],
+                    "source": [ "obj-toggle-tap", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-prepend-enable-tilt-back", 0 ],
+                    "midpoints": [ 124.5, 588.0, 124.5, 588.0 ],
+                    "source": [ "obj-toggle-tilt-back", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-prepend-enable-tilt-forward", 0 ],
+                    "midpoints": [ 124.5, 534.0, 124.5, 534.0 ],
+                    "source": [ "obj-toggle-tilt-forward", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-prepend-enable-tilt-left", 0 ],
+                    "midpoints": [ 124.5, 423.0, 124.5, 423.0 ],
+                    "source": [ "obj-toggle-tilt-left", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-prepend-enable-tilt-right", 0 ],
+                    "midpoints": [ 124.5, 480.0, 124.5, 480.0 ],
+                    "source": [ "obj-toggle-tilt-right", 0 ]
                 }
             }
         ],
         "parameters": {
+            "obj-dial-cool-flip": [ "flip_cooldown", "flip_cd", 0 ],
+            "obj-dial-cool-shake": [ "shake_cooldown", "shake_cd", 0 ],
+            "obj-dial-cool-tap": [ "tap_cooldown", "tap_cd", 0 ],
+            "obj-dial-cool-tilt-back": [ "tilt_back_cooldown", "tb_cd", 0 ],
+            "obj-dial-cool-tilt-forward": [ "tilt_forward_cooldown", "tf_cd", 0 ],
+            "obj-dial-cool-tilt-left": [ "tilt_left_cooldown", "tl_cd", 0 ],
+            "obj-dial-cool-tilt-right": [ "tilt_right_cooldown", "tr_cd", 0 ],
+            "obj-dial-sens-flip": [ "flip_sensitivity", "flip_sens", 0 ],
+            "obj-dial-sens-shake": [ "shake_sensitivity", "shake_sens", 0 ],
+            "obj-dial-sens-tap": [ "tap_sensitivity", "tap_sens", 0 ],
+            "obj-dial-sens-tilt-back": [ "tilt_back_sensitivity", "tb_sens", 0 ],
+            "obj-dial-sens-tilt-forward": [ "tilt_forward_sensitivity", "tf_sens", 0 ],
+            "obj-dial-sens-tilt-left": [ "tilt_left_sensitivity", "tl_sens", 0 ],
+            "obj-dial-sens-tilt-right": [ "tilt_right_sensitivity", "tr_sens", 0 ],
+            "obj-toggle-flip": [ "flip_enable", "flip_en", 0 ],
+            "obj-toggle-shake": [ "shake_enable", "shake_en", 0 ],
+            "obj-toggle-tap": [ "tap_enable", "tap_en", 0 ],
+            "obj-toggle-tilt-back": [ "tilt_back_enable", "tb_en", 0 ],
+            "obj-toggle-tilt-forward": [ "tilt_forward_enable", "tf_en", 0 ],
+            "obj-toggle-tilt-left": [ "tilt_left_enable", "tl_en", 0 ],
+            "obj-toggle-tilt-right": [ "tilt_right_enable", "tr_en", 0 ],
             "parameterbanks": {
                 "0": {
                     "index": 0,
                     "name": "",
-                    "parameters": [
-                        "shake_enable",
-                        "shake_sensitivity",
-                        "shake_cooldown",
-                        "tap_enable",
-                        "tap_sensitivity",
-                        "tap_cooldown",
-                        "flip_enable",
-                        "flip_sensitivity",
-                        "flip_cooldown",
-                        "tilt_left_enable",
-                        "tilt_left_sensitivity",
-                        "tilt_left_cooldown",
-                        "tilt_right_enable",
-                        "tilt_right_sensitivity",
-                        "tilt_right_cooldown",
-                        "tilt_forward_enable",
-                        "tilt_forward_sensitivity",
-                        "tilt_forward_cooldown",
-                        "tilt_back_enable",
-                        "tilt_back_sensitivity",
-                        "tilt_back_cooldown"
-                    ]
+                    "parameters": [ "shake_enable", "shake_sensitivity", "shake_cooldown", "tap_enable", "tap_sensitivity", "tap_cooldown", "flip_enable", "flip_sensitivity" ],
+                    "buttons": [ "-", "-", "-", "-", "-", "-", "-", "-" ]
                 }
-            }
+            },
+            "inherited_shortname": 1
         },
-        "dependency_cache": [],
         "autosave": 0
     }
 }

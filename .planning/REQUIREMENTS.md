@@ -58,7 +58,7 @@ Requirements for gesture recognition and mapping milestone. Each maps to roadmap
 
 ### Dual Implementation
 
-- [ ] **IMPL-01**: imu-gesture.maxpat wraps gesture-engine.js with clean inlet/outlet interface
+- [x] **IMPL-01**: imu-gesture.maxpat wraps gesture-engine.js with clean inlet/outlet interface
 - [ ] **IMPL-02**: imu-gesture-max.maxpat provides equivalent functionality using pure MAX/MSP objects
 - [ ] **IMPL-03**: Both implementations share the same outlet interface (gestures, DTW matches, position, status)
 - [ ] **IMPL-04**: Help patch documents gesture abstraction usage with example recipes
@@ -121,7 +121,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | GEST-07 | Phase 7 | Complete |
 | GEST-08 | Phase 7 | Complete |
 | GEST-09 | Phase 7 | Complete |
-| IMPL-01 | Phase 7 | Pending |
+| IMPL-01 | Phase 7 | Complete |
 | DTW-01 | Phase 8 | Pending |
 | DTW-02 | Phase 8 | Pending |
 | DTW-03 | Phase 8 | Pending |
