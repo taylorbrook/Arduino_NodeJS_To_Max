@@ -9,7 +9,7 @@
 
 #include "SparkFunLSM6DS3.h"
 #include "SPI.h"
-#include <MadgwickAHRS.h>
+#include "MadgwickLocal.h"
 
 // ---- WiFi Support (optional) ----
 // If arduino_secrets.h exists, WiFi UDP is enabled alongside USB serial.
@@ -34,7 +34,7 @@ const char FIRMWARE_VERSION[] = "1.1";
 
 // ---- Global Objects ----
 LSM6DS3 myIMU(SPI_MODE, SPIIMU_SS);   // SPI mode with board chip select
-Madgwick filter;
+MadgwickLocal filter;
 
 #ifdef WIFI_ENABLED
 // ---- WiFi Configuration ----
@@ -50,7 +50,7 @@ const int DEST_PORT = 8889;
 
 WiFiUDP udp;
 bool wifiConnected = false;
-char csvBuffer[128];
+char csvBuffer[160];
 #endif
 
 // ---- Smoothing State ----
@@ -169,7 +169,7 @@ void printStartup() {
   Serial.print(",wifi=");
   Serial.print(wifiConnected ? "connected" : "failed");
 #endif
-  Serial.println(",format=ax,ay,az,gx,gy,gz,pitch,roll,yaw");
+  Serial.println(",format=ax,ay,az,gx,gy,gz,pitch,roll,yaw,qw,qx,qy,qz");
 }
 
 // ============================================================
@@ -206,8 +206,12 @@ void loop() {
   if (smoothYaw < 0) smoothYaw += 360.0;
   if (smoothYaw >= 360.0) smoothYaw -= 360.0;
 
-  // ---- Output CSV: raw accel, raw gyro, smoothed orientation ----
-  // ~63 bytes per line at 2 decimal places
+  // ---- Extract quaternion from filter ----
+  float qw, qx, qy, qz;
+  filter.getQuaternion(&qw, &qx, &qy, &qz);
+
+  // ---- Output CSV: raw accel, raw gyro, smoothed orientation, quaternion ----
+  // 13 fields: ax,ay,az,gx,gy,gz,pitch,roll,yaw,qw,qx,qy,qz
   Serial.print(ax, 2); Serial.print(',');
   Serial.print(ay, 2); Serial.print(',');
   Serial.print(az, 2); Serial.print(',');
@@ -216,14 +220,18 @@ void loop() {
   Serial.print(gz, 2); Serial.print(',');
   Serial.print(smoothPitch, 2); Serial.print(',');
   Serial.print(smoothRoll, 2); Serial.print(',');
-  Serial.println(smoothYaw, 2);
+  Serial.print(smoothYaw, 2); Serial.print(',');
+  Serial.print(qw, 4); Serial.print(',');
+  Serial.print(qx, 4); Serial.print(',');
+  Serial.print(qy, 4); Serial.print(',');
+  Serial.println(qz, 4);
 
   // ---- Send same CSV over WiFi UDP (additive, does not affect USB serial) ----
 #ifdef WIFI_ENABLED
   if (wifiConnected) {
     int len = snprintf(csvBuffer, sizeof(csvBuffer),
-      "%.2f,%.2f,%.2f,%.2f,%.2f,%.2f,%.2f,%.2f,%.2f",
-      ax, ay, az, gx, gy, gz, smoothPitch, smoothRoll, smoothYaw);
+      "%.2f,%.2f,%.2f,%.2f,%.2f,%.2f,%.2f,%.2f,%.2f,%.4f,%.4f,%.4f,%.4f",
+      ax, ay, az, gx, gy, gz, smoothPitch, smoothRoll, smoothYaw, qw, qx, qy, qz);
     udp.beginPacket(destIP, DEST_PORT);
     udp.write((uint8_t*)csvBuffer, len);
     udp.endPacket();
