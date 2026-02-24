@@ -13,10 +13,12 @@ var maxAPI = require("max-api");
 var SerialPort = require("serialport").SerialPort;
 var ReadlineParser = require("@serialport/parser-readline").ReadlineParser;
 var dgram = require("dgram");
+var fs = require("fs");
 
 // ---- Configuration Constants ----
 var BAUD_RATE = 57600;
-var EXPECTED_FIELDS = 9;
+var EXPECTED_FIELDS_MIN = 9;
+var EXPECTED_FIELDS_MAX = 13;
 var RECONNECT_INTERVAL_MS = 2000;
 
 // ---- Normalization Ranges ----
@@ -148,9 +150,9 @@ function validateLine(line) {
     return null;
   }
 
-  // Check field count
+  // Check field count (9 standard, 10-13 with quaternion)
   var parts = line.split(",");
-  if (parts.length !== EXPECTED_FIELDS) {
+  if (parts.length < EXPECTED_FIELDS_MIN || parts.length > EXPECTED_FIELDS_MAX) {
     return null;
   }
 
@@ -561,6 +563,11 @@ function processFrame(values) {
   maxAPI.outlet("gyro", gx, gy, gz);
   maxAPI.outlet("orientation", pitch, roll, yaw);
 
+  // Quaternion outlet (13-field CSV)
+  if (values.length >= 13) {
+    maxAPI.outlet("quaternion", values[9], values[10], values[11], values[12]);
+  }
+
   // Collect calibration sample if calibrating
   if (isCalibrating) {
     collectSample(ax, ay, az, gx, gy, gz);
@@ -623,6 +630,27 @@ function processFrame(values) {
       detectTap(cal);
       detectFlip(cal);
       detectTilts({ pitch: sp, roll: sr, yaw: sy });
+    }
+
+    // Push calibrated frame to DTW buffer
+    var calValues = [cal.ax, cal.ay, cal.az, cal.gx, cal.gy, cal.gz, orient.pitch, orient.roll, orient.yaw];
+    if (values.length >= 13) {
+      calValues.push(values[9], values[10], values[11], values[12]);
+    }
+    pushDTWFrame(calValues);
+
+    // Record DTW frame if recording active
+    if (dtwRecordState === "recording") {
+      recordDTWFrame(calValues);
+    }
+
+    // Decimated DTW matching
+    dtwMatchCounter++;
+    if (dtwMatchCounter >= DTW_MATCH_EVERY) {
+      dtwMatchCounter = 0;
+      if (dtwRecordState === "idle") {
+        scheduleDTWMatch();
+      }
     }
 
   } else if (orientOffset !== null) {
@@ -930,6 +958,632 @@ maxAPI.addHandler("gesture_cooldown", function (name, val) {
     gestureCooldown[name] = val;
     maxAPI.post("[gesture-engine] " + name + " cooldown=" + val + "ms");
   }
+});
+
+// ============================================================
+// DTW SUBSYSTEM
+// Custom gesture recording, DTW matching, template management,
+// axis auto-detection, null rejection, and save/load
+// ============================================================
+
+// ---- DTW State Variables ----
+var dtwSlots = {};           // slotId -> { name, label, enabled, threshold, cooldown, activeAxes, nullRejectionCoeff, bandRadius, lastFireTime, matchMode }
+var dtwTemplates = {};       // slotId -> { template, examples, trainingMu, trainingSigma, rejectionThreshold, lastConfidence }
+var dtwRecording = null;     // { slotId, buffer, mode, startTime, duration }
+var dtwRecordState = "idle"; // "idle" | "recording" | "captured"
+var dtwMatchCounter = 0;
+var DTW_MATCH_EVERY = 5;     // ~22Hz at 114Hz input
+var dtwMatchMode = "best";   // "best" or "all"
+var dtwContinuousStream = false;
+var dtwNextSlotId = 1;
+var DTW_BUFFER_SIZE = 256;   // ~2.25s at 114Hz for DTW candidate window
+var dtwBuffer = [];          // separate circular buffer for DTW (longer than gesture buffer)
+var dtwBufferIndex = 0;
+
+// ---- setImmediate polyfill for Node for Max ----
+var _setImmediate = (typeof setImmediate === "function") ? setImmediate : function(fn) { setTimeout(fn, 0); };
+
+// ============================================================
+// DTW Circular Buffer
+// Separate from the 64-frame gesture buffer (256 frames, ~2.25s)
+// ============================================================
+
+function pushDTWFrame(frame) {
+  if (dtwBuffer.length < DTW_BUFFER_SIZE) {
+    dtwBuffer.push(frame);
+  } else {
+    dtwBuffer[dtwBufferIndex] = frame;
+  }
+  dtwBufferIndex = (dtwBufferIndex + 1) % DTW_BUFFER_SIZE;
+}
+
+function getDTWFrame(framesAgo) {
+  if (framesAgo >= dtwBuffer.length) return null;
+  var idx = (dtwBufferIndex - 1 - framesAgo + DTW_BUFFER_SIZE) % DTW_BUFFER_SIZE;
+  return dtwBuffer[idx < 0 ? idx + DTW_BUFFER_SIZE : idx];
+}
+
+function getDTWWindow(length) {
+  var window = [];
+  var available = Math.min(length, dtwBuffer.length);
+  for (var i = available - 1; i >= 0; i--) {
+    var frame = getDTWFrame(i);
+    if (frame) window.push(frame);
+  }
+  return window;
+}
+
+// ============================================================
+// DTW Recording State Machine
+// Supports timed window and toggle modes
+// ============================================================
+
+function startDTWRecording(slotId, mode, duration) {
+  // Create slot if doesn't exist
+  if (!dtwSlots[slotId]) {
+    dtwSlots[slotId] = {
+      name: "gesture-" + slotId,
+      label: "",
+      enabled: true,
+      threshold: 0.6,
+      cooldown: 500,
+      activeAxes: ["ax", "ay", "az", "gx", "gy", "gz"],
+      nullRejectionCoeff: 3.0,
+      bandRadius: 0.1,
+      lastFireTime: 0,
+      matchMode: "best"
+    };
+    dtwTemplates[slotId] = { template: null, examples: [], trainingMu: 0, trainingSigma: 0, rejectionThreshold: 0, lastConfidence: 0 };
+  }
+  dtwRecordState = "recording";
+  dtwRecording = {
+    slotId: slotId,
+    buffer: [],
+    mode: mode || "timed",
+    startTime: Date.now(),
+    duration: duration || 2000
+  };
+  maxAPI.outlet("dtw_record_status", "recording", slotId);
+  maxAPI.post("[gesture-engine] DTW recording started for slot " + slotId + " (" + (mode || "timed") + ")");
+}
+
+function stopDTWRecording() {
+  if (dtwRecordState !== "recording" || !dtwRecording) return;
+  dtwRecordState = "captured";
+  var example = dtwRecording.buffer.slice();
+  var slotId = dtwRecording.slotId;
+  addExampleToSlot(slotId, example);
+  maxAPI.outlet("dtw_record_status", "captured", slotId, example.length);
+  maxAPI.post("[gesture-engine] DTW recorded " + example.length + " frames for slot " + slotId +
+              " (example " + dtwTemplates[slotId].examples.length + ")");
+  dtwRecording = null;
+  // Return to idle after a short delay (let MAX process the captured message)
+  setTimeout(function() { dtwRecordState = "idle"; }, 100);
+}
+
+function recordDTWFrame(frame) {
+  if (dtwRecordState !== "recording" || !dtwRecording) return;
+  // Store frame as object with named axes for DTW matching
+  var namedFrame = {
+    ax: frame[0], ay: frame[1], az: frame[2],
+    gx: frame[3], gy: frame[4], gz: frame[5],
+    pitch: frame[6], roll: frame[7], yaw: frame[8]
+  };
+  // Add quaternion if available (13-field CSV)
+  if (frame.length >= 13) {
+    namedFrame.q0 = frame[9];
+    namedFrame.q1 = frame[10];
+    namedFrame.q2 = frame[11];
+    namedFrame.q3 = frame[12];
+  }
+  dtwRecording.buffer.push(namedFrame);
+  maxAPI.outlet("dtw_record_progress", dtwRecording.buffer.length);
+
+  // Auto-stop for timed mode
+  if (dtwRecording.mode === "timed" &&
+      Date.now() - dtwRecording.startTime >= dtwRecording.duration) {
+    stopDTWRecording();
+  }
+}
+
+// ============================================================
+// Template Management
+// Best-representative selection from multiple examples
+// ============================================================
+
+function addExampleToSlot(slotId, example) {
+  if (!dtwTemplates[slotId]) {
+    dtwTemplates[slotId] = { template: null, examples: [], trainingMu: 0, trainingSigma: 0, rejectionThreshold: 0, lastConfidence: 0 };
+  }
+  dtwTemplates[slotId].examples.push(example);
+  // Recompute template and stats if 2+ examples
+  if (dtwTemplates[slotId].examples.length >= 2) {
+    computeTemplateAndStats(slotId);
+  } else {
+    // With just 1 example, use it directly as template (no null rejection yet)
+    dtwTemplates[slotId].template = example;
+    dtwTemplates[slotId].rejectionThreshold = 0; // disabled until 2+ examples
+  }
+  maxAPI.outlet("dtw_slot_info", slotId, dtwSlots[slotId].name, dtwTemplates[slotId].examples.length);
+}
+
+function computeTemplateAndStats(slotId) {
+  var examples = dtwTemplates[slotId].examples;
+  if (examples.length < 2) return;
+
+  var slot = dtwSlots[slotId];
+  var axes = slot.activeAxes;
+  var bandRadius = slot.bandRadius || 0.1;
+
+  // Auto-detect axes if this is the first computation
+  if (!slot._axesManuallySet) {
+    var detected = autoDetectAxes(examples);
+    slot.activeAxes = detected;
+    axes = detected;
+    maxAPI.outlet("dtw_axes_detected", slotId, axes.join(" "));
+    maxAPI.post("[gesture-engine] Auto-detected axes for slot " + slotId + ": " + axes.join(","));
+  }
+
+  // Compute pairwise DTW distances
+  var distances = [];
+  var avgDistances = new Array(examples.length).fill(0);
+  for (var i = 0; i < examples.length; i++) {
+    for (var j = i + 1; j < examples.length; j++) {
+      var d = dtwDistance(examples[i], examples[j], axes, bandRadius);
+      distances.push(d);
+      avgDistances[i] += d;
+      avgDistances[j] += d;
+    }
+  }
+
+  // Select best representative (lowest average distance to all others)
+  for (var i = 0; i < avgDistances.length; i++) {
+    avgDistances[i] /= (examples.length - 1);
+  }
+  var bestIdx = 0;
+  var bestDist = avgDistances[0];
+  for (var i = 1; i < avgDistances.length; i++) {
+    if (avgDistances[i] < bestDist) {
+      bestDist = avgDistances[i];
+      bestIdx = i;
+    }
+  }
+  dtwTemplates[slotId].template = examples[bestIdx];
+
+  // Compute training statistics for null rejection
+  var mu = 0;
+  for (var i = 0; i < distances.length; i++) mu += distances[i];
+  mu /= distances.length;
+
+  var variance = 0;
+  for (var i = 0; i < distances.length; i++) {
+    variance += (distances[i] - mu) * (distances[i] - mu);
+  }
+  variance /= distances.length;
+  var sigma = Math.sqrt(variance);
+
+  dtwTemplates[slotId].trainingMu = mu;
+  dtwTemplates[slotId].trainingSigma = sigma;
+  // With exactly 2 examples, sigma may be very small -- use wider coefficient
+  var coeff = examples.length <= 2 ? 5.0 : (slot.nullRejectionCoeff || 3.0);
+  dtwTemplates[slotId].rejectionThreshold = mu + coeff * sigma;
+
+  maxAPI.post("[gesture-engine] Slot " + slotId + " template computed: mu=" +
+              mu.toFixed(3) + " sigma=" + sigma.toFixed(3) +
+              " threshold=" + dtwTemplates[slotId].rejectionThreshold.toFixed(3));
+}
+
+// ============================================================
+// DTW Distance with Sakoe-Chiba Band
+// Multi-dimensional Euclidean distance, normalized by path length
+// ============================================================
+
+function dtwDistance(seq1, seq2, activeAxes, bandRadius) {
+  var n = seq1.length;
+  var m = seq2.length;
+  var band = Math.max(1, Math.round(bandRadius * Math.max(n, m)));
+
+  // Initialize cost matrix with Infinity
+  var cost = [];
+  for (var i = 0; i <= n; i++) {
+    cost[i] = new Array(m + 1).fill(Infinity);
+  }
+  cost[0][0] = 0;
+
+  for (var i = 1; i <= n; i++) {
+    var jCenter = Math.round(i * m / n);
+    var jStart = Math.max(1, jCenter - band);
+    var jEnd = Math.min(m, jCenter + band);
+
+    for (var j = jStart; j <= jEnd; j++) {
+      // Multi-dimensional Euclidean distance
+      var d = 0;
+      for (var k = 0; k < activeAxes.length; k++) {
+        var axis = activeAxes[k];
+        var v1 = seq1[i - 1][axis] || 0;
+        var v2 = seq2[j - 1][axis] || 0;
+        var diff = v1 - v2;
+        d += diff * diff;
+      }
+      d = Math.sqrt(d);
+
+      cost[i][j] = d + Math.min(
+        cost[i - 1][j],
+        cost[i][j - 1],
+        cost[i - 1][j - 1]
+      );
+    }
+  }
+
+  // Normalize by path length
+  return cost[n][m] / (n + m);
+}
+
+// ============================================================
+// Variance-Based Axis Auto-Detection
+// Selects axes with significant variance across recorded examples
+// ============================================================
+
+function autoDetectAxes(examples) {
+  var allAxes = ["ax", "ay", "az", "gx", "gy", "gz", "pitch", "roll", "yaw", "q0", "q1", "q2", "q3"];
+  var variances = {};
+
+  allAxes.forEach(function(axis) {
+    var values = [];
+    examples.forEach(function(ex) {
+      ex.forEach(function(frame) {
+        if (frame[axis] !== undefined) values.push(frame[axis]);
+      });
+    });
+    if (values.length === 0) { variances[axis] = 0; return; }
+
+    var mean = 0;
+    for (var i = 0; i < values.length; i++) mean += values[i];
+    mean /= values.length;
+
+    var v = 0;
+    for (var i = 0; i < values.length; i++) {
+      v += (values[i] - mean) * (values[i] - mean);
+    }
+    variances[axis] = v / values.length;
+  });
+
+  var maxVar = 0;
+  var keys = Object.keys(variances);
+  for (var i = 0; i < keys.length; i++) {
+    if (variances[keys[i]] > maxVar) maxVar = variances[keys[i]];
+  }
+  var threshold = maxVar * 0.1;
+
+  var selected = allAxes.filter(function(axis) {
+    return variances[axis] > threshold;
+  });
+
+  // Ensure at least 3 axes
+  if (selected.length < 3) {
+    var sorted = allAxes.slice().sort(function(a, b) {
+      return (variances[b] || 0) - (variances[a] || 0);
+    });
+    selected = sorted.slice(0, 3);
+  }
+
+  return selected;
+}
+
+// ============================================================
+// Decimated Real-Time DTW Matching
+// Processes one template per event loop tick via setImmediate
+// ============================================================
+
+var dtwPendingResults = {};
+
+function scheduleDTWMatch() {
+  var slotIds = Object.keys(dtwSlots).filter(function(id) {
+    return dtwSlots[id].enabled && dtwTemplates[id] && dtwTemplates[id].template;
+  });
+  if (slotIds.length === 0) return;
+
+  // Get candidate window from DTW buffer
+  // Use window sized to ~1.5x the longest template
+  var maxLen = 0;
+  for (var i = 0; i < slotIds.length; i++) {
+    var tLen = dtwTemplates[slotIds[i]].template.length;
+    if (tLen > maxLen) maxLen = tLen;
+  }
+  var windowSize = Math.min(DTW_BUFFER_SIZE, Math.round(maxLen * 1.5));
+  var candidate = getDTWWindow(windowSize);
+  if (candidate.length < 20) return; // not enough data
+
+  // Convert candidate frames to named-axis objects (DTW buffer stores calibrated arrays)
+  var namedCandidate = candidate.map(function(frame) {
+    var obj = {
+      ax: frame[0], ay: frame[1], az: frame[2],
+      gx: frame[3], gy: frame[4], gz: frame[5],
+      pitch: frame[6], roll: frame[7], yaw: frame[8]
+    };
+    if (frame.length >= 13) {
+      obj.q0 = frame[9]; obj.q1 = frame[10];
+      obj.q2 = frame[11]; obj.q3 = frame[12];
+    }
+    return obj;
+  });
+
+  dtwPendingResults = {};
+  var startTime = Date.now();
+  processNextTemplate(slotIds, 0, namedCandidate, startTime);
+}
+
+function processNextTemplate(slotIds, idx, candidate, startTime) {
+  if (idx >= slotIds.length) {
+    emitDTWResults();
+    // Performance guard
+    var elapsed = Date.now() - startTime;
+    if (elapsed > 20) {
+      maxAPI.post("[gesture-engine] DTW cycle took " + elapsed + "ms -- consider reducing gesture count");
+    }
+    return;
+  }
+
+  var slotId = slotIds[idx];
+  var template = dtwTemplates[slotId].template;
+  var axes = dtwSlots[slotId].activeAxes;
+  var bandRadius = dtwSlots[slotId].bandRadius || 0.1;
+
+  // Check length ratio -- skip if too extreme (>3:1)
+  var ratio = candidate.length / template.length;
+  if (ratio > 3 || ratio < 0.33) {
+    dtwPendingResults[slotId] = 0;
+    _setImmediate(function() { processNextTemplate(slotIds, idx + 1, candidate, startTime); });
+    return;
+  }
+
+  var distance = dtwDistance(candidate, template, axes, bandRadius);
+  var threshold = dtwTemplates[slotId].rejectionThreshold;
+
+  var confidence;
+  if (threshold <= 0) {
+    // No rejection threshold (single example) -- use raw distance inverse
+    confidence = Math.max(0, 1.0 - distance / 2.0);
+  } else {
+    confidence = threshold > 0 ? Math.max(0, 1.0 - distance / threshold) : 0;
+  }
+
+  dtwPendingResults[slotId] = confidence;
+  dtwTemplates[slotId].lastConfidence = confidence;
+
+  // Yield to event loop between templates
+  _setImmediate(function() {
+    processNextTemplate(slotIds, idx + 1, candidate, startTime);
+  });
+}
+
+function emitDTWResults() {
+  var now = Date.now();
+  var bestSlot = null;
+  var bestConf = 0;
+
+  var slotIds = Object.keys(dtwPendingResults);
+  for (var i = 0; i < slotIds.length; i++) {
+    var slotId = slotIds[i];
+    var conf = dtwPendingResults[slotId];
+    var slot = dtwSlots[slotId];
+
+    // Continuous confidence stream (if enabled)
+    if (dtwContinuousStream) {
+      maxAPI.outlet("dtw_confidence", slotId, slot.name, conf.toFixed(3));
+    }
+
+    // Check if above user threshold and not in cooldown
+    if (conf >= slot.threshold && (now - slot.lastFireTime) >= slot.cooldown) {
+      if (dtwMatchMode === "all") {
+        // Fire all above threshold
+        maxAPI.outlet("dtw_match", slot.name, conf.toFixed(3));
+        slot.lastFireTime = now;
+      } else {
+        // Track best
+        if (conf > bestConf) {
+          bestConf = conf;
+          bestSlot = slotId;
+        }
+      }
+    }
+  }
+
+  // In "best" mode, fire only the best match
+  if (dtwMatchMode === "best" && bestSlot !== null) {
+    var slot = dtwSlots[bestSlot];
+    maxAPI.outlet("dtw_match", slot.name, bestConf.toFixed(3));
+    slot.lastFireTime = now;
+  }
+}
+
+// ============================================================
+// DTW Save/Load Handlers
+// JSON library persistence for gesture templates
+// ============================================================
+
+maxAPI.addHandler("dtw_save", function(filepath) {
+  var library = {
+    version: 1,
+    created: new Date().toISOString(),
+    description: "",
+    slots: {}
+  };
+
+  Object.keys(dtwSlots).forEach(function(id) {
+    library.slots[id] = {
+      name: dtwSlots[id].name,
+      label: dtwSlots[id].label,
+      enabled: dtwSlots[id].enabled,
+      threshold: dtwSlots[id].threshold,
+      cooldown: dtwSlots[id].cooldown,
+      activeAxes: dtwSlots[id].activeAxes,
+      nullRejectionCoeff: dtwSlots[id].nullRejectionCoeff,
+      bandRadius: dtwSlots[id].bandRadius,
+      template: dtwTemplates[id] ? dtwTemplates[id].template : null,
+      examples: dtwTemplates[id] ? dtwTemplates[id].examples : [],
+      trainingMu: dtwTemplates[id] ? dtwTemplates[id].trainingMu : 0,
+      trainingSigma: dtwTemplates[id] ? dtwTemplates[id].trainingSigma : 0,
+      rejectionThreshold: dtwTemplates[id] ? dtwTemplates[id].rejectionThreshold : 0
+    };
+  });
+
+  // Truncate template values to 3 decimal places for file size reduction
+  var json = JSON.stringify(library, function(key, val) {
+    return typeof val === "number" ? Math.round(val * 1000) / 1000 : val;
+  }, 2);
+
+  fs.writeFileSync(filepath, json);
+  maxAPI.outlet("dtw_status", "saved", filepath);
+  maxAPI.post("[gesture-engine] DTW library saved to " + filepath);
+});
+
+maxAPI.addHandler("dtw_load", function(filepath) {
+  try {
+    var data = JSON.parse(fs.readFileSync(filepath, "utf8"));
+    if (data.version !== 1) {
+      maxAPI.post("[gesture-engine] Unsupported library version: " + data.version);
+      return;
+    }
+    dtwSlots = {};
+    dtwTemplates = {};
+    dtwNextSlotId = 1;
+    Object.keys(data.slots).forEach(function(id) {
+      var s = data.slots[id];
+      dtwSlots[id] = {
+        name: s.name, label: s.label || "", enabled: s.enabled,
+        threshold: s.threshold, cooldown: s.cooldown,
+        activeAxes: s.activeAxes,
+        nullRejectionCoeff: s.nullRejectionCoeff || 3.0,
+        bandRadius: s.bandRadius || 0.1,
+        lastFireTime: 0, matchMode: "best",
+        _axesManuallySet: true  // loaded axes are intentional
+      };
+      dtwTemplates[id] = {
+        template: s.template, examples: s.examples || [],
+        trainingMu: s.trainingMu || 0, trainingSigma: s.trainingSigma || 0,
+        rejectionThreshold: s.rejectionThreshold || 0,
+        lastConfidence: 0
+      };
+      var numId = parseInt(id);
+      if (numId >= dtwNextSlotId) dtwNextSlotId = numId + 1;
+    });
+    maxAPI.outlet("dtw_status", "loaded", filepath);
+    maxAPI.outlet("dtw_library_info", Object.keys(dtwSlots).length);
+    maxAPI.post("[gesture-engine] DTW library loaded: " + Object.keys(dtwSlots).length + " gestures from " + filepath);
+  } catch (e) {
+    maxAPI.post("[gesture-engine] Load error: " + e.message);
+    maxAPI.outlet("dtw_status", "error", e.message);
+  }
+});
+
+// ============================================================
+// DTW MAX Message Handlers
+// Recording, slot management, configuration
+// ============================================================
+
+maxAPI.addHandler("dtw_record_start", function(slotId, mode, duration) {
+  if (!slotId) slotId = dtwNextSlotId;
+  startDTWRecording(slotId, mode || "timed", duration || 2000);
+});
+
+maxAPI.addHandler("dtw_record_stop", function() {
+  stopDTWRecording();
+});
+
+maxAPI.addHandler("dtw_delete", function(slotId) {
+  if (dtwSlots[slotId]) {
+    delete dtwSlots[slotId];
+    delete dtwTemplates[slotId];
+    maxAPI.outlet("dtw_status", "deleted", slotId);
+    maxAPI.post("[gesture-engine] Deleted DTW slot " + slotId);
+  }
+});
+
+maxAPI.addHandler("dtw_enable", function(slotId, enabled) {
+  if (dtwSlots[slotId]) {
+    dtwSlots[slotId].enabled = enabled ? true : false;
+  }
+});
+
+maxAPI.addHandler("dtw_threshold", function(slotId, value) {
+  if (dtwSlots[slotId]) {
+    dtwSlots[slotId].threshold = parseFloat(value) || 0.6;
+  }
+});
+
+maxAPI.addHandler("dtw_cooldown", function(slotId, value) {
+  if (dtwSlots[slotId]) {
+    dtwSlots[slotId].cooldown = parseInt(value) || 500;
+  }
+});
+
+maxAPI.addHandler("dtw_name", function(slotId, name) {
+  if (dtwSlots[slotId]) {
+    dtwSlots[slotId].name = name || ("gesture-" + slotId);
+  }
+});
+
+maxAPI.addHandler("dtw_label", function(slotId, label) {
+  if (dtwSlots[slotId]) {
+    dtwSlots[slotId].label = label || "";
+  }
+});
+
+maxAPI.addHandler("dtw_axes", function(slotId) {
+  // Remaining args are axis names
+  if (dtwSlots[slotId]) {
+    var axes = Array.prototype.slice.call(arguments, 1);
+    if (axes.length > 0) {
+      dtwSlots[slotId].activeAxes = axes;
+      dtwSlots[slotId]._axesManuallySet = true;
+    }
+  }
+});
+
+maxAPI.addHandler("dtw_axes_auto", function(slotId) {
+  if (dtwSlots[slotId] && dtwTemplates[slotId] && dtwTemplates[slotId].examples.length > 0) {
+    dtwSlots[slotId]._axesManuallySet = false;
+    var detected = autoDetectAxes(dtwTemplates[slotId].examples);
+    dtwSlots[slotId].activeAxes = detected;
+    maxAPI.outlet("dtw_axes_detected", slotId, detected.join(" "));
+  }
+});
+
+maxAPI.addHandler("dtw_match_mode", function(mode) {
+  if (mode === "best" || mode === "all") {
+    dtwMatchMode = mode;
+    maxAPI.post("[gesture-engine] DTW match mode: " + mode);
+  }
+});
+
+maxAPI.addHandler("dtw_continuous", function(enabled) {
+  dtwContinuousStream = enabled ? true : false;
+});
+
+maxAPI.addHandler("dtw_record_duration", function(ms) {
+  // Sets default duration for next timed recording
+  if (dtwRecording && dtwRecording.mode === "timed") {
+    dtwRecording.duration = parseInt(ms) || 2000;
+  }
+});
+
+maxAPI.addHandler("dtw_null_rejection_coeff", function(slotId, coeff) {
+  if (dtwSlots[slotId]) {
+    dtwSlots[slotId].nullRejectionCoeff = parseFloat(coeff) || 3.0;
+    // Recompute threshold if we have stats
+    if (dtwTemplates[slotId] && dtwTemplates[slotId].examples.length >= 2) {
+      computeTemplateAndStats(slotId);
+    }
+  }
+});
+
+maxAPI.addHandler("dtw_clear_all", function() {
+  dtwSlots = {};
+  dtwTemplates = {};
+  dtwNextSlotId = 1;
+  maxAPI.outlet("dtw_status", "cleared");
+  maxAPI.post("[gesture-engine] All DTW slots cleared");
 });
 
 // ============================================================
