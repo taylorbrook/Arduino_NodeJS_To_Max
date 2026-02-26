@@ -13,8 +13,7 @@ var dgram = require("dgram");
 
 // ---- Configuration ----
 const BAUD_RATE = 57600;
-var EXPECTED_FIELDS_MIN = 9;
-var EXPECTED_FIELDS_MAX = 13;
+var EXPECTED_FIELDS = 9;
 const RECONNECT_INTERVAL_MS = 2000;
 
 // ---- Normalization Ranges ----
@@ -67,6 +66,77 @@ var smoothFactors = {
 var smoothed = { ax: null, ay: null, az: null, gx: null, gy: null, gz: null,
   pitch: null, roll: null, yaw: null };
 
+// ---- Madgwick Filter State ----
+// Lightweight IMU-only Madgwick AHRS filter for quaternion computation.
+// Runs in Node.js instead of firmware to keep Arduino output simple (9-field CSV).
+var mw_q0 = 1.0, mw_q1 = 0.0, mw_q2 = 0.0, mw_q3 = 0.0;
+var mw_beta = 0.1;
+var mw_sampleFreq = 114.0;
+
+function madgwickUpdate(gx, gy, gz, ax, ay, az) {
+  var recipNorm;
+  var s0, s1, s2, s3;
+  var qDot1, qDot2, qDot3, qDot4;
+  var q0 = mw_q0, q1 = mw_q1, q2 = mw_q2, q3 = mw_q3;
+
+  // Convert gyroscope degrees/sec to radians/sec
+  gx *= 0.0174533;
+  gy *= 0.0174533;
+  gz *= 0.0174533;
+
+  // Rate of change of quaternion from gyroscope
+  qDot1 = 0.5 * (-q1 * gx - q2 * gy - q3 * gz);
+  qDot2 = 0.5 * (q0 * gx + q2 * gz - q3 * gy);
+  qDot3 = 0.5 * (q0 * gy - q1 * gz + q3 * gx);
+  qDot4 = 0.5 * (q0 * gz + q1 * gy - q2 * gx);
+
+  // Compute feedback only if accelerometer measurement valid
+  if (!(ax === 0.0 && ay === 0.0 && az === 0.0)) {
+    // Normalise accelerometer measurement
+    recipNorm = 1.0 / Math.sqrt(ax * ax + ay * ay + az * az);
+    ax *= recipNorm;
+    ay *= recipNorm;
+    az *= recipNorm;
+
+    // Auxiliary variables to avoid repeated arithmetic
+    var _2q0 = 2.0 * q0, _2q1 = 2.0 * q1, _2q2 = 2.0 * q2, _2q3 = 2.0 * q3;
+    var _4q0 = 4.0 * q0, _4q1 = 4.0 * q1, _4q2 = 4.0 * q2;
+    var _8q1 = 8.0 * q1, _8q2 = 8.0 * q2;
+    var q0q0 = q0 * q0, q1q1 = q1 * q1, q2q2 = q2 * q2, q3q3 = q3 * q3;
+
+    // Gradient descent algorithm corrective step
+    s0 = _4q0 * q2q2 + _2q2 * ax + _4q0 * q1q1 - _2q1 * ay;
+    s1 = _4q1 * q3q3 - _2q3 * ax + 4.0 * q0q0 * q1 - _2q0 * ay - _4q1 + _8q1 * q1q1 + _8q1 * q2q2 + _4q1 * az;
+    s2 = 4.0 * q0q0 * q2 + _2q0 * ax + _4q2 * q3q3 - _2q3 * ay - _4q2 + _8q2 * q1q1 + _8q2 * q2q2 + _4q2 * az;
+    s3 = 4.0 * q1q1 * q3 - _2q1 * ax + 4.0 * q2q2 * q3 - _2q2 * ay;
+    recipNorm = 1.0 / Math.sqrt(s0 * s0 + s1 * s1 + s2 * s2 + s3 * s3);
+    s0 *= recipNorm;
+    s1 *= recipNorm;
+    s2 *= recipNorm;
+    s3 *= recipNorm;
+
+    // Apply feedback step
+    qDot1 -= mw_beta * s0;
+    qDot2 -= mw_beta * s1;
+    qDot3 -= mw_beta * s2;
+    qDot4 -= mw_beta * s3;
+  }
+
+  // Integrate rate of change of quaternion
+  var dt = 1.0 / mw_sampleFreq;
+  mw_q0 = q0 + qDot1 * dt;
+  mw_q1 = q1 + qDot2 * dt;
+  mw_q2 = q2 + qDot3 * dt;
+  mw_q3 = q3 + qDot4 * dt;
+
+  // Normalise quaternion
+  recipNorm = 1.0 / Math.sqrt(mw_q0 * mw_q0 + mw_q1 * mw_q1 + mw_q2 * mw_q2 + mw_q3 * mw_q3);
+  mw_q0 *= recipNorm;
+  mw_q1 *= recipNorm;
+  mw_q2 *= recipNorm;
+  mw_q3 *= recipNorm;
+}
+
 // ============================================================
 // Connection State Machine
 // States: "disconnected", "scanning", "connected-usb",
@@ -110,7 +180,7 @@ function validateLine(line) {
 
   // Check field count
   var parts = line.split(",");
-  if (parts.length < EXPECTED_FIELDS_MIN || parts.length > EXPECTED_FIELDS_MAX) {
+  if (parts.length !== EXPECTED_FIELDS) {
     return null;
   }
 
@@ -294,10 +364,9 @@ function outputData(values) {
   maxAPI.outlet("gyro", gx, gy, gz);
   maxAPI.outlet("orientation", pitch, roll, yaw);
 
-  // Quaternion outlet (when 13-field CSV is received)
-  if (values.length >= 13) {
-    maxAPI.outlet("quaternion", values[9], values[10], values[11], values[12]);
-  }
+  // Compute quaternion from raw accel/gyro via Madgwick filter
+  madgwickUpdate(gx, gy, gz, ax, ay, az);
+  maxAPI.outlet("quaternion", mw_q0, mw_q1, mw_q2, mw_q3);
 
   // Collect calibration sample if calibrating
   if (isCalibrating) {
@@ -313,10 +382,8 @@ function outputData(values) {
     var orient = applyOrientReset(pitch, roll, yaw, dt);
     maxAPI.outlet("cal_orientation", orient.pitch, orient.roll, orient.yaw);
 
-    // Calibrated quaternion passthrough (unit quaternions need no bias correction)
-    if (values.length >= 13) {
-      maxAPI.outlet("cal_quaternion", values[9], values[10], values[11], values[12]);
-    }
+    // Quaternion passthrough (unit quaternions need no bias correction)
+    maxAPI.outlet("cal_quaternion", mw_q0, mw_q1, mw_q2, mw_q3);
 
     // Smoothed outlets (EMA applied to calibrated data)
     var sax = applySmoothing("ax", cal.ax);
@@ -353,10 +420,8 @@ function outputData(values) {
     var orient = applyOrientReset(pitch, roll, yaw, dt);
     maxAPI.outlet("cal_orientation", orient.pitch, orient.roll, orient.yaw);
 
-    // Calibrated quaternion passthrough (unit quaternions need no bias correction)
-    if (values.length >= 13) {
-      maxAPI.outlet("cal_quaternion", values[9], values[10], values[11], values[12]);
-    }
+    // Quaternion passthrough (unit quaternions need no bias correction)
+    maxAPI.outlet("cal_quaternion", mw_q0, mw_q1, mw_q2, mw_q3);
 
     // Smoothed orientation (orient reset without bias cal)
     var sp = applySmoothing("pitch", orient.pitch);

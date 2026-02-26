@@ -17,8 +17,7 @@ var fs = require("fs");
 
 // ---- Configuration Constants ----
 var BAUD_RATE = 57600;
-var EXPECTED_FIELDS_MIN = 9;
-var EXPECTED_FIELDS_MAX = 13;
+var EXPECTED_FIELDS = 9;
 var RECONNECT_INTERVAL_MS = 2000;
 
 // ---- Normalization Ranges ----
@@ -74,6 +73,68 @@ var smoothed = {
   gx: null, gy: null, gz: null,
   pitch: null, roll: null, yaw: null
 };
+
+// ---- Madgwick Filter State ----
+// Lightweight IMU-only Madgwick AHRS filter for quaternion computation.
+// Runs in Node.js instead of firmware to keep Arduino output simple (9-field CSV).
+var mw_q0 = 1.0, mw_q1 = 0.0, mw_q2 = 0.0, mw_q3 = 0.0;
+var mw_beta = 0.1;
+var mw_sampleFreq = 114.0;
+
+function madgwickUpdate(gx, gy, gz, ax, ay, az) {
+  var recipNorm;
+  var s0, s1, s2, s3;
+  var qDot1, qDot2, qDot3, qDot4;
+  var q0 = mw_q0, q1 = mw_q1, q2 = mw_q2, q3 = mw_q3;
+
+  gx *= 0.0174533;
+  gy *= 0.0174533;
+  gz *= 0.0174533;
+
+  qDot1 = 0.5 * (-q1 * gx - q2 * gy - q3 * gz);
+  qDot2 = 0.5 * (q0 * gx + q2 * gz - q3 * gy);
+  qDot3 = 0.5 * (q0 * gy - q1 * gz + q3 * gx);
+  qDot4 = 0.5 * (q0 * gz + q1 * gy - q2 * gx);
+
+  if (!(ax === 0.0 && ay === 0.0 && az === 0.0)) {
+    recipNorm = 1.0 / Math.sqrt(ax * ax + ay * ay + az * az);
+    ax *= recipNorm;
+    ay *= recipNorm;
+    az *= recipNorm;
+
+    var _2q0 = 2.0 * q0, _2q1 = 2.0 * q1, _2q2 = 2.0 * q2, _2q3 = 2.0 * q3;
+    var _4q0 = 4.0 * q0, _4q1 = 4.0 * q1, _4q2 = 4.0 * q2;
+    var _8q1 = 8.0 * q1, _8q2 = 8.0 * q2;
+    var q0q0 = q0 * q0, q1q1 = q1 * q1, q2q2 = q2 * q2, q3q3 = q3 * q3;
+
+    s0 = _4q0 * q2q2 + _2q2 * ax + _4q0 * q1q1 - _2q1 * ay;
+    s1 = _4q1 * q3q3 - _2q3 * ax + 4.0 * q0q0 * q1 - _2q0 * ay - _4q1 + _8q1 * q1q1 + _8q1 * q2q2 + _4q1 * az;
+    s2 = 4.0 * q0q0 * q2 + _2q0 * ax + _4q2 * q3q3 - _2q3 * ay - _4q2 + _8q2 * q1q1 + _8q2 * q2q2 + _4q2 * az;
+    s3 = 4.0 * q1q1 * q3 - _2q1 * ax + 4.0 * q2q2 * q3 - _2q2 * ay;
+    recipNorm = 1.0 / Math.sqrt(s0 * s0 + s1 * s1 + s2 * s2 + s3 * s3);
+    s0 *= recipNorm;
+    s1 *= recipNorm;
+    s2 *= recipNorm;
+    s3 *= recipNorm;
+
+    qDot1 -= mw_beta * s0;
+    qDot2 -= mw_beta * s1;
+    qDot3 -= mw_beta * s2;
+    qDot4 -= mw_beta * s3;
+  }
+
+  var dt = 1.0 / mw_sampleFreq;
+  mw_q0 = q0 + qDot1 * dt;
+  mw_q1 = q1 + qDot2 * dt;
+  mw_q2 = q2 + qDot3 * dt;
+  mw_q3 = q3 + qDot4 * dt;
+
+  recipNorm = 1.0 / Math.sqrt(mw_q0 * mw_q0 + mw_q1 * mw_q1 + mw_q2 * mw_q2 + mw_q3 * mw_q3);
+  mw_q0 *= recipNorm;
+  mw_q1 *= recipNorm;
+  mw_q2 *= recipNorm;
+  mw_q3 *= recipNorm;
+}
 
 // ---- Activity Gate State (CORE-03) ----
 var activityState = "idle";     // "idle" or "active"
@@ -150,9 +211,9 @@ function validateLine(line) {
     return null;
   }
 
-  // Check field count (9 standard, 10-13 with quaternion)
+  // Check field count
   var parts = line.split(",");
-  if (parts.length < EXPECTED_FIELDS_MIN || parts.length > EXPECTED_FIELDS_MAX) {
+  if (parts.length !== EXPECTED_FIELDS) {
     return null;
   }
 
@@ -563,10 +624,9 @@ function processFrame(values) {
   maxAPI.outlet("gyro", gx, gy, gz);
   maxAPI.outlet("orientation", pitch, roll, yaw);
 
-  // Quaternion outlet (13-field CSV)
-  if (values.length >= 13) {
-    maxAPI.outlet("quaternion", values[9], values[10], values[11], values[12]);
-  }
+  // Compute quaternion from raw accel/gyro via Madgwick filter
+  madgwickUpdate(gx, gy, gz, ax, ay, az);
+  maxAPI.outlet("quaternion", mw_q0, mw_q1, mw_q2, mw_q3);
 
   // Collect calibration sample if calibrating
   if (isCalibrating) {
@@ -632,11 +692,8 @@ function processFrame(values) {
       detectTilts({ pitch: sp, roll: sr, yaw: sy });
     }
 
-    // Push calibrated frame to DTW buffer
-    var calValues = [cal.ax, cal.ay, cal.az, cal.gx, cal.gy, cal.gz, orient.pitch, orient.roll, orient.yaw];
-    if (values.length >= 13) {
-      calValues.push(values[9], values[10], values[11], values[12]);
-    }
+    // Push calibrated frame to DTW buffer (always includes quaternion from Madgwick filter)
+    var calValues = [cal.ax, cal.ay, cal.az, cal.gx, cal.gy, cal.gz, orient.pitch, orient.roll, orient.yaw, mw_q0, mw_q1, mw_q2, mw_q3];
     pushDTWFrame(calValues);
 
     // Record DTW frame if recording active
@@ -1067,15 +1124,9 @@ function recordDTWFrame(frame) {
   var namedFrame = {
     ax: frame[0], ay: frame[1], az: frame[2],
     gx: frame[3], gy: frame[4], gz: frame[5],
-    pitch: frame[6], roll: frame[7], yaw: frame[8]
+    pitch: frame[6], roll: frame[7], yaw: frame[8],
+    q0: frame[9], q1: frame[10], q2: frame[11], q3: frame[12]
   };
-  // Add quaternion if available (13-field CSV)
-  if (frame.length >= 13) {
-    namedFrame.q0 = frame[9];
-    namedFrame.q1 = frame[10];
-    namedFrame.q2 = frame[11];
-    namedFrame.q3 = frame[12];
-  }
   dtwRecording.buffer.push(namedFrame);
   maxAPI.outlet("dtw_record_progress", dtwRecording.buffer.length);
 
@@ -1296,16 +1347,12 @@ function scheduleDTWMatch() {
 
   // Convert candidate frames to named-axis objects (DTW buffer stores calibrated arrays)
   var namedCandidate = candidate.map(function(frame) {
-    var obj = {
+    return {
       ax: frame[0], ay: frame[1], az: frame[2],
       gx: frame[3], gy: frame[4], gz: frame[5],
-      pitch: frame[6], roll: frame[7], yaw: frame[8]
+      pitch: frame[6], roll: frame[7], yaw: frame[8],
+      q0: frame[9], q1: frame[10], q2: frame[11], q3: frame[12]
     };
-    if (frame.length >= 13) {
-      obj.q0 = frame[9]; obj.q1 = frame[10];
-      obj.q2 = frame[11]; obj.q3 = frame[12];
-    }
-    return obj;
   });
 
   dtwPendingResults = {};

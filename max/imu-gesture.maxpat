@@ -9,27 +9,17 @@
             "modernui": 1
         },
         "classnamespace": "box",
-        "rect": [
-            100,
-            100,
-            1206,
-            745
-        ],
+        "rect": [ 153.0, 113.0, 1206.0, 745.0 ],
         "boxes": [
             {
                 "box": {
                     "fontface": 1,
-                    "fontsize": 14,
+                    "fontsize": 14.0,
                     "id": "obj-comment-title",
                     "maxclass": "comment",
                     "numinlets": 1,
                     "numoutlets": 0,
-                    "patching_rect": [
-                        20,
-                        7,
-                        300,
-                        22
-                    ],
+                    "patching_rect": [ 20.0, 7.0, 300.0, 22.0 ],
                     "text": "imu-gesture: Gesture Detection Abstraction"
                 }
             },
@@ -41,15 +31,8 @@
                     "maxclass": "inlet",
                     "numinlets": 0,
                     "numoutlets": 1,
-                    "outlettype": [
-                        ""
-                    ],
-                    "patching_rect": [
-                        20,
-                        35,
-                        30,
-                        30
-                    ]
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 20.0, 35.0, 30.0, 30.0 ]
                 }
             },
             {
@@ -59,12 +42,7 @@
                     "maxclass": "comment",
                     "numinlets": 1,
                     "numoutlets": 0,
-                    "patching_rect": [
-                        20,
-                        72,
-                        120,
-                        20
-                    ],
+                    "patching_rect": [ 20.0, 72.0, 120.0, 20.0 ],
                     "text": "--- Connection ---"
                 }
             },
@@ -74,15 +52,8 @@
                     "maxclass": "message",
                     "numinlets": 2,
                     "numoutlets": 1,
-                    "outlettype": [
-                        ""
-                    ],
-                    "patching_rect": [
-                        20,
-                        92,
-                        55,
-                        22
-                    ],
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 20.0, 92.0, 55.0, 22.0 ],
                     "text": "connect"
                 }
             },
@@ -92,15 +63,8 @@
                     "maxclass": "message",
                     "numinlets": 2,
                     "numoutlets": 1,
-                    "outlettype": [
-                        ""
-                    ],
-                    "patching_rect": [
-                        85,
-                        92,
-                        70,
-                        22
-                    ],
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 85.0, 92.0, 70.0, 22.0 ],
                     "text": "disconnect"
                 }
             },
@@ -110,12 +74,7 @@
                     "maxclass": "comment",
                     "numinlets": 1,
                     "numoutlets": 0,
-                    "patching_rect": [
-                        170,
-                        78,
-                        50,
-                        20
-                    ],
+                    "patching_rect": [ 170.0, 78.0, 50.0, 20.0 ],
                     "text": "status:"
                 }
             },
@@ -125,16 +84,9 @@
                     "maxclass": "message",
                     "numinlets": 2,
                     "numoutlets": 1,
-                    "outlettype": [
-                        ""
-                    ],
-                    "patching_rect": [
-                        170,
-                        92,
-                        120,
-                        22
-                    ],
-                    "text": "scanning"
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 170.0, 92.0, 120.0, 22.0 ],
+                    "text": "connected-usb"
                 }
             },
             {
@@ -143,12 +95,7 @@
                     "maxclass": "comment",
                     "numinlets": 1,
                     "numoutlets": 0,
-                    "patching_rect": [
-                        310,
-                        78,
-                        55,
-                        20
-                    ],
+                    "patching_rect": [ 310.0, 78.0, 55.0, 20.0 ],
                     "text": "activity:"
                 }
             },
@@ -158,28 +105,11 @@
                     "maxclass": "led",
                     "numinlets": 1,
                     "numoutlets": 1,
-                    "offcolor": [
-                        0.4,
-                        0.4,
-                        0.4,
-                        1
-                    ],
-                    "oncolor": [
-                        0,
-                        0.8,
-                        0,
-                        1
-                    ],
-                    "outlettype": [
-                        "int"
-                    ],
+                    "offcolor": [ 0.4, 0.4, 0.4, 1.0 ],
+                    "oncolor": [ 0.0, 0.8, 0.0, 1.0 ],
+                    "outlettype": [ "int" ],
                     "parameter_enable": 0,
-                    "patching_rect": [
-                        310,
-                        92,
-                        20,
-                        20
-                    ]
+                    "patching_rect": [ 310.0, 92.0, 20.0, 20.0 ]
                 }
             },
             {
@@ -188,17 +118,8 @@
                     "maxclass": "newobj",
                     "numinlets": 3,
                     "numoutlets": 3,
-                    "outlettype": [
-                        "bang",
-                        "bang",
-                        ""
-                    ],
-                    "patching_rect": [
-                        310,
-                        142,
-                        110,
-                        22
-                    ],
+                    "outlettype": [ "bang", "bang", "" ],
+                    "patching_rect": [ 310.0, 142.0, 110.0, 22.0 ],
                     "text": "sel active idle"
                 }
             },
@@ -208,15 +129,8 @@
                     "maxclass": "message",
                     "numinlets": 2,
                     "numoutlets": 1,
-                    "outlettype": [
-                        ""
-                    ],
-                    "patching_rect": [
-                        310,
-                        165,
-                        29.5,
-                        22
-                    ],
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 310.0, 165.0, 29.5, 22.0 ],
                     "text": "1"
                 }
             },
@@ -226,15 +140,8 @@
                     "maxclass": "message",
                     "numinlets": 2,
                     "numoutlets": 1,
-                    "outlettype": [
-                        ""
-                    ],
-                    "patching_rect": [
-                        355,
-                        165,
-                        29.5,
-                        22
-                    ],
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 355.0, 165.0, 29.5, 22.0 ],
                     "text": "0"
                 }
             },
@@ -244,19 +151,13 @@
                     "maxclass": "newobj",
                     "numinlets": 1,
                     "numoutlets": 2,
-                    "outlettype": [
-                        "",
-                        ""
-                    ],
-                    "patching_rect": [
-                        20,
-                        130,
-                        270,
-                        22
-                    ],
+                    "outlettype": [ "", "" ],
+                    "patching_rect": [ 20.0, 130.0, 270.0, 22.0 ],
                     "saved_object_attributes": {
                         "autostart": 1,
                         "defer": 0,
+                        "node_bin_path": "",
+                        "npm_bin_path": "",
                         "watch": 0
                     },
                     "text": "node.script gesture-engine.js @autostart 1",
@@ -275,41 +176,8 @@
                     "maxclass": "newobj",
                     "numinlets": 27,
                     "numoutlets": 27,
-                    "outlettype": [
-                        "",
-                        "",
-                        "",
-                        "",
-                        "",
-                        "",
-                        "",
-                        "",
-                        "",
-                        "",
-                        "",
-                        "",
-                        "",
-                        "",
-                        "",
-                        "",
-                        "",
-                        "",
-                        "",
-                        "",
-                        "",
-                        "",
-                        "",
-                        "",
-                        "",
-                        "",
-                        ""
-                    ],
-                    "patching_rect": [
-                        20,
-                        158.5,
-                        1160,
-                        35
-                    ],
+                    "outlettype": [ "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "" ],
+                    "patching_rect": [ 20.0, 158.5, 972.0, 49.0 ],
                     "text": "route gesture gesture_led engine_status smooth_accel smooth_gyro smooth_orientation cal_accel cal_gyro cal_orientation norm_accel norm_gyro norm_orientation status cal_status cal_progress cal_bias cal_toggle dtw_match dtw_confidence dtw_record_status dtw_record_progress dtw_status dtw_library_info dtw_slot_info dtw_axes_detected quaternion"
                 }
             },
@@ -319,16 +187,8 @@
                     "maxclass": "newobj",
                     "numinlets": 2,
                     "numoutlets": 2,
-                    "outlettype": [
-                        "bang",
-                        ""
-                    ],
-                    "patching_rect": [
-                        370,
-                        39,
-                        110,
-                        22
-                    ],
+                    "outlettype": [ "bang", "" ],
+                    "patching_rect": [ 370.0, 39.0, 110.0, 22.0 ],
                     "text": "sel connected-usb"
                 }
             },
@@ -338,15 +198,8 @@
                     "maxclass": "newobj",
                     "numinlets": 2,
                     "numoutlets": 1,
-                    "outlettype": [
-                        "bang"
-                    ],
-                    "patching_rect": [
-                        370,
-                        62,
-                        63,
-                        22
-                    ],
+                    "outlettype": [ "bang" ],
+                    "patching_rect": [ 370.0, 62.0, 63.0, 22.0 ],
                     "text": "delay 500"
                 }
             },
@@ -356,15 +209,8 @@
                     "maxclass": "message",
                     "numinlets": 2,
                     "numoutlets": 1,
-                    "outlettype": [
-                        ""
-                    ],
-                    "patching_rect": [
-                        370,
-                        91,
-                        95,
-                        22
-                    ],
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 370.0, 91.0, 95.0, 22.0 ],
                     "text": "calibrate_start"
                 }
             },
@@ -375,12 +221,7 @@
                     "maxclass": "comment",
                     "numinlets": 1,
                     "numoutlets": 0,
-                    "patching_rect": [
-                        20,
-                        192,
-                        200,
-                        20
-                    ],
+                    "patching_rect": [ 20.0, 192.0, 200.0, 20.0 ],
                     "text": "--- Gesture Configuration ---"
                 }
             },
@@ -390,12 +231,7 @@
                     "maxclass": "comment",
                     "numinlets": 1,
                     "numoutlets": 0,
-                    "patching_rect": [
-                        20,
-                        210,
-                        80,
-                        20
-                    ],
+                    "patching_rect": [ 20.0, 210.0, 80.0, 20.0 ],
                     "text": "gesture"
                 }
             },
@@ -405,12 +241,7 @@
                     "maxclass": "comment",
                     "numinlets": 1,
                     "numoutlets": 0,
-                    "patching_rect": [
-                        105,
-                        210,
-                        50,
-                        20
-                    ],
+                    "patching_rect": [ 105.0, 210.0, 50.0, 20.0 ],
                     "text": "enable"
                 }
             },
@@ -420,12 +251,7 @@
                     "maxclass": "comment",
                     "numinlets": 1,
                     "numoutlets": 0,
-                    "patching_rect": [
-                        160,
-                        210,
-                        70,
-                        20
-                    ],
+                    "patching_rect": [ 160.0, 210.0, 70.0, 20.0 ],
                     "text": "sensitivity"
                 }
             },
@@ -435,12 +261,7 @@
                     "maxclass": "comment",
                     "numinlets": 1,
                     "numoutlets": 0,
-                    "patching_rect": [
-                        260,
-                        210,
-                        90,
-                        20
-                    ],
+                    "patching_rect": [ 260.0, 210.0, 90.0, 20.0 ],
                     "text": "cooldown (ms)"
                 }
             },
@@ -450,12 +271,7 @@
                     "maxclass": "comment",
                     "numinlets": 1,
                     "numoutlets": 0,
-                    "patching_rect": [
-                        370,
-                        210,
-                        40,
-                        20
-                    ],
+                    "patching_rect": [ 370.0, 210.0, 40.0, 20.0 ],
                     "text": "fire"
                 }
             },
@@ -465,22 +281,8 @@
                     "maxclass": "newobj",
                     "numinlets": 8,
                     "numoutlets": 8,
-                    "outlettype": [
-                        "",
-                        "",
-                        "",
-                        "",
-                        "",
-                        "",
-                        "",
-                        ""
-                    ],
-                    "patching_rect": [
-                        723,
-                        216,
-                        390,
-                        22
-                    ],
+                    "outlettype": [ "", "", "", "", "", "", "", "" ],
+                    "patching_rect": [ 723.0, 216.0, 390.0, 22.0 ],
                     "text": "route shake tap flip tilt-left tilt-right tilt-forward tilt-back"
                 }
             },
@@ -490,12 +292,7 @@
                     "maxclass": "comment",
                     "numinlets": 1,
                     "numoutlets": 0,
-                    "patching_rect": [
-                        20,
-                        235,
-                        80,
-                        20
-                    ],
+                    "patching_rect": [ 20.0, 235.0, 80.0, 20.0 ],
                     "text": "shake"
                 }
             },
@@ -505,25 +302,13 @@
                     "maxclass": "toggle",
                     "numinlets": 1,
                     "numoutlets": 1,
-                    "outlettype": [
-                        "int"
-                    ],
+                    "outlettype": [ "int" ],
                     "parameter_enable": 1,
-                    "patching_rect": [
-                        115,
-                        233,
-                        24,
-                        24
-                    ],
+                    "patching_rect": [ 115.0, 233.0, 24.0, 24.0 ],
                     "saved_attribute_attributes": {
                         "valueof": {
-                            "parameter_enum": [
-                                "off",
-                                "on"
-                            ],
-                            "parameter_initial": [
-                                1
-                            ],
+                            "parameter_enum": [ "off", "on" ],
+                            "parameter_initial": [ 1 ],
                             "parameter_initial_enable": 1,
                             "parameter_longname": "shake_enable",
                             "parameter_mmax": 1,
@@ -541,15 +326,8 @@
                     "maxclass": "newobj",
                     "numinlets": 1,
                     "numoutlets": 1,
-                    "outlettype": [
-                        ""
-                    ],
-                    "patching_rect": [
-                        115,
-                        260,
-                        174,
-                        22
-                    ],
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 115.0, 260.0, 174.0, 22.0 ],
                     "text": "prepend gesture_enable shake"
                 }
             },
@@ -560,31 +338,22 @@
                     "maxclass": "dial",
                     "numinlets": 1,
                     "numoutlets": 1,
-                    "outlettype": [
-                        "float"
-                    ],
+                    "outlettype": [ "float" ],
                     "parameter_enable": 1,
-                    "patching_rect": [
-                        170,
-                        230,
-                        32,
-                        32
-                    ],
+                    "patching_rect": [ 170.0, 230.0, 32.0, 32.0 ],
                     "saved_attribute_attributes": {
                         "valueof": {
-                            "parameter_initial": [
-                                0.5
-                            ],
+                            "parameter_initial": [ 0.5 ],
                             "parameter_initial_enable": 1,
                             "parameter_longname": "shake_sensitivity",
-                            "parameter_mmax": 1,
+                            "parameter_mmax": 1.0,
                             "parameter_modmode": 0,
                             "parameter_shortname": "shake_sens",
                             "parameter_type": 0,
                             "parameter_unitstyle": 1
                         }
                     },
-                    "size": 1,
+                    "size": 1.0,
                     "varname": "shake_sensitivity"
                 }
             },
@@ -594,15 +363,8 @@
                     "maxclass": "newobj",
                     "numinlets": 1,
                     "numoutlets": 1,
-                    "outlettype": [
-                        ""
-                    ],
-                    "patching_rect": [
-                        317,
-                        260,
-                        190,
-                        22
-                    ],
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 317.0, 260.0, 190.0, 22.0 ],
                     "text": "prepend gesture_sensitivity shake"
                 }
             },
@@ -613,31 +375,22 @@
                     "maxclass": "dial",
                     "numinlets": 1,
                     "numoutlets": 1,
-                    "outlettype": [
-                        "float"
-                    ],
+                    "outlettype": [ "float" ],
                     "parameter_enable": 1,
-                    "patching_rect": [
-                        422,
-                        225,
-                        32,
-                        32
-                    ],
+                    "patching_rect": [ 422.0, 225.0, 32.0, 32.0 ],
                     "saved_attribute_attributes": {
                         "valueof": {
-                            "parameter_initial": [
-                                300
-                            ],
+                            "parameter_initial": [ 300 ],
                             "parameter_initial_enable": 1,
                             "parameter_longname": "shake_cooldown",
-                            "parameter_mmax": 1000,
+                            "parameter_mmax": 1000.0,
                             "parameter_modmode": 0,
                             "parameter_shortname": "shake_cd",
                             "parameter_type": 0,
                             "parameter_unitstyle": 1
                         }
                     },
-                    "size": 1000,
+                    "size": 1000.0,
                     "varname": "shake_cooldown"
                 }
             },
@@ -647,15 +400,8 @@
                     "maxclass": "newobj",
                     "numinlets": 1,
                     "numoutlets": 1,
-                    "outlettype": [
-                        ""
-                    ],
-                    "patching_rect": [
-                        601,
-                        260,
-                        189,
-                        22
-                    ],
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 601.0, 260.0, 189.0, 22.0 ],
                     "text": "prepend gesture_cooldown shake"
                 }
             },
@@ -665,28 +411,11 @@
                     "maxclass": "led",
                     "numinlets": 1,
                     "numoutlets": 1,
-                    "offcolor": [
-                        0.4,
-                        0.4,
-                        0.4,
-                        1
-                    ],
-                    "oncolor": [
-                        1,
-                        0.5,
-                        0,
-                        1
-                    ],
-                    "outlettype": [
-                        "int"
-                    ],
+                    "offcolor": [ 0.4, 0.4, 0.4, 1.0 ],
+                    "oncolor": [ 1.0, 0.5, 0.0, 1.0 ],
+                    "outlettype": [ "int" ],
                     "parameter_enable": 0,
-                    "patching_rect": [
-                        701,
-                        232,
-                        20,
-                        20
-                    ]
+                    "patching_rect": [ 701.0, 232.0, 20.0, 20.0 ]
                 }
             },
             {
@@ -695,12 +424,7 @@
                     "maxclass": "comment",
                     "numinlets": 1,
                     "numoutlets": 0,
-                    "patching_rect": [
-                        20,
-                        290,
-                        80,
-                        20
-                    ],
+                    "patching_rect": [ 20.0, 290.0, 80.0, 20.0 ],
                     "text": "tap"
                 }
             },
@@ -710,25 +434,13 @@
                     "maxclass": "toggle",
                     "numinlets": 1,
                     "numoutlets": 1,
-                    "outlettype": [
-                        "int"
-                    ],
+                    "outlettype": [ "int" ],
                     "parameter_enable": 1,
-                    "patching_rect": [
-                        115,
-                        288,
-                        24,
-                        24
-                    ],
+                    "patching_rect": [ 115.0, 288.0, 24.0, 24.0 ],
                     "saved_attribute_attributes": {
                         "valueof": {
-                            "parameter_enum": [
-                                "off",
-                                "on"
-                            ],
-                            "parameter_initial": [
-                                1
-                            ],
+                            "parameter_enum": [ "off", "on" ],
+                            "parameter_initial": [ 1 ],
                             "parameter_initial_enable": 1,
                             "parameter_longname": "tap_enable",
                             "parameter_mmax": 1,
@@ -746,15 +458,8 @@
                     "maxclass": "newobj",
                     "numinlets": 1,
                     "numoutlets": 1,
-                    "outlettype": [
-                        ""
-                    ],
-                    "patching_rect": [
-                        115,
-                        315,
-                        159,
-                        22
-                    ],
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 115.0, 315.0, 159.0, 22.0 ],
                     "text": "prepend gesture_enable tap"
                 }
             },
@@ -765,31 +470,22 @@
                     "maxclass": "dial",
                     "numinlets": 1,
                     "numoutlets": 1,
-                    "outlettype": [
-                        "float"
-                    ],
+                    "outlettype": [ "float" ],
                     "parameter_enable": 1,
-                    "patching_rect": [
-                        170,
-                        285,
-                        32,
-                        32
-                    ],
+                    "patching_rect": [ 170.0, 285.0, 32.0, 32.0 ],
                     "saved_attribute_attributes": {
                         "valueof": {
-                            "parameter_initial": [
-                                0.5
-                            ],
+                            "parameter_initial": [ 0.5 ],
                             "parameter_initial_enable": 1,
                             "parameter_longname": "tap_sensitivity",
-                            "parameter_mmax": 1,
+                            "parameter_mmax": 1.0,
                             "parameter_modmode": 0,
                             "parameter_shortname": "tap_sens",
                             "parameter_type": 0,
                             "parameter_unitstyle": 1
                         }
                     },
-                    "size": 1,
+                    "size": 1.0,
                     "varname": "tap_sensitivity"
                 }
             },
@@ -799,15 +495,8 @@
                     "maxclass": "newobj",
                     "numinlets": 1,
                     "numoutlets": 1,
-                    "outlettype": [
-                        ""
-                    ],
-                    "patching_rect": [
-                        317,
-                        315,
-                        175,
-                        22
-                    ],
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 317.0, 315.0, 175.0, 22.0 ],
                     "text": "prepend gesture_sensitivity tap"
                 }
             },
@@ -818,31 +507,22 @@
                     "maxclass": "dial",
                     "numinlets": 1,
                     "numoutlets": 1,
-                    "outlettype": [
-                        "float"
-                    ],
+                    "outlettype": [ "float" ],
                     "parameter_enable": 1,
-                    "patching_rect": [
-                        422,
-                        280,
-                        32,
-                        32
-                    ],
+                    "patching_rect": [ 422.0, 280.0, 32.0, 32.0 ],
                     "saved_attribute_attributes": {
                         "valueof": {
-                            "parameter_initial": [
-                                200
-                            ],
+                            "parameter_initial": [ 200 ],
                             "parameter_initial_enable": 1,
                             "parameter_longname": "tap_cooldown",
-                            "parameter_mmax": 500,
+                            "parameter_mmax": 500.0,
                             "parameter_modmode": 0,
                             "parameter_shortname": "tap_cd",
                             "parameter_type": 0,
                             "parameter_unitstyle": 1
                         }
                     },
-                    "size": 500,
+                    "size": 500.0,
                     "varname": "tap_cooldown"
                 }
             },
@@ -852,15 +532,8 @@
                     "maxclass": "newobj",
                     "numinlets": 1,
                     "numoutlets": 1,
-                    "outlettype": [
-                        ""
-                    ],
-                    "patching_rect": [
-                        601,
-                        315,
-                        173,
-                        22
-                    ],
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 601.0, 315.0, 173.0, 22.0 ],
                     "text": "prepend gesture_cooldown tap"
                 }
             },
@@ -870,28 +543,11 @@
                     "maxclass": "led",
                     "numinlets": 1,
                     "numoutlets": 1,
-                    "offcolor": [
-                        0.4,
-                        0.4,
-                        0.4,
-                        1
-                    ],
-                    "oncolor": [
-                        1,
-                        0.5,
-                        0,
-                        1
-                    ],
-                    "outlettype": [
-                        "int"
-                    ],
+                    "offcolor": [ 0.4, 0.4, 0.4, 1.0 ],
+                    "oncolor": [ 1.0, 0.5, 0.0, 1.0 ],
+                    "outlettype": [ "int" ],
                     "parameter_enable": 0,
-                    "patching_rect": [
-                        701,
-                        287,
-                        20,
-                        20
-                    ]
+                    "patching_rect": [ 701.0, 287.0, 20.0, 20.0 ]
                 }
             },
             {
@@ -900,12 +556,7 @@
                     "maxclass": "comment",
                     "numinlets": 1,
                     "numoutlets": 0,
-                    "patching_rect": [
-                        20,
-                        345,
-                        80,
-                        20
-                    ],
+                    "patching_rect": [ 20.0, 345.0, 80.0, 20.0 ],
                     "text": "flip"
                 }
             },
@@ -915,25 +566,13 @@
                     "maxclass": "toggle",
                     "numinlets": 1,
                     "numoutlets": 1,
-                    "outlettype": [
-                        "int"
-                    ],
+                    "outlettype": [ "int" ],
                     "parameter_enable": 1,
-                    "patching_rect": [
-                        115,
-                        343,
-                        24,
-                        24
-                    ],
+                    "patching_rect": [ 115.0, 343.0, 24.0, 24.0 ],
                     "saved_attribute_attributes": {
                         "valueof": {
-                            "parameter_enum": [
-                                "off",
-                                "on"
-                            ],
-                            "parameter_initial": [
-                                1
-                            ],
+                            "parameter_enum": [ "off", "on" ],
+                            "parameter_initial": [ 1 ],
                             "parameter_initial_enable": 1,
                             "parameter_longname": "flip_enable",
                             "parameter_mmax": 1,
@@ -951,15 +590,8 @@
                     "maxclass": "newobj",
                     "numinlets": 1,
                     "numoutlets": 1,
-                    "outlettype": [
-                        ""
-                    ],
-                    "patching_rect": [
-                        115,
-                        370,
-                        157,
-                        22
-                    ],
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 115.0, 370.0, 157.0, 22.0 ],
                     "text": "prepend gesture_enable flip"
                 }
             },
@@ -970,31 +602,22 @@
                     "maxclass": "dial",
                     "numinlets": 1,
                     "numoutlets": 1,
-                    "outlettype": [
-                        "float"
-                    ],
+                    "outlettype": [ "float" ],
                     "parameter_enable": 1,
-                    "patching_rect": [
-                        170,
-                        340,
-                        32,
-                        32
-                    ],
+                    "patching_rect": [ 170.0, 340.0, 32.0, 32.0 ],
                     "saved_attribute_attributes": {
                         "valueof": {
-                            "parameter_initial": [
-                                0.5
-                            ],
+                            "parameter_initial": [ 0.5 ],
                             "parameter_initial_enable": 1,
                             "parameter_longname": "flip_sensitivity",
-                            "parameter_mmax": 1,
+                            "parameter_mmax": 1.0,
                             "parameter_modmode": 0,
                             "parameter_shortname": "flip_sens",
                             "parameter_type": 0,
                             "parameter_unitstyle": 1
                         }
                     },
-                    "size": 1,
+                    "size": 1.0,
                     "varname": "flip_sensitivity"
                 }
             },
@@ -1004,15 +627,8 @@
                     "maxclass": "newobj",
                     "numinlets": 1,
                     "numoutlets": 1,
-                    "outlettype": [
-                        ""
-                    ],
-                    "patching_rect": [
-                        317,
-                        370,
-                        175,
-                        22
-                    ],
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 317.0, 370.0, 175.0, 22.0 ],
                     "text": "prepend gesture_sensitivity flip"
                 }
             },
@@ -1023,31 +639,22 @@
                     "maxclass": "dial",
                     "numinlets": 1,
                     "numoutlets": 1,
-                    "outlettype": [
-                        "float"
-                    ],
+                    "outlettype": [ "float" ],
                     "parameter_enable": 1,
-                    "patching_rect": [
-                        422,
-                        335,
-                        32,
-                        32
-                    ],
+                    "patching_rect": [ 422.0, 335.0, 32.0, 32.0 ],
                     "saved_attribute_attributes": {
                         "valueof": {
-                            "parameter_initial": [
-                                800
-                            ],
+                            "parameter_initial": [ 800 ],
                             "parameter_initial_enable": 1,
                             "parameter_longname": "flip_cooldown",
-                            "parameter_mmax": 2000,
+                            "parameter_mmax": 2000.0,
                             "parameter_modmode": 0,
                             "parameter_shortname": "flip_cd",
                             "parameter_type": 0,
                             "parameter_unitstyle": 1
                         }
                     },
-                    "size": 2000,
+                    "size": 2000.0,
                     "varname": "flip_cooldown"
                 }
             },
@@ -1057,15 +664,8 @@
                     "maxclass": "newobj",
                     "numinlets": 1,
                     "numoutlets": 1,
-                    "outlettype": [
-                        ""
-                    ],
-                    "patching_rect": [
-                        601,
-                        370,
-                        172,
-                        22
-                    ],
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 601.0, 370.0, 172.0, 22.0 ],
                     "text": "prepend gesture_cooldown flip"
                 }
             },
@@ -1075,28 +675,11 @@
                     "maxclass": "led",
                     "numinlets": 1,
                     "numoutlets": 1,
-                    "offcolor": [
-                        0.4,
-                        0.4,
-                        0.4,
-                        1
-                    ],
-                    "oncolor": [
-                        1,
-                        0.5,
-                        0,
-                        1
-                    ],
-                    "outlettype": [
-                        "int"
-                    ],
+                    "offcolor": [ 0.4, 0.4, 0.4, 1.0 ],
+                    "oncolor": [ 1.0, 0.5, 0.0, 1.0 ],
+                    "outlettype": [ "int" ],
                     "parameter_enable": 0,
-                    "patching_rect": [
-                        701,
-                        342,
-                        20,
-                        20
-                    ]
+                    "patching_rect": [ 701.0, 342.0, 20.0, 20.0 ]
                 }
             },
             {
@@ -1105,12 +688,7 @@
                     "maxclass": "comment",
                     "numinlets": 1,
                     "numoutlets": 0,
-                    "patching_rect": [
-                        20,
-                        400,
-                        80,
-                        20
-                    ],
+                    "patching_rect": [ 20.0, 400.0, 80.0, 20.0 ],
                     "text": "tilt-left"
                 }
             },
@@ -1120,25 +698,13 @@
                     "maxclass": "toggle",
                     "numinlets": 1,
                     "numoutlets": 1,
-                    "outlettype": [
-                        "int"
-                    ],
+                    "outlettype": [ "int" ],
                     "parameter_enable": 1,
-                    "patching_rect": [
-                        115,
-                        398,
-                        24,
-                        24
-                    ],
+                    "patching_rect": [ 115.0, 398.0, 24.0, 24.0 ],
                     "saved_attribute_attributes": {
                         "valueof": {
-                            "parameter_enum": [
-                                "off",
-                                "on"
-                            ],
-                            "parameter_initial": [
-                                1
-                            ],
+                            "parameter_enum": [ "off", "on" ],
+                            "parameter_initial": [ 1 ],
                             "parameter_initial_enable": 1,
                             "parameter_longname": "tilt_left_enable",
                             "parameter_mmax": 1,
@@ -1156,15 +722,8 @@
                     "maxclass": "newobj",
                     "numinlets": 1,
                     "numoutlets": 1,
-                    "outlettype": [
-                        ""
-                    ],
-                    "patching_rect": [
-                        115,
-                        425,
-                        174,
-                        22
-                    ],
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 115.0, 425.0, 174.0, 22.0 ],
                     "text": "prepend gesture_enable tilt-left"
                 }
             },
@@ -1175,31 +734,22 @@
                     "maxclass": "dial",
                     "numinlets": 1,
                     "numoutlets": 1,
-                    "outlettype": [
-                        "float"
-                    ],
+                    "outlettype": [ "float" ],
                     "parameter_enable": 1,
-                    "patching_rect": [
-                        170,
-                        395,
-                        32,
-                        32
-                    ],
+                    "patching_rect": [ 170.0, 395.0, 32.0, 32.0 ],
                     "saved_attribute_attributes": {
                         "valueof": {
-                            "parameter_initial": [
-                                0.5
-                            ],
+                            "parameter_initial": [ 0.5 ],
                             "parameter_initial_enable": 1,
                             "parameter_longname": "tilt_left_sensitivity",
-                            "parameter_mmax": 1,
+                            "parameter_mmax": 1.0,
                             "parameter_modmode": 0,
                             "parameter_shortname": "tl_sens",
                             "parameter_type": 0,
                             "parameter_unitstyle": 1
                         }
                     },
-                    "size": 1,
+                    "size": 1.0,
                     "varname": "tilt_left_sensitivity"
                 }
             },
@@ -1209,15 +759,8 @@
                     "maxclass": "newobj",
                     "numinlets": 1,
                     "numoutlets": 1,
-                    "outlettype": [
-                        ""
-                    ],
-                    "patching_rect": [
-                        317,
-                        425,
-                        195,
-                        22
-                    ],
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 317.0, 425.0, 195.0, 22.0 ],
                     "text": "prepend gesture_sensitivity tilt-left"
                 }
             },
@@ -1228,31 +771,22 @@
                     "maxclass": "dial",
                     "numinlets": 1,
                     "numoutlets": 1,
-                    "outlettype": [
-                        "float"
-                    ],
+                    "outlettype": [ "float" ],
                     "parameter_enable": 1,
-                    "patching_rect": [
-                        422,
-                        390,
-                        32,
-                        32
-                    ],
+                    "patching_rect": [ 422.0, 390.0, 32.0, 32.0 ],
                     "saved_attribute_attributes": {
                         "valueof": {
-                            "parameter_initial": [
-                                400
-                            ],
+                            "parameter_initial": [ 400 ],
                             "parameter_initial_enable": 1,
                             "parameter_longname": "tilt_left_cooldown",
-                            "parameter_mmax": 1000,
+                            "parameter_mmax": 1000.0,
                             "parameter_modmode": 0,
                             "parameter_shortname": "tl_cd",
                             "parameter_type": 0,
                             "parameter_unitstyle": 1
                         }
                     },
-                    "size": 1000,
+                    "size": 1000.0,
                     "varname": "tilt_left_cooldown"
                 }
             },
@@ -1262,15 +796,8 @@
                     "maxclass": "newobj",
                     "numinlets": 1,
                     "numoutlets": 1,
-                    "outlettype": [
-                        ""
-                    ],
-                    "patching_rect": [
-                        601,
-                        425,
-                        189,
-                        22
-                    ],
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 601.0, 425.0, 189.0, 22.0 ],
                     "text": "prepend gesture_cooldown tilt-left"
                 }
             },
@@ -1280,28 +807,11 @@
                     "maxclass": "led",
                     "numinlets": 1,
                     "numoutlets": 1,
-                    "offcolor": [
-                        0.4,
-                        0.4,
-                        0.4,
-                        1
-                    ],
-                    "oncolor": [
-                        1,
-                        0.5,
-                        0,
-                        1
-                    ],
-                    "outlettype": [
-                        "int"
-                    ],
+                    "offcolor": [ 0.4, 0.4, 0.4, 1.0 ],
+                    "oncolor": [ 1.0, 0.5, 0.0, 1.0 ],
+                    "outlettype": [ "int" ],
                     "parameter_enable": 0,
-                    "patching_rect": [
-                        701,
-                        397,
-                        20,
-                        20
-                    ]
+                    "patching_rect": [ 701.0, 397.0, 20.0, 20.0 ]
                 }
             },
             {
@@ -1310,12 +820,7 @@
                     "maxclass": "comment",
                     "numinlets": 1,
                     "numoutlets": 0,
-                    "patching_rect": [
-                        20,
-                        455,
-                        80,
-                        20
-                    ],
+                    "patching_rect": [ 20.0, 455.0, 80.0, 20.0 ],
                     "text": "tilt-right"
                 }
             },
@@ -1325,25 +830,13 @@
                     "maxclass": "toggle",
                     "numinlets": 1,
                     "numoutlets": 1,
-                    "outlettype": [
-                        "int"
-                    ],
+                    "outlettype": [ "int" ],
                     "parameter_enable": 1,
-                    "patching_rect": [
-                        115,
-                        453,
-                        24,
-                        24
-                    ],
+                    "patching_rect": [ 115.0, 453.0, 24.0, 24.0 ],
                     "saved_attribute_attributes": {
                         "valueof": {
-                            "parameter_enum": [
-                                "off",
-                                "on"
-                            ],
-                            "parameter_initial": [
-                                1
-                            ],
+                            "parameter_enum": [ "off", "on" ],
+                            "parameter_initial": [ 1 ],
                             "parameter_initial_enable": 1,
                             "parameter_longname": "tilt_right_enable",
                             "parameter_mmax": 1,
@@ -1361,15 +854,8 @@
                     "maxclass": "newobj",
                     "numinlets": 1,
                     "numoutlets": 1,
-                    "outlettype": [
-                        ""
-                    ],
-                    "patching_rect": [
-                        115,
-                        480,
-                        181,
-                        22
-                    ],
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 115.0, 480.0, 181.0, 22.0 ],
                     "text": "prepend gesture_enable tilt-right"
                 }
             },
@@ -1380,31 +866,22 @@
                     "maxclass": "dial",
                     "numinlets": 1,
                     "numoutlets": 1,
-                    "outlettype": [
-                        "float"
-                    ],
+                    "outlettype": [ "float" ],
                     "parameter_enable": 1,
-                    "patching_rect": [
-                        170,
-                        450,
-                        32,
-                        32
-                    ],
+                    "patching_rect": [ 170.0, 450.0, 32.0, 32.0 ],
                     "saved_attribute_attributes": {
                         "valueof": {
-                            "parameter_initial": [
-                                0.5
-                            ],
+                            "parameter_initial": [ 0.5 ],
                             "parameter_initial_enable": 1,
                             "parameter_longname": "tilt_right_sensitivity",
-                            "parameter_mmax": 1,
+                            "parameter_mmax": 1.0,
                             "parameter_modmode": 0,
                             "parameter_shortname": "tr_sens",
                             "parameter_type": 0,
                             "parameter_unitstyle": 1
                         }
                     },
-                    "size": 1,
+                    "size": 1.0,
                     "varname": "tilt_right_sensitivity"
                 }
             },
@@ -1414,15 +891,8 @@
                     "maxclass": "newobj",
                     "numinlets": 1,
                     "numoutlets": 1,
-                    "outlettype": [
-                        ""
-                    ],
-                    "patching_rect": [
-                        317,
-                        480,
-                        200,
-                        22
-                    ],
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 317.0, 480.0, 200.0, 22.0 ],
                     "text": "prepend gesture_sensitivity tilt-right"
                 }
             },
@@ -1433,31 +903,22 @@
                     "maxclass": "dial",
                     "numinlets": 1,
                     "numoutlets": 1,
-                    "outlettype": [
-                        "float"
-                    ],
+                    "outlettype": [ "float" ],
                     "parameter_enable": 1,
-                    "patching_rect": [
-                        422,
-                        445,
-                        32,
-                        32
-                    ],
+                    "patching_rect": [ 422.0, 445.0, 32.0, 32.0 ],
                     "saved_attribute_attributes": {
                         "valueof": {
-                            "parameter_initial": [
-                                400
-                            ],
+                            "parameter_initial": [ 400 ],
                             "parameter_initial_enable": 1,
                             "parameter_longname": "tilt_right_cooldown",
-                            "parameter_mmax": 1000,
+                            "parameter_mmax": 1000.0,
                             "parameter_modmode": 0,
                             "parameter_shortname": "tr_cd",
                             "parameter_type": 0,
                             "parameter_unitstyle": 1
                         }
                     },
-                    "size": 1000,
+                    "size": 1000.0,
                     "varname": "tilt_right_cooldown"
                 }
             },
@@ -1467,15 +928,8 @@
                     "maxclass": "newobj",
                     "numinlets": 1,
                     "numoutlets": 1,
-                    "outlettype": [
-                        ""
-                    ],
-                    "patching_rect": [
-                        601,
-                        480,
-                        196,
-                        22
-                    ],
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 601.0, 480.0, 196.0, 22.0 ],
                     "text": "prepend gesture_cooldown tilt-right"
                 }
             },
@@ -1485,28 +939,11 @@
                     "maxclass": "led",
                     "numinlets": 1,
                     "numoutlets": 1,
-                    "offcolor": [
-                        0.4,
-                        0.4,
-                        0.4,
-                        1
-                    ],
-                    "oncolor": [
-                        1,
-                        0.5,
-                        0,
-                        1
-                    ],
-                    "outlettype": [
-                        "int"
-                    ],
+                    "offcolor": [ 0.4, 0.4, 0.4, 1.0 ],
+                    "oncolor": [ 1.0, 0.5, 0.0, 1.0 ],
+                    "outlettype": [ "int" ],
                     "parameter_enable": 0,
-                    "patching_rect": [
-                        701,
-                        452,
-                        20,
-                        20
-                    ]
+                    "patching_rect": [ 701.0, 452.0, 20.0, 20.0 ]
                 }
             },
             {
@@ -1515,12 +952,7 @@
                     "maxclass": "comment",
                     "numinlets": 1,
                     "numoutlets": 0,
-                    "patching_rect": [
-                        20,
-                        510,
-                        80,
-                        20
-                    ],
+                    "patching_rect": [ 20.0, 510.0, 80.0, 20.0 ],
                     "text": "tilt-forward"
                 }
             },
@@ -1530,25 +962,13 @@
                     "maxclass": "toggle",
                     "numinlets": 1,
                     "numoutlets": 1,
-                    "outlettype": [
-                        "int"
-                    ],
+                    "outlettype": [ "int" ],
                     "parameter_enable": 1,
-                    "patching_rect": [
-                        115,
-                        508,
-                        24,
-                        24
-                    ],
+                    "patching_rect": [ 115.0, 508.0, 24.0, 24.0 ],
                     "saved_attribute_attributes": {
                         "valueof": {
-                            "parameter_enum": [
-                                "off",
-                                "on"
-                            ],
-                            "parameter_initial": [
-                                1
-                            ],
+                            "parameter_enum": [ "off", "on" ],
+                            "parameter_initial": [ 1 ],
                             "parameter_initial_enable": 1,
                             "parameter_longname": "tilt_forward_enable",
                             "parameter_mmax": 1,
@@ -1566,15 +986,8 @@
                     "maxclass": "newobj",
                     "numinlets": 1,
                     "numoutlets": 1,
-                    "outlettype": [
-                        ""
-                    ],
-                    "patching_rect": [
-                        115,
-                        539,
-                        198,
-                        22
-                    ],
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 115.0, 539.0, 198.0, 22.0 ],
                     "text": "prepend gesture_enable tilt-forward"
                 }
             },
@@ -1585,31 +998,22 @@
                     "maxclass": "dial",
                     "numinlets": 1,
                     "numoutlets": 1,
-                    "outlettype": [
-                        "float"
-                    ],
+                    "outlettype": [ "float" ],
                     "parameter_enable": 1,
-                    "patching_rect": [
-                        170,
-                        505,
-                        32,
-                        32
-                    ],
+                    "patching_rect": [ 170.0, 505.0, 32.0, 32.0 ],
                     "saved_attribute_attributes": {
                         "valueof": {
-                            "parameter_initial": [
-                                0.5
-                            ],
+                            "parameter_initial": [ 0.5 ],
                             "parameter_initial_enable": 1,
                             "parameter_longname": "tilt_forward_sensitivity",
-                            "parameter_mmax": 1,
+                            "parameter_mmax": 1.0,
                             "parameter_modmode": 0,
                             "parameter_shortname": "tf_sens",
                             "parameter_type": 0,
                             "parameter_unitstyle": 1
                         }
                     },
-                    "size": 1,
+                    "size": 1.0,
                     "varname": "tilt_forward_sensitivity"
                 }
             },
@@ -1619,15 +1023,8 @@
                     "maxclass": "newobj",
                     "numinlets": 1,
                     "numoutlets": 1,
-                    "outlettype": [
-                        ""
-                    ],
-                    "patching_rect": [
-                        416,
-                        534,
-                        215,
-                        22
-                    ],
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 416.0, 534.0, 215.0, 22.0 ],
                     "text": "prepend gesture_sensitivity tilt-forward"
                 }
             },
@@ -1638,31 +1035,22 @@
                     "maxclass": "dial",
                     "numinlets": 1,
                     "numoutlets": 1,
-                    "outlettype": [
-                        "float"
-                    ],
+                    "outlettype": [ "float" ],
                     "parameter_enable": 1,
-                    "patching_rect": [
-                        422,
-                        500,
-                        32,
-                        32
-                    ],
+                    "patching_rect": [ 422.0, 500.0, 32.0, 32.0 ],
                     "saved_attribute_attributes": {
                         "valueof": {
-                            "parameter_initial": [
-                                400
-                            ],
+                            "parameter_initial": [ 400 ],
                             "parameter_initial_enable": 1,
                             "parameter_longname": "tilt_forward_cooldown",
-                            "parameter_mmax": 1000,
+                            "parameter_mmax": 1000.0,
                             "parameter_modmode": 0,
                             "parameter_shortname": "tf_cd",
                             "parameter_type": 0,
                             "parameter_unitstyle": 1
                         }
                     },
-                    "size": 1000,
+                    "size": 1000.0,
                     "varname": "tilt_forward_cooldown"
                 }
             },
@@ -1672,15 +1060,8 @@
                     "maxclass": "newobj",
                     "numinlets": 1,
                     "numoutlets": 1,
-                    "outlettype": [
-                        ""
-                    ],
-                    "patching_rect": [
-                        601,
-                        535,
-                        213,
-                        22
-                    ],
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 601.0, 535.0, 213.0, 22.0 ],
                     "text": "prepend gesture_cooldown tilt-forward"
                 }
             },
@@ -1690,28 +1071,11 @@
                     "maxclass": "led",
                     "numinlets": 1,
                     "numoutlets": 1,
-                    "offcolor": [
-                        0.4,
-                        0.4,
-                        0.4,
-                        1
-                    ],
-                    "oncolor": [
-                        1,
-                        0.5,
-                        0,
-                        1
-                    ],
-                    "outlettype": [
-                        "int"
-                    ],
+                    "offcolor": [ 0.4, 0.4, 0.4, 1.0 ],
+                    "oncolor": [ 1.0, 0.5, 0.0, 1.0 ],
+                    "outlettype": [ "int" ],
                     "parameter_enable": 0,
-                    "patching_rect": [
-                        701,
-                        507,
-                        20,
-                        20
-                    ]
+                    "patching_rect": [ 701.0, 507.0, 20.0, 20.0 ]
                 }
             },
             {
@@ -1720,12 +1084,7 @@
                     "maxclass": "comment",
                     "numinlets": 1,
                     "numoutlets": 0,
-                    "patching_rect": [
-                        20,
-                        565,
-                        80,
-                        20
-                    ],
+                    "patching_rect": [ 20.0, 565.0, 80.0, 20.0 ],
                     "text": "tilt-back"
                 }
             },
@@ -1735,25 +1094,13 @@
                     "maxclass": "toggle",
                     "numinlets": 1,
                     "numoutlets": 1,
-                    "outlettype": [
-                        "int"
-                    ],
+                    "outlettype": [ "int" ],
                     "parameter_enable": 1,
-                    "patching_rect": [
-                        115,
-                        563,
-                        24,
-                        24
-                    ],
+                    "patching_rect": [ 115.0, 563.0, 24.0, 24.0 ],
                     "saved_attribute_attributes": {
                         "valueof": {
-                            "parameter_enum": [
-                                "off",
-                                "on"
-                            ],
-                            "parameter_initial": [
-                                1
-                            ],
+                            "parameter_enum": [ "off", "on" ],
+                            "parameter_initial": [ 1 ],
                             "parameter_initial_enable": 1,
                             "parameter_longname": "tilt_back_enable",
                             "parameter_mmax": 1,
@@ -1771,15 +1118,8 @@
                     "maxclass": "newobj",
                     "numinlets": 1,
                     "numoutlets": 1,
-                    "outlettype": [
-                        ""
-                    ],
-                    "patching_rect": [
-                        115,
-                        590,
-                        183,
-                        22
-                    ],
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 115.0, 590.0, 183.0, 22.0 ],
                     "text": "prepend gesture_enable tilt-back"
                 }
             },
@@ -1790,31 +1130,22 @@
                     "maxclass": "dial",
                     "numinlets": 1,
                     "numoutlets": 1,
-                    "outlettype": [
-                        "float"
-                    ],
+                    "outlettype": [ "float" ],
                     "parameter_enable": 1,
-                    "patching_rect": [
-                        170,
-                        560,
-                        32,
-                        32
-                    ],
+                    "patching_rect": [ 170.0, 560.0, 32.0, 32.0 ],
                     "saved_attribute_attributes": {
                         "valueof": {
-                            "parameter_initial": [
-                                0.5
-                            ],
+                            "parameter_initial": [ 0.5 ],
                             "parameter_initial_enable": 1,
                             "parameter_longname": "tilt_back_sensitivity",
-                            "parameter_mmax": 1,
+                            "parameter_mmax": 1.0,
                             "parameter_modmode": 0,
                             "parameter_shortname": "tb_sens",
                             "parameter_type": 0,
                             "parameter_unitstyle": 1
                         }
                     },
-                    "size": 1,
+                    "size": 1.0,
                     "varname": "tilt_back_sensitivity"
                 }
             },
@@ -1824,15 +1155,8 @@
                     "maxclass": "newobj",
                     "numinlets": 1,
                     "numoutlets": 1,
-                    "outlettype": [
-                        ""
-                    ],
-                    "patching_rect": [
-                        317,
-                        590,
-                        202,
-                        22
-                    ],
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 317.0, 590.0, 202.0, 22.0 ],
                     "text": "prepend gesture_sensitivity tilt-back"
                 }
             },
@@ -1843,31 +1167,22 @@
                     "maxclass": "dial",
                     "numinlets": 1,
                     "numoutlets": 1,
-                    "outlettype": [
-                        "float"
-                    ],
+                    "outlettype": [ "float" ],
                     "parameter_enable": 1,
-                    "patching_rect": [
-                        422,
-                        555,
-                        32,
-                        32
-                    ],
+                    "patching_rect": [ 422.0, 555.0, 32.0, 32.0 ],
                     "saved_attribute_attributes": {
                         "valueof": {
-                            "parameter_initial": [
-                                400
-                            ],
+                            "parameter_initial": [ 400 ],
                             "parameter_initial_enable": 1,
                             "parameter_longname": "tilt_back_cooldown",
-                            "parameter_mmax": 1000,
+                            "parameter_mmax": 1000.0,
                             "parameter_modmode": 0,
                             "parameter_shortname": "tb_cd",
                             "parameter_type": 0,
                             "parameter_unitstyle": 1
                         }
                     },
-                    "size": 1000,
+                    "size": 1000.0,
                     "varname": "tilt_back_cooldown"
                 }
             },
@@ -1877,15 +1192,8 @@
                     "maxclass": "newobj",
                     "numinlets": 1,
                     "numoutlets": 1,
-                    "outlettype": [
-                        ""
-                    ],
-                    "patching_rect": [
-                        601,
-                        590,
-                        198,
-                        22
-                    ],
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 601.0, 590.0, 198.0, 22.0 ],
                     "text": "prepend gesture_cooldown tilt-back"
                 }
             },
@@ -1895,28 +1203,11 @@
                     "maxclass": "led",
                     "numinlets": 1,
                     "numoutlets": 1,
-                    "offcolor": [
-                        0.4,
-                        0.4,
-                        0.4,
-                        1
-                    ],
-                    "oncolor": [
-                        1,
-                        0.5,
-                        0,
-                        1
-                    ],
-                    "outlettype": [
-                        "int"
-                    ],
+                    "offcolor": [ 0.4, 0.4, 0.4, 1.0 ],
+                    "oncolor": [ 1.0, 0.5, 0.0, 1.0 ],
+                    "outlettype": [ "int" ],
                     "parameter_enable": 0,
-                    "patching_rect": [
-                        701,
-                        562,
-                        20,
-                        20
-                    ]
+                    "patching_rect": [ 701.0, 562.0, 20.0, 20.0 ]
                 }
             },
             {
@@ -1926,12 +1217,7 @@
                     "maxclass": "comment",
                     "numinlets": 1,
                     "numoutlets": 0,
-                    "patching_rect": [
-                        20,
-                        1170,
-                        150,
-                        20
-                    ],
+                    "patching_rect": [ 20.0, 1170.0, 150.0, 20.0 ],
                     "text": "--- Outlets ---"
                 }
             },
@@ -1943,12 +1229,7 @@
                     "maxclass": "outlet",
                     "numinlets": 1,
                     "numoutlets": 0,
-                    "patching_rect": [
-                        20,
-                        1200,
-                        30,
-                        30
-                    ]
+                    "patching_rect": [ 20.0, 1200.0, 30.0, 30.0 ]
                 }
             },
             {
@@ -1959,12 +1240,7 @@
                     "maxclass": "outlet",
                     "numinlets": 1,
                     "numoutlets": 0,
-                    "patching_rect": [
-                        130,
-                        1200,
-                        30,
-                        30
-                    ]
+                    "patching_rect": [ 130.0, 1200.0, 30.0, 30.0 ]
                 }
             },
             {
@@ -1975,12 +1251,7 @@
                     "maxclass": "outlet",
                     "numinlets": 1,
                     "numoutlets": 0,
-                    "patching_rect": [
-                        240,
-                        1200,
-                        30,
-                        30
-                    ]
+                    "patching_rect": [ 240.0, 1200.0, 30.0, 30.0 ]
                 }
             },
             {
@@ -1991,12 +1262,7 @@
                     "maxclass": "outlet",
                     "numinlets": 1,
                     "numoutlets": 0,
-                    "patching_rect": [
-                        350,
-                        1200,
-                        30,
-                        30
-                    ]
+                    "patching_rect": [ 350.0, 1200.0, 30.0, 30.0 ]
                 }
             },
             {
@@ -2007,12 +1273,7 @@
                     "maxclass": "outlet",
                     "numinlets": 1,
                     "numoutlets": 0,
-                    "patching_rect": [
-                        460,
-                        1200,
-                        30,
-                        30
-                    ]
+                    "patching_rect": [ 460.0, 1200.0, 30.0, 30.0 ]
                 }
             },
             {
@@ -2023,12 +1284,7 @@
                     "maxclass": "outlet",
                     "numinlets": 1,
                     "numoutlets": 0,
-                    "patching_rect": [
-                        570,
-                        1200,
-                        30,
-                        30
-                    ]
+                    "patching_rect": [ 570.0, 1200.0, 30.0, 30.0 ]
                 }
             },
             {
@@ -2039,12 +1295,7 @@
                     "maxclass": "outlet",
                     "numinlets": 1,
                     "numoutlets": 0,
-                    "patching_rect": [
-                        680,
-                        1200,
-                        30,
-                        30
-                    ]
+                    "patching_rect": [ 680.0, 1200.0, 30.0, 30.0 ]
                 }
             },
             {
@@ -2053,33 +1304,20 @@
                     "maxclass": "newobj",
                     "numinlets": 1,
                     "numoutlets": 2,
-                    "outlettype": [
-                        "",
-                        ""
-                    ],
-                    "patching_rect": [
-                        679.9999999999998,
-                        216,
-                        32,
-                        22
-                    ],
+                    "outlettype": [ "", "" ],
+                    "patching_rect": [ 679.9999999999998, 216.0, 32.0, 22.0 ],
                     "text": "t l l"
                 }
             },
             {
                 "box": {
                     "fontface": 1,
-                    "fontsize": 14,
+                    "fontsize": 14.0,
                     "id": "obj-comment-dtw-header",
                     "maxclass": "comment",
                     "numinlets": 1,
                     "numoutlets": 0,
-                    "patching_rect": [
-                        20,
-                        660,
-                        350,
-                        22
-                    ],
+                    "patching_rect": [ 20.0, 626.0, 350.0, 22.0 ],
                     "text": "--- Custom DTW Gesture Recording ---"
                 }
             },
@@ -2089,12 +1327,7 @@
                     "maxclass": "comment",
                     "numinlets": 1,
                     "numoutlets": 0,
-                    "patching_rect": [
-                        20,
-                        690,
-                        40,
-                        20
-                    ],
+                    "patching_rect": [ 20.0, 690.0, 40.0, 20.0 ],
                     "text": "slot:"
                 }
             },
@@ -2102,20 +1335,13 @@
                 "box": {
                     "id": "obj-dtw-slot-id",
                     "maxclass": "number",
+                    "maximum": 99,
+                    "minimum": 1,
                     "numinlets": 1,
                     "numoutlets": 2,
-                    "outlettype": [
-                        "",
-                        "bang"
-                    ],
-                    "patching_rect": [
-                        60,
-                        690,
-                        50,
-                        22
-                    ],
-                    "minimum": 1,
-                    "maximum": 99
+                    "outlettype": [ "", "bang" ],
+                    "parameter_enable": 0,
+                    "patching_rect": [ 60.0, 690.0, 50.0, 22.0 ]
                 }
             },
             {
@@ -2124,43 +1350,28 @@
                     "maxclass": "comment",
                     "numinlets": 1,
                     "numoutlets": 0,
-                    "patching_rect": [
-                        120,
-                        690,
-                        45,
-                        20
-                    ],
+                    "patching_rect": [ 120.0, 690.0, 45.0, 20.0 ],
                     "text": "mode:"
                 }
             },
             {
                 "box": {
                     "id": "obj-dtw-mode-menu",
+                    "items": [ "timed", ",", "toggle" ],
                     "maxclass": "umenu",
                     "numinlets": 1,
                     "numoutlets": 3,
-                    "outlettype": [
-                        "int",
-                        "",
-                        ""
-                    ],
-                    "items": [
-                        "timed",
-                        "toggle"
-                    ],
-                    "patching_rect": [
-                        165,
-                        690,
-                        80,
-                        22
-                    ],
+                    "outlettype": [ "int", "", "" ],
                     "parameter_enable": 1,
+                    "patching_rect": [ 165.0, 690.0, 80.0, 22.0 ],
                     "saved_attribute_attributes": {
                         "valueof": {
+                            "parameter_enum": [ "0", "1" ],
                             "parameter_longname": "dtw_record_mode",
+                            "parameter_mmax": 1,
+                            "parameter_modmode": 0,
                             "parameter_shortname": "dtw_mode",
-                            "parameter_type": 2,
-                            "parameter_modmode": 0
+                            "parameter_type": 2
                         }
                     },
                     "varname": "dtw_record_mode"
@@ -2172,12 +1383,7 @@
                     "maxclass": "comment",
                     "numinlets": 1,
                     "numoutlets": 0,
-                    "patching_rect": [
-                        255,
-                        690,
-                        40,
-                        20
-                    ],
+                    "patching_rect": [ 255.0, 690.0, 40.0, 20.0 ],
                     "text": "dur:"
                 }
             },
@@ -2185,20 +1391,13 @@
                 "box": {
                     "id": "obj-dtw-duration",
                     "maxclass": "number",
+                    "maximum": 10000,
+                    "minimum": 500,
                     "numinlets": 1,
                     "numoutlets": 2,
-                    "outlettype": [
-                        "",
-                        "bang"
-                    ],
-                    "patching_rect": [
-                        295,
-                        690,
-                        55,
-                        22
-                    ],
-                    "minimum": 500,
-                    "maximum": 10000
+                    "outlettype": [ "", "bang" ],
+                    "parameter_enable": 0,
+                    "patching_rect": [ 295.0, 690.0, 55.0, 22.0 ]
                 }
             },
             {
@@ -2207,15 +1406,8 @@
                     "maxclass": "message",
                     "numinlets": 2,
                     "numoutlets": 1,
-                    "outlettype": [
-                        ""
-                    ],
-                    "patching_rect": [
-                        295,
-                        670,
-                        40,
-                        22
-                    ],
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 295.0, 670.0, 40.0, 22.0 ],
                     "text": "2000"
                 }
             },
@@ -2225,15 +1417,8 @@
                     "maxclass": "newobj",
                     "numinlets": 1,
                     "numoutlets": 1,
-                    "outlettype": [
-                        "bang"
-                    ],
-                    "patching_rect": [
-                        295,
-                        650,
-                        60,
-                        22
-                    ],
+                    "outlettype": [ "bang" ],
+                    "patching_rect": [ 295.0, 650.0, 60.0, 22.0 ],
                     "text": "loadbang"
                 }
             },
@@ -2243,15 +1428,8 @@
                     "maxclass": "message",
                     "numinlets": 2,
                     "numoutlets": 1,
-                    "outlettype": [
-                        ""
-                    ],
-                    "patching_rect": [
-                        60,
-                        670,
-                        22,
-                        22
-                    ],
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 60.0, 670.0, 22.0, 22.0 ],
                     "text": "1"
                 }
             },
@@ -2261,15 +1439,8 @@
                     "maxclass": "newobj",
                     "numinlets": 1,
                     "numoutlets": 1,
-                    "outlettype": [
-                        "bang"
-                    ],
-                    "patching_rect": [
-                        60,
-                        650,
-                        60,
-                        22
-                    ],
+                    "outlettype": [ "bang" ],
+                    "patching_rect": [ 60.0, 650.0, 60.0, 22.0 ],
                     "text": "loadbang"
                 }
             },
@@ -2279,12 +1450,7 @@
                     "maxclass": "comment",
                     "numinlets": 1,
                     "numoutlets": 0,
-                    "patching_rect": [
-                        370,
-                        690,
-                        55,
-                        20
-                    ],
+                    "patching_rect": [ 370.0, 690.0, 55.0, 20.0 ],
                     "text": "Record"
                 }
             },
@@ -2294,16 +1460,9 @@
                     "maxclass": "button",
                     "numinlets": 1,
                     "numoutlets": 1,
-                    "outlettype": [
-                        "bang"
-                    ],
+                    "outlettype": [ "bang" ],
                     "parameter_enable": 0,
-                    "patching_rect": [
-                        425,
-                        690,
-                        24,
-                        24
-                    ]
+                    "patching_rect": [ 425.0, 690.0, 24.0, 24.0 ]
                 }
             },
             {
@@ -2312,12 +1471,7 @@
                     "maxclass": "comment",
                     "numinlets": 1,
                     "numoutlets": 0,
-                    "patching_rect": [
-                        460,
-                        690,
-                        35,
-                        20
-                    ],
+                    "patching_rect": [ 460.0, 690.0, 35.0, 20.0 ],
                     "text": "Stop"
                 }
             },
@@ -2327,16 +1481,9 @@
                     "maxclass": "button",
                     "numinlets": 1,
                     "numoutlets": 1,
-                    "outlettype": [
-                        "bang"
-                    ],
+                    "outlettype": [ "bang" ],
                     "parameter_enable": 0,
-                    "patching_rect": [
-                        495,
-                        690,
-                        24,
-                        24
-                    ]
+                    "patching_rect": [ 495.0, 690.0, 24.0, 24.0 ]
                 }
             },
             {
@@ -2345,15 +1492,8 @@
                     "maxclass": "newobj",
                     "numinlets": 3,
                     "numoutlets": 1,
-                    "outlettype": [
-                        ""
-                    ],
-                    "patching_rect": [
-                        370,
-                        720,
-                        140,
-                        22
-                    ],
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 370.0, 720.0, 140.0, 22.0 ],
                     "text": "pack i s i"
                 }
             },
@@ -2363,15 +1503,8 @@
                     "maxclass": "newobj",
                     "numinlets": 1,
                     "numoutlets": 1,
-                    "outlettype": [
-                        ""
-                    ],
-                    "patching_rect": [
-                        370,
-                        745,
-                        155,
-                        22
-                    ],
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 370.0, 745.0, 155.0, 22.0 ],
                     "text": "prepend dtw_record_start"
                 }
             },
@@ -2381,15 +1514,8 @@
                     "maxclass": "message",
                     "numinlets": 2,
                     "numoutlets": 1,
-                    "outlettype": [
-                        ""
-                    ],
-                    "patching_rect": [
-                        530,
-                        720,
-                        105,
-                        22
-                    ],
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 530.0, 720.0, 105.0, 22.0 ],
                     "text": "dtw_record_stop"
                 }
             },
@@ -2399,12 +1525,7 @@
                     "maxclass": "comment",
                     "numinlets": 1,
                     "numoutlets": 0,
-                    "patching_rect": [
-                        560,
-                        690,
-                        50,
-                        20
-                    ],
+                    "patching_rect": [ 560.0, 690.0, 50.0, 20.0 ],
                     "text": "status:"
                 }
             },
@@ -2414,16 +1535,9 @@
                     "maxclass": "message",
                     "numinlets": 2,
                     "numoutlets": 1,
-                    "outlettype": [
-                        ""
-                    ],
-                    "patching_rect": [
-                        610,
-                        690,
-                        120,
-                        22
-                    ],
-                    "text": "idle"
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 610.0, 690.0, 120.0, 22.0 ],
+                    "text": "captured 1 130"
                 }
             },
             {
@@ -2432,12 +1546,7 @@
                     "maxclass": "comment",
                     "numinlets": 1,
                     "numoutlets": 0,
-                    "patching_rect": [
-                        740,
-                        690,
-                        55,
-                        20
-                    ],
+                    "patching_rect": [ 740.0, 690.0, 55.0, 20.0 ],
                     "text": "frames:"
                 }
             },
@@ -2447,16 +1556,9 @@
                     "maxclass": "number",
                     "numinlets": 1,
                     "numoutlets": 2,
-                    "outlettype": [
-                        "",
-                        "bang"
-                    ],
-                    "patching_rect": [
-                        795,
-                        690,
-                        55,
-                        22
-                    ]
+                    "outlettype": [ "", "bang" ],
+                    "parameter_enable": 0,
+                    "patching_rect": [ 795.0, 690.0, 55.0, 22.0 ]
                 }
             },
             {
@@ -2465,12 +1567,7 @@
                     "maxclass": "comment",
                     "numinlets": 1,
                     "numoutlets": 0,
-                    "patching_rect": [
-                        860,
-                        690,
-                        45,
-                        20
-                    ],
+                    "patching_rect": [ 860.0, 690.0, 45.0, 20.0 ],
                     "text": "name:"
                 }
             },
@@ -2480,19 +1577,10 @@
                     "maxclass": "textedit",
                     "numinlets": 1,
                     "numoutlets": 4,
-                    "outlettype": [
-                        "",
-                        "int",
-                        "",
-                        ""
-                    ],
-                    "patching_rect": [
-                        905,
-                        690,
-                        100,
-                        22
-                    ],
-                    "text": ""
+                    "outlettype": [ "", "int", "", "" ],
+                    "parameter_enable": 0,
+                    "patching_rect": [ 905.0, 690.0, 100.0, 22.0 ],
+                    "text": "circle\n"
                 }
             },
             {
@@ -2501,15 +1589,8 @@
                     "maxclass": "newobj",
                     "numinlets": 1,
                     "numoutlets": 1,
-                    "outlettype": [
-                        ""
-                    ],
-                    "patching_rect": [
-                        905,
-                        715,
-                        130,
-                        22
-                    ],
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 905.0, 728.0, 130.0, 22.0 ],
                     "text": "prepend dtw_name"
                 }
             },
@@ -2519,15 +1600,8 @@
                     "maxclass": "newobj",
                     "numinlets": 2,
                     "numoutlets": 1,
-                    "outlettype": [
-                        ""
-                    ],
-                    "patching_rect": [
-                        905,
-                        740,
-                        130,
-                        22
-                    ],
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 905.0, 753.0, 130.0, 22.0 ],
                     "text": "pack i s"
                 }
             },
@@ -2538,12 +1612,7 @@
                     "maxclass": "comment",
                     "numinlets": 1,
                     "numoutlets": 0,
-                    "patching_rect": [
-                        20,
-                        780,
-                        350,
-                        20
-                    ],
+                    "patching_rect": [ 20.0, 780.0, 350.0, 20.0 ],
                     "text": "--- DTW Gesture Slots ---"
                 }
             },
@@ -2553,12 +1622,7 @@
                     "maxclass": "comment",
                     "numinlets": 1,
                     "numoutlets": 0,
-                    "patching_rect": [
-                        20,
-                        800,
-                        40,
-                        20
-                    ],
+                    "patching_rect": [ 20.0, 800.0, 40.0, 20.0 ],
                     "text": "en"
                 }
             },
@@ -2568,12 +1632,7 @@
                     "maxclass": "comment",
                     "numinlets": 1,
                     "numoutlets": 0,
-                    "patching_rect": [
-                        50,
-                        800,
-                        50,
-                        20
-                    ],
+                    "patching_rect": [ 50.0, 800.0, 50.0, 20.0 ],
                     "text": "slot"
                 }
             },
@@ -2583,12 +1642,7 @@
                     "maxclass": "comment",
                     "numinlets": 1,
                     "numoutlets": 0,
-                    "patching_rect": [
-                        100,
-                        800,
-                        80,
-                        20
-                    ],
+                    "patching_rect": [ 100.0, 800.0, 80.0, 20.0 ],
                     "text": "name"
                 }
             },
@@ -2598,12 +1652,7 @@
                     "maxclass": "comment",
                     "numinlets": 1,
                     "numoutlets": 0,
-                    "patching_rect": [
-                        185,
-                        800,
-                        70,
-                        20
-                    ],
+                    "patching_rect": [ 185.0, 800.0, 70.0, 20.0 ],
                     "text": "threshold"
                 }
             },
@@ -2613,12 +1662,7 @@
                     "maxclass": "comment",
                     "numinlets": 1,
                     "numoutlets": 0,
-                    "patching_rect": [
-                        270,
-                        800,
-                        70,
-                        20
-                    ],
+                    "patching_rect": [ 270.0, 800.0, 70.0, 20.0 ],
                     "text": "cd (ms)"
                 }
             },
@@ -2628,12 +1672,7 @@
                     "maxclass": "comment",
                     "numinlets": 1,
                     "numoutlets": 0,
-                    "patching_rect": [
-                        350,
-                        800,
-                        60,
-                        20
-                    ],
+                    "patching_rect": [ 350.0, 800.0, 60.0, 20.0 ],
                     "text": "examples"
                 }
             },
@@ -2643,12 +1682,7 @@
                     "maxclass": "comment",
                     "numinlets": 1,
                     "numoutlets": 0,
-                    "patching_rect": [
-                        420,
-                        800,
-                        40,
-                        20
-                    ],
+                    "patching_rect": [ 420.0, 800.0, 40.0, 20.0 ],
                     "text": "del"
                 }
             },
@@ -2658,25 +1692,13 @@
                     "maxclass": "toggle",
                     "numinlets": 1,
                     "numoutlets": 1,
-                    "outlettype": [
-                        "int"
-                    ],
+                    "outlettype": [ "int" ],
                     "parameter_enable": 1,
-                    "patching_rect": [
-                        24,
-                        820,
-                        20,
-                        20
-                    ],
+                    "patching_rect": [ 24.0, 820.0, 20.0, 20.0 ],
                     "saved_attribute_attributes": {
                         "valueof": {
-                            "parameter_enum": [
-                                "off",
-                                "on"
-                            ],
-                            "parameter_initial": [
-                                1
-                            ],
+                            "parameter_enum": [ "off", "on" ],
+                            "parameter_initial": [ 1 ],
                             "parameter_initial_enable": 1,
                             "parameter_longname": "dtw_enable_1",
                             "parameter_mmax": 1,
@@ -2694,15 +1716,8 @@
                     "maxclass": "newobj",
                     "numinlets": 1,
                     "numoutlets": 1,
-                    "outlettype": [
-                        ""
-                    ],
-                    "patching_rect": [
-                        24,
-                        845,
-                        130,
-                        22
-                    ],
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 24.0, 845.0, 130.0, 22.0 ],
                     "text": "prepend dtw_enable 1"
                 }
             },
@@ -2712,12 +1727,7 @@
                     "maxclass": "comment",
                     "numinlets": 1,
                     "numoutlets": 0,
-                    "patching_rect": [
-                        50,
-                        820,
-                        40,
-                        20
-                    ],
+                    "patching_rect": [ 50.0, 820.0, 40.0, 20.0 ],
                     "text": "1"
                 }
             },
@@ -2727,12 +1737,7 @@
                     "maxclass": "comment",
                     "numinlets": 1,
                     "numoutlets": 0,
-                    "patching_rect": [
-                        100,
-                        820,
-                        80,
-                        20
-                    ],
+                    "patching_rect": [ 100.0, 820.0, 80.0, 20.0 ],
                     "text": "gesture-1"
                 }
             },
@@ -2743,31 +1748,22 @@
                     "maxclass": "dial",
                     "numinlets": 1,
                     "numoutlets": 1,
-                    "outlettype": [
-                        "float"
-                    ],
+                    "outlettype": [ "float" ],
                     "parameter_enable": 1,
-                    "patching_rect": [
-                        195,
-                        817,
-                        32,
-                        32
-                    ],
-                    "size": 1,
+                    "patching_rect": [ 195.0, 817.0, 32.0, 32.0 ],
                     "saved_attribute_attributes": {
                         "valueof": {
-                            "parameter_initial": [
-                                0.6
-                            ],
+                            "parameter_initial": [ 0.6 ],
                             "parameter_initial_enable": 1,
                             "parameter_longname": "dtw_threshold_1",
-                            "parameter_mmax": 1,
+                            "parameter_mmax": 1.0,
                             "parameter_modmode": 0,
                             "parameter_shortname": "dtw_th1",
                             "parameter_type": 0,
                             "parameter_unitstyle": 1
                         }
                     },
+                    "size": 1.0,
                     "varname": "dtw_threshold_1"
                 }
             },
@@ -2777,15 +1773,8 @@
                     "maxclass": "newobj",
                     "numinlets": 1,
                     "numoutlets": 1,
-                    "outlettype": [
-                        ""
-                    ],
-                    "patching_rect": [
-                        195,
-                        845,
-                        155,
-                        22
-                    ],
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 195.0, 845.0, 155.0, 22.0 ],
                     "text": "prepend dtw_threshold 1"
                 }
             },
@@ -2796,31 +1785,22 @@
                     "maxclass": "dial",
                     "numinlets": 1,
                     "numoutlets": 1,
-                    "outlettype": [
-                        "float"
-                    ],
+                    "outlettype": [ "float" ],
                     "parameter_enable": 1,
-                    "patching_rect": [
-                        280,
-                        817,
-                        32,
-                        32
-                    ],
-                    "size": 5000,
+                    "patching_rect": [ 280.0, 817.0, 32.0, 32.0 ],
                     "saved_attribute_attributes": {
                         "valueof": {
-                            "parameter_initial": [
-                                500
-                            ],
+                            "parameter_initial": [ 500 ],
                             "parameter_initial_enable": 1,
                             "parameter_longname": "dtw_cooldown_1",
-                            "parameter_mmax": 5000,
+                            "parameter_mmax": 5000.0,
                             "parameter_modmode": 0,
                             "parameter_shortname": "dtw_cd1",
                             "parameter_type": 0,
                             "parameter_unitstyle": 1
                         }
                     },
+                    "size": 5000.0,
                     "varname": "dtw_cooldown_1"
                 }
             },
@@ -2830,15 +1810,8 @@
                     "maxclass": "newobj",
                     "numinlets": 1,
                     "numoutlets": 1,
-                    "outlettype": [
-                        ""
-                    ],
-                    "patching_rect": [
-                        280,
-                        845,
-                        155,
-                        22
-                    ],
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 280.0, 845.0, 155.0, 22.0 ],
                     "text": "prepend dtw_cooldown 1"
                 }
             },
@@ -2848,16 +1821,9 @@
                     "maxclass": "number",
                     "numinlets": 1,
                     "numoutlets": 2,
-                    "outlettype": [
-                        "",
-                        "bang"
-                    ],
-                    "patching_rect": [
-                        360,
-                        820,
-                        40,
-                        22
-                    ]
+                    "outlettype": [ "", "bang" ],
+                    "parameter_enable": 0,
+                    "patching_rect": [ 360.0, 820.0, 40.0, 22.0 ]
                 }
             },
             {
@@ -2866,16 +1832,9 @@
                     "maxclass": "button",
                     "numinlets": 1,
                     "numoutlets": 1,
-                    "outlettype": [
-                        "bang"
-                    ],
+                    "outlettype": [ "bang" ],
                     "parameter_enable": 0,
-                    "patching_rect": [
-                        425,
-                        820,
-                        20,
-                        20
-                    ]
+                    "patching_rect": [ 425.0, 820.0, 20.0, 20.0 ]
                 }
             },
             {
@@ -2884,15 +1843,8 @@
                     "maxclass": "message",
                     "numinlets": 2,
                     "numoutlets": 1,
-                    "outlettype": [
-                        ""
-                    ],
-                    "patching_rect": [
-                        425,
-                        845,
-                        105,
-                        22
-                    ],
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 425.0, 845.0, 105.0, 22.0 ],
                     "text": "dtw_delete 1"
                 }
             },
@@ -2902,25 +1854,13 @@
                     "maxclass": "toggle",
                     "numinlets": 1,
                     "numoutlets": 1,
-                    "outlettype": [
-                        "int"
-                    ],
+                    "outlettype": [ "int" ],
                     "parameter_enable": 1,
-                    "patching_rect": [
-                        24,
-                        875,
-                        20,
-                        20
-                    ],
+                    "patching_rect": [ 24.0, 875.0, 20.0, 20.0 ],
                     "saved_attribute_attributes": {
                         "valueof": {
-                            "parameter_enum": [
-                                "off",
-                                "on"
-                            ],
-                            "parameter_initial": [
-                                1
-                            ],
+                            "parameter_enum": [ "off", "on" ],
+                            "parameter_initial": [ 1 ],
                             "parameter_initial_enable": 1,
                             "parameter_longname": "dtw_enable_2",
                             "parameter_mmax": 1,
@@ -2938,15 +1878,8 @@
                     "maxclass": "newobj",
                     "numinlets": 1,
                     "numoutlets": 1,
-                    "outlettype": [
-                        ""
-                    ],
-                    "patching_rect": [
-                        24,
-                        900,
-                        130,
-                        22
-                    ],
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 24.0, 900.0, 130.0, 22.0 ],
                     "text": "prepend dtw_enable 2"
                 }
             },
@@ -2956,12 +1889,7 @@
                     "maxclass": "comment",
                     "numinlets": 1,
                     "numoutlets": 0,
-                    "patching_rect": [
-                        50,
-                        875,
-                        40,
-                        20
-                    ],
+                    "patching_rect": [ 50.0, 875.0, 40.0, 20.0 ],
                     "text": "2"
                 }
             },
@@ -2971,12 +1899,7 @@
                     "maxclass": "comment",
                     "numinlets": 1,
                     "numoutlets": 0,
-                    "patching_rect": [
-                        100,
-                        875,
-                        80,
-                        20
-                    ],
+                    "patching_rect": [ 100.0, 875.0, 80.0, 20.0 ],
                     "text": "gesture-2"
                 }
             },
@@ -2987,31 +1910,22 @@
                     "maxclass": "dial",
                     "numinlets": 1,
                     "numoutlets": 1,
-                    "outlettype": [
-                        "float"
-                    ],
+                    "outlettype": [ "float" ],
                     "parameter_enable": 1,
-                    "patching_rect": [
-                        195,
-                        872,
-                        32,
-                        32
-                    ],
-                    "size": 1,
+                    "patching_rect": [ 195.0, 872.0, 32.0, 32.0 ],
                     "saved_attribute_attributes": {
                         "valueof": {
-                            "parameter_initial": [
-                                0.6
-                            ],
+                            "parameter_initial": [ 0.6 ],
                             "parameter_initial_enable": 1,
                             "parameter_longname": "dtw_threshold_2",
-                            "parameter_mmax": 1,
+                            "parameter_mmax": 1.0,
                             "parameter_modmode": 0,
                             "parameter_shortname": "dtw_th2",
                             "parameter_type": 0,
                             "parameter_unitstyle": 1
                         }
                     },
+                    "size": 1.0,
                     "varname": "dtw_threshold_2"
                 }
             },
@@ -3021,15 +1935,8 @@
                     "maxclass": "newobj",
                     "numinlets": 1,
                     "numoutlets": 1,
-                    "outlettype": [
-                        ""
-                    ],
-                    "patching_rect": [
-                        195,
-                        900,
-                        155,
-                        22
-                    ],
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 195.0, 900.0, 155.0, 22.0 ],
                     "text": "prepend dtw_threshold 2"
                 }
             },
@@ -3040,31 +1947,22 @@
                     "maxclass": "dial",
                     "numinlets": 1,
                     "numoutlets": 1,
-                    "outlettype": [
-                        "float"
-                    ],
+                    "outlettype": [ "float" ],
                     "parameter_enable": 1,
-                    "patching_rect": [
-                        280,
-                        872,
-                        32,
-                        32
-                    ],
-                    "size": 5000,
+                    "patching_rect": [ 280.0, 872.0, 32.0, 32.0 ],
                     "saved_attribute_attributes": {
                         "valueof": {
-                            "parameter_initial": [
-                                500
-                            ],
+                            "parameter_initial": [ 500 ],
                             "parameter_initial_enable": 1,
                             "parameter_longname": "dtw_cooldown_2",
-                            "parameter_mmax": 5000,
+                            "parameter_mmax": 5000.0,
                             "parameter_modmode": 0,
                             "parameter_shortname": "dtw_cd2",
                             "parameter_type": 0,
                             "parameter_unitstyle": 1
                         }
                     },
+                    "size": 5000.0,
                     "varname": "dtw_cooldown_2"
                 }
             },
@@ -3074,15 +1972,8 @@
                     "maxclass": "newobj",
                     "numinlets": 1,
                     "numoutlets": 1,
-                    "outlettype": [
-                        ""
-                    ],
-                    "patching_rect": [
-                        280,
-                        900,
-                        155,
-                        22
-                    ],
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 280.0, 900.0, 155.0, 22.0 ],
                     "text": "prepend dtw_cooldown 2"
                 }
             },
@@ -3092,16 +1983,9 @@
                     "maxclass": "number",
                     "numinlets": 1,
                     "numoutlets": 2,
-                    "outlettype": [
-                        "",
-                        "bang"
-                    ],
-                    "patching_rect": [
-                        360,
-                        875,
-                        40,
-                        22
-                    ]
+                    "outlettype": [ "", "bang" ],
+                    "parameter_enable": 0,
+                    "patching_rect": [ 360.0, 875.0, 40.0, 22.0 ]
                 }
             },
             {
@@ -3110,16 +1994,9 @@
                     "maxclass": "button",
                     "numinlets": 1,
                     "numoutlets": 1,
-                    "outlettype": [
-                        "bang"
-                    ],
+                    "outlettype": [ "bang" ],
                     "parameter_enable": 0,
-                    "patching_rect": [
-                        425,
-                        875,
-                        20,
-                        20
-                    ]
+                    "patching_rect": [ 425.0, 875.0, 20.0, 20.0 ]
                 }
             },
             {
@@ -3128,15 +2005,8 @@
                     "maxclass": "message",
                     "numinlets": 2,
                     "numoutlets": 1,
-                    "outlettype": [
-                        ""
-                    ],
-                    "patching_rect": [
-                        425,
-                        900,
-                        105,
-                        22
-                    ],
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 425.0, 900.0, 105.0, 22.0 ],
                     "text": "dtw_delete 2"
                 }
             },
@@ -3146,25 +2016,13 @@
                     "maxclass": "toggle",
                     "numinlets": 1,
                     "numoutlets": 1,
-                    "outlettype": [
-                        "int"
-                    ],
+                    "outlettype": [ "int" ],
                     "parameter_enable": 1,
-                    "patching_rect": [
-                        24,
-                        930,
-                        20,
-                        20
-                    ],
+                    "patching_rect": [ 24.0, 930.0, 20.0, 20.0 ],
                     "saved_attribute_attributes": {
                         "valueof": {
-                            "parameter_enum": [
-                                "off",
-                                "on"
-                            ],
-                            "parameter_initial": [
-                                1
-                            ],
+                            "parameter_enum": [ "off", "on" ],
+                            "parameter_initial": [ 1 ],
                             "parameter_initial_enable": 1,
                             "parameter_longname": "dtw_enable_3",
                             "parameter_mmax": 1,
@@ -3182,15 +2040,8 @@
                     "maxclass": "newobj",
                     "numinlets": 1,
                     "numoutlets": 1,
-                    "outlettype": [
-                        ""
-                    ],
-                    "patching_rect": [
-                        24,
-                        955,
-                        130,
-                        22
-                    ],
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 24.0, 955.0, 130.0, 22.0 ],
                     "text": "prepend dtw_enable 3"
                 }
             },
@@ -3200,12 +2051,7 @@
                     "maxclass": "comment",
                     "numinlets": 1,
                     "numoutlets": 0,
-                    "patching_rect": [
-                        50,
-                        930,
-                        40,
-                        20
-                    ],
+                    "patching_rect": [ 50.0, 930.0, 40.0, 20.0 ],
                     "text": "3"
                 }
             },
@@ -3215,12 +2061,7 @@
                     "maxclass": "comment",
                     "numinlets": 1,
                     "numoutlets": 0,
-                    "patching_rect": [
-                        100,
-                        930,
-                        80,
-                        20
-                    ],
+                    "patching_rect": [ 100.0, 930.0, 80.0, 20.0 ],
                     "text": "gesture-3"
                 }
             },
@@ -3231,31 +2072,22 @@
                     "maxclass": "dial",
                     "numinlets": 1,
                     "numoutlets": 1,
-                    "outlettype": [
-                        "float"
-                    ],
+                    "outlettype": [ "float" ],
                     "parameter_enable": 1,
-                    "patching_rect": [
-                        195,
-                        927,
-                        32,
-                        32
-                    ],
-                    "size": 1,
+                    "patching_rect": [ 195.0, 927.0, 32.0, 32.0 ],
                     "saved_attribute_attributes": {
                         "valueof": {
-                            "parameter_initial": [
-                                0.6
-                            ],
+                            "parameter_initial": [ 0.6 ],
                             "parameter_initial_enable": 1,
                             "parameter_longname": "dtw_threshold_3",
-                            "parameter_mmax": 1,
+                            "parameter_mmax": 1.0,
                             "parameter_modmode": 0,
                             "parameter_shortname": "dtw_th3",
                             "parameter_type": 0,
                             "parameter_unitstyle": 1
                         }
                     },
+                    "size": 1.0,
                     "varname": "dtw_threshold_3"
                 }
             },
@@ -3265,15 +2097,8 @@
                     "maxclass": "newobj",
                     "numinlets": 1,
                     "numoutlets": 1,
-                    "outlettype": [
-                        ""
-                    ],
-                    "patching_rect": [
-                        195,
-                        955,
-                        155,
-                        22
-                    ],
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 195.0, 955.0, 155.0, 22.0 ],
                     "text": "prepend dtw_threshold 3"
                 }
             },
@@ -3284,31 +2109,22 @@
                     "maxclass": "dial",
                     "numinlets": 1,
                     "numoutlets": 1,
-                    "outlettype": [
-                        "float"
-                    ],
+                    "outlettype": [ "float" ],
                     "parameter_enable": 1,
-                    "patching_rect": [
-                        280,
-                        927,
-                        32,
-                        32
-                    ],
-                    "size": 5000,
+                    "patching_rect": [ 280.0, 927.0, 32.0, 32.0 ],
                     "saved_attribute_attributes": {
                         "valueof": {
-                            "parameter_initial": [
-                                500
-                            ],
+                            "parameter_initial": [ 500 ],
                             "parameter_initial_enable": 1,
                             "parameter_longname": "dtw_cooldown_3",
-                            "parameter_mmax": 5000,
+                            "parameter_mmax": 5000.0,
                             "parameter_modmode": 0,
                             "parameter_shortname": "dtw_cd3",
                             "parameter_type": 0,
                             "parameter_unitstyle": 1
                         }
                     },
+                    "size": 5000.0,
                     "varname": "dtw_cooldown_3"
                 }
             },
@@ -3318,15 +2134,8 @@
                     "maxclass": "newobj",
                     "numinlets": 1,
                     "numoutlets": 1,
-                    "outlettype": [
-                        ""
-                    ],
-                    "patching_rect": [
-                        280,
-                        955,
-                        155,
-                        22
-                    ],
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 280.0, 955.0, 155.0, 22.0 ],
                     "text": "prepend dtw_cooldown 3"
                 }
             },
@@ -3336,16 +2145,9 @@
                     "maxclass": "number",
                     "numinlets": 1,
                     "numoutlets": 2,
-                    "outlettype": [
-                        "",
-                        "bang"
-                    ],
-                    "patching_rect": [
-                        360,
-                        930,
-                        40,
-                        22
-                    ]
+                    "outlettype": [ "", "bang" ],
+                    "parameter_enable": 0,
+                    "patching_rect": [ 360.0, 930.0, 40.0, 22.0 ]
                 }
             },
             {
@@ -3354,16 +2156,9 @@
                     "maxclass": "button",
                     "numinlets": 1,
                     "numoutlets": 1,
-                    "outlettype": [
-                        "bang"
-                    ],
+                    "outlettype": [ "bang" ],
                     "parameter_enable": 0,
-                    "patching_rect": [
-                        425,
-                        930,
-                        20,
-                        20
-                    ]
+                    "patching_rect": [ 425.0, 930.0, 20.0, 20.0 ]
                 }
             },
             {
@@ -3372,15 +2167,8 @@
                     "maxclass": "message",
                     "numinlets": 2,
                     "numoutlets": 1,
-                    "outlettype": [
-                        ""
-                    ],
-                    "patching_rect": [
-                        425,
-                        955,
-                        105,
-                        22
-                    ],
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 425.0, 955.0, 105.0, 22.0 ],
                     "text": "dtw_delete 3"
                 }
             },
@@ -3390,25 +2178,13 @@
                     "maxclass": "toggle",
                     "numinlets": 1,
                     "numoutlets": 1,
-                    "outlettype": [
-                        "int"
-                    ],
+                    "outlettype": [ "int" ],
                     "parameter_enable": 1,
-                    "patching_rect": [
-                        24,
-                        985,
-                        20,
-                        20
-                    ],
+                    "patching_rect": [ 24.0, 985.0, 20.0, 20.0 ],
                     "saved_attribute_attributes": {
                         "valueof": {
-                            "parameter_enum": [
-                                "off",
-                                "on"
-                            ],
-                            "parameter_initial": [
-                                1
-                            ],
+                            "parameter_enum": [ "off", "on" ],
+                            "parameter_initial": [ 1 ],
                             "parameter_initial_enable": 1,
                             "parameter_longname": "dtw_enable_4",
                             "parameter_mmax": 1,
@@ -3426,15 +2202,8 @@
                     "maxclass": "newobj",
                     "numinlets": 1,
                     "numoutlets": 1,
-                    "outlettype": [
-                        ""
-                    ],
-                    "patching_rect": [
-                        24,
-                        1010,
-                        130,
-                        22
-                    ],
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 24.0, 1010.0, 130.0, 22.0 ],
                     "text": "prepend dtw_enable 4"
                 }
             },
@@ -3444,12 +2213,7 @@
                     "maxclass": "comment",
                     "numinlets": 1,
                     "numoutlets": 0,
-                    "patching_rect": [
-                        50,
-                        985,
-                        40,
-                        20
-                    ],
+                    "patching_rect": [ 50.0, 985.0, 40.0, 20.0 ],
                     "text": "4"
                 }
             },
@@ -3459,12 +2223,7 @@
                     "maxclass": "comment",
                     "numinlets": 1,
                     "numoutlets": 0,
-                    "patching_rect": [
-                        100,
-                        985,
-                        80,
-                        20
-                    ],
+                    "patching_rect": [ 100.0, 985.0, 80.0, 20.0 ],
                     "text": "gesture-4"
                 }
             },
@@ -3475,31 +2234,22 @@
                     "maxclass": "dial",
                     "numinlets": 1,
                     "numoutlets": 1,
-                    "outlettype": [
-                        "float"
-                    ],
+                    "outlettype": [ "float" ],
                     "parameter_enable": 1,
-                    "patching_rect": [
-                        195,
-                        982,
-                        32,
-                        32
-                    ],
-                    "size": 1,
+                    "patching_rect": [ 195.0, 982.0, 32.0, 32.0 ],
                     "saved_attribute_attributes": {
                         "valueof": {
-                            "parameter_initial": [
-                                0.6
-                            ],
+                            "parameter_initial": [ 0.6 ],
                             "parameter_initial_enable": 1,
                             "parameter_longname": "dtw_threshold_4",
-                            "parameter_mmax": 1,
+                            "parameter_mmax": 1.0,
                             "parameter_modmode": 0,
                             "parameter_shortname": "dtw_th4",
                             "parameter_type": 0,
                             "parameter_unitstyle": 1
                         }
                     },
+                    "size": 1.0,
                     "varname": "dtw_threshold_4"
                 }
             },
@@ -3509,15 +2259,8 @@
                     "maxclass": "newobj",
                     "numinlets": 1,
                     "numoutlets": 1,
-                    "outlettype": [
-                        ""
-                    ],
-                    "patching_rect": [
-                        195,
-                        1010,
-                        155,
-                        22
-                    ],
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 195.0, 1010.0, 155.0, 22.0 ],
                     "text": "prepend dtw_threshold 4"
                 }
             },
@@ -3528,31 +2271,22 @@
                     "maxclass": "dial",
                     "numinlets": 1,
                     "numoutlets": 1,
-                    "outlettype": [
-                        "float"
-                    ],
+                    "outlettype": [ "float" ],
                     "parameter_enable": 1,
-                    "patching_rect": [
-                        280,
-                        982,
-                        32,
-                        32
-                    ],
-                    "size": 5000,
+                    "patching_rect": [ 280.0, 982.0, 32.0, 32.0 ],
                     "saved_attribute_attributes": {
                         "valueof": {
-                            "parameter_initial": [
-                                500
-                            ],
+                            "parameter_initial": [ 500 ],
                             "parameter_initial_enable": 1,
                             "parameter_longname": "dtw_cooldown_4",
-                            "parameter_mmax": 5000,
+                            "parameter_mmax": 5000.0,
                             "parameter_modmode": 0,
                             "parameter_shortname": "dtw_cd4",
                             "parameter_type": 0,
                             "parameter_unitstyle": 1
                         }
                     },
+                    "size": 5000.0,
                     "varname": "dtw_cooldown_4"
                 }
             },
@@ -3562,15 +2296,8 @@
                     "maxclass": "newobj",
                     "numinlets": 1,
                     "numoutlets": 1,
-                    "outlettype": [
-                        ""
-                    ],
-                    "patching_rect": [
-                        280,
-                        1010,
-                        155,
-                        22
-                    ],
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 280.0, 1010.0, 155.0, 22.0 ],
                     "text": "prepend dtw_cooldown 4"
                 }
             },
@@ -3580,16 +2307,9 @@
                     "maxclass": "number",
                     "numinlets": 1,
                     "numoutlets": 2,
-                    "outlettype": [
-                        "",
-                        "bang"
-                    ],
-                    "patching_rect": [
-                        360,
-                        985,
-                        40,
-                        22
-                    ]
+                    "outlettype": [ "", "bang" ],
+                    "parameter_enable": 0,
+                    "patching_rect": [ 360.0, 985.0, 40.0, 22.0 ]
                 }
             },
             {
@@ -3598,16 +2318,9 @@
                     "maxclass": "button",
                     "numinlets": 1,
                     "numoutlets": 1,
-                    "outlettype": [
-                        "bang"
-                    ],
+                    "outlettype": [ "bang" ],
                     "parameter_enable": 0,
-                    "patching_rect": [
-                        425,
-                        985,
-                        20,
-                        20
-                    ]
+                    "patching_rect": [ 425.0, 985.0, 20.0, 20.0 ]
                 }
             },
             {
@@ -3616,15 +2329,8 @@
                     "maxclass": "message",
                     "numinlets": 2,
                     "numoutlets": 1,
-                    "outlettype": [
-                        ""
-                    ],
-                    "patching_rect": [
-                        425,
-                        1010,
-                        105,
-                        22
-                    ],
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 425.0, 1010.0, 105.0, 22.0 ],
                     "text": "dtw_delete 4"
                 }
             },
@@ -3635,12 +2341,7 @@
                     "maxclass": "comment",
                     "numinlets": 1,
                     "numoutlets": 0,
-                    "patching_rect": [
-                        20,
-                        1060,
-                        300,
-                        20
-                    ],
+                    "patching_rect": [ 20.0, 1060.0, 300.0, 20.0 ],
                     "text": "--- DTW Match Settings ---"
                 }
             },
@@ -3650,43 +2351,28 @@
                     "maxclass": "comment",
                     "numinlets": 1,
                     "numoutlets": 0,
-                    "patching_rect": [
-                        20,
-                        1085,
-                        75,
-                        20
-                    ],
+                    "patching_rect": [ 20.0, 1085.0, 78.0, 20.0 ],
                     "text": "match mode:"
                 }
             },
             {
                 "box": {
                     "id": "obj-dtw-matchmode-menu",
+                    "items": [ "best", ",", "all" ],
                     "maxclass": "umenu",
                     "numinlets": 1,
                     "numoutlets": 3,
-                    "outlettype": [
-                        "int",
-                        "",
-                        ""
-                    ],
-                    "items": [
-                        "best",
-                        "all"
-                    ],
-                    "patching_rect": [
-                        100,
-                        1085,
-                        70,
-                        22
-                    ],
+                    "outlettype": [ "int", "", "" ],
                     "parameter_enable": 1,
+                    "patching_rect": [ 100.0, 1085.0, 70.0, 22.0 ],
                     "saved_attribute_attributes": {
                         "valueof": {
+                            "parameter_enum": [ "0", "1" ],
                             "parameter_longname": "dtw_match_mode",
+                            "parameter_mmax": 1,
+                            "parameter_modmode": 0,
                             "parameter_shortname": "dtw_mm",
-                            "parameter_type": 2,
-                            "parameter_modmode": 0
+                            "parameter_type": 2
                         }
                     },
                     "varname": "dtw_match_mode"
@@ -3698,15 +2384,8 @@
                     "maxclass": "newobj",
                     "numinlets": 1,
                     "numoutlets": 1,
-                    "outlettype": [
-                        ""
-                    ],
-                    "patching_rect": [
-                        100,
-                        1110,
-                        145,
-                        22
-                    ],
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 100.0, 1110.0, 151.0, 22.0 ],
                     "text": "prepend dtw_match_mode"
                 }
             },
@@ -3716,12 +2395,7 @@
                     "maxclass": "comment",
                     "numinlets": 1,
                     "numoutlets": 0,
-                    "patching_rect": [
-                        260,
-                        1085,
-                        75,
-                        20
-                    ],
+                    "patching_rect": [ 260.0, 1085.0, 75.0, 20.0 ],
                     "text": "continuous:"
                 }
             },
@@ -3731,25 +2405,13 @@
                     "maxclass": "toggle",
                     "numinlets": 1,
                     "numoutlets": 1,
-                    "outlettype": [
-                        "int"
-                    ],
+                    "outlettype": [ "int" ],
                     "parameter_enable": 1,
-                    "patching_rect": [
-                        340,
-                        1085,
-                        20,
-                        20
-                    ],
+                    "patching_rect": [ 340.0, 1085.0, 20.0, 20.0 ],
                     "saved_attribute_attributes": {
                         "valueof": {
-                            "parameter_enum": [
-                                "off",
-                                "on"
-                            ],
-                            "parameter_initial": [
-                                0
-                            ],
+                            "parameter_enum": [ "off", "on" ],
+                            "parameter_initial": [ 0 ],
                             "parameter_initial_enable": 1,
                             "parameter_longname": "dtw_continuous",
                             "parameter_mmax": 1,
@@ -3767,15 +2429,8 @@
                     "maxclass": "newobj",
                     "numinlets": 1,
                     "numoutlets": 1,
-                    "outlettype": [
-                        ""
-                    ],
-                    "patching_rect": [
-                        340,
-                        1110,
-                        145,
-                        22
-                    ],
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 340.0, 1110.0, 145.0, 22.0 ],
                     "text": "prepend dtw_continuous"
                 }
             },
@@ -3785,12 +2440,7 @@
                     "maxclass": "comment",
                     "numinlets": 1,
                     "numoutlets": 0,
-                    "patching_rect": [
-                        500,
-                        1085,
-                        55,
-                        20
-                    ],
+                    "patching_rect": [ 500.0, 1085.0, 55.0, 20.0 ],
                     "text": "lib info:"
                 }
             },
@@ -3800,15 +2450,8 @@
                     "maxclass": "message",
                     "numinlets": 2,
                     "numoutlets": 1,
-                    "outlettype": [
-                        ""
-                    ],
-                    "patching_rect": [
-                        560,
-                        1085,
-                        150,
-                        22
-                    ],
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 560.0, 1085.0, 150.0, 22.0 ],
                     "text": "no library"
                 }
             },
@@ -3818,16 +2461,9 @@
                     "maxclass": "number",
                     "numinlets": 1,
                     "numoutlets": 2,
-                    "outlettype": [
-                        "",
-                        "bang"
-                    ],
-                    "patching_rect": [
-                        720,
-                        1085,
-                        45,
-                        22
-                    ]
+                    "outlettype": [ "", "bang" ],
+                    "parameter_enable": 0,
+                    "patching_rect": [ 720.0, 1085.0, 45.0, 22.0 ]
                 }
             },
             {
@@ -3836,12 +2472,7 @@
                     "maxclass": "comment",
                     "numinlets": 1,
                     "numoutlets": 0,
-                    "patching_rect": [
-                        770,
-                        1085,
-                        60,
-                        20
-                    ],
+                    "patching_rect": [ 770.0, 1085.0, 60.0, 20.0 ],
                     "text": "gestures"
                 }
             },
@@ -3851,12 +2482,7 @@
                     "maxclass": "comment",
                     "numinlets": 1,
                     "numoutlets": 0,
-                    "patching_rect": [
-                        840,
-                        1085,
-                        45,
-                        20
-                    ],
+                    "patching_rect": [ 840.0, 1085.0, 45.0, 20.0 ],
                     "text": "axes:"
                 }
             },
@@ -3866,15 +2492,8 @@
                     "maxclass": "message",
                     "numinlets": 2,
                     "numoutlets": 1,
-                    "outlettype": [
-                        ""
-                    ],
-                    "patching_rect": [
-                        885,
-                        1085,
-                        120,
-                        22
-                    ],
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 885.0, 1085.0, 120.0, 22.0 ],
                     "text": "(auto)"
                 }
             },
@@ -3885,12 +2504,7 @@
                     "maxclass": "comment",
                     "numinlets": 1,
                     "numoutlets": 0,
-                    "patching_rect": [
-                        20,
-                        1140,
-                        300,
-                        20
-                    ],
+                    "patching_rect": [ 20.0, 1140.0, 300.0, 20.0 ],
                     "text": "--- DTW Library Save/Load ---"
                 }
             },
@@ -3900,12 +2514,7 @@
                     "maxclass": "comment",
                     "numinlets": 1,
                     "numoutlets": 0,
-                    "patching_rect": [
-                        20,
-                        1165,
-                        80,
-                        20
-                    ],
+                    "patching_rect": [ 20.0, 1165.0, 80.0, 20.0 ],
                     "text": "Save Library"
                 }
             },
@@ -3915,16 +2524,9 @@
                     "maxclass": "button",
                     "numinlets": 1,
                     "numoutlets": 1,
-                    "outlettype": [
-                        "bang"
-                    ],
+                    "outlettype": [ "bang" ],
                     "parameter_enable": 0,
-                    "patching_rect": [
-                        105,
-                        1165,
-                        24,
-                        24
-                    ]
+                    "patching_rect": [ 105.0, 1165.0, 24.0, 24.0 ]
                 }
             },
             {
@@ -3932,17 +2534,9 @@
                     "id": "obj-dtw-savedialog",
                     "maxclass": "newobj",
                     "numinlets": 1,
-                    "numoutlets": 2,
-                    "outlettype": [
-                        "s",
-                        "bang"
-                    ],
-                    "patching_rect": [
-                        105,
-                        1195,
-                        110,
-                        22
-                    ],
+                    "numoutlets": 3,
+                    "outlettype": [ "", "", "bang" ],
+                    "patching_rect": [ 105.0, 1195.0, 110.0, 22.0 ],
                     "text": "savedialog JSON"
                 }
             },
@@ -3952,15 +2546,8 @@
                     "maxclass": "newobj",
                     "numinlets": 1,
                     "numoutlets": 1,
-                    "outlettype": [
-                        ""
-                    ],
-                    "patching_rect": [
-                        105,
-                        1220,
-                        115,
-                        22
-                    ],
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 105.0, 1220.0, 115.0, 22.0 ],
                     "text": "prepend dtw_save"
                 }
             },
@@ -3970,12 +2557,7 @@
                     "maxclass": "comment",
                     "numinlets": 1,
                     "numoutlets": 0,
-                    "patching_rect": [
-                        240,
-                        1165,
-                        80,
-                        20
-                    ],
+                    "patching_rect": [ 240.0, 1165.0, 80.0, 20.0 ],
                     "text": "Load Library"
                 }
             },
@@ -3985,16 +2567,9 @@
                     "maxclass": "button",
                     "numinlets": 1,
                     "numoutlets": 1,
-                    "outlettype": [
-                        "bang"
-                    ],
+                    "outlettype": [ "bang" ],
                     "parameter_enable": 0,
-                    "patching_rect": [
-                        325,
-                        1165,
-                        24,
-                        24
-                    ]
+                    "patching_rect": [ 325.0, 1165.0, 24.0, 24.0 ]
                 }
             },
             {
@@ -4003,16 +2578,8 @@
                     "maxclass": "newobj",
                     "numinlets": 1,
                     "numoutlets": 2,
-                    "outlettype": [
-                        "s",
-                        "bang"
-                    ],
-                    "patching_rect": [
-                        325,
-                        1195,
-                        110,
-                        22
-                    ],
+                    "outlettype": [ "", "bang" ],
+                    "patching_rect": [ 325.0, 1195.0, 110.0, 22.0 ],
                     "text": "opendialog JSON"
                 }
             },
@@ -4022,15 +2589,8 @@
                     "maxclass": "newobj",
                     "numinlets": 1,
                     "numoutlets": 1,
-                    "outlettype": [
-                        ""
-                    ],
-                    "patching_rect": [
-                        325,
-                        1220,
-                        115,
-                        22
-                    ],
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 325.0, 1220.0, 115.0, 22.0 ],
                     "text": "prepend dtw_load"
                 }
             },
@@ -4040,12 +2600,7 @@
                     "maxclass": "comment",
                     "numinlets": 1,
                     "numoutlets": 0,
-                    "patching_rect": [
-                        460,
-                        1165,
-                        60,
-                        20
-                    ],
+                    "patching_rect": [ 460.0, 1165.0, 60.0, 20.0 ],
                     "text": "Clear All"
                 }
             },
@@ -4055,16 +2610,9 @@
                     "maxclass": "button",
                     "numinlets": 1,
                     "numoutlets": 1,
-                    "outlettype": [
-                        "bang"
-                    ],
+                    "outlettype": [ "bang" ],
                     "parameter_enable": 0,
-                    "patching_rect": [
-                        525,
-                        1165,
-                        24,
-                        24
-                    ]
+                    "patching_rect": [ 525.0, 1165.0, 24.0, 24.0 ]
                 }
             },
             {
@@ -4073,15 +2621,8 @@
                     "maxclass": "message",
                     "numinlets": 2,
                     "numoutlets": 1,
-                    "outlettype": [
-                        ""
-                    ],
-                    "patching_rect": [
-                        525,
-                        1195,
-                        85,
-                        22
-                    ],
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 525.0, 1195.0, 85.0, 22.0 ],
                     "text": "dtw_clear_all"
                 }
             },
@@ -4093,12 +2634,7 @@
                     "maxclass": "outlet",
                     "numinlets": 1,
                     "numoutlets": 0,
-                    "patching_rect": [
-                        790,
-                        1200,
-                        30,
-                        30
-                    ]
+                    "patching_rect": [ 790.0, 1200.0, 30.0, 30.0 ]
                 }
             },
             {
@@ -4109,12 +2645,7 @@
                     "maxclass": "outlet",
                     "numinlets": 1,
                     "numoutlets": 0,
-                    "patching_rect": [
-                        900,
-                        1200,
-                        30,
-                        30
-                    ]
+                    "patching_rect": [ 900.0, 1200.0, 30.0, 30.0 ]
                 }
             },
             {
@@ -4125,12 +2656,7 @@
                     "maxclass": "outlet",
                     "numinlets": 1,
                     "numoutlets": 0,
-                    "patching_rect": [
-                        1010,
-                        1200,
-                        30,
-                        30
-                    ]
+                    "patching_rect": [ 1010.0, 1200.0, 30.0, 30.0 ]
                 }
             },
             {
@@ -4139,19 +2665,8 @@
                     "maxclass": "newobj",
                     "numinlets": 5,
                     "numoutlets": 5,
-                    "outlettype": [
-                        "",
-                        "",
-                        "",
-                        "",
-                        ""
-                    ],
-                    "patching_rect": [
-                        550,
-                        820,
-                        200,
-                        22
-                    ],
+                    "outlettype": [ "", "", "", "", "" ],
+                    "patching_rect": [ 550.0, 820.0, 200.0, 22.0 ],
                     "text": "route 1 2 3 4"
                 }
             }
@@ -4159,2973 +2674,1072 @@
         "lines": [
             {
                 "patchline": {
-                    "destination": [
-                        "obj-msg-calibrate",
-                        0
-                    ],
-                    "midpoints": [
-                        379.5,
-                        87,
-                        379.5,
-                        87
-                    ],
-                    "source": [
-                        "obj-delay-autocal",
-                        0
-                    ]
+                    "destination": [ "obj-msg-calibrate", 0 ],
+                    "midpoints": [ 379.5, 87.0, 379.5, 87.0 ],
+                    "source": [ "obj-delay-autocal", 0 ]
                 }
             },
             {
                 "patchline": {
-                    "destination": [
-                        "obj-prepend-cool-flip",
-                        0
-                    ],
-                    "midpoints": [
-                        431.5,
-                        369,
-                        417,
-                        369,
-                        417,
-                        357,
-                        303,
-                        357,
-                        303,
-                        300,
-                        417,
-                        300,
-                        417,
-                        312,
-                        588,
-                        312,
-                        588,
-                        357,
-                        610.5,
-                        357
-                    ],
-                    "source": [
-                        "obj-dial-cool-flip",
-                        0
-                    ]
+                    "destination": [ "obj-prepend-cool-flip", 0 ],
+                    "midpoints": [ 431.5, 369.0, 417.0, 369.0, 417.0, 357.0, 303.0, 357.0, 303.0, 300.0, 417.0, 300.0, 417.0, 312.0, 588.0, 312.0, 588.0, 357.0, 610.5, 357.0 ],
+                    "source": [ "obj-dial-cool-flip", 0 ]
                 }
             },
             {
                 "patchline": {
-                    "destination": [
-                        "obj-prepend-cool-shake",
-                        0
-                    ],
-                    "midpoints": [
-                        431.5,
-                        258,
-                        417,
-                        258,
-                        417,
-                        210,
-                        610.5,
-                        210
-                    ],
-                    "source": [
-                        "obj-dial-cool-shake",
-                        0
-                    ]
+                    "destination": [ "obj-prepend-cool-shake", 0 ],
+                    "midpoints": [ 431.5, 258.0, 417.0, 258.0, 417.0, 222.0, 610.5, 222.0 ],
+                    "source": [ "obj-dial-cool-shake", 0 ]
                 }
             },
             {
                 "patchline": {
-                    "destination": [
-                        "obj-prepend-cool-tap",
-                        0
-                    ],
-                    "midpoints": [
-                        431.5,
-                        312,
-                        610.5,
-                        312
-                    ],
-                    "source": [
-                        "obj-dial-cool-tap",
-                        0
-                    ]
+                    "destination": [ "obj-prepend-cool-tap", 0 ],
+                    "midpoints": [ 431.5, 312.0, 610.5, 312.0 ],
+                    "source": [ "obj-dial-cool-tap", 0 ]
                 }
             },
             {
                 "patchline": {
-                    "destination": [
-                        "obj-prepend-cool-tilt-back",
-                        0
-                    ],
-                    "midpoints": [
-                        431.5,
-                        588,
-                        417,
-                        588,
-                        417,
-                        576,
-                        312,
-                        576,
-                        312,
-                        624,
-                        588,
-                        624,
-                        588,
-                        585,
-                        610.5,
-                        585
-                    ],
-                    "source": [
-                        "obj-dial-cool-tilt-back",
-                        0
-                    ]
+                    "destination": [ "obj-prepend-cool-tilt-back", 0 ],
+                    "midpoints": [ 431.5, 588.0, 417.0, 588.0, 417.0, 576.0, 312.0, 576.0, 312.0, 624.0, 588.0, 624.0, 588.0, 585.0, 610.5, 585.0 ],
+                    "source": [ "obj-dial-cool-tilt-back", 0 ]
                 }
             },
             {
                 "patchline": {
-                    "destination": [
-                        "obj-prepend-cool-tilt-forward",
-                        0
-                    ],
-                    "midpoints": [
-                        431.5,
-                        534,
-                        417,
-                        534,
-                        417,
-                        531,
-                        324,
-                        531,
-                        324,
-                        513,
-                        312,
-                        513,
-                        312,
-                        465,
-                        417,
-                        465,
-                        417,
-                        477,
-                        588,
-                        477,
-                        588,
-                        519,
-                        610.5,
-                        519
-                    ],
-                    "source": [
-                        "obj-dial-cool-tilt-forward",
-                        0
-                    ]
+                    "destination": [ "obj-prepend-cool-tilt-forward", 0 ],
+                    "midpoints": [ 431.5, 534.0, 417.0, 534.0, 417.0, 531.0, 324.0, 531.0, 324.0, 513.0, 312.0, 513.0, 312.0, 465.0, 417.0, 465.0, 417.0, 477.0, 588.0, 477.0, 588.0, 519.0, 610.5, 519.0 ],
+                    "source": [ "obj-dial-cool-tilt-forward", 0 ]
                 }
             },
             {
                 "patchline": {
-                    "destination": [
-                        "obj-prepend-cool-tilt-left",
-                        0
-                    ],
-                    "midpoints": [
-                        431.5,
-                        423,
-                        417,
-                        423,
-                        417,
-                        411,
-                        303,
-                        411,
-                        303,
-                        465,
-                        417,
-                        465,
-                        417,
-                        477,
-                        465,
-                        477,
-                        465,
-                        459,
-                        588,
-                        459,
-                        588,
-                        420,
-                        610.5,
-                        420
-                    ],
-                    "source": [
-                        "obj-dial-cool-tilt-left",
-                        0
-                    ]
+                    "destination": [ "obj-prepend-cool-tilt-left", 0 ],
+                    "midpoints": [ 431.5, 423.0, 417.0, 423.0, 417.0, 411.0, 303.0, 411.0, 303.0, 465.0, 417.0, 465.0, 417.0, 477.0, 465.0, 477.0, 465.0, 459.0, 588.0, 459.0, 588.0, 420.0, 610.5, 420.0 ],
+                    "source": [ "obj-dial-cool-tilt-left", 0 ]
                 }
             },
             {
                 "patchline": {
-                    "destination": [
-                        "obj-prepend-cool-tilt-right",
-                        0
-                    ],
-                    "midpoints": [
-                        431.5,
-                        477,
-                        610.5,
-                        477
-                    ],
-                    "source": [
-                        "obj-dial-cool-tilt-right",
-                        0
-                    ]
+                    "destination": [ "obj-prepend-cool-tilt-right", 0 ],
+                    "midpoints": [ 431.5, 477.0, 610.5, 477.0 ],
+                    "source": [ "obj-dial-cool-tilt-right", 0 ]
                 }
             },
             {
                 "patchline": {
-                    "destination": [
-                        "obj-prepend-sens-flip",
-                        0
-                    ],
-                    "midpoints": [
-                        179.5,
-                        366,
-                        156,
-                        366,
-                        156,
-                        348,
-                        141,
-                        348,
-                        141,
-                        339,
-                        111,
-                        339,
-                        111,
-                        312,
-                        156,
-                        312,
-                        156,
-                        282,
-                        213,
-                        282,
-                        213,
-                        300,
-                        303,
-                        300,
-                        303,
-                        357,
-                        326.5,
-                        357
-                    ],
-                    "source": [
-                        "obj-dial-sens-flip",
-                        0
-                    ]
+                    "destination": [ "obj-prepend-sens-flip", 0 ],
+                    "midpoints": [ 179.5, 366.0, 156.0, 366.0, 156.0, 348.0, 141.0, 348.0, 141.0, 339.0, 111.0, 339.0, 111.0, 312.0, 156.0, 312.0, 156.0, 282.0, 213.0, 282.0, 213.0, 300.0, 303.0, 300.0, 303.0, 357.0, 326.5, 357.0 ],
+                    "source": [ "obj-dial-sens-flip", 0 ]
                 }
             },
             {
                 "patchline": {
-                    "destination": [
-                        "obj-prepend-sens-shake",
-                        0
-                    ],
-                    "midpoints": [
-                        179.5,
-                        282,
-                        303,
-                        282,
-                        303,
-                        255,
-                        326.5,
-                        255
-                    ],
-                    "source": [
-                        "obj-dial-sens-shake",
-                        0
-                    ]
+                    "destination": [ "obj-prepend-sens-shake", 0 ],
+                    "midpoints": [ 179.5, 282.0, 303.0, 282.0, 303.0, 255.0, 326.5, 255.0 ],
+                    "source": [ "obj-dial-sens-shake", 0 ]
                 }
             },
             {
                 "patchline": {
-                    "destination": [
-                        "obj-prepend-sens-tap",
-                        0
-                    ],
-                    "midpoints": [
-                        179.5,
-                        312,
-                        165,
-                        312,
-                        165,
-                        282,
-                        213,
-                        282,
-                        213,
-                        300,
-                        326.5,
-                        300
-                    ],
-                    "source": [
-                        "obj-dial-sens-tap",
-                        0
-                    ]
+                    "destination": [ "obj-prepend-sens-tap", 0 ],
+                    "midpoints": [ 179.5, 312.0, 165.0, 312.0, 165.0, 282.0, 213.0, 282.0, 213.0, 300.0, 326.5, 300.0 ],
+                    "source": [ "obj-dial-sens-tap", 0 ]
                 }
             },
             {
                 "patchline": {
-                    "destination": [
-                        "obj-prepend-sens-tilt-back",
-                        0
-                    ],
-                    "midpoints": [
-                        179.5,
-                        624,
-                        312,
-                        624,
-                        312,
-                        585,
-                        326.5,
-                        585
-                    ],
-                    "source": [
-                        "obj-dial-sens-tilt-back",
-                        0
-                    ]
+                    "destination": [ "obj-prepend-sens-tilt-back", 0 ],
+                    "midpoints": [ 179.5, 624.0, 312.0, 624.0, 312.0, 585.0, 326.5, 585.0 ],
+                    "source": [ "obj-dial-sens-tilt-back", 0 ]
                 }
             },
             {
                 "patchline": {
-                    "destination": [
-                        "obj-prepend-sens-tilt-forward",
-                        0
-                    ],
-                    "midpoints": [
-                        179.5,
-                        534,
-                        111,
-                        534,
-                        111,
-                        624,
-                        312,
-                        624,
-                        312,
-                        573,
-                        402,
-                        573,
-                        402,
-                        531,
-                        425.5,
-                        531
-                    ],
-                    "source": [
-                        "obj-dial-sens-tilt-forward",
-                        0
-                    ]
+                    "destination": [ "obj-prepend-sens-tilt-forward", 0 ],
+                    "midpoints": [ 179.5, 534.0, 102.0, 534.0, 102.0, 624.0, 312.0, 624.0, 312.0, 573.0, 402.0, 573.0, 402.0, 531.0, 425.5, 531.0 ],
+                    "source": [ "obj-dial-sens-tilt-forward", 0 ]
                 }
             },
             {
                 "patchline": {
-                    "destination": [
-                        "obj-prepend-sens-tilt-left",
-                        0
-                    ],
-                    "midpoints": [
-                        179.5,
-                        447,
-                        303,
-                        447,
-                        303,
-                        420,
-                        326.5,
-                        420
-                    ],
-                    "source": [
-                        "obj-dial-sens-tilt-left",
-                        0
-                    ]
+                    "destination": [ "obj-prepend-sens-tilt-left", 0 ],
+                    "midpoints": [ 179.5, 447.0, 303.0, 447.0, 303.0, 420.0, 326.5, 420.0 ],
+                    "source": [ "obj-dial-sens-tilt-left", 0 ]
                 }
             },
             {
                 "patchline": {
-                    "destination": [
-                        "obj-prepend-sens-tilt-right",
-                        0
-                    ],
-                    "midpoints": [
-                        179.5,
-                        477,
-                        165,
-                        477,
-                        165,
-                        447,
-                        213,
-                        447,
-                        213,
-                        465,
-                        326.5,
-                        465
-                    ],
-                    "source": [
-                        "obj-dial-sens-tilt-right",
-                        0
-                    ]
+                    "destination": [ "obj-prepend-sens-tilt-right", 0 ],
+                    "midpoints": [ 179.5, 477.0, 165.0, 477.0, 165.0, 447.0, 213.0, 447.0, 213.0, 465.0, 326.5, 465.0 ],
+                    "source": [ "obj-dial-sens-tilt-right", 0 ]
                 }
             },
             {
                 "patchline": {
-                    "destination": [
-                        "obj-nodescript",
-                        0
-                    ],
-                    "midpoints": [
-                        29.5,
-                        66,
-                        6,
-                        66,
-                        6,
-                        126,
-                        29.5,
-                        126
-                    ],
-                    "source": [
-                        "obj-inlet-ctrl",
-                        0
-                    ]
+                    "destination": [ "obj-dtw-clear-msg", 0 ],
+                    "midpoints": [ 534.5, 1191.0, 534.5, 1191.0 ],
+                    "source": [ "obj-dtw-clear-btn", 0 ]
                 }
             },
             {
                 "patchline": {
-                    "destination": [
-                        "obj-nodescript",
-                        0
-                    ],
-                    "midpoints": [
-                        379.5,
-                        126,
-                        29.5,
-                        126
-                    ],
-                    "source": [
-                        "obj-msg-calibrate",
-                        0
-                    ]
+                    "destination": [ "obj-nodescript", 0 ],
+                    "midpoints": [ 534.5, 1254.0, 6.0, 1254.0, 6.0, 126.0, 29.5, 126.0 ],
+                    "source": [ "obj-dtw-clear-msg", 0 ]
                 }
             },
             {
                 "patchline": {
-                    "destination": [
-                        "obj-nodescript",
-                        0
-                    ],
-                    "midpoints": [
-                        29.5,
-                        117,
-                        29.5,
-                        117
-                    ],
-                    "source": [
-                        "obj-msg-connect",
-                        0
-                    ]
+                    "destination": [ "obj-nodescript", 0 ],
+                    "midpoints": [ 349.5, 1134.0, 336.0, 1134.0, 336.0, 1044.0, 6.0, 1044.0, 6.0, 126.0, 29.5, 126.0 ],
+                    "source": [ "obj-dtw-continuous-prepend", 0 ]
                 }
             },
             {
                 "patchline": {
-                    "destination": [
-                        "obj-nodescript",
-                        0
-                    ],
-                    "midpoints": [
-                        94.5,
-                        117,
-                        29.5,
-                        117
-                    ],
-                    "source": [
-                        "obj-msg-disconnect",
-                        0
-                    ]
+                    "destination": [ "obj-dtw-continuous-prepend", 0 ],
+                    "midpoints": [ 349.5, 1107.0, 349.5, 1107.0 ],
+                    "source": [ "obj-dtw-continuous-toggle", 0 ]
                 }
             },
             {
                 "patchline": {
-                    "destination": [
-                        "obj-activity-led",
-                        0
-                    ],
-                    "midpoints": [
-                        364.5,
-                        189,
-                        297,
-                        189,
-                        297,
-                        129,
-                        306,
-                        129,
-                        306,
-                        87,
-                        319.5,
-                        87
-                    ],
-                    "source": [
-                        "obj-msg-led-off",
-                        0
-                    ]
+                    "destination": [ "obj-dtw-duration", 0 ],
+                    "midpoints": [ 304.5, 693.0, 304.5, 693.0 ],
+                    "source": [ "obj-dtw-dur-default", 0 ]
                 }
             },
             {
                 "patchline": {
-                    "destination": [
-                        "obj-activity-led",
-                        0
-                    ],
-                    "midpoints": [
-                        319.5,
-                        189,
-                        297,
-                        189,
-                        297,
-                        129,
-                        306,
-                        129,
-                        306,
-                        87,
-                        319.5,
-                        87
-                    ],
-                    "source": [
-                        "obj-msg-led-on",
-                        0
-                    ]
+                    "destination": [ "obj-dtw-dur-default", 0 ],
+                    "midpoints": [ 304.5, 675.0, 304.5, 675.0 ],
+                    "source": [ "obj-dtw-dur-loadbang", 0 ]
                 }
             },
             {
                 "patchline": {
-                    "destination": [
-                        "obj-route-main",
-                        0
-                    ],
-                    "midpoints": [
-                        29.5,
-                        153,
-                        29.5,
-                        153
-                    ],
-                    "source": [
-                        "obj-nodescript",
-                        0
-                    ]
+                    "destination": [ "obj-dtw-rec-pack", 2 ],
+                    "midpoints": [ 304.5, 723.0, 366.0, 723.0, 366.0, 717.0, 500.5, 717.0 ],
+                    "source": [ "obj-dtw-duration", 0 ]
                 }
             },
             {
                 "patchline": {
-                    "destination": [
-                        "obj-nodescript",
-                        0
-                    ],
-                    "midpoints": [
-                        610.5,
-                        393,
-                        504,
-                        393,
-                        504,
-                        300,
-                        456,
-                        300,
-                        456,
-                        312,
-                        408,
-                        312,
-                        408,
-                        294,
-                        204,
-                        294,
-                        204,
-                        282,
-                        102,
-                        282,
-                        102,
-                        267,
-                        6,
-                        267,
-                        6,
-                        126,
-                        29.5,
-                        126
-                    ],
-                    "source": [
-                        "obj-prepend-cool-flip",
-                        0
-                    ]
+                    "destination": [ "obj-dtw-opendialog", 0 ],
+                    "midpoints": [ 334.5, 1191.0, 334.5, 1191.0 ],
+                    "source": [ "obj-dtw-load-btn", 0 ]
                 }
             },
             {
                 "patchline": {
-                    "destination": [
-                        "obj-nodescript",
-                        0
-                    ],
-                    "midpoints": [
-                        610.5,
-                        300,
-                        456,
-                        300,
-                        456,
-                        312,
-                        408,
-                        312,
-                        408,
-                        294,
-                        204,
-                        294,
-                        204,
-                        282,
-                        102,
-                        282,
-                        102,
-                        267,
-                        6,
-                        267,
-                        6,
-                        126,
-                        29.5,
-                        126
-                    ],
-                    "source": [
-                        "obj-prepend-cool-shake",
-                        0
-                    ]
+                    "destination": [ "obj-nodescript", 0 ],
+                    "midpoints": [ 334.5, 1254.0, 6.0, 1254.0, 6.0, 126.0, 29.5, 126.0 ],
+                    "source": [ "obj-dtw-load-prepend", 0 ]
                 }
             },
             {
                 "patchline": {
-                    "destination": [
-                        "obj-nodescript",
-                        0
-                    ],
-                    "midpoints": [
-                        610.5,
-                        339,
-                        504,
-                        339,
-                        504,
-                        300,
-                        456,
-                        300,
-                        456,
-                        312,
-                        408,
-                        312,
-                        408,
-                        294,
-                        204,
-                        294,
-                        204,
-                        282,
-                        102,
-                        282,
-                        102,
-                        267,
-                        6,
-                        267,
-                        6,
-                        126,
-                        29.5,
-                        126
-                    ],
-                    "source": [
-                        "obj-prepend-cool-tap",
-                        0
-                    ]
+                    "destination": [ "obj-dtw-matchmode-prepend", 0 ],
+                    "midpoints": [ 135.0, 1107.0, 109.5, 1107.0 ],
+                    "source": [ "obj-dtw-matchmode-menu", 1 ]
                 }
             },
             {
                 "patchline": {
-                    "destination": [
-                        "obj-nodescript",
-                        0
-                    ],
-                    "midpoints": [
-                        610.5,
-                        624,
-                        102,
-                        624,
-                        102,
-                        597,
-                        6,
-                        597,
-                        6,
-                        126,
-                        29.5,
-                        126
-                    ],
-                    "source": [
-                        "obj-prepend-cool-tilt-back",
-                        0
-                    ]
+                    "destination": [ "obj-nodescript", 0 ],
+                    "midpoints": [ 109.5, 1134.0, 87.0, 1134.0, 87.0, 1116.0, 6.0, 1116.0, 6.0, 126.0, 29.5, 126.0 ],
+                    "source": [ "obj-dtw-matchmode-prepend", 0 ]
                 }
             },
             {
                 "patchline": {
-                    "destination": [
-                        "obj-nodescript",
-                        0
-                    ],
-                    "midpoints": [
-                        610.5,
-                        576,
-                        531,
-                        576,
-                        531,
-                        624,
-                        102,
-                        624,
-                        102,
-                        597,
-                        6,
-                        597,
-                        6,
-                        126,
-                        29.5,
-                        126
-                    ],
-                    "source": [
-                        "obj-prepend-cool-tilt-forward",
-                        0
-                    ]
+                    "destination": [ "obj-dtw-rec-pack", 1 ],
+                    "midpoints": [ 205.0, 723.0, 366.0, 723.0, 366.0, 717.0, 440.0, 717.0 ],
+                    "source": [ "obj-dtw-mode-menu", 1 ]
                 }
             },
             {
                 "patchline": {
-                    "destination": [
-                        "obj-nodescript",
-                        0
-                    ],
-                    "midpoints": [
-                        610.5,
-                        450,
-                        522,
-                        450,
-                        522,
-                        312,
-                        408,
-                        312,
-                        408,
-                        294,
-                        204,
-                        294,
-                        204,
-                        282,
-                        102,
-                        282,
-                        102,
-                        267,
-                        6,
-                        267,
-                        6,
-                        126,
-                        29.5,
-                        126
-                    ],
-                    "source": [
-                        "obj-prepend-cool-tilt-left",
-                        0
-                    ]
+                    "destination": [ "obj-dtw-name-pack", 1 ],
+                    "midpoints": [ 914.5, 714.0, 891.0, 714.0, 891.0, 774.0, 1035.0, 774.0, 1035.0, 735.0, 1025.5, 735.0 ],
+                    "source": [ "obj-dtw-name-input", 0 ]
                 }
             },
             {
                 "patchline": {
-                    "destination": [
-                        "obj-nodescript",
-                        0
-                    ],
-                    "midpoints": [
-                        610.5,
-                        504,
-                        528,
-                        504,
-                        528,
-                        312,
-                        408,
-                        312,
-                        408,
-                        294,
-                        204,
-                        294,
-                        204,
-                        282,
-                        102,
-                        282,
-                        102,
-                        267,
-                        6,
-                        267,
-                        6,
-                        126,
-                        29.5,
-                        126
-                    ],
-                    "source": [
-                        "obj-prepend-cool-tilt-right",
-                        0
-                    ]
+                    "destination": [ "obj-dtw-name-prepend", 0 ],
+                    "midpoints": [ 914.5, 778.0, 891.0, 778.0, 891.0, 724.0, 914.5, 724.0 ],
+                    "source": [ "obj-dtw-name-pack", 0 ]
                 }
             },
             {
                 "patchline": {
-                    "destination": [
-                        "obj-nodescript",
-                        0
-                    ],
-                    "midpoints": [
-                        124.5,
-                        393,
-                        102,
-                        393,
-                        102,
-                        375,
-                        6,
-                        375,
-                        6,
-                        126,
-                        29.5,
-                        126
-                    ],
-                    "source": [
-                        "obj-prepend-enable-flip",
-                        0
-                    ]
+                    "destination": [ "obj-nodescript", 0 ],
+                    "midpoints": [ 914.5, 738.0, 732.0, 738.0, 732.0, 624.0, 6.0, 624.0, 6.0, 126.0, 29.5, 126.0 ],
+                    "source": [ "obj-dtw-name-prepend", 0 ]
                 }
             },
             {
                 "patchline": {
-                    "destination": [
-                        "obj-nodescript",
-                        0
-                    ],
-                    "midpoints": [
-                        124.5,
-                        285,
-                        102,
-                        285,
-                        102,
-                        267,
-                        6,
-                        267,
-                        6,
-                        126,
-                        29.5,
-                        126
-                    ],
-                    "source": [
-                        "obj-prepend-enable-shake",
-                        0
-                    ]
+                    "destination": [ "obj-dtw-load-prepend", 0 ],
+                    "midpoints": [ 334.5, 1218.0, 334.5, 1218.0 ],
+                    "source": [ "obj-dtw-opendialog", 0 ]
                 }
             },
             {
                 "patchline": {
-                    "destination": [
-                        "obj-nodescript",
-                        0
-                    ],
-                    "midpoints": [
-                        124.5,
-                        339,
-                        102,
-                        339,
-                        102,
-                        321,
-                        6,
-                        321,
-                        6,
-                        126,
-                        29.5,
-                        126
-                    ],
-                    "source": [
-                        "obj-prepend-enable-tap",
-                        0
-                    ]
+                    "destination": [ "obj-dtw-rec-prepend", 0 ],
+                    "midpoints": [ 379.5, 744.0, 379.5, 744.0 ],
+                    "source": [ "obj-dtw-rec-pack", 0 ]
                 }
             },
             {
                 "patchline": {
-                    "destination": [
-                        "obj-nodescript",
-                        0
-                    ],
-                    "midpoints": [
-                        124.5,
-                        615,
-                        6,
-                        615,
-                        6,
-                        126,
-                        29.5,
-                        126
-                    ],
-                    "source": [
-                        "obj-prepend-enable-tilt-back",
-                        0
-                    ]
+                    "destination": [ "obj-nodescript", 0 ],
+                    "midpoints": [ 379.5, 768.0, 357.0, 768.0, 357.0, 723.0, 6.0, 723.0, 6.0, 126.0, 29.5, 126.0 ],
+                    "source": [ "obj-dtw-rec-prepend", 0 ]
                 }
             },
             {
                 "patchline": {
-                    "destination": [
-                        "obj-nodescript",
-                        0
-                    ],
-                    "midpoints": [
-                        124.5,
-                        564,
-                        102,
-                        564,
-                        102,
-                        540,
-                        6,
-                        540,
-                        6,
-                        126,
-                        29.5,
-                        126
-                    ],
-                    "source": [
-                        "obj-prepend-enable-tilt-forward",
-                        0
-                    ]
+                    "destination": [ "obj-dtw-rec-pack", 0 ],
+                    "midpoints": [ 434.5, 717.0, 379.5, 717.0 ],
+                    "source": [ "obj-dtw-record-btn", 0 ]
                 }
             },
             {
                 "patchline": {
-                    "destination": [
-                        "obj-nodescript",
-                        0
-                    ],
-                    "midpoints": [
-                        124.5,
-                        450,
-                        102,
-                        450,
-                        102,
-                        432,
-                        6,
-                        432,
-                        6,
-                        126,
-                        29.5,
-                        126
-                    ],
-                    "source": [
-                        "obj-prepend-enable-tilt-left",
-                        0
-                    ]
+                    "destination": [ "obj-dtw-savedialog", 0 ],
+                    "midpoints": [ 114.5, 1191.0, 114.5, 1191.0 ],
+                    "source": [ "obj-dtw-save-btn", 0 ]
                 }
             },
             {
                 "patchline": {
-                    "destination": [
-                        "obj-nodescript",
-                        0
-                    ],
-                    "midpoints": [
-                        124.5,
-                        504,
-                        102,
-                        504,
-                        102,
-                        486,
-                        6,
-                        486,
-                        6,
-                        126,
-                        29.5,
-                        126
-                    ],
-                    "source": [
-                        "obj-prepend-enable-tilt-right",
-                        0
-                    ]
+                    "destination": [ "obj-nodescript", 0 ],
+                    "midpoints": [ 114.5, 1245.0, 6.0, 1245.0, 6.0, 126.0, 29.5, 126.0 ],
+                    "source": [ "obj-dtw-save-prepend", 0 ]
                 }
             },
             {
                 "patchline": {
-                    "destination": [
-                        "obj-nodescript",
-                        0
-                    ],
-                    "midpoints": [
-                        326.5,
-                        393,
-                        285,
-                        393,
-                        285,
-                        294,
-                        204,
-                        294,
-                        204,
-                        282,
-                        102,
-                        282,
-                        102,
-                        267,
-                        6,
-                        267,
-                        6,
-                        126,
-                        29.5,
-                        126
-                    ],
-                    "source": [
-                        "obj-prepend-sens-flip",
-                        0
-                    ]
+                    "destination": [ "obj-dtw-save-prepend", 0 ],
+                    "midpoints": [ 114.5, 1218.0, 114.5, 1218.0 ],
+                    "source": [ "obj-dtw-savedialog", 0 ]
                 }
             },
             {
                 "patchline": {
-                    "destination": [
-                        "obj-nodescript",
-                        0
-                    ],
-                    "midpoints": [
-                        326.5,
-                        294,
-                        204,
-                        294,
-                        204,
-                        282,
-                        102,
-                        282,
-                        102,
-                        267,
-                        6,
-                        267,
-                        6,
-                        126,
-                        29.5,
-                        126
-                    ],
-                    "source": [
-                        "obj-prepend-sens-shake",
-                        0
-                    ]
+                    "destination": [ "obj-dtw-slot-id", 0 ],
+                    "midpoints": [ 69.5, 693.0, 69.5, 693.0 ],
+                    "source": [ "obj-dtw-slot-default", 0 ]
                 }
             },
             {
                 "patchline": {
-                    "destination": [
-                        "obj-nodescript",
-                        0
-                    ],
-                    "midpoints": [
-                        326.5,
-                        339,
-                        285,
-                        339,
-                        285,
-                        294,
-                        204,
-                        294,
-                        204,
-                        282,
-                        102,
-                        282,
-                        102,
-                        267,
-                        6,
-                        267,
-                        6,
-                        126,
-                        29.5,
-                        126
-                    ],
-                    "source": [
-                        "obj-prepend-sens-tap",
-                        0
-                    ]
-                }
-            },
-            {
-                "patchline": {
-                    "destination": [
-                        "obj-nodescript",
-                        0
-                    ],
-                    "midpoints": [
-                        326.5,
-                        624,
-                        102,
-                        624,
-                        102,
-                        597,
-                        6,
-                        597,
-                        6,
-                        126,
-                        29.5,
-                        126
-                    ],
-                    "source": [
-                        "obj-prepend-sens-tilt-back",
-                        0
-                    ]
-                }
-            },
-            {
-                "patchline": {
-                    "destination": [
-                        "obj-nodescript",
-                        0
-                    ],
-                    "midpoints": [
-                        425.5,
-                        558,
-                        324,
-                        558,
-                        324,
-                        513,
-                        300,
-                        513,
-                        300,
-                        294,
-                        204,
-                        294,
-                        204,
-                        282,
-                        102,
-                        282,
-                        102,
-                        267,
-                        6,
-                        267,
-                        6,
-                        126,
-                        29.5,
-                        126
-                    ],
-                    "source": [
-                        "obj-prepend-sens-tilt-forward",
-                        0
-                    ]
-                }
-            },
-            {
-                "patchline": {
-                    "destination": [
-                        "obj-nodescript",
-                        0
-                    ],
-                    "midpoints": [
-                        326.5,
-                        450,
-                        300,
-                        450,
-                        300,
-                        294,
-                        204,
-                        294,
-                        204,
-                        282,
-                        102,
-                        282,
-                        102,
-                        267,
-                        6,
-                        267,
-                        6,
-                        126,
-                        29.5,
-                        126
-                    ],
-                    "source": [
-                        "obj-prepend-sens-tilt-left",
-                        0
-                    ]
-                }
-            },
-            {
-                "patchline": {
-                    "destination": [
-                        "obj-nodescript",
-                        0
-                    ],
-                    "midpoints": [
-                        326.5,
-                        504,
-                        312,
-                        504,
-                        312,
-                        459,
-                        204,
-                        459,
-                        204,
-                        447,
-                        102,
-                        447,
-                        102,
-                        432,
-                        6,
-                        432,
-                        6,
-                        126,
-                        29.5,
-                        126
-                    ],
-                    "source": [
-                        "obj-prepend-sens-tilt-right",
-                        0
-                    ]
-                }
-            },
-            {
-                "patchline": {
-                    "destination": [
-                        "obj-led-flip",
-                        0
-                    ],
-                    "midpoints": [
-                        838.5,
-                        348,
-                        723,
-                        348,
-                        723,
-                        339,
-                        710.5,
-                        339
-                    ],
-                    "source": [
-                        "obj-route-led",
-                        2
-                    ]
-                }
-            },
-            {
-                "patchline": {
-                    "destination": [
-                        "obj-led-shake",
-                        0
-                    ],
-                    "midpoints": [
-                        732.5,
-                        240,
-                        723,
-                        240,
-                        723,
-                        252,
-                        675,
-                        252,
-                        675,
-                        213,
-                        711,
-                        213,
-                        711,
-                        228,
-                        710.5,
-                        228
-                    ],
-                    "source": [
-                        "obj-route-led",
-                        0
-                    ]
-                }
-            },
-            {
-                "patchline": {
-                    "destination": [
-                        "obj-led-tap",
-                        0
-                    ],
-                    "midpoints": [
-                        785.5,
-                        255,
-                        801,
-                        255,
-                        801,
-                        294,
-                        723,
-                        294,
-                        723,
-                        282,
-                        710.5,
-                        282
-                    ],
-                    "source": [
-                        "obj-route-led",
-                        1
-                    ]
-                }
-            },
-            {
-                "patchline": {
-                    "destination": [
-                        "obj-led-tilt-back",
-                        0
-                    ],
-                    "midpoints": [
-                        1050.5,
-                        567,
-                        723,
-                        567,
-                        723,
-                        558,
-                        710.5,
-                        558
-                    ],
-                    "source": [
-                        "obj-route-led",
-                        6
-                    ]
-                }
-            },
-            {
-                "patchline": {
-                    "destination": [
-                        "obj-led-tilt-forward",
-                        0
-                    ],
-                    "midpoints": [
-                        997.5,
-                        513,
-                        723,
-                        513,
-                        723,
-                        504,
-                        710.5,
-                        504
-                    ],
-                    "source": [
-                        "obj-route-led",
-                        5
-                    ]
-                }
-            },
-            {
-                "patchline": {
-                    "destination": [
-                        "obj-led-tilt-left",
-                        0
-                    ],
-                    "midpoints": [
-                        891.5,
-                        402,
-                        723,
-                        402,
-                        723,
-                        393,
-                        710.5,
-                        393
-                    ],
-                    "source": [
-                        "obj-route-led",
-                        3
-                    ]
-                }
-            },
-            {
-                "patchline": {
-                    "destination": [
-                        "obj-led-tilt-right",
-                        0
-                    ],
-                    "midpoints": [
-                        944.5,
-                        459,
-                        723,
-                        459,
-                        723,
-                        447,
-                        710.5,
-                        447
-                    ],
-                    "source": [
-                        "obj-route-led",
-                        4
-                    ]
-                }
-            },
-            {
-                "patchline": {
-                    "destination": [
-                        "obj-outlet-cal-status",
-                        0
-                    ],
-                    "midpoints": [
-                        744.4999999999998,
-                        195,
-                        666,
-                        195,
-                        666,
-                        255,
-                        825,
-                        255,
-                        825,
-                        645,
-                        689.5,
-                        645
-                    ],
-                    "source": [
-                        "obj-route-main",
-                        13
-                    ]
-                }
-            },
-            {
-                "patchline": {
-                    "destination": [
-                        "obj-outlet-engine-status",
-                        0
-                    ],
-                    "midpoints": [
-                        139.49999999999997,
-                        153,
-                        6,
-                        153,
-                        6,
-                        702,
-                        117,
-                        702,
-                        117,
-                        657,
-                        139.5,
-                        657
-                    ],
-                    "order": 1,
-                    "source": [
-                        "obj-route-main",
-                        2
-                    ]
-                }
-            },
-            {
-                "patchline": {
-                    "destination": [
-                        "obj-outlet-gesture",
-                        0
-                    ],
-                    "midpoints": [
-                        29.5,
-                        195,
-                        6,
-                        195,
-                        6,
-                        657,
-                        29.5,
-                        657
-                    ],
-                    "source": [
-                        "obj-route-main",
-                        0
-                    ]
-                }
-            },
-            {
-                "patchline": {
-                    "destination": [
-                        "obj-outlet-smooth-accel",
-                        0
-                    ],
-                    "midpoints": [
-                        194.49999999999994,
-                        195,
-                        240,
-                        195,
-                        240,
-                        246,
-                        303,
-                        246,
-                        303,
-                        525,
-                        324,
-                        525,
-                        324,
-                        576,
-                        300,
-                        576,
-                        300,
-                        645,
-                        249.5,
-                        645
-                    ],
-                    "source": [
-                        "obj-route-main",
-                        3
-                    ]
-                }
-            },
-            {
-                "patchline": {
-                    "destination": [
-                        "obj-outlet-smooth-gyro",
-                        0
-                    ],
-                    "midpoints": [
-                        249.49999999999994,
-                        246,
-                        303,
-                        246,
-                        303,
-                        525,
-                        324,
-                        525,
-                        324,
-                        576,
-                        312,
-                        576,
-                        312,
-                        645,
-                        359.5,
-                        645
-                    ],
-                    "source": [
-                        "obj-route-main",
-                        4
-                    ]
-                }
-            },
-            {
-                "patchline": {
-                    "destination": [
-                        "obj-outlet-smooth-orient",
-                        0
-                    ],
-                    "midpoints": [
-                        304.49999999999994,
-                        207,
-                        246,
-                        207,
-                        246,
-                        246,
-                        303,
-                        246,
-                        303,
-                        525,
-                        324,
-                        525,
-                        324,
-                        576,
-                        312,
-                        576,
-                        312,
-                        645,
-                        469.5,
-                        645
-                    ],
-                    "source": [
-                        "obj-route-main",
-                        5
-                    ]
-                }
-            },
-            {
-                "patchline": {
-                    "destination": [
-                        "obj-route-led",
-                        0
-                    ],
-                    "midpoints": [
-                        84.49999999999999,
-                        231,
-                        102,
-                        231,
-                        102,
-                        282,
-                        303,
-                        282,
-                        303,
-                        240,
-                        417,
-                        240,
-                        417,
-                        210,
-                        732.5,
-                        210
-                    ],
-                    "source": [
-                        "obj-route-main",
-                        1
-                    ]
-                }
-            },
-            {
-                "patchline": {
-                    "destination": [
-                        "obj-sel-active",
-                        0
-                    ],
-                    "midpoints": [
-                        139.49999999999997,
-                        153,
-                        306,
-                        153,
-                        306,
-                        138,
-                        319.5,
-                        138
-                    ],
+                    "destination": [ "obj-dtw-name-pack", 0 ],
+                    "midpoints": [ 69.5, 765.0, 366.0, 765.0, 366.0, 777.0, 891.0, 777.0, 891.0, 735.0, 914.5, 735.0 ],
                     "order": 0,
-                    "source": [
-                        "obj-route-main",
-                        2
-                    ]
+                    "source": [ "obj-dtw-slot-id", 0 ]
                 }
             },
             {
                 "patchline": {
-                    "destination": [
-                        "obj-thru-status",
-                        0
-                    ],
-                    "midpoints": [
-                        689.4999999999998,
-                        195,
-                        689.4999999999998,
-                        195
-                    ],
-                    "source": [
-                        "obj-route-main",
-                        12
-                    ]
-                }
-            },
-            {
-                "patchline": {
-                    "destination": [
-                        "obj-msg-led-off",
-                        0
-                    ],
-                    "midpoints": [
-                        365,
-                        165,
-                        364.5,
-                        165
-                    ],
-                    "source": [
-                        "obj-sel-active",
-                        1
-                    ]
-                }
-            },
-            {
-                "patchline": {
-                    "destination": [
-                        "obj-msg-led-on",
-                        0
-                    ],
-                    "midpoints": [
-                        319.5,
-                        165,
-                        319.5,
-                        165
-                    ],
-                    "source": [
-                        "obj-sel-active",
-                        0
-                    ]
-                }
-            },
-            {
-                "patchline": {
-                    "destination": [
-                        "obj-delay-autocal",
-                        0
-                    ],
-                    "midpoints": [
-                        379.5,
-                        63,
-                        379.5,
-                        63
-                    ],
-                    "source": [
-                        "obj-sel-connected",
-                        0
-                    ]
-                }
-            },
-            {
-                "patchline": {
-                    "destination": [
-                        "obj-outlet-status",
-                        0
-                    ],
-                    "midpoints": [
-                        689.4999999999998,
-                        255,
-                        825,
-                        255,
-                        825,
-                        645,
-                        579.5,
-                        645
-                    ],
-                    "order": 0,
-                    "source": [
-                        "obj-thru-status",
-                        0
-                    ]
-                }
-            },
-            {
-                "patchline": {
-                    "destination": [
-                        "obj-sel-connected",
-                        0
-                    ],
-                    "midpoints": [
-                        702.4999999999998,
-                        240,
-                        666,
-                        240,
-                        666,
-                        195,
-                        984,
-                        195,
-                        984,
-                        24,
-                        379.5,
-                        24
-                    ],
-                    "source": [
-                        "obj-thru-status",
-                        1
-                    ]
-                }
-            },
-            {
-                "patchline": {
-                    "destination": [
-                        "obj-status-display",
-                        1
-                    ],
-                    "midpoints": [
-                        689.4999999999998,
-                        240,
-                        666,
-                        240,
-                        666,
-                        195,
-                        984,
-                        195,
-                        984,
-                        123,
-                        291,
-                        123,
-                        291,
-                        87,
-                        280.5,
-                        87
-                    ],
+                    "destination": [ "obj-dtw-rec-pack", 0 ],
+                    "midpoints": [ 69.5, 723.0, 366.0, 723.0, 366.0, 717.0, 379.5, 717.0 ],
                     "order": 1,
-                    "source": [
-                        "obj-thru-status",
-                        0
-                    ]
-                }
-            },
-            {
-                "patchline": {
-                    "destination": [
-                        "obj-prepend-enable-flip",
-                        0
-                    ],
-                    "midpoints": [
-                        124.5,
-                        369,
-                        124.5,
-                        369
-                    ],
-                    "source": [
-                        "obj-toggle-flip",
-                        0
-                    ]
-                }
-            },
-            {
-                "patchline": {
-                    "destination": [
-                        "obj-prepend-enable-shake",
-                        0
-                    ],
-                    "midpoints": [
-                        124.5,
-                        258,
-                        124.5,
-                        258
-                    ],
-                    "source": [
-                        "obj-toggle-shake",
-                        0
-                    ]
-                }
-            },
-            {
-                "patchline": {
-                    "destination": [
-                        "obj-prepend-enable-tap",
-                        0
-                    ],
-                    "midpoints": [
-                        124.5,
-                        315,
-                        124.5,
-                        315
-                    ],
-                    "source": [
-                        "obj-toggle-tap",
-                        0
-                    ]
+                    "source": [ "obj-dtw-slot-id", 0 ]
                 }
             },
             {
-                "patchline": {
-                    "destination": [
-                        "obj-prepend-enable-tilt-back",
-                        0
-                    ],
-                    "midpoints": [
-                        124.5,
-                        588,
-                        124.5,
-                        588
-                    ],
-                    "source": [
-                        "obj-toggle-tilt-back",
-                        0
-                    ]
+                "patchline": {
+                    "destination": [ "obj-dtw-slot1-examples", 0 ],
+                    "midpoints": [ 559.5, 843.0, 537.0, 843.0, 537.0, 786.0, 372.0, 786.0, 372.0, 816.0, 369.5, 816.0 ],
+                    "source": [ "obj-dtw-slot-info-route", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-dtw-slot2-examples", 0 ],
+                    "midpoints": [ 604.75, 879.0, 447.0, 879.0, 447.0, 870.0, 369.5, 870.0 ],
+                    "source": [ "obj-dtw-slot-info-route", 1 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-dtw-slot3-examples", 0 ],
+                    "midpoints": [ 650.0, 933.0, 447.0, 933.0, 447.0, 927.0, 369.5, 927.0 ],
+                    "source": [ "obj-dtw-slot-info-route", 2 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-dtw-slot4-examples", 0 ],
+                    "midpoints": [ 695.25, 987.0, 447.0, 987.0, 447.0, 981.0, 369.5, 981.0 ],
+                    "source": [ "obj-dtw-slot-info-route", 3 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-dtw-slot-default", 0 ],
+                    "midpoints": [ 69.5, 675.0, 69.5, 675.0 ],
+                    "source": [ "obj-dtw-slot-loadbang", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-dtw-slot1-prepend-cd", 0 ],
+                    "midpoints": [ 289.5, 852.0, 289.5, 852.0 ],
+                    "source": [ "obj-dtw-slot1-cooldown", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-dtw-slot1-del-msg", 0 ],
+                    "midpoints": [ 434.5, 843.0, 434.5, 843.0 ],
+                    "source": [ "obj-dtw-slot1-del-btn", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-nodescript", 0 ],
+                    "midpoints": [ 434.5, 870.0, 456.0, 870.0, 456.0, 879.0, 540.0, 879.0, 540.0, 831.0, 471.0, 831.0, 471.0, 777.0, 357.0, 777.0, 357.0, 723.0, 6.0, 723.0, 6.0, 126.0, 29.5, 126.0 ],
+                    "source": [ "obj-dtw-slot1-del-msg", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-nodescript", 0 ],
+                    "midpoints": [ 289.5, 867.0, 6.0, 867.0, 6.0, 126.0, 29.5, 126.0 ],
+                    "source": [ "obj-dtw-slot1-prepend-cd", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-nodescript", 0 ],
+                    "midpoints": [ 33.5, 870.0, 6.0, 870.0, 6.0, 126.0, 29.5, 126.0 ],
+                    "source": [ "obj-dtw-slot1-prepend-en", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-nodescript", 0 ],
+                    "midpoints": [ 204.5, 867.0, 6.0, 867.0, 6.0, 126.0, 29.5, 126.0 ],
+                    "source": [ "obj-dtw-slot1-prepend-th", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-dtw-slot1-prepend-th", 0 ],
+                    "midpoints": [ 204.5, 852.0, 204.5, 852.0 ],
+                    "source": [ "obj-dtw-slot1-thresh", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-dtw-slot1-prepend-en", 0 ],
+                    "midpoints": [ 33.5, 843.0, 33.5, 843.0 ],
+                    "source": [ "obj-dtw-slot1-toggle", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-dtw-slot2-prepend-cd", 0 ],
+                    "midpoints": [ 289.5, 906.0, 289.5, 906.0 ],
+                    "source": [ "obj-dtw-slot2-cooldown", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-dtw-slot2-del-msg", 0 ],
+                    "midpoints": [ 434.5, 897.0, 434.5, 897.0 ],
+                    "source": [ "obj-dtw-slot2-del-btn", 0 ]
                 }
-            },
-            {
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-nodescript", 0 ],
+                    "midpoints": [ 434.5, 924.0, 456.0, 924.0, 456.0, 933.0, 540.0, 933.0, 540.0, 831.0, 471.0, 831.0, 471.0, 777.0, 357.0, 777.0, 357.0, 723.0, 6.0, 723.0, 6.0, 126.0, 29.5, 126.0 ],
+                    "source": [ "obj-dtw-slot2-del-msg", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-nodescript", 0 ],
+                    "midpoints": [ 289.5, 924.0, 6.0, 924.0, 6.0, 126.0, 29.5, 126.0 ],
+                    "source": [ "obj-dtw-slot2-prepend-cd", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-nodescript", 0 ],
+                    "midpoints": [ 33.5, 924.0, 6.0, 924.0, 6.0, 126.0, 29.5, 126.0 ],
+                    "source": [ "obj-dtw-slot2-prepend-en", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-nodescript", 0 ],
+                    "midpoints": [ 204.5, 924.0, 6.0, 924.0, 6.0, 126.0, 29.5, 126.0 ],
+                    "source": [ "obj-dtw-slot2-prepend-th", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-dtw-slot2-prepend-th", 0 ],
+                    "midpoints": [ 204.5, 906.0, 204.5, 906.0 ],
+                    "source": [ "obj-dtw-slot2-thresh", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-dtw-slot2-prepend-en", 0 ],
+                    "midpoints": [ 33.5, 897.0, 33.5, 897.0 ],
+                    "source": [ "obj-dtw-slot2-toggle", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-dtw-slot3-prepend-cd", 0 ],
+                    "midpoints": [ 289.5, 960.0, 289.5, 960.0 ],
+                    "source": [ "obj-dtw-slot3-cooldown", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-dtw-slot3-del-msg", 0 ],
+                    "midpoints": [ 434.5, 951.0, 434.5, 951.0 ],
+                    "source": [ "obj-dtw-slot3-del-btn", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-nodescript", 0 ],
+                    "midpoints": [ 434.5, 978.0, 456.0, 978.0, 456.0, 987.0, 540.0, 987.0, 540.0, 831.0, 471.0, 831.0, 471.0, 777.0, 357.0, 777.0, 357.0, 723.0, 6.0, 723.0, 6.0, 126.0, 29.5, 126.0 ],
+                    "source": [ "obj-dtw-slot3-del-msg", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-nodescript", 0 ],
+                    "midpoints": [ 289.5, 978.0, 6.0, 978.0, 6.0, 126.0, 29.5, 126.0 ],
+                    "source": [ "obj-dtw-slot3-prepend-cd", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-nodescript", 0 ],
+                    "midpoints": [ 33.5, 978.0, 6.0, 978.0, 6.0, 126.0, 29.5, 126.0 ],
+                    "source": [ "obj-dtw-slot3-prepend-en", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-nodescript", 0 ],
+                    "midpoints": [ 204.5, 978.0, 6.0, 978.0, 6.0, 126.0, 29.5, 126.0 ],
+                    "source": [ "obj-dtw-slot3-prepend-th", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-dtw-slot3-prepend-th", 0 ],
+                    "midpoints": [ 204.5, 960.0, 204.5, 960.0 ],
+                    "source": [ "obj-dtw-slot3-thresh", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-dtw-slot3-prepend-en", 0 ],
+                    "midpoints": [ 33.5, 951.0, 33.5, 951.0 ],
+                    "source": [ "obj-dtw-slot3-toggle", 0 ]
+                }
+            },
+            {
                 "patchline": {
-                    "destination": [
-                        "obj-prepend-enable-tilt-forward",
-                        0
-                    ],
-                    "midpoints": [
-                        124.5,
-                        534,
-                        124.5,
-                        534
-                    ],
-                    "source": [
-                        "obj-toggle-tilt-forward",
-                        0
-                    ]
+                    "destination": [ "obj-dtw-slot4-prepend-cd", 0 ],
+                    "midpoints": [ 289.5, 1017.0, 289.5, 1017.0 ],
+                    "source": [ "obj-dtw-slot4-cooldown", 0 ]
                 }
             },
             {
                 "patchline": {
-                    "destination": [
-                        "obj-prepend-enable-tilt-left",
-                        0
-                    ],
-                    "midpoints": [
-                        124.5,
-                        423,
-                        124.5,
-                        423
-                    ],
-                    "source": [
-                        "obj-toggle-tilt-left",
-                        0
-                    ]
+                    "destination": [ "obj-dtw-slot4-del-msg", 0 ],
+                    "midpoints": [ 434.5, 1008.0, 434.5, 1008.0 ],
+                    "source": [ "obj-dtw-slot4-del-btn", 0 ]
                 }
             },
             {
                 "patchline": {
-                    "destination": [
-                        "obj-prepend-enable-tilt-right",
-                        0
-                    ],
-                    "midpoints": [
-                        124.5,
-                        480,
-                        124.5,
-                        480
-                    ],
-                    "source": [
-                        "obj-toggle-tilt-right",
-                        0
-                    ]
+                    "destination": [ "obj-nodescript", 0 ],
+                    "midpoints": [ 434.5, 1044.0, 6.0, 1044.0, 6.0, 126.0, 29.5, 126.0 ],
+                    "source": [ "obj-dtw-slot4-del-msg", 0 ]
                 }
             },
             {
                 "patchline": {
-                    "source": [
-                        "obj-dtw-dur-loadbang",
-                        0
-                    ],
-                    "destination": [
-                        "obj-dtw-dur-default",
-                        0
-                    ]
+                    "destination": [ "obj-nodescript", 0 ],
+                    "midpoints": [ 289.5, 1044.0, 6.0, 1044.0, 6.0, 126.0, 29.5, 126.0 ],
+                    "source": [ "obj-dtw-slot4-prepend-cd", 0 ]
                 }
             },
             {
                 "patchline": {
-                    "source": [
-                        "obj-dtw-dur-default",
-                        0
-                    ],
-                    "destination": [
-                        "obj-dtw-duration",
-                        0
-                    ]
+                    "destination": [ "obj-nodescript", 0 ],
+                    "midpoints": [ 33.5, 1035.0, 6.0, 1035.0, 6.0, 126.0, 29.5, 126.0 ],
+                    "source": [ "obj-dtw-slot4-prepend-en", 0 ]
                 }
             },
             {
                 "patchline": {
-                    "source": [
-                        "obj-dtw-slot-loadbang",
-                        0
-                    ],
-                    "destination": [
-                        "obj-dtw-slot-default",
-                        0
-                    ]
+                    "destination": [ "obj-nodescript", 0 ],
+                    "midpoints": [ 204.5, 1044.0, 6.0, 1044.0, 6.0, 126.0, 29.5, 126.0 ],
+                    "source": [ "obj-dtw-slot4-prepend-th", 0 ]
                 }
             },
             {
                 "patchline": {
-                    "source": [
-                        "obj-dtw-slot-default",
-                        0
-                    ],
-                    "destination": [
-                        "obj-dtw-slot-id",
-                        0
-                    ]
+                    "destination": [ "obj-dtw-slot4-prepend-th", 0 ],
+                    "midpoints": [ 204.5, 1017.0, 204.5, 1017.0 ],
+                    "source": [ "obj-dtw-slot4-thresh", 0 ]
                 }
             },
             {
                 "patchline": {
-                    "source": [
-                        "obj-dtw-record-btn",
-                        0
-                    ],
-                    "destination": [
-                        "obj-dtw-rec-pack",
-                        0
-                    ]
+                    "destination": [ "obj-dtw-slot4-prepend-en", 0 ],
+                    "midpoints": [ 33.5, 1008.0, 33.5, 1008.0 ],
+                    "source": [ "obj-dtw-slot4-toggle", 0 ]
                 }
             },
             {
                 "patchline": {
-                    "source": [
-                        "obj-dtw-slot-id",
-                        0
-                    ],
-                    "destination": [
-                        "obj-dtw-rec-pack",
-                        0
-                    ]
+                    "destination": [ "obj-dtw-stop-msg", 0 ],
+                    "midpoints": [ 504.5, 717.0, 539.5, 717.0 ],
+                    "source": [ "obj-dtw-stop-btn", 0 ]
                 }
             },
             {
                 "patchline": {
-                    "source": [
-                        "obj-dtw-mode-menu",
-                        1
-                    ],
-                    "destination": [
-                        "obj-dtw-rec-pack",
-                        1
-                    ]
+                    "destination": [ "obj-nodescript", 0 ],
+                    "midpoints": [ 539.5, 744.0, 525.0, 744.0, 525.0, 624.0, 6.0, 624.0, 6.0, 126.0, 29.5, 126.0 ],
+                    "source": [ "obj-dtw-stop-msg", 0 ]
                 }
             },
             {
                 "patchline": {
-                    "source": [
-                        "obj-dtw-duration",
-                        0
-                    ],
-                    "destination": [
-                        "obj-dtw-rec-pack",
-                        2
-                    ]
+                    "destination": [ "obj-nodescript", 0 ],
+                    "midpoints": [ 29.5, 66.0, 6.0, 66.0, 6.0, 126.0, 29.5, 126.0 ],
+                    "source": [ "obj-inlet-ctrl", 0 ]
                 }
             },
             {
                 "patchline": {
-                    "source": [
-                        "obj-dtw-rec-pack",
-                        0
-                    ],
-                    "destination": [
-                        "obj-dtw-rec-prepend",
-                        0
-                    ]
+                    "destination": [ "obj-nodescript", 0 ],
+                    "midpoints": [ 379.5, 126.0, 29.5, 126.0 ],
+                    "source": [ "obj-msg-calibrate", 0 ]
                 }
             },
             {
                 "patchline": {
-                    "source": [
-                        "obj-dtw-rec-prepend",
-                        0
-                    ],
-                    "destination": [
-                        "obj-nodescript",
-                        0
-                    ]
+                    "destination": [ "obj-nodescript", 0 ],
+                    "midpoints": [ 29.5, 117.0, 29.5, 117.0 ],
+                    "source": [ "obj-msg-connect", 0 ]
                 }
             },
             {
                 "patchline": {
-                    "source": [
-                        "obj-dtw-stop-btn",
-                        0
-                    ],
-                    "destination": [
-                        "obj-dtw-stop-msg",
-                        0
-                    ]
+                    "destination": [ "obj-nodescript", 0 ],
+                    "midpoints": [ 94.5, 117.0, 29.5, 117.0 ],
+                    "source": [ "obj-msg-disconnect", 0 ]
                 }
             },
             {
                 "patchline": {
-                    "source": [
-                        "obj-dtw-stop-msg",
-                        0
-                    ],
-                    "destination": [
-                        "obj-nodescript",
-                        0
-                    ]
+                    "destination": [ "obj-activity-led", 0 ],
+                    "midpoints": [ 364.5, 189.0, 297.0, 189.0, 297.0, 129.0, 306.0, 129.0, 306.0, 87.0, 319.5, 87.0 ],
+                    "source": [ "obj-msg-led-off", 0 ]
                 }
             },
             {
                 "patchline": {
-                    "source": [
-                        "obj-dtw-name-input",
-                        0
-                    ],
-                    "destination": [
-                        "obj-dtw-name-pack",
-                        1
-                    ]
+                    "destination": [ "obj-activity-led", 0 ],
+                    "midpoints": [ 319.5, 189.0, 297.0, 189.0, 297.0, 129.0, 306.0, 129.0, 306.0, 87.0, 319.5, 87.0 ],
+                    "source": [ "obj-msg-led-on", 0 ]
                 }
             },
             {
                 "patchline": {
-                    "source": [
-                        "obj-dtw-slot-id",
-                        0
-                    ],
-                    "destination": [
-                        "obj-dtw-name-pack",
-                        0
-                    ]
+                    "destination": [ "obj-route-main", 0 ],
+                    "midpoints": [ 29.5, 153.0, 29.5, 153.0 ],
+                    "source": [ "obj-nodescript", 0 ]
                 }
             },
             {
                 "patchline": {
-                    "source": [
-                        "obj-dtw-name-pack",
-                        0
-                    ],
-                    "destination": [
-                        "obj-dtw-name-prepend",
-                        0
-                    ]
+                    "destination": [ "obj-nodescript", 0 ],
+                    "midpoints": [ 610.5, 393.0, 504.0, 393.0, 504.0, 300.0, 456.0, 300.0, 456.0, 312.0, 408.0, 312.0, 408.0, 294.0, 204.0, 294.0, 204.0, 282.0, 102.0, 282.0, 102.0, 267.0, 6.0, 267.0, 6.0, 126.0, 29.5, 126.0 ],
+                    "source": [ "obj-prepend-cool-flip", 0 ]
                 }
             },
             {
                 "patchline": {
-                    "source": [
-                        "obj-dtw-name-prepend",
-                        0
-                    ],
-                    "destination": [
-                        "obj-nodescript",
-                        0
-                    ]
+                    "destination": [ "obj-nodescript", 0 ],
+                    "midpoints": [ 610.5, 300.0, 456.0, 300.0, 456.0, 312.0, 408.0, 312.0, 408.0, 294.0, 204.0, 294.0, 204.0, 282.0, 102.0, 282.0, 102.0, 267.0, 6.0, 267.0, 6.0, 126.0, 29.5, 126.0 ],
+                    "source": [ "obj-prepend-cool-shake", 0 ]
                 }
             },
             {
                 "patchline": {
-                    "source": [
-                        "obj-dtw-slot1-toggle",
-                        0
-                    ],
-                    "destination": [
-                        "obj-dtw-slot1-prepend-en",
-                        0
-                    ]
+                    "destination": [ "obj-nodescript", 0 ],
+                    "midpoints": [ 610.5, 339.0, 504.0, 339.0, 504.0, 300.0, 456.0, 300.0, 456.0, 312.0, 408.0, 312.0, 408.0, 294.0, 204.0, 294.0, 204.0, 282.0, 102.0, 282.0, 102.0, 267.0, 6.0, 267.0, 6.0, 126.0, 29.5, 126.0 ],
+                    "source": [ "obj-prepend-cool-tap", 0 ]
                 }
             },
             {
                 "patchline": {
-                    "source": [
-                        "obj-dtw-slot1-prepend-en",
-                        0
-                    ],
-                    "destination": [
-                        "obj-nodescript",
-                        0
-                    ]
+                    "destination": [ "obj-nodescript", 0 ],
+                    "midpoints": [ 610.5, 624.0, 6.0, 624.0, 6.0, 126.0, 29.5, 126.0 ],
+                    "source": [ "obj-prepend-cool-tilt-back", 0 ]
                 }
             },
             {
                 "patchline": {
-                    "source": [
-                        "obj-dtw-slot1-thresh",
-                        0
-                    ],
-                    "destination": [
-                        "obj-dtw-slot1-prepend-th",
-                        0
-                    ]
+                    "destination": [ "obj-nodescript", 0 ],
+                    "midpoints": [ 610.5, 576.0, 531.0, 576.0, 531.0, 624.0, 6.0, 624.0, 6.0, 126.0, 29.5, 126.0 ],
+                    "source": [ "obj-prepend-cool-tilt-forward", 0 ]
                 }
             },
             {
                 "patchline": {
-                    "source": [
-                        "obj-dtw-slot1-prepend-th",
-                        0
-                    ],
-                    "destination": [
-                        "obj-nodescript",
-                        0
-                    ]
+                    "destination": [ "obj-nodescript", 0 ],
+                    "midpoints": [ 610.5, 450.0, 522.0, 450.0, 522.0, 312.0, 408.0, 312.0, 408.0, 294.0, 204.0, 294.0, 204.0, 282.0, 102.0, 282.0, 102.0, 267.0, 6.0, 267.0, 6.0, 126.0, 29.5, 126.0 ],
+                    "source": [ "obj-prepend-cool-tilt-left", 0 ]
                 }
             },
             {
                 "patchline": {
-                    "source": [
-                        "obj-dtw-slot1-cooldown",
-                        0
-                    ],
-                    "destination": [
-                        "obj-dtw-slot1-prepend-cd",
-                        0
-                    ]
+                    "destination": [ "obj-nodescript", 0 ],
+                    "midpoints": [ 610.5, 504.0, 528.0, 504.0, 528.0, 312.0, 408.0, 312.0, 408.0, 294.0, 204.0, 294.0, 204.0, 282.0, 102.0, 282.0, 102.0, 267.0, 6.0, 267.0, 6.0, 126.0, 29.5, 126.0 ],
+                    "source": [ "obj-prepend-cool-tilt-right", 0 ]
                 }
             },
             {
                 "patchline": {
-                    "source": [
-                        "obj-dtw-slot1-prepend-cd",
-                        0
-                    ],
-                    "destination": [
-                        "obj-nodescript",
-                        0
-                    ]
+                    "destination": [ "obj-nodescript", 0 ],
+                    "midpoints": [ 124.5, 393.0, 102.0, 393.0, 102.0, 375.0, 6.0, 375.0, 6.0, 126.0, 29.5, 126.0 ],
+                    "source": [ "obj-prepend-enable-flip", 0 ]
                 }
             },
             {
                 "patchline": {
-                    "source": [
-                        "obj-dtw-slot1-del-btn",
-                        0
-                    ],
-                    "destination": [
-                        "obj-dtw-slot1-del-msg",
-                        0
-                    ]
+                    "destination": [ "obj-nodescript", 0 ],
+                    "midpoints": [ 124.5, 285.0, 102.0, 285.0, 102.0, 267.0, 6.0, 267.0, 6.0, 126.0, 29.5, 126.0 ],
+                    "source": [ "obj-prepend-enable-shake", 0 ]
                 }
             },
             {
                 "patchline": {
-                    "source": [
-                        "obj-dtw-slot1-del-msg",
-                        0
-                    ],
-                    "destination": [
-                        "obj-nodescript",
-                        0
-                    ]
+                    "destination": [ "obj-nodescript", 0 ],
+                    "midpoints": [ 124.5, 339.0, 102.0, 339.0, 102.0, 321.0, 6.0, 321.0, 6.0, 126.0, 29.5, 126.0 ],
+                    "source": [ "obj-prepend-enable-tap", 0 ]
                 }
             },
             {
                 "patchline": {
-                    "source": [
-                        "obj-dtw-slot2-toggle",
-                        0
-                    ],
-                    "destination": [
-                        "obj-dtw-slot2-prepend-en",
-                        0
-                    ]
+                    "destination": [ "obj-nodescript", 0 ],
+                    "midpoints": [ 124.5, 615.0, 6.0, 615.0, 6.0, 126.0, 29.5, 126.0 ],
+                    "source": [ "obj-prepend-enable-tilt-back", 0 ]
                 }
             },
             {
                 "patchline": {
-                    "source": [
-                        "obj-dtw-slot2-prepend-en",
-                        0
-                    ],
-                    "destination": [
-                        "obj-nodescript",
-                        0
-                    ]
+                    "destination": [ "obj-nodescript", 0 ],
+                    "midpoints": [ 124.5, 564.0, 102.0, 564.0, 102.0, 540.0, 6.0, 540.0, 6.0, 126.0, 29.5, 126.0 ],
+                    "source": [ "obj-prepend-enable-tilt-forward", 0 ]
                 }
             },
             {
                 "patchline": {
-                    "source": [
-                        "obj-dtw-slot2-thresh",
-                        0
-                    ],
-                    "destination": [
-                        "obj-dtw-slot2-prepend-th",
-                        0
-                    ]
+                    "destination": [ "obj-nodescript", 0 ],
+                    "midpoints": [ 124.5, 450.0, 102.0, 450.0, 102.0, 432.0, 6.0, 432.0, 6.0, 126.0, 29.5, 126.0 ],
+                    "source": [ "obj-prepend-enable-tilt-left", 0 ]
                 }
             },
             {
                 "patchline": {
-                    "source": [
-                        "obj-dtw-slot2-prepend-th",
-                        0
-                    ],
-                    "destination": [
-                        "obj-nodescript",
-                        0
-                    ]
+                    "destination": [ "obj-nodescript", 0 ],
+                    "midpoints": [ 124.5, 504.0, 102.0, 504.0, 102.0, 486.0, 6.0, 486.0, 6.0, 126.0, 29.5, 126.0 ],
+                    "source": [ "obj-prepend-enable-tilt-right", 0 ]
                 }
             },
             {
                 "patchline": {
-                    "source": [
-                        "obj-dtw-slot2-cooldown",
-                        0
-                    ],
-                    "destination": [
-                        "obj-dtw-slot2-prepend-cd",
-                        0
-                    ]
+                    "destination": [ "obj-nodescript", 0 ],
+                    "midpoints": [ 326.5, 393.0, 285.0, 393.0, 285.0, 294.0, 204.0, 294.0, 204.0, 282.0, 102.0, 282.0, 102.0, 267.0, 6.0, 267.0, 6.0, 126.0, 29.5, 126.0 ],
+                    "source": [ "obj-prepend-sens-flip", 0 ]
                 }
             },
             {
                 "patchline": {
-                    "source": [
-                        "obj-dtw-slot2-prepend-cd",
-                        0
-                    ],
-                    "destination": [
-                        "obj-nodescript",
-                        0
-                    ]
+                    "destination": [ "obj-nodescript", 0 ],
+                    "midpoints": [ 326.5, 294.0, 204.0, 294.0, 204.0, 282.0, 102.0, 282.0, 102.0, 267.0, 6.0, 267.0, 6.0, 126.0, 29.5, 126.0 ],
+                    "source": [ "obj-prepend-sens-shake", 0 ]
                 }
             },
             {
                 "patchline": {
-                    "source": [
-                        "obj-dtw-slot2-del-btn",
-                        0
-                    ],
-                    "destination": [
-                        "obj-dtw-slot2-del-msg",
-                        0
-                    ]
+                    "destination": [ "obj-nodescript", 0 ],
+                    "midpoints": [ 326.5, 339.0, 285.0, 339.0, 285.0, 294.0, 204.0, 294.0, 204.0, 282.0, 102.0, 282.0, 102.0, 267.0, 6.0, 267.0, 6.0, 126.0, 29.5, 126.0 ],
+                    "source": [ "obj-prepend-sens-tap", 0 ]
                 }
             },
             {
                 "patchline": {
-                    "source": [
-                        "obj-dtw-slot2-del-msg",
-                        0
-                    ],
-                    "destination": [
-                        "obj-nodescript",
-                        0
-                    ]
+                    "destination": [ "obj-nodescript", 0 ],
+                    "midpoints": [ 326.5, 624.0, 6.0, 624.0, 6.0, 126.0, 29.5, 126.0 ],
+                    "source": [ "obj-prepend-sens-tilt-back", 0 ]
                 }
             },
             {
                 "patchline": {
-                    "source": [
-                        "obj-dtw-slot3-toggle",
-                        0
-                    ],
-                    "destination": [
-                        "obj-dtw-slot3-prepend-en",
-                        0
-                    ]
+                    "destination": [ "obj-nodescript", 0 ],
+                    "midpoints": [ 425.5, 558.0, 324.0, 558.0, 324.0, 576.0, 300.0, 576.0, 300.0, 624.0, 6.0, 624.0, 6.0, 126.0, 29.5, 126.0 ],
+                    "source": [ "obj-prepend-sens-tilt-forward", 0 ]
                 }
             },
             {
                 "patchline": {
-                    "source": [
-                        "obj-dtw-slot3-prepend-en",
-                        0
-                    ],
-                    "destination": [
-                        "obj-nodescript",
-                        0
-                    ]
+                    "destination": [ "obj-nodescript", 0 ],
+                    "midpoints": [ 326.5, 450.0, 300.0, 450.0, 300.0, 294.0, 204.0, 294.0, 204.0, 282.0, 102.0, 282.0, 102.0, 267.0, 6.0, 267.0, 6.0, 126.0, 29.5, 126.0 ],
+                    "source": [ "obj-prepend-sens-tilt-left", 0 ]
                 }
             },
             {
                 "patchline": {
-                    "source": [
-                        "obj-dtw-slot3-thresh",
-                        0
-                    ],
-                    "destination": [
-                        "obj-dtw-slot3-prepend-th",
-                        0
-                    ]
+                    "destination": [ "obj-nodescript", 0 ],
+                    "midpoints": [ 326.5, 504.0, 312.0, 504.0, 312.0, 459.0, 204.0, 459.0, 204.0, 447.0, 102.0, 447.0, 102.0, 432.0, 6.0, 432.0, 6.0, 126.0, 29.5, 126.0 ],
+                    "source": [ "obj-prepend-sens-tilt-right", 0 ]
                 }
             },
             {
                 "patchline": {
-                    "source": [
-                        "obj-dtw-slot3-prepend-th",
-                        0
-                    ],
-                    "destination": [
-                        "obj-nodescript",
-                        0
-                    ]
+                    "destination": [ "obj-led-flip", 0 ],
+                    "midpoints": [ 838.5, 348.0, 723.0, 348.0, 723.0, 339.0, 710.5, 339.0 ],
+                    "source": [ "obj-route-led", 2 ]
                 }
             },
             {
                 "patchline": {
-                    "source": [
-                        "obj-dtw-slot3-cooldown",
-                        0
-                    ],
-                    "destination": [
-                        "obj-dtw-slot3-prepend-cd",
-                        0
-                    ]
+                    "destination": [ "obj-led-shake", 0 ],
+                    "midpoints": [ 732.5, 240.0, 723.0, 240.0, 723.0, 252.0, 675.0, 252.0, 675.0, 213.0, 711.0, 213.0, 711.0, 228.0, 710.5, 228.0 ],
+                    "source": [ "obj-route-led", 0 ]
                 }
             },
             {
                 "patchline": {
-                    "source": [
-                        "obj-dtw-slot3-prepend-cd",
-                        0
-                    ],
-                    "destination": [
-                        "obj-nodescript",
-                        0
-                    ]
+                    "destination": [ "obj-led-tap", 0 ],
+                    "midpoints": [ 785.5, 255.0, 801.0, 255.0, 801.0, 294.0, 723.0, 294.0, 723.0, 282.0, 710.5, 282.0 ],
+                    "source": [ "obj-route-led", 1 ]
                 }
             },
             {
                 "patchline": {
-                    "source": [
-                        "obj-dtw-slot3-del-btn",
-                        0
-                    ],
-                    "destination": [
-                        "obj-dtw-slot3-del-msg",
-                        0
-                    ]
+                    "destination": [ "obj-led-tilt-back", 0 ],
+                    "midpoints": [ 1050.5, 567.0, 723.0, 567.0, 723.0, 558.0, 710.5, 558.0 ],
+                    "source": [ "obj-route-led", 6 ]
                 }
             },
             {
                 "patchline": {
-                    "source": [
-                        "obj-dtw-slot3-del-msg",
-                        0
-                    ],
-                    "destination": [
-                        "obj-nodescript",
-                        0
-                    ]
+                    "destination": [ "obj-led-tilt-forward", 0 ],
+                    "midpoints": [ 997.5, 513.0, 723.0, 513.0, 723.0, 504.0, 710.5, 504.0 ],
+                    "source": [ "obj-route-led", 5 ]
                 }
             },
             {
                 "patchline": {
-                    "source": [
-                        "obj-dtw-slot4-toggle",
-                        0
-                    ],
-                    "destination": [
-                        "obj-dtw-slot4-prepend-en",
-                        0
-                    ]
+                    "destination": [ "obj-led-tilt-left", 0 ],
+                    "midpoints": [ 891.5, 402.0, 723.0, 402.0, 723.0, 393.0, 710.5, 393.0 ],
+                    "source": [ "obj-route-led", 3 ]
                 }
             },
             {
                 "patchline": {
-                    "source": [
-                        "obj-dtw-slot4-prepend-en",
-                        0
-                    ],
-                    "destination": [
-                        "obj-nodescript",
-                        0
-                    ]
+                    "destination": [ "obj-led-tilt-right", 0 ],
+                    "midpoints": [ 944.5, 459.0, 723.0, 459.0, 723.0, 447.0, 710.5, 447.0 ],
+                    "source": [ "obj-route-led", 4 ]
                 }
             },
             {
                 "patchline": {
-                    "source": [
-                        "obj-dtw-slot4-thresh",
-                        0
-                    ],
-                    "destination": [
-                        "obj-dtw-slot4-prepend-th",
-                        0
-                    ]
+                    "destination": [ "obj-dtw-axes-display", 1 ],
+                    "midpoints": [ 909.1923076923077, 210.0, 1002.0, 210.0, 1002.0, 201.0, 1125.0, 201.0, 1125.0, 1071.0, 995.5, 1071.0 ],
+                    "source": [ "obj-route-main", 24 ]
                 }
             },
             {
                 "patchline": {
-                    "source": [
-                        "obj-dtw-slot4-prepend-th",
-                        0
-                    ],
-                    "destination": [
-                        "obj-nodescript",
-                        0
-                    ]
+                    "destination": [ "obj-dtw-lib-count", 0 ],
+                    "midpoints": [ 835.8846153846154, 210.0, 675.0, 210.0, 675.0, 255.0, 852.0, 255.0, 852.0, 1071.0, 729.5, 1071.0 ],
+                    "source": [ "obj-route-main", 22 ]
                 }
             },
             {
                 "patchline": {
-                    "source": [
-                        "obj-dtw-slot4-cooldown",
-                        0
-                    ],
-                    "destination": [
-                        "obj-dtw-slot4-prepend-cd",
-                        0
-                    ]
+                    "destination": [ "obj-dtw-lib-status", 1 ],
+                    "midpoints": [ 799.2307692307693, 210.0, 675.0, 210.0, 675.0, 255.0, 852.0, 255.0, 852.0, 1071.0, 700.5, 1071.0 ],
+                    "source": [ "obj-route-main", 21 ]
                 }
             },
             {
                 "patchline": {
-                    "source": [
-                        "obj-dtw-slot4-prepend-cd",
-                        0
-                    ],
-                    "destination": [
-                        "obj-nodescript",
-                        0
-                    ]
+                    "destination": [ "obj-dtw-rec-progress", 0 ],
+                    "midpoints": [ 762.5769230769231, 210.0, 675.0, 210.0, 675.0, 252.0, 825.0, 252.0, 825.0, 675.0, 804.5, 675.0 ],
+                    "source": [ "obj-route-main", 20 ]
                 }
             },
             {
                 "patchline": {
-                    "source": [
-                        "obj-dtw-slot4-del-btn",
-                        0
-                    ],
-                    "destination": [
-                        "obj-dtw-slot4-del-msg",
-                        0
-                    ]
+                    "destination": [ "obj-dtw-rec-status-display", 1 ],
+                    "midpoints": [ 725.9230769230769, 210.0, 675.0, 210.0, 675.0, 255.0, 825.0, 255.0, 825.0, 675.0, 720.5, 675.0 ],
+                    "source": [ "obj-route-main", 19 ]
                 }
             },
             {
                 "patchline": {
-                    "source": [
-                        "obj-dtw-slot4-del-msg",
-                        0
-                    ],
-                    "destination": [
-                        "obj-nodescript",
-                        0
-                    ]
+                    "destination": [ "obj-dtw-slot-info-route", 0 ],
+                    "midpoints": [ 872.5384615384615, 210.0, 1002.0, 210.0, 1002.0, 201.0, 1125.0, 201.0, 1125.0, 807.0, 559.5, 807.0 ],
+                    "source": [ "obj-route-main", 23 ]
                 }
             },
             {
                 "patchline": {
-                    "source": [
-                        "obj-dtw-matchmode-menu",
-                        1
-                    ],
-                    "destination": [
-                        "obj-dtw-matchmode-prepend",
-                        0
-                    ]
+                    "destination": [ "obj-outlet-cal-status", 0 ],
+                    "midpoints": [ 506.0, 246.0, 588.0, 246.0, 588.0, 519.0, 687.0, 519.0, 687.0, 528.0, 732.0, 528.0, 732.0, 522.0, 852.0, 522.0, 852.0, 1071.0, 711.0, 1071.0, 711.0, 1185.0, 689.5, 1185.0 ],
+                    "source": [ "obj-route-main", 13 ]
                 }
             },
             {
                 "patchline": {
-                    "source": [
-                        "obj-dtw-matchmode-prepend",
-                        0
-                    ],
-                    "destination": [
-                        "obj-nodescript",
-                        0
-                    ]
+                    "destination": [ "obj-outlet-dtw-confidence", 0 ],
+                    "midpoints": [ 689.2692307692307, 210.0, 675.0, 210.0, 675.0, 252.0, 852.0, 252.0, 852.0, 1071.0, 837.0, 1071.0, 837.0, 1185.0, 909.5, 1185.0 ],
+                    "source": [ "obj-route-main", 18 ]
                 }
             },
             {
                 "patchline": {
-                    "source": [
-                        "obj-dtw-continuous-toggle",
-                        0
-                    ],
-                    "destination": [
-                        "obj-dtw-continuous-prepend",
-                        0
-                    ]
+                    "destination": [ "obj-outlet-dtw-match", 0 ],
+                    "midpoints": [ 652.6153846153846, 246.0, 696.0, 246.0, 696.0, 255.0, 852.0, 255.0, 852.0, 1071.0, 831.0, 1071.0, 831.0, 1185.0, 799.5, 1185.0 ],
+                    "source": [ "obj-route-main", 17 ]
                 }
             },
             {
                 "patchline": {
-                    "source": [
-                        "obj-dtw-continuous-prepend",
-                        0
-                    ],
-                    "destination": [
-                        "obj-nodescript",
-                        0
-                    ]
+                    "destination": [ "obj-outlet-engine-status", 0 ],
+                    "midpoints": [ 102.8076923076923, 276.0, 6.0, 276.0, 6.0, 1191.0, 139.5, 1191.0 ],
+                    "order": 1,
+                    "source": [ "obj-route-main", 2 ]
                 }
             },
             {
                 "patchline": {
-                    "source": [
-                        "obj-dtw-save-btn",
-                        0
-                    ],
-                    "destination": [
-                        "obj-dtw-savedialog",
-                        0
-                    ]
+                    "destination": [ "obj-outlet-gesture", 0 ],
+                    "midpoints": [ 29.5, 210.0, 6.0, 210.0, 6.0, 1197.0, 29.5, 1197.0 ],
+                    "source": [ "obj-route-main", 0 ]
                 }
             },
             {
                 "patchline": {
-                    "source": [
-                        "obj-dtw-savedialog",
-                        0
-                    ],
-                    "destination": [
-                        "obj-dtw-save-prepend",
-                        0
-                    ]
+                    "destination": [ "obj-outlet-quaternion", 0 ],
+                    "midpoints": [ 945.8461538461538, 210.0, 1017.0, 210.0, 1017.0, 201.0, 1125.0, 201.0, 1125.0, 1185.0, 1019.5, 1185.0 ],
+                    "source": [ "obj-route-main", 25 ]
                 }
             },
             {
                 "patchline": {
-                    "source": [
-                        "obj-dtw-save-prepend",
-                        0
-                    ],
-                    "destination": [
-                        "obj-nodescript",
-                        0
-                    ]
+                    "destination": [ "obj-outlet-smooth-accel", 0 ],
+                    "midpoints": [ 139.46153846153845, 210.0, 102.0, 210.0, 102.0, 276.0, 6.0, 276.0, 6.0, 1254.0, 237.0, 1254.0, 237.0, 1197.0, 249.5, 1197.0 ],
+                    "source": [ "obj-route-main", 3 ]
                 }
             },
             {
                 "patchline": {
-                    "source": [
-                        "obj-dtw-load-btn",
-                        0
-                    ],
-                    "destination": [
-                        "obj-dtw-opendialog",
-                        0
-                    ]
+                    "destination": [ "obj-outlet-smooth-gyro", 0 ],
+                    "midpoints": [ 176.1153846153846, 210.0, 156.0, 210.0, 156.0, 246.0, 141.0, 246.0, 141.0, 282.0, 102.0, 282.0, 102.0, 276.0, 6.0, 276.0, 6.0, 1047.0, 336.0, 1047.0, 336.0, 1152.0, 360.0, 1152.0, 360.0, 1197.0, 359.5, 1197.0 ],
+                    "source": [ "obj-route-main", 4 ]
                 }
             },
             {
                 "patchline": {
-                    "source": [
-                        "obj-dtw-opendialog",
-                        0
-                    ],
-                    "destination": [
-                        "obj-dtw-load-prepend",
-                        0
-                    ]
+                    "destination": [ "obj-outlet-smooth-orient", 0 ],
+                    "midpoints": [ 212.76923076923077, 210.0, 222.0, 210.0, 222.0, 207.0, 240.0, 207.0, 240.0, 246.0, 303.0, 246.0, 303.0, 525.0, 324.0, 525.0, 324.0, 576.0, 312.0, 576.0, 312.0, 636.0, 531.0, 636.0, 531.0, 717.0, 525.0, 717.0, 525.0, 831.0, 540.0, 831.0, 540.0, 1071.0, 486.0, 1071.0, 486.0, 1152.0, 447.0, 1152.0, 447.0, 1197.0, 469.5, 1197.0 ],
+                    "source": [ "obj-route-main", 5 ]
                 }
             },
             {
                 "patchline": {
-                    "source": [
-                        "obj-dtw-load-prepend",
-                        0
-                    ],
-                    "destination": [
-                        "obj-nodescript",
-                        0
-                    ]
+                    "destination": [ "obj-route-led", 0 ],
+                    "midpoints": [ 66.15384615384616, 231.0, 102.0, 231.0, 102.0, 282.0, 303.0, 282.0, 303.0, 240.0, 417.0, 240.0, 417.0, 222.0, 675.0, 222.0, 675.0, 213.0, 732.5, 213.0 ],
+                    "source": [ "obj-route-main", 1 ]
                 }
             },
             {
                 "patchline": {
-                    "source": [
-                        "obj-dtw-clear-btn",
-                        0
-                    ],
-                    "destination": [
-                        "obj-dtw-clear-msg",
-                        0
-                    ]
+                    "destination": [ "obj-sel-active", 0 ],
+                    "midpoints": [ 102.8076923076923, 231.0, 6.0, 231.0, 6.0, 126.0, 319.5, 126.0 ],
+                    "order": 0,
+                    "source": [ "obj-route-main", 2 ]
                 }
             },
             {
                 "patchline": {
-                    "source": [
-                        "obj-dtw-clear-msg",
-                        0
-                    ],
-                    "destination": [
-                        "obj-nodescript",
-                        0
-                    ]
+                    "destination": [ "obj-thru-status", 0 ],
+                    "midpoints": [ 469.34615384615387, 219.0, 675.0, 219.0, 675.0, 213.0, 689.4999999999998, 213.0 ],
+                    "source": [ "obj-route-main", 12 ]
                 }
             },
             {
                 "patchline": {
-                    "source": [
-                        "obj-route-main",
-                        17
-                    ],
-                    "destination": [
-                        "obj-outlet-dtw-match",
-                        0
-                    ]
+                    "destination": [ "obj-msg-led-off", 0 ],
+                    "midpoints": [ 365.0, 165.0, 364.5, 165.0 ],
+                    "source": [ "obj-sel-active", 1 ]
                 }
             },
             {
                 "patchline": {
-                    "source": [
-                        "obj-route-main",
-                        18
-                    ],
-                    "destination": [
-                        "obj-outlet-dtw-confidence",
-                        0
-                    ]
+                    "destination": [ "obj-msg-led-on", 0 ],
+                    "midpoints": [ 319.5, 165.0, 319.5, 165.0 ],
+                    "source": [ "obj-sel-active", 0 ]
                 }
             },
             {
                 "patchline": {
-                    "source": [
-                        "obj-route-main",
-                        19
-                    ],
-                    "destination": [
-                        "obj-dtw-rec-status-display",
-                        1
-                    ]
+                    "destination": [ "obj-delay-autocal", 0 ],
+                    "midpoints": [ 379.5, 63.0, 379.5, 63.0 ],
+                    "source": [ "obj-sel-connected", 0 ]
                 }
             },
             {
                 "patchline": {
-                    "source": [
-                        "obj-route-main",
-                        20
-                    ],
-                    "destination": [
-                        "obj-dtw-rec-progress",
-                        0
-                    ]
+                    "destination": [ "obj-outlet-status", 0 ],
+                    "midpoints": [ 689.4999999999998, 255.0, 852.0, 255.0, 852.0, 1071.0, 711.0, 1071.0, 711.0, 1182.0, 579.5, 1182.0 ],
+                    "order": 0,
+                    "source": [ "obj-thru-status", 0 ]
                 }
             },
             {
                 "patchline": {
-                    "source": [
-                        "obj-route-main",
-                        21
-                    ],
-                    "destination": [
-                        "obj-dtw-lib-status",
-                        1
-                    ]
+                    "destination": [ "obj-sel-connected", 0 ],
+                    "midpoints": [ 702.4999999999998, 240.0, 696.0, 240.0, 696.0, 252.0, 1125.0, 252.0, 1125.0, 24.0, 379.5, 24.0 ],
+                    "source": [ "obj-thru-status", 1 ]
                 }
             },
             {
                 "patchline": {
-                    "source": [
-                        "obj-route-main",
-                        22
-                    ],
-                    "destination": [
-                        "obj-dtw-lib-count",
-                        0
-                    ]
+                    "destination": [ "obj-status-display", 1 ],
+                    "midpoints": [ 689.4999999999998, 252.0, 1125.0, 252.0, 1125.0, 123.0, 291.0, 123.0, 291.0, 87.0, 280.5, 87.0 ],
+                    "order": 1,
+                    "source": [ "obj-thru-status", 0 ]
                 }
             },
             {
                 "patchline": {
-                    "source": [
-                        "obj-route-main",
-                        23
-                    ],
-                    "destination": [
-                        "obj-dtw-slot-info-route",
-                        0
-                    ]
+                    "destination": [ "obj-prepend-enable-flip", 0 ],
+                    "midpoints": [ 124.5, 369.0, 124.5, 369.0 ],
+                    "source": [ "obj-toggle-flip", 0 ]
                 }
             },
             {
                 "patchline": {
-                    "source": [
-                        "obj-route-main",
-                        24
-                    ],
-                    "destination": [
-                        "obj-dtw-axes-display",
-                        1
-                    ]
+                    "destination": [ "obj-prepend-enable-shake", 0 ],
+                    "midpoints": [ 124.5, 258.0, 124.5, 258.0 ],
+                    "source": [ "obj-toggle-shake", 0 ]
                 }
             },
             {
                 "patchline": {
-                    "source": [
-                        "obj-route-main",
-                        25
-                    ],
-                    "destination": [
-                        "obj-outlet-quaternion",
-                        0
-                    ]
+                    "destination": [ "obj-prepend-enable-tap", 0 ],
+                    "midpoints": [ 124.5, 315.0, 124.5, 315.0 ],
+                    "source": [ "obj-toggle-tap", 0 ]
                 }
             },
             {
                 "patchline": {
-                    "source": [
-                        "obj-dtw-slot-info-route",
-                        0
-                    ],
-                    "destination": [
-                        "obj-dtw-slot1-examples",
-                        0
-                    ]
+                    "destination": [ "obj-prepend-enable-tilt-back", 0 ],
+                    "midpoints": [ 124.5, 588.0, 124.5, 588.0 ],
+                    "source": [ "obj-toggle-tilt-back", 0 ]
                 }
             },
             {
                 "patchline": {
-                    "source": [
-                        "obj-dtw-slot-info-route",
-                        1
-                    ],
-                    "destination": [
-                        "obj-dtw-slot2-examples",
-                        0
-                    ]
+                    "destination": [ "obj-prepend-enable-tilt-forward", 0 ],
+                    "midpoints": [ 124.5, 534.0, 124.5, 534.0 ],
+                    "source": [ "obj-toggle-tilt-forward", 0 ]
                 }
             },
             {
                 "patchline": {
-                    "source": [
-                        "obj-dtw-slot-info-route",
-                        2
-                    ],
-                    "destination": [
-                        "obj-dtw-slot3-examples",
-                        0
-                    ]
+                    "destination": [ "obj-prepend-enable-tilt-left", 0 ],
+                    "midpoints": [ 124.5, 423.0, 124.5, 423.0 ],
+                    "source": [ "obj-toggle-tilt-left", 0 ]
                 }
             },
             {
                 "patchline": {
-                    "source": [
-                        "obj-dtw-slot-info-route",
-                        3
-                    ],
-                    "destination": [
-                        "obj-dtw-slot4-examples",
-                        0
-                    ]
+                    "destination": [ "obj-prepend-enable-tilt-right", 0 ],
+                    "midpoints": [ 124.5, 480.0, 124.5, 480.0 ],
+                    "source": [ "obj-toggle-tilt-right", 0 ]
                 }
             }
         ],
         "parameters": {
-            "obj-dial-cool-flip": [
-                "flip_cooldown",
-                "flip_cd",
-                0
-            ],
-            "obj-dial-cool-shake": [
-                "shake_cooldown",
-                "shake_cd",
-                0
-            ],
-            "obj-dial-cool-tap": [
-                "tap_cooldown",
-                "tap_cd",
-                0
-            ],
-            "obj-dial-cool-tilt-back": [
-                "tilt_back_cooldown",
-                "tb_cd",
-                0
-            ],
-            "obj-dial-cool-tilt-forward": [
-                "tilt_forward_cooldown",
-                "tf_cd",
-                0
-            ],
-            "obj-dial-cool-tilt-left": [
-                "tilt_left_cooldown",
-                "tl_cd",
-                0
-            ],
-            "obj-dial-cool-tilt-right": [
-                "tilt_right_cooldown",
-                "tr_cd",
-                0
-            ],
-            "obj-dial-sens-flip": [
-                "flip_sensitivity",
-                "flip_sens",
-                0
-            ],
-            "obj-dial-sens-shake": [
-                "shake_sensitivity",
-                "shake_sens",
-                0
-            ],
-            "obj-dial-sens-tap": [
-                "tap_sensitivity",
-                "tap_sens",
-                0
-            ],
-            "obj-dial-sens-tilt-back": [
-                "tilt_back_sensitivity",
-                "tb_sens",
-                0
-            ],
-            "obj-dial-sens-tilt-forward": [
-                "tilt_forward_sensitivity",
-                "tf_sens",
-                0
-            ],
-            "obj-dial-sens-tilt-left": [
-                "tilt_left_sensitivity",
-                "tl_sens",
-                0
-            ],
-            "obj-dial-sens-tilt-right": [
-                "tilt_right_sensitivity",
-                "tr_sens",
-                0
-            ],
-            "obj-toggle-flip": [
-                "flip_enable",
-                "flip_en",
-                0
-            ],
-            "obj-toggle-shake": [
-                "shake_enable",
-                "shake_en",
-                0
-            ],
-            "obj-toggle-tap": [
-                "tap_enable",
-                "tap_en",
-                0
-            ],
-            "obj-toggle-tilt-back": [
-                "tilt_back_enable",
-                "tb_en",
-                0
-            ],
-            "obj-toggle-tilt-forward": [
-                "tilt_forward_enable",
-                "tf_en",
-                0
-            ],
-            "obj-toggle-tilt-left": [
-                "tilt_left_enable",
-                "tl_en",
-                0
-            ],
-            "obj-toggle-tilt-right": [
-                "tilt_right_enable",
-                "tr_en",
-                0
-            ],
+            "obj-dial-cool-flip": [ "flip_cooldown", "flip_cd", 0 ],
+            "obj-dial-cool-shake": [ "shake_cooldown", "shake_cd", 0 ],
+            "obj-dial-cool-tap": [ "tap_cooldown", "tap_cd", 0 ],
+            "obj-dial-cool-tilt-back": [ "tilt_back_cooldown", "tb_cd", 0 ],
+            "obj-dial-cool-tilt-forward": [ "tilt_forward_cooldown", "tf_cd", 0 ],
+            "obj-dial-cool-tilt-left": [ "tilt_left_cooldown", "tl_cd", 0 ],
+            "obj-dial-cool-tilt-right": [ "tilt_right_cooldown", "tr_cd", 0 ],
+            "obj-dial-sens-flip": [ "flip_sensitivity", "flip_sens", 0 ],
+            "obj-dial-sens-shake": [ "shake_sensitivity", "shake_sens", 0 ],
+            "obj-dial-sens-tap": [ "tap_sensitivity", "tap_sens", 0 ],
+            "obj-dial-sens-tilt-back": [ "tilt_back_sensitivity", "tb_sens", 0 ],
+            "obj-dial-sens-tilt-forward": [ "tilt_forward_sensitivity", "tf_sens", 0 ],
+            "obj-dial-sens-tilt-left": [ "tilt_left_sensitivity", "tl_sens", 0 ],
+            "obj-dial-sens-tilt-right": [ "tilt_right_sensitivity", "tr_sens", 0 ],
+            "obj-dtw-continuous-toggle": [ "dtw_continuous", "dtw_cont", 0 ],
+            "obj-dtw-matchmode-menu": [ "dtw_match_mode", "dtw_mm", 0 ],
+            "obj-dtw-mode-menu": [ "dtw_record_mode", "dtw_mode", 0 ],
+            "obj-dtw-slot1-cooldown": [ "dtw_cooldown_1", "dtw_cd1", 0 ],
+            "obj-dtw-slot1-thresh": [ "dtw_threshold_1", "dtw_th1", 0 ],
+            "obj-dtw-slot1-toggle": [ "dtw_enable_1", "dtw_en1", 0 ],
+            "obj-dtw-slot2-cooldown": [ "dtw_cooldown_2", "dtw_cd2", 0 ],
+            "obj-dtw-slot2-thresh": [ "dtw_threshold_2", "dtw_th2", 0 ],
+            "obj-dtw-slot2-toggle": [ "dtw_enable_2", "dtw_en2", 0 ],
+            "obj-dtw-slot3-cooldown": [ "dtw_cooldown_3", "dtw_cd3", 0 ],
+            "obj-dtw-slot3-thresh": [ "dtw_threshold_3", "dtw_th3", 0 ],
+            "obj-dtw-slot3-toggle": [ "dtw_enable_3", "dtw_en3", 0 ],
+            "obj-dtw-slot4-cooldown": [ "dtw_cooldown_4", "dtw_cd4", 0 ],
+            "obj-dtw-slot4-thresh": [ "dtw_threshold_4", "dtw_th4", 0 ],
+            "obj-dtw-slot4-toggle": [ "dtw_enable_4", "dtw_en4", 0 ],
+            "obj-toggle-flip": [ "flip_enable", "flip_en", 0 ],
+            "obj-toggle-shake": [ "shake_enable", "shake_en", 0 ],
+            "obj-toggle-tap": [ "tap_enable", "tap_en", 0 ],
+            "obj-toggle-tilt-back": [ "tilt_back_enable", "tb_en", 0 ],
+            "obj-toggle-tilt-forward": [ "tilt_forward_enable", "tf_en", 0 ],
+            "obj-toggle-tilt-left": [ "tilt_left_enable", "tl_en", 0 ],
+            "obj-toggle-tilt-right": [ "tilt_right_enable", "tr_en", 0 ],
             "parameterbanks": {
                 "0": {
                     "index": 0,
                     "name": "",
-                    "parameters": [
-                        "shake_enable",
-                        "shake_sensitivity",
-                        "shake_cooldown",
-                        "tap_enable",
-                        "tap_sensitivity",
-                        "tap_cooldown",
-                        "flip_enable",
-                        "flip_sensitivity"
-                    ],
-                    "buttons": [
-                        "-",
-                        "-",
-                        "-",
-                        "-",
-                        "-",
-                        "-",
-                        "-",
-                        "-"
-                    ]
+                    "parameters": [ "shake_enable", "shake_sensitivity", "shake_cooldown", "tap_enable", "tap_sensitivity", "tap_cooldown", "flip_enable", "flip_sensitivity" ],
+                    "buttons": [ "-", "-", "-", "-", "-", "-", "-", "-" ]
                 }
             },
-            "inherited_shortname": 1,
-            "obj-dtw-slot1-toggle": [
-                "dtw_enable_1",
-                "dtw_en1",
-                0
-            ],
-            "obj-dtw-slot1-thresh": [
-                "dtw_threshold_1",
-                "dtw_th1",
-                0
-            ],
-            "obj-dtw-slot1-cooldown": [
-                "dtw_cooldown_1",
-                "dtw_cd1",
-                0
-            ],
-            "obj-dtw-slot2-toggle": [
-                "dtw_enable_2",
-                "dtw_en2",
-                0
-            ],
-            "obj-dtw-slot2-thresh": [
-                "dtw_threshold_2",
-                "dtw_th2",
-                0
-            ],
-            "obj-dtw-slot2-cooldown": [
-                "dtw_cooldown_2",
-                "dtw_cd2",
-                0
-            ],
-            "obj-dtw-slot3-toggle": [
-                "dtw_enable_3",
-                "dtw_en3",
-                0
-            ],
-            "obj-dtw-slot3-thresh": [
-                "dtw_threshold_3",
-                "dtw_th3",
-                0
-            ],
-            "obj-dtw-slot3-cooldown": [
-                "dtw_cooldown_3",
-                "dtw_cd3",
-                0
-            ],
-            "obj-dtw-slot4-toggle": [
-                "dtw_enable_4",
-                "dtw_en4",
-                0
-            ],
-            "obj-dtw-slot4-thresh": [
-                "dtw_threshold_4",
-                "dtw_th4",
-                0
-            ],
-            "obj-dtw-slot4-cooldown": [
-                "dtw_cooldown_4",
-                "dtw_cd4",
-                0
-            ],
-            "obj-dtw-mode-menu": [
-                "dtw_record_mode",
-                "dtw_mode",
-                0
-            ],
-            "obj-dtw-matchmode-menu": [
-                "dtw_match_mode",
-                "dtw_mm",
-                0
-            ],
-            "obj-dtw-continuous-toggle": [
-                "dtw_continuous",
-                "dtw_cont",
-                0
-            ]
+            "inherited_shortname": 1
         },
         "autosave": 0
     }
